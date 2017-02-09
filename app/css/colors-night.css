@@ -1,0 +1,20 @@
+:root {
+  --text-light-primary: rgba(255, 255, 255, 0.83);
+  --text-light-secondary: rgba(255, 255, 255, 0.54);
+  --text-dark-primary: rgba(0, 0, 0, 0.83);
+  --text-dark-secondary: rgba(0, 0, 0, 0.54);
+  --text-primary: var(--text-light-primary);
+  --text-secondary: var(--text-light-secondary);
+  --primary-color: #333333;
+  --primary-color-highlight: #444444;
+  --accent-color: #ff4081;
+  --accent-color-highlight: #F50057;
+  --backsheet: #111111;
+  --tabletop: #070707;
+  --header-background-color: var(--primary-color);
+  --header-background-color-hover: var(--primary-color-highlight);
+  --header-text-color: var(--text-light-primary);
+  --card-background: #222222;
+  --card-background-hover: #555555;
+  --card-separator: rgba(255, 255, 255, 0.1);
+  --card-header-color: var(--primary_color); }

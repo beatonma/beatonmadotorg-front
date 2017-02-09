@@ -1,0 +1,34 @@
+{% extends 'base.template.html' %}{% block title %}beatonma.org{% endblock %}{% block content %}<div class="featured">
+<h1>Featured</h1>
+<div class="flex_box_row card_container">
+{% for feature in featured %}<a href="{{feature.get_absolute_url}}">
+<div class="card post featured preview">
+<div class="card_image" style="background-image:url('/media/{{feature.preview_image}}');background-color:{{feature.accent}};"></div>
+<div class="card_content preview">
+<div class="card_title">{{feature.title}}</div>
+<p class="synopsis">{{feature.preview_text}}</p>
+<p class="card_timestamp"><time class="accent" datetime="{{feature.updated|date}}">{{feature.updated|date}}</time></p>
+</div>
+</div>
+</a>
+{% endfor %}</div>
+</div>
+<br/><div class="recent">
+<h1>Recent</h1>
+<div class="flex_box_row card_container">
+{% for post in posts %}<a href="{{post.get_absolute_url}}">
+<div class="card post preview">
+<div class="card_image" style="background-image:url('/media/{{post.preview_image}}');background-color:{{post.accent}};"></div>
+<div class="card_content preview">
+<div class="card_title">{{post.title}}</div>
+<p class="synopsis">{{post.preview_text}}</p>
+<p class="card_timestamp"><time class="accent" datetime="{{post.updated|date}}">{{post.updated|date}}</time></p>
+</div>
+</div>
+</a>
+{% endfor %}</div>
+</div>
+<br/><script id="onPageChange" type="text/javascript">
+setDayNightAutoTheme();
+</script>
+{% endblock %}

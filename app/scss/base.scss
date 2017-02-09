@@ -1,0 +1,154 @@
+@import 'variables';
+@import 'card';
+@import 'mdl-overrides';
+@import 'article';
+
+// Objects
+html {
+    background: var(--tabletop);
+    color: var(--text-primary);
+    transition: background 300ms;
+}
+body {
+    margin: 0px !important;
+    font-family: $font !important;
+    font-size: 14px;
+    transition: font-size $transition_duration;
+    line-height: normal !important;
+}
+main {
+    flex-direction:column;
+    margin:8px;
+}
+h1 {
+    margin: 8px 12px;
+    font-family: $font;
+    text-align: center;
+    font-size: 2em;
+    color: var(--text-primary);
+    width: 100%;
+    transition: 
+        margin $transition_duration ease-in-out,
+        width $transition_duration ease-in-out,
+        font-size $transition_duration;
+}
+p {
+//    font-size: 1em;s
+}
+a {
+    text-decoration: none;
+}
+a p {
+    color: var(--text-primary);
+}
+button {
+    font-family: $font !important;
+}
+textarea {
+    font-family: $font !important;
+    font-size: 1em;
+}
+input {
+    font-family: $font !important;
+    font-size: 1em;
+}
+li {
+    font-size: 1em;
+}
+
+// Classes
+.flex_box_col {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+}
+.flex_box_row {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.title {
+    font-size: 2em;
+    color: var(--header-text-color);
+}
+.header_row_primary {
+    padding-left: $header_padding_left;
+}
+.header_row_secondary {
+    height: $header_second_row_height !important;
+    padding-left: 0px;
+    padding-right: 16px;
+}
+.accent {
+    color: var(--accent-color);
+}
+.container {
+    max-width: $main_content_max_width;
+    padding: 16px 0 8px 0;
+    transition: width 300ms;
+}
+.icon {
+    width: 24px;
+    height: 24px;
+}
+p.synopsis {
+    flex-grow: 2;
+}
+
+.text-primary {
+    color: var(--text-primary);
+    font-size: 1em;
+}
+.text-secondary {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+.text-larger {
+    font-size: 1.2em;
+}
+
+.label {
+    font-family: $font !important;
+}
+
+.textfield {
+    font-family: $font !important;
+}
+
+
+@media only screen and (min-width:480px) {
+    body {
+        font-size: 14px;
+        margin:8px;
+        transition: font-size $transition_duration;
+    }
+    h1 {
+        text-align: left;
+        margin:0px 0px 16px 0px;
+        width: 0px;
+        transition:
+            margin $transition_duration ease-in-out,
+            width $transition_duration ease-in-out,
+            font-size $transition_duration;
+    }
+    .container {
+        width: 90vw;
+        max-width: 672px;
+        margin: auto;
+    }
+}
+//@media only screen and (min-width:1120px) {
+@media only screen and (min-width:747px) {
+    .flex_box_row {
+        justify-content:flex-start;
+    }
+}
+
+@media only screen and (min-width:1120px) {
+    .container {
+        max-width: 1008px;
+    }
+}

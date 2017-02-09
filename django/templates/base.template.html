@@ -1,0 +1,43 @@
+{% load static %}{% load google_analytics %}<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111111"><link rel="apple-touch-icon" sizes="180x180" href="{% static 'projects/images/favicon/apple-touch-icon.png' %}"/>
+<link rel="icon" type="image/png" href="{% static 'projects/images/favicon/favicon-32x32.png' %}" sizes="32x32"/>
+<link rel="icon" type="image/png" href="{% static 'projects/images/favicon/favicon-16x16.png' %}" sizes="16x16"/>
+<link rel="manifest" href="{% static 'projects/images/favicon/manifest.json' %}"/>
+<link rel="mask-icon" href="{% static 'projects/images/favicon/safari-pinned-tab.svg' %}" color="#a8186f"/>
+<link rel="shortcut icon" href="{% static 'projects/images/favicon/favicon.ico' %}"/>
+<meta name="msapplication-config" content="{% static 'projects/images/favicon/browserconfig.xml' %}"><title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.min.css"/>
+<link rel="stylesheet" href="{% static 'projects/css/base.min.css' %}">
+<link id="theme" rel="stylesheet" href=""/><script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="{% static 'projects/js/app.min.js' %}"></script>
+<script>init()</script>{% google_analytics %}</head>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<div id="main_header" class="mdl-layout__header mdl-layout__header--waterfall">
+<div class="mdl-layout__header-row header_row_primary">
+<a href="/"><div class="title">beatonma.org</div></a>
+<div class="mdl-layout-spacer"></div>
+<div id="theme_icon" class="icon" onclick="toggleTheme()"></div>
+</div>
+<div class="mdl-layout__header-row header_row_secondary">
+<div class="mdl-layout-spacer"></div>
+<a class="mdl-navigation__link" href="/about/">About</a>
+<a class="mdl-navigation__link" href="/contact/">Contact</a>
+</div>
+</div>
+<main class="mdl-layout__content">
+<div class="container flex_box_col" id="content_wrapper">
+<div id="content">
+{% block content %}{% endblock %}</div>
+</div>
+</main>
+</div>
+</body>
+</html>
