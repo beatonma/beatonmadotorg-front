@@ -1,20 +1,19 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var autoprefixer = require('gulp-autoprefixer');
-var sourcemaps = require('gulp-sourcemaps');
-var browserSync = require('browser-sync');
-var useref = require('gulp-useref');
-var uglify = require('gulp-uglify');
-var gulpIf = require('gulp-if');
-var cssnano = require('gulp-cssnano');
-var imagemin = require('gulp-imagemin');
-var cache = require('gulp-cache');
-var del = require('del');
-var runSequence = require('run-sequence');
-var rsync = require('gulp-rsync');
-var htmlmin = require('gulp-htmlmin');
-var replace = require('gulp-replace');
-//var textsimple = require('gulp-text-simple');
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const autoprefixer = require('gulp-autoprefixer');
+const sourcemaps = require('gulp-sourcemaps');
+const browserSync = require('browser-sync');
+const useref = require('gulp-useref');
+const minifyjs = require('gulp-babel-minify');
+const gulpIf = require('gulp-if');
+const cssnano = require('gulp-cssnano');
+const imagemin = require('gulp-imagemin');
+const cache = require('gulp-cache');
+const del = require('del');
+const runSequence = require('run-sequence');
+const rsync = require('gulp-rsync');
+const htmlmin = require('gulp-htmlmin');
+const replace = require('gulp-replace');
 
 gulp.task('default', function (callback) {
   runSequence(['sass', 'watch'],
@@ -59,10 +58,11 @@ gulp.task('django:build:templatise', function() {
 gulp.task('django:build:minify', function() {
     return gulp.src('app/**/*.template.html')
         .pipe(useref())
-        .pipe(gulpIf('*.js', uglify()))
+        .pipe(gulpIf('*.js', minifyjs()))
         .pipe(gulpIf('*.css', cssnano()))
+//        .pipe(injectsvg())
         .pipe(replace(/[ ]{2,}/g, ''))
-        .pipe(replace(/(\r\n){2,}/g, ''))
+        .pipe(replace(/(\r\n){2,}/g, '\r\n'))
         .pipe(replace(/([%}]{1}})((\r\n)+)/g, '$1'))
         .pipe(gulp.dest('django/'));
 });
@@ -70,9 +70,9 @@ gulp.task('django:build:minify', function() {
 gulp.task('django:build:images', function() {
     return gulp.src('app/images/*/**')
         // Caching images that ran through imagemin
-        .pipe(cache(imagemin({
-            // interlaced: true,
-        })))
+//        .pipe(cache(imagemin({
+//             interlaced: true,
+//        })))
         .pipe(gulp.dest('django/static/projects/images'));
 })
 

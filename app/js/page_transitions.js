@@ -1,41 +1,31 @@
-var itemAnimationDuration = 200;
-var itemAnimationDelay = 60;
-var enterInterpolator = 'ease';
-var exitInterpolator = 'ease-in';
-var pageAnimationDuration = 200;
-
-// Pages which should be loaded in full with no transition
-// Because styles on these pages aren't being applied properly
-// when loaded from a different page wrapper
-var noAnimationPages = [
-    "beatonma.org/contact/"
-]
+const itemAnimationDuration = 200;
+const itemAnimationDelay = 60;
+const enterInterpolator = 'ease';
+const exitInterpolator = 'ease-in';
+const pageAnimationDuration = 200;
 
 function initPageTransitions() {
     // Intercept all click events
     document.addEventListener('click', function (e) {
-        var el = e.target;
+        let el = e.target;
         // Go up in the nodelist until we find a node with .href (HTMLAnchorElement)
         while (el && !el.href) {
             el = el.parentNode;
         }
         if (el) {
             // If target is on a different domain then handle it the normal way
-            if (!el.href.includes("beatonma.org") && !el.href.includes("beatonma.com")) {
+            if (!el.href.includes('beatonma.org') && !el.href.includes('beatonma.com')) {
                 return;
             }
-            
-            // Check if this page should be treated as 'external'
-            for (var i=0;i<noAnimationPages.length;i++) {
-                var p = noAnimationPages[i];
-                if (el.href.includes(p)) {
-                    return;
-                }
+            // Links annotated with 'noanim' class should be treated as external (no content transition animations)
+            if (el.className.includes('noanim')) {
+                return;
             }
 
             // Otherwise fetch content from the target and insert it
             // into the current page
             e.preventDefault();
+            
             history.pushState(null, null, el.href);
             changePage();
 
@@ -49,21 +39,19 @@ function initPageTransitions() {
 
 function changePage(use_url) {
     // Note, the URL has already been changed
-    var url = window.location.href;
+    let url = window.location.href;
     if (arguments.length > 0 && typeof(use_url) === 'string' && use_url.includes('url=')) {
         url = use_url.replace(/url=/g, '');
     }
 
-//    replaceBannerImage("");
-
     loadPage(url).then(function (responseText) {
-        var wrapper = document.createElement('div');
+        let wrapper = document.createElement('div');
         wrapper.innerHTML = responseText;
         
         document.title = $(wrapper).find("title").text();
 
-        var oldContent = document.querySelector('#content');
-        var newContent = wrapper.querySelector('#content');
+        let oldContent = document.querySelector('#content');
+        let newContent = wrapper.querySelector('#content');
 
         try {
             animatePageChange(oldContent, newContent);
@@ -77,8 +65,8 @@ function changePage(use_url) {
 }
 
 function animatePageChange(oldContent, newContent) {
-    var container = document.querySelector('#content_wrapper');
-    var fadeOut = oldContent.animate(
+    let container = document.querySelector('#content_wrapper');
+    let fadeOut = oldContent.animate(
             [
                 {opacity: 1},
                 {opacity: 0}
@@ -87,7 +75,8 @@ function animatePageChange(oldContent, newContent) {
     fadeOut.onfinish = function () {
         oldContent.parentNode.removeChild(oldContent);
         container.appendChild(newContent);
-        var fadeIn = newContent.animate(
+        window.scrollTo(0, 0);
+        let fadeIn = newContent.animate(
                 [
                     {opacity: 0},
                     {opacity: 1}
@@ -95,14 +84,22 @@ function animatePageChange(oldContent, newContent) {
 
         animateCardsIn(newContent);
         
-        var onPageChange = newContent.querySelector("#onPageChange").innerHTML;
-        eval(onPageChange);
+        let onPageChange = newContent.querySelectorAll(".onPageChange");
+        for (var i = 0; i < onPageChange.length; i++) {
+            let p = onPageChange[i];
+            if (p.src == "") {
+                eval(onPageChange[i].innerHTML);
+            }
+            else {
+                $.getScript(p.src);
+            }
+        }
     };
 }
 
 function animateCardsOut(parent) {
-    var delay = 0;
-    var container = $(parent).find('.card_container');
+    let delay = 0;
+    let container = $(parent).find('.card_container');
 
     $(container).children('.card').each(function () {
         elementOut(this, delay);
@@ -112,8 +109,8 @@ function animateCardsOut(parent) {
 }
 
 function animateCardsIn(parent) {
-    var delay = 0;
-    var container = $(parent).find('.card_container');
+    let delay = 0;
+    let container = $(parent).find('.card_container');
     
     $(container).children('.card').each(function () {
         elementIn(this, delay);
@@ -183,9 +180,9 @@ function replaceBannerImage(path) {
         path = 'images/play_banner.png';
     }
     console.log("loading banner: " + path);
-    var banner = document.querySelector('#banner_image');
+    let banner = document.querySelector('#banner_image');
 
-    var fadeout = banner.animate([
+    let fadeout = banner.animate([
         {opacity: 1},
         {opacity: 0}
     ], itemAnimationDuration);

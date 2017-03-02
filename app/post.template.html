@@ -1,17 +1,18 @@
 {% extends 'base.template.html' %}
 {% block title %}{{post.title}} - beatonma.org{% endblock %}
+{% block html_head %}{{post.html_head|safe}}{% endblock %}
 {% block content %}
 <div class="card_container">
-    <article class="card">
-        <div class="card_image fullbleed" style="background-image:url('/media/{{post.hero_image}}');margin-bottom:0;"></div>
-        <div class="card_title_area_raised fullbleed" style="background-color:{{post.accent}};color:{{post.text_color}};margin-top:0;margin-bottom:0;">
+    <article class="card h-entry">
+        <div class="article_image card_image fullbleed" style="background-image:url('/media/{{post.hero_image}}');margin-bottom:0;{% if post.hero_style_override != null %}{{post.hero_style_override}}{% endif %}">{{post.hero_html|safe}}</div>
+        <div id="article_header" class="card_title_area_raised fullbleed" style="background-color:{{post.accent}};color:{{post.text_color}};margin-top:0;margin-bottom:0;">
             <div style="flex-grow:8;">
-                <div class="card_title article_title">{{post.title}}</div>
+                <div class="card_title article_title p-name">{{post.title}}</div>
                 <p class="article_description text-secondary" style="color:{{post.text_color_secondary}};">{{post.tagline}}</p>
             </div>
             <div style="min-width:40px;flex-grow:2;"></div>
             <p class="card_timestamp article_timestamp">
-                <time style="float:right;" datetime="{{post.created|date}}">Posted {{post.created|date:"d M Y"}}</time>
+                <time class="dt-published" style="float:right;" datetime="{{post.created|date}}">Posted {{post.created|date:"d M Y"}}</time>
                 {% if post.created|date != post.updated|date %}
                 <br/>
                 <time style="float:right;" datetime="{{post.updated|date}}">Updated {{post.updated|date:"d M Y"}}</time>
@@ -19,17 +20,29 @@
             </p>
         </div>
         <div class="card_content">
-            <p class="article_abstract text-primary">
+            <div class="article_abstract p-summary"{% if post.abstract %} style="padding-top:30px;padding-bottom:30px;"{% endif %}>
                 {{post.abstract|safe}}
-            </p>
+            </div>
             
-            <p class="article_content text-primary">
+            <div class="article_content e-content">
                 {{post.content|safe}}
-            </p>
+            </div>
+        </div>
+        <div style="display:none">
+            <a rel="author" class="p-author" href="https://beatonma.org">Michael Beaton</a>
+            <a class="u-url">{{post.get_absolute_url}}</a>
+            {% if post.tweet_id %}<a rel="syndication" class="u-syndication" href="https://twitter.com/_beatonma/status/{{post.tweet_id}}">Tweet</a>{% endif %}
         </div>
     </article>
 </div>
-<script id="onPageChange" type="text/javascript">
-    setTheme("{{post.accent}}");
+
+<!-- build:remove -->
+<!-- This image is included for Feedly but is not visible to users -->
+<!-- It is included because we use a <div> with a background instead of an <img> for the
+     main article image -->
+<!-- endbuild -->
+<img class="webfeedsFeaturedVisual" src="/media/{{post.preview_image}}" style="display:none"/>
+<script class="onPageChange" type="text/javascript">
+    setAccent("{{post.accent}}", "{{post.text_color}}");
 </script>
 {% endblock %}

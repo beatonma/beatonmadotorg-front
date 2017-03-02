@@ -1,29 +1,12 @@
 {% extends 'base.template.html' %}
 
-{% block title %}beatonma.org{% endblock %}
+{% block title %}beatonma.org - Search{% endblock %}
 
 {% block content %}
 <div class="featured">
-    <h1>Featured</h1>
+    <h1>Search results for '{{query}}'</h1>
     <div class="flex_box_row card_container">
-        {% for post in featured %}
-        <a class="card post featured preview" href="{{post.get_absolute_url}}">
-            <div class="card_image" style="background-image:url('/media/{{post.preview_image}}');{% if post.preview_style_override != null %}{{post.preview_style_override}}{% endif %}"></div>
-            <div class="card_content preview">
-                <div class="card_title">{{post.title}}</div>
-                <p class="synopsis">{{post.preview_text}}</p>
-                <p class="card_timestamp"><time class="accent" datetime="{{post.updated|date}}">{{post.updated|date}}</time></p>
-            </div>
-        </a>
-        {% endfor %}
-    </div>
-</div>
-<br/>
-
-<div class="recent">
-    <h1>Recent</h1>
-    <div class="flex_box_row card_container">
-        {% for post in posts %}
+        {% for post in results %}
         <a class="card post preview" href="{{post.get_absolute_url}}">
             <div class="card_image" style="background-image:url('/media/{{post.preview_image}}');{% if post.preview_style_override != null %}{{post.preview_style_override}}{% endif %}"></div>
             <div class="card_content preview">
@@ -32,6 +15,12 @@
                 <p class="card_timestamp"><time class="accent" datetime="{{post.updated|date}}">{{post.updated|date}}</time></p>
             </div>
         </a>
+        {% empty %}
+        <div class="card">
+            <div class="card_content preview">
+                <p class="synopsis">No results :(</p>
+            </div>
+        </div>
         {% endfor %}
     </div>
 </div>

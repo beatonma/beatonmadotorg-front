@@ -1,47 +1,52 @@
-//var itemAnimationDuration = 200;
-//var itemAnimationDelay = 60;
-//var enterInterpolator = 'ease';
-//var exitInterpolator = 'ease-in';
-//var pageAnimationDuration = 200;
+function initScrollTransitions() {
+    console.log("initScrollTransitions()");
+    $('main').scroll(function() {
+        const main_header = $('#main_header');
+        const article_header = $('#article_header');
+        
+        if (!main_header.length || !article_header.length) {
+            return;
+        }
+
+        let main_bottom = main_header.outerHeight();
+        let article_bottom = article_header.offset().top + article_header.outerHeight();
+
+        if (article_bottom <= main_bottom) {
+            applyAccent()
+        }
+        else {
+            removeAccent();
+        }
+    });
+}
 
 function init() {
     initPageTransitions();
-//    $(setTimeout(loadNavDrawer(), 100));
+    $(document).ready(function() {
+        initScrollTransitions();
+        initSearch();
+    });
 }
 
-//function loadNavDrawer() {
-//    loadPage("/navigation_drawer.html").then(function (responseText) {
-//        console.log("Loading navigation drawer");
-//        var container = document.querySelector('.mdl-layout__drawer');
-//        container.innerHTML = responseText;
-//    });
-//}
-
-//function replaceBannerImage(path) {
-//    if (path === "") {
-//        path = '/images/play_banner.png';
-//    }
-//    console.log("loading banner: " + path);
-//    var banner = document.querySelector('#banner_image');
-//
-//    var fadeout = banner.animate([
-//        {opacity: 1},
-//        {opacity: 0}
-//    ], itemAnimationDuration);
-//
-//    fadeout.onfinish = function () {
-//        $(banner).css('background', "url('" + path + "') center / cover");
-//        banner.animate([
-//            {opacity: 0},
-//            {opacity: 1}
-//        ], itemAnimationDuration);
-//    };
-//}
-//
-//function loadPage(url) {
-//    return fetch(url, {
-//        method: 'GET'
-//    }).then(function (response) {
-//        return response.text();
-//    });
-//}
+function initSearch() {
+    // Replace the default form submission so we can animate the page change
+    const searchform = document.querySelector('#searchform');
+    searchform.addEventListener("submit", function(ev) {
+        const searchform = $(this);
+        let searchUrl = '/search?' + searchform.serialize();
+        history.pushState(null, null, searchUrl);
+        changePage('url=' + searchUrl);
+        ev.preventDefault();
+    });
+    
+    // We want the search box to expand to a new line when on a small device
+    // so we need to listen to focus changes and toggle the 'search_container'
+    // class on the parent form
+    const searchbox = document.querySelector('#search');
+    searchbox.addEventListener('focus', function(ev) {
+        $('#searchform').addClass('search_container');
+    });
+    searchbox.addEventListener('focusout', function(ev) {
+        $('#searchform').removeClass('search_container');
+    });
+}
