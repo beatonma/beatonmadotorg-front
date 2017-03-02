@@ -1,7 +1,12 @@
 @import 'variables';
 @import 'card';
+@import 'my-mdl';
 @import 'mdl-overrides';
 @import 'article';
+
+::selection {
+    background: var(--selected);
+}
 
 // Objects
 html {
@@ -21,7 +26,7 @@ main {
     margin:8px;
 }
 h1 {
-    margin: 8px 12px;
+//    margin: 8px 12px;
     font-family: $font;
     text-align: center;
     font-size: 2em;
@@ -33,7 +38,9 @@ h1 {
         font-size $transition_duration;
 }
 p {
-//    font-size: 1em;s
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
 }
 a {
     text-decoration: none;
@@ -74,13 +81,20 @@ li {
     font-size: 2em;
     color: var(--header-text-color);
 }
+.header_item {
+    color: var(--header-text-color);
+}
 .header_row_primary {
-    padding-left: $header_padding_left;
+    padding-left: $header_padding_hor;
+    padding-right: $header_padding_hor;
+    height: inherit;
+    line-height: 56px;
+    flex-wrap: wrap;
 }
 .header_row_secondary {
     height: $header_second_row_height !important;
-    padding-left: 0px;
-    padding-right: 16px;
+    padding-left: $header_padding_hor;
+    padding-right: $header_padding_hor;
 }
 .accent {
     color: var(--accent-color);
@@ -93,6 +107,7 @@ li {
 .icon {
     width: 24px;
     height: 24px;
+    min-width: 24px;
 }
 p.synopsis {
     flex-grow: 2;
@@ -118,6 +133,36 @@ p.synopsis {
     font-family: $font !important;
 }
 
+a.foot-link {
+    padding: 4px 8px;
+    line-height: 48px;
+    color: var(--text-tertiary);
+}
+
+.foot-icon {
+    background-size: contain !important;
+    height: 36px;
+    fill: none;
+    stroke: var(--text-tertiary);
+    stroke-width: 2px;
+}
+
+.hidden {
+    display: none;
+}
+
+// Specific objects
+#main_header {
+    transition: all 600ms;
+}
+
+.search_container {
+    padding: 0;
+}
+//#search {
+//    margin: 0px;
+//}
+
 
 @media only screen and (min-width:480px) {
     body {
@@ -128,7 +173,6 @@ p.synopsis {
     h1 {
         text-align: left;
         margin:0px 0px 16px 0px;
-        width: 0px;
         transition:
             margin $transition_duration ease-in-out,
             width $transition_duration ease-in-out,
@@ -140,10 +184,26 @@ p.synopsis {
         margin: auto;
     }
 }
+
+@media only screen and (max-width:527px) {
+    .search_container {
+        width: 100%;
+    }
+    #search_wrapper {
+        width: 80%;
+    }
+}
+
 //@media only screen and (min-width:1120px) {
 @media only screen and (min-width:747px) {
     .flex_box_row {
         justify-content:flex-start;
+    }
+}
+
+@media only screen and (min-width:1024px) {
+    .header_row_primary {
+        line-height: 64px;
     }
 }
 

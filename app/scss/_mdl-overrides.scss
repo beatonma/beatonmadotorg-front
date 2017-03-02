@@ -3,6 +3,9 @@
 .mdl-layout__content {
     margin: 0px !important;
 }
+.mdl-layout__header-row .mdl-navigation__link {
+    color: var(--header-text-color);
+}
 .mdl-layout__header {
     background: var(--header-background-color);
 }
@@ -14,9 +17,16 @@
     height: $header_second_row_height;
     background: var(--header-background-color-hover);
 }
-.mdl-textfield.is-invalid .mdl-textfield__input {
-    border-color:var(--accent) !important;
-}
+//.mdl-textfield.is-invalid .mdl-textfield__input {
+//    border-color:var(--accent-color) !important;
+//}
 .mdl-button {
     font-family: $font !important;
+}
+
+.mdl-mini-footer {
+    padding: 8px 16px !important;
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+    justify-content: center !important;
 }
