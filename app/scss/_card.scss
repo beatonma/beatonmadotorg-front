@@ -6,6 +6,7 @@ $card_title_size_large: 1.8em;
 .card {
     max-width: $max_card_width;
     width: 100%;
+    min-width: 300px;
     height: auto;
     background: var(--card-background);
     margin: 0 0 16px 0;
@@ -20,20 +21,31 @@ $card_title_size_large: 1.8em;
         0 1px 10px 0 rgba(0, 0, 0, 0.12),
         0 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
-.card_title {
+.card.wrap {
+    width: inherit;
+}
+.card-title {
     font-size: $card_title_size;
 }
-.card_title_padded {
+.card-title-padded {
     font-size: $card_title_size;
     padding-bottom: 16px;
 }
-.card_title_large {
+.card-title-large {
     font-size: $card_title_size_large;
 }
-.card_title_area {
+.card-title-area {
     padding: 12px 16px;
 }
-.card_title_area_raised {
+//.card-title-area-raised {
+//    align-items: center !important;
+//    padding: 12px 16px;
+//    background: var(--card-header-color);
+//    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
+//        0 3px 1px -2px rgba(0, 0, 0, .2),
+//        0 1px 5px 0 rgba(0, 0, 0, .12);
+//}
+.card-title-area-raised {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -44,7 +56,7 @@ $card_title_size_large: 1.8em;
         0 1px 5px 0 rgba(0, 0, 0, .12);
 }
     
-.card_content {
+.card-content {
     padding:6px 12px;
     display: flex;
     flex-direction: column;
@@ -53,11 +65,15 @@ $card_title_size_large: 1.8em;
 }
 
 // Add space between paragraphs
+// Deprecated - use dashed version instead
 .card_p {
     padding-bottom: 8px;
 }
+.card-p {
+    padding-bottom: 8px;
+}
 
-.card_image {
+.card-image {
     max-width: $max_card_width;
     height: 240px;
     background-size: cover;
@@ -66,11 +82,16 @@ $card_title_size_large: 1.8em;
 }
 
 // Apply to images to make them fill the full card width, overriding any intrinsic padding of the card
-.fullbleed {
-    
-}
+//.fullbleed {
+//    
+//}
+//.card-content .fullbleed {
+//    margin-left: -12px;
+//    margin-right: -12px;
+//    margin-top: inherit;
+//}
 
-.card_timestamp {
+.card-timestamp {
     text-align: right;
     font-size: 0.8em;
     margin-bottom: 0;
@@ -78,7 +99,7 @@ $card_title_size_large: 1.8em;
 }
 
 // A container for one or more card. The container is usually invisible
-.card_container {
+.card-container {
     display: flex;
     justify-content: center;
 }
@@ -97,34 +118,53 @@ $card_title_size_large: 1.8em;
     .card {
         margin: 8px 8px 16px 8px;
     }
-    .card_content {
+    .card-content:not(.preview) {
         padding: 12px 16px;
     }
+    
+//    .card-content .fullbleed {
+//        margin-left: -16px;
+//        margin-right: -16px;
+//        margin-top: inherit;
+//    }
     .preview {
         max-width: 320px !important;
     }
 }
 
 @media screen and (min-width:800px) {
-    .card_content:not(.preview) {
+    .card-content:not(.preview) {
         padding: 12px 24px;
     }
+//    .card-content .fullbleed {
+//        margin-left: -24px;
+//        margin-right: -24px;
+//        margin-top: inherit;
+//    }
 }
 
 @media screen and (min-width:1120px) {
-    .card:not(.preview) {
-        padding:24px 72px;
-    }
-    .card_image {
+//    .card:not(.preview) {
+//        padding:24px 72px;
+//    }
+    .card-image {
         height: 280px;
         background-size: cover;
         background-position: top center;
         background-repeat: no-repeat;
     }
-    .fullbleed {
-        margin:-24px -72px;
+//    .fullbleed {
+//        margin:-24px -72px;
+//    }
+    .card-content:not(.preview) {
+        padding: 24px 72px;
     }
-    .card_title_area_raised {
-        padding:12px 96px;
+//    .card-content .fullbleed {
+//        margin-left: -96px;
+//        margin-right: -96px;
+//        margin-top: inherit;
+//    }
+    .card-title-area-raised {
+        padding: 12px 72px;
     }
 }

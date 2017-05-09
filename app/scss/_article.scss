@@ -4,6 +4,15 @@ article {
     
 }
 
+#article_header {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.article-description {
+    line-height: $download_icon_size;
+}
+
 .article_image {
     height: 40vh !important;
 }
@@ -24,5 +33,6 @@ article {
 .article_content {
     font-family: 'Open Sans', sans-serif;
     line-height: 1.5;
-    font-size: 1.1em
+    font-size: 1.1em;
+    padding-bottom: 24px;
 }

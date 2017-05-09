@@ -1,0 +1,14 @@
+{% if mentions %}
+<div id="webmentions_title" class="related-section-title">Webmentions</div>
+<div for="webmentions_title" class="mdl-tooltip">These people mentioned this article on their website. Click a picture to see what they had to say!</div>
+<div class="external-webmentions">
+    {% for m in mentions %}
+    <div class="external-webmention">
+        <a href="{{m.webmention.source}}">
+            <div id="{{m.hcard.name}}" class="webmention-avatar" style="background-image:url({{m.hcard.avatar}});"></div>
+            <div for="{{m.hcard.name}}" class="mdl-tooltip">{{m.hcard.name}}</div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}

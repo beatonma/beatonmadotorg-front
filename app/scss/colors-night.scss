@@ -10,8 +10,10 @@
     --text-secondary: var(--text-light-secondary);
     --text-tertiary: var(--text-light-tertiary);
     
-//    --primary-color: #2196F3;
-//    --primary-color-highlight: #bababa;
+    --text-primary-invert: var(--text-dark-primary);
+    --text-secondary-invert: var(--text-dark-secondary);
+    --text-tertiary-invert: var(--text-dark-tertiary);
+    
     --primary-color: #ff4081;
     --primary-color-hightlight: #F50057;
     
@@ -23,8 +25,6 @@
     --backsheet: #111111;
     --tabletop: #070707;
     
-//    --header-background-color:var(--primary-color);
-//    --header-background-color-hover: var(--primary-color-highlight);
     --header-background-color: #070707;
     --header-background-color-hover: #111111;
     --header-text-color: var(--text-light-primary);
@@ -32,5 +32,25 @@
     --card-background: #222222;
     --card-background-hover: #555555;
     --card-separator: rgba(255, 255, 255, .12);
+    
+    --card-background-invert: #ffffff;
+    --card-background-hover-invert: #eeeeee;
+    --card-separator-invert: rgba(0, 0, 0, .12);
+    
+    --table-background: #444444;
+    --table-text: var(--text-light-primary);
+    
+    --code-background: #444444;
+    --code-text: var(--text-light-primary);
+    
+    // Embedded things that could sort of be a card of their own but are already in a parent card
+    // e.g. tables
+    --embedded-background: #444444;
+    --embedded-background-highlight: #555555;
+    --embedded-text-primary: var(--text-light-primary);
+    --embedded-text-secondary: var(--text-light-secondary);
+    --embedded-text-tertiary: var(--text-light-secondary);
+    
+    
     --card-header-color: var(--primary_color);
 }

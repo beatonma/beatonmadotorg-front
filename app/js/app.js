@@ -1,7 +1,7 @@
 function initScrollTransitions() {
     console.log("initScrollTransitions()");
     $('main').scroll(function() {
-        const main_header = $('#main_header');
+        const main_header = $('#beatonma_header');
         const article_header = $('#article_header');
         
         if (!main_header.length || !article_header.length) {

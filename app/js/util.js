@@ -7,17 +7,17 @@ function loadPage(url) {
 }
 
 function setCookie(cname, cvalue, expiry) {
-    var d = new Date();
+    const d = new Date();
     d.setTime(d.getTime() + (expiry));
-    var expires = "expires="+d.toUTCString();
+    const expires = "expires="+d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
 function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for (var i=0; i < ca.length; i++) {
-        var c = ca[i];
+    const name = cname + "=";
+    const ca = document.cookie.split(';');
+    for (let i=0; i < ca.length; i++) {
+        let c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
         }
@@ -30,4 +30,9 @@ function getCookie(cname) {
 
 function cookieExists(cname) {
     return getCookie(cname) !== "";
+}
+
+function scrollToId(id) {
+    const el = document.getElementById(id.replace('#', ''));
+    el.scrollIntoView();
 }

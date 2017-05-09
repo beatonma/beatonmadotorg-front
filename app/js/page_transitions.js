@@ -21,6 +21,13 @@ function initPageTransitions() {
             if (el.className.includes('noanim')) {
                 return;
             }
+            
+            if (el.pathname == window.location.pathname && el.hash != '') {
+                e.preventDefault();
+                history.pushState(null, null, el.href);
+                scrollToId(el.hash);
+                return;
+            }
 
             // Otherwise fetch content from the target and insert it
             // into the current page
@@ -43,6 +50,8 @@ function changePage(use_url) {
     if (arguments.length > 0 && typeof(use_url) === 'string' && use_url.includes('url=')) {
         url = use_url.replace(/url=/g, '');
     }
+    
+    $('#beatonma_loading').removeClass('hidden');
 
     loadPage(url).then(function (responseText) {
         let wrapper = document.createElement('div');
@@ -75,20 +84,32 @@ function animatePageChange(oldContent, newContent) {
     fadeOut.onfinish = function () {
         oldContent.parentNode.removeChild(oldContent);
         container.appendChild(newContent);
-        window.scrollTo(0, 0);
+        $('main').scrollTop(0);
         let fadeIn = newContent.animate(
                 [
                     {opacity: 0},
                     {opacity: 1}
                 ], pageAnimationDuration);
 
+        $('#beatonma_loading').addClass('hidden');
         animateCardsIn(newContent);
         
         let onPageChange = newContent.querySelectorAll(".onPageChange");
         for (var i = 0; i < onPageChange.length; i++) {
             let p = onPageChange[i];
             if (p.src == "") {
-                eval(onPageChange[i].innerHTML);
+                eval(p.innerHTML);
+            }
+            else {
+                $.getScript(p.src);
+            }
+        }
+        
+        let onPageUnload = oldContent.querySelectorAll('.onPageUnload');
+        for (let i = 0; i < onPageUnload.length; i++) {
+            let p = onPageUnload[i];
+            if (p.src == '') {
+                eval(p.innerHTML);
             }
             else {
                 $.getScript(p.src);
@@ -99,7 +120,7 @@ function animatePageChange(oldContent, newContent) {
 
 function animateCardsOut(parent) {
     let delay = 0;
-    let container = $(parent).find('.card_container');
+    let container = $(parent).find('.card-container');
 
     $(container).children('.card').each(function () {
         elementOut(this, delay);
@@ -110,7 +131,7 @@ function animateCardsOut(parent) {
 
 function animateCardsIn(parent) {
     let delay = 0;
-    let container = $(parent).find('.card_container');
+    let container = $(parent).find('.card-container');
     
     $(container).children('.card').each(function () {
         elementIn(this, delay);

@@ -1,0 +1,24 @@
+$avatar_size: 30px;
+
+.external-webmentions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-bottom: 24px;
+}
+
+.external-webmention {
+    width: $avatar_size;
+    height: $avatar_size;
+    padding-right: 4px;
+    padding-bottom: 4px;
+}
+
+.webmention-avatar {
+    width: $avatar_size;
+    height: $avatar_size;
+    border-radius: 50%;
+    background-size: contain;
+    background-position: center center;
+}

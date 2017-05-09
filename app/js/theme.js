@@ -1,12 +1,12 @@
-var theme = 'day';
-var accentColor = '';
-var accentTextColor = ''
-var accentApplied = false;
+let theme = 'day';
+let accentColor = '';
+let accentTextColor = ''
+let accentApplied = false;
 
 // Automatically change basic color themes depending on time of day
 function setDayNightAutoTheme() {
     if (cookieExists('theme')) {
-        var t = getCookie('theme');
+        let t = getCookie('theme');
         console.log('Setting theme from cookie: ' + t);
         setTheme(t, true);
         return;
@@ -14,7 +14,7 @@ function setDayNightAutoTheme() {
     
     $('#theme_icon').html('');
     
-    var h = new Date().getHours();
+    let h = new Date().getHours();
     if (h > 8 && h < 20) {
         theme = 'day';
         setTheme(theme);
@@ -28,21 +28,21 @@ function setDayNightAutoTheme() {
 // byUser -> indicates this action was explicitely started by user input, not an automatic event
 function setTheme(newtheme, args) {
     console.log('theme:' + newtheme);
-    var stylesheet = document.getElementById('theme');
+    let stylesheet = document.getElementById('theme');
     if (newtheme == 'day') {
         stylesheet.setAttribute('href', '/static/projects/css/colors-day.css');
         $('meta[name=theme-color]').attr('content', 'var(--header-background-color)');
-        $('#main_header').css('background', 'var(--header-background-color)');
+        $('#beatonma_header').css('background', 'var(--header-background-color)');
         if (arguments.length > 1) {
             $('#theme_icon').html('<i class="material-icons">brightness_7</i>');
         }
-        $('.header_item').css('color', 'var(--header-text-color)');
+        $('.header-item').css('color', 'var(--header-text-color)');
         theme = newtheme;
     }
     else if (newtheme == 'night') {
         stylesheet.setAttribute('href', '/static/projects/css/colors-night.css');
         $('meta[name=theme-color]').attr('content', 'var(--header-background-color)');
-        $('#main_header').css('background', 'var(--header-background-color)');
+        $('#beatonma_header').css('background', 'var(--header-background-color)');
         if (arguments.length > 1) {
             $('#theme_icon').html('<i class="material-icons">brightness_2</i>');
         }
@@ -58,9 +58,9 @@ function setTheme(newtheme, args) {
     else {
         if (theme == 'day' && newtheme != '') {
             $('meta[name=theme-color]').attr('content', newtheme);
-            $('#main_header').css('background', newtheme);
+            $('#beatonma_header').css('background', newtheme);
             if (arguments.length > 1) {
-                $('.header_item').css('color', args);
+                $('.header-item').css('color', args);
             }
         }
     }

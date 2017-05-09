@@ -1,0 +1,24 @@
+// 'Get it' section shown at the top of a page that represents an app
+$download_icon_size: 24px;
+
+#get_it_links {
+    padding-left: 4px;
+}
+
+//.get-it-section {
+//    padding: 16px 4px 16px 0;
+//    min-width: 250px;
+//    line-height: $download_icon_size;
+//}
+
+//.get-it-title {
+//    color: var(--text-secondary);
+//}
+
+.download-icon {
+    fill: none;
+    stroke: var(--text-secondary);
+    stroke-width: 3px;
+    height: $download_icon_size;
+    padding-left: 4px;
+}

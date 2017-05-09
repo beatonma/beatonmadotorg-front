@@ -10,8 +10,9 @@
     --text-secondary: var(--text-dark-secondary);
     --text-tertiary: var(--text-dark-tertiary);
     
-//    --primary-color: #424242;
-//    --primary-color-highlight: #3a3a3a;
+    --text-primary-invert: var(--text-light-primary);
+    --text-secondary-invert: var(--text-light-secondary);
+    --text-tertiary-invert: var(--text-light-tertiary);
     
     --primary-color: #ff4081;
     --primary-color-hightlight: #F50057;
@@ -31,5 +32,24 @@
     --card-background: #ffffff;
     --card-background-hover: #eeeeee;
     --card-separator: rgba(0, 0, 0, .12);
+    
+    --card-background-invert: #222222;
+    --card-background-hover-invert: #555555;
+    --card-separator-invert: rgba(255, 255, 255, .12);
+    
+    --table-background: #444444;
+    --table-text: var(--text-light-primary);
+    
+    --code-background: #444444;
+    --code-text: var(--text-light-primary);
+    
+    // Embedded things that could sort of be a card of their own but are already in a parent card
+    // e.g. tables
+    --embedded-background: #444444;
+    --embedded-background-highlight: #555555;
+    --embedded-text-primary: var(--text-light-primary);
+    --embedded-text-secondary: var(--text-light-secondary);
+    --embedded-text-tertiary: var(--text-light-secondary);
+    
     --card-header-color: var(--primary_color);
 }

@@ -1,0 +1,46 @@
+$related_app_icon_size: 50px;
+
+.related-section {
+    padding: 16px 4px 16px 0;
+    min-width: 250px;
+}
+
+.related-section-title {
+    font-size: 0.85em;
+    color: var(--accent-color);
+    padding-bottom: 4px;
+}
+
+.related-app {
+    padding: 8px 4px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.related-app-icon {
+    background-size: contain;
+    border-radius: 50%;
+    width: $related_app_icon_size;
+    height: $related_app_icon_size;
+}
+
+.related-app-text {
+    padding-left: 8px;
+}
+
+.related-app-name {
+    color: var(--text-primary);
+    line-height: $related_app_icon_size / 2;
+}
+
+.related-app-type {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+//    line-height: $related_app_icon_size / 2;
+}
+
+.app-type-icon {
+    height: 22px;
+    fill: var(--text-secondary);
+}
