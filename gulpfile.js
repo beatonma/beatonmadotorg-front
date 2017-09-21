@@ -94,14 +94,20 @@ gulp.task('django:build:gatherjs', function() {
 });
 gulp.task('django:build:gathertemplates', function() {
     return gulp.src('django/**/*.template.html')
-        .pipe(gulp.dest('django/templates'))
+        .pipe(gulp.dest('django/'))
 });
 
+//gulp.task('django:build:flatpages', function() {
+//    return gulp.src('django/templates/base.template.html')
+//        .pipe(replace(/{% block (title|header) %}.*%}/g, '{{ flatpage.title }}'))
+//        .pipe(replace(/{% block content %}.*%}/g, '{{ flatpage.content }}'))
+//        .pipe(gulp.dest('django/templates/flatpages'))
+//});
 gulp.task('django:build:flatpages', function() {
-    return gulp.src('django/templates/base.template.html')
+    return gulp.src('django/**/*.flat.template.html')
         .pipe(replace(/{% block (title|header) %}.*%}/g, '{{ flatpage.title }}'))
         .pipe(replace(/{% block content %}.*%}/g, '{{ flatpage.content }}'))
-        .pipe(gulp.dest('django/templates/flatpages'))
+        .pipe(gulp.dest('django/'))
 });
 
 gulp.task('django:clean', function() {
@@ -124,6 +130,21 @@ gulp.task('django:build', function(callback) {
    );
 });
 
+// gulp.task('django:publish', function() {
+//     return gulp.src('django/**')
+//     .pipe(rsync({
+//         options: {
+//             chmod: "Du=rwx,Dgo=rx,Fu=rw,Fgo=r"
+//         },
+        
+//         username: 'pi',
+//         hostname: '192.168.1.119',
+//         destination: "path",
+//         recursive: true,
+//         root: 'django',
+//         progress: true
+//     }));
+// });
 gulp.task('django:publish', function() {
     return gulp.src('django/**')
     .pipe(rsync({
@@ -132,7 +153,7 @@ gulp.task('django:publish', function() {
         },
         
         username: 'pi',
-        hostname: '192.168.1.119',
+        hostname: '192.168.1.115',
         destination: "path",
         recursive: true,
         root: 'django',
