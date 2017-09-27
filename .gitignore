@@ -39,3 +39,11 @@ Thumbs.db
 # Node library files #
 ######################
 node_modules/
+
+
+# Project-specific
+django/
+preview/
+preview_data.json
+app/css/
+gulpfile.js.bak
