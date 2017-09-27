@@ -13,6 +13,12 @@ function setCookie(cname, cvalue, expiry) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
+function clearCookie(cname) {
+    const d = new Date();
+    d.setTime(0);
+    document.cookie = cname + "=0;path=/;expires=" + d.toUTCString();
+}
+
 function getCookie(cname) {
     const name = cname + "=";
     const ca = document.cookie.split(';');

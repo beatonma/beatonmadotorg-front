@@ -1,11 +1,15 @@
-let theme = 'day';
+let theme = 'day'; // values: 'day', 'night'
 let accentColor = '';
 let accentTextColor = ''
 let accentApplied = false;
 
 // Automatically change basic color themes depending on time of day
-function setDayNightAutoTheme() {
-    if (cookieExists('theme')) {
+// If forceAuto then cookie values will be ignored
+function setDayNightAutoTheme(forceAuto) {
+    if (forceAuto) {
+        clearCookie('theme');
+    }
+    else if (cookieExists('theme')) {
         let t = getCookie('theme');
         console.log('Setting theme from cookie: ' + t);
         setTheme(t, true);
@@ -74,7 +78,7 @@ function toggleTheme() {
         theme = 'day';
     }
     
-    setCookie('theme', theme, 3 * 60 * 60 * 1000); // Remember this theme selection for 3 hours
+    setCookie('theme', theme, 24 * 60 * 60 * 1000 * 30); // Remember this theme selection for 30 days
     
     setTheme(theme, true);
 }
