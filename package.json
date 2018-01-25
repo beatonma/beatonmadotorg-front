@@ -37,5 +37,35 @@
     "gulp-useref": "^3.1.2",
     "gulp-util": "^3.0.8",
     "run-sequence": "^1.2.2"
+  },
+  "dependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "browser-sync": "^2.18.6",
+    "del": "^2.2.2",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-babel-minify": "^0.1.12",
+    "gulp-cache": "^0.4.5",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-exec": "^2.1.3",
+    "gulp-html-replace": "^1.6.2",
+    "gulp-if": "^2.0.2",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-imagemin": "^3.1.1",
+    "gulp-replace": "^0.5.4",
+    "gulp-inject-svg": "^0.1.9",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-text-simple": "^0.4.0",
+    "gulp-sourcemaps": "^2.4.0",
+    "gulp-useref": "^3.1.2",
+    "gulp-util": "^3.0.8",
+    "gulp-rsync": "^0.0.7",
+    "run-sequence": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://michael@localhost/Bonobo.Git.Server/beatonma.org.git"
   }
 }
