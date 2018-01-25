@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48"
+   height="48"
+   viewBox="0 0 48 47.9"
+   id="svg2"
+   version="1.1"
+   sodipodi:docname="chrome-min2.svg"
+   inkscape:version="0.92.1 r15371">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     id="namedview5405"
+     showgrid="false"
+     inkscape:zoom="13.9"
+     inkscape:cx="27.8"
+     inkscape:cy="19.2"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2"
+     showguides="false">
+    <sodipodi:guide
+       position="0,0"
+       orientation="0,48"
+       id="guide4508"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="48,0"
+       orientation="-48,0"
+       id="guide4510"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="48,47.9"
+       orientation="0,-48"
+       id="guide4512"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="0,47.9"
+       orientation="48,0"
+       id="guide4514"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <clipPath
+     id="clips">
+    <circle
+       id="circle6232"
+       r="20"
+       cx="24"
+       cy="24" />
+  </clipPath>
+  <mask
+     id="masks">
+    <circle
+       id="circle4508"
+       r="9"
+       cx="24"
+       cy="24"
+       style="fill:#000000" />
+    <rect
+       id="rect6246"
+       width="40"
+       height="40"
+       x="4"
+       y="4"
+       fill="#ffffff" />
+  </mask>
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 15.9,28.1 L -0.636,-0.279"
+     id="path6242"
+     inkscape:connector-curvature="0"
+     clip-path="url(#clips)"
+     mask="url(#masks)" />
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 32,28.2 L 20.2,49"
+     id="path6244"
+     inkscape:connector-curvature="0"
+     clip-path="url(#clips)"
+     mask="url(#masks)" />
+  <circle
+     id="circle4512"
+     r="20"
+     cx="24"
+     cy="24"
+     style="fill:none;stroke:#000000;stroke-opacity:1;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none" />
+  <circle
+     id="circle4511"
+     r="9"
+     cx="24"
+     cy="24"
+     style="fill:none;stroke:#000000;stroke-opacity:1" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="guide"
+     style="display:none"
+     sodipodi:insensitive="true">
+    <g
+       transform="matrix(0.227,0,0,0.227,2.21,2.13)"
+       clip-path="url(#b)"
+       id="red">
+      <path
+         style="fill:#db4437"
+         inkscape:connector-curvature="0"
+         d="M 22,8 V 116 H 61.4 L 96,56 H 184 V 8 Z"
+         id="path5956" />
+      <path
+         style="fill:url(#linearGradient6159)"
+         inkscape:connector-curvature="0"
+         d="M 22,8 V 116 H 61.4 L 96,56 H 184 V 8 Z"
+         id="path5963" />
+    </g>
+    <g
+       transform="matrix(0.227,0,0,0.227,2.21,2.13)"
+       clip-path="url(#b)"
+       id="green">
+      <path
+         style="fill:#0f9d58"
+         inkscape:connector-curvature="0"
+         d="M 8,184 H 91.8 L 131,145 V 116 H 61.4 L 8,24.5 Z"
+         id="path5969" />
+      <linearGradient
+         id="d"
+         y2="130"
+         gradientUnits="userSpaceOnUse"
+         y1="164"
+         x2="52.5"
+         x1="111">
+        <stop
+           stop-color="#055524"
+           stop-opacity=".4"
+           offset="0"
+           id="stop5971" />
+        <stop
+           stop-color="#055524"
+           stop-opacity="0"
+           offset=".33"
+           id="stop5973" />
+      </linearGradient>
+      <path
+         style="fill:url(#linearGradient6161)"
+         inkscape:connector-curvature="0"
+         d="M 8,184 H 91.8 L 131,145 V 116 H 61.4 L 8,24.5 Z"
+         id="path5976" />
+    </g>
+    <g
+       transform="matrix(0.227,0,0,0.227,2.21,2.13)"
+       clip-path="url(#b)"
+       id="yellow">
+      <path
+         style="fill:#ffcd40"
+         inkscape:connector-curvature="0"
+         d="M 96,56 L 131,116 L 91.8,184 H 184 V 56 Z"
+         id="path6001" />
+      <path
+         style="fill:url(#linearGradient6165)"
+         inkscape:connector-curvature="0"
+         d="M 96,56 L 131,116 L 91.8,184 H 184 V 56 Z"
+         id="path6003" />
+    </g>
+  </g>
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 24,15 H 55.4"
+     id="path4518"
+     inkscape:connector-curvature="0"
+     clip-path="url(#clips)"
+     mask="url(#masks)" />
+  <circle
+     id="circle4521"
+     r="7"
+     cx="24"
+     cy="24"
+     style="stroke:#000000;stroke-opacity:1;fill:none;fill-opacity:1" />
+</svg>
