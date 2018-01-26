@@ -5,24 +5,7 @@
 {% block content %}
 <div class="featured">
     <h1>Search results for '{{query}}'</h1>
-    <div class="flex-box-row card-container">
-        {% for post in results %}
-        <a class="card post preview" href="{{post.get_absolute_url}}">
-            <div class="card-image" style="background-image:url('/media/{{post.preview_image}}');{% if post.preview_style_override != null %}{{post.preview_style_override}}{% endif %}"></div>
-            <div class="card-content preview">
-                <div class="card-title">{{post.title}}</div>
-                <p class="synopsis">{{post.preview_text}}</p>
-                <p class="card-timestamp"><time class="accent" datetime="{{post.updated|date}}">{{post.updated|date}}</time></p>
-            </div>
-        </a>
-        {% empty %}
-        <div class="card">
-            <div class="card-content preview">
-                <p class="synopsis">No results :(</p>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+    {% include 'fragments/post-grid.fragment.html' %}
 </div>
 <br/>
 
