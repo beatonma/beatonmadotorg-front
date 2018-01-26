@@ -14,6 +14,7 @@ const runSequence = require('run-sequence');
 const rsync = require('gulp-rsync');
 const htmlmin = require('gulp-htmlmin');
 const replace = require('gulp-replace');
+const rename = require('gulp-rename');
 
 gulp.task('default', function (callback) {
   runSequence(['sass', 'watch'],
@@ -48,7 +49,7 @@ gulp.task('browserSync', function() {
 // Call build:django:minify first, then use this to
 // replace css/js paths with django template tags
 // e.g. '/css/base.min.css' will be replaced with '{% static projects/css/base.min.css %}'
-gulp.task('django:build:templatise', function() {
+gulp.task('django:build:staticpaths', function() {
     return gulp.src('django/**/*.template.html') 
         .pipe(replace(/(css\/\w*\.min\.css)|(js\/\w*\.min\.js)/g, "{% static 'projects/$&' %}"))
         .pipe(gulp.dest('django/'))
@@ -56,7 +57,7 @@ gulp.task('django:build:templatise', function() {
 });
 
 gulp.task('django:build:minify', function() {
-    return gulp.src('app/**/*.template.html')
+    return gulp.src('app/**/*.*.html')
         .pipe(useref())
         .pipe(gulpIf('*.js', minifyjs()))
         .pipe(gulpIf('*.css', cssnano()))
@@ -92,10 +93,6 @@ gulp.task('django:build:gatherjs', function() {
     return gulp.src('django/js/**/*.min.js')
         .pipe(gulp.dest('django/static/projects/js'));
 });
-gulp.task('django:build:gathertemplates', function() {
-    return gulp.src('django/**/*.template.html')
-        .pipe(gulp.dest('django/'))
-});
 
 //gulp.task('django:build:flatpages', function() {
 //    return gulp.src('django/templates/base.template.html')
@@ -103,11 +100,17 @@ gulp.task('django:build:gathertemplates', function() {
 //        .pipe(replace(/{% block content %}.*%}/g, '{{ flatpage.content }}'))
 //        .pipe(gulp.dest('django/templates/flatpages'))
 //});
+// gulp.task('django:build:flatpages', function() {
+//     return gulp.src('django/**/*.flat.template.html')
+//         .pipe(replace(/{% block (title|header) %}.*%}/g, '{{ flatpage.title }}'))
+//         .pipe(replace(/{% block content %}.*%}/g, '{{ flatpage.content }}'))
+//         .pipe(gulp.dest('django/'))
+// });
 gulp.task('django:build:flatpages', function() {
-    return gulp.src('django/**/*.flat.template.html')
+    return gulp.src('django/**/*.template.html')
         .pipe(replace(/{% block (title|header) %}.*%}/g, '{{ flatpage.title }}'))
         .pipe(replace(/{% block content %}.*%}/g, '{{ flatpage.content }}'))
-        .pipe(gulp.dest('django/'))
+        .pipe(gulp.dest('django/templates/flatpages/'))
 });
 
 gulp.task('django:clean', function() {
@@ -115,36 +118,28 @@ gulp.task('django:clean', function() {
 });
 
 gulp.task('django:clean:temp', function() {
-    return del.sync(['django/css', 'django/js', 'django/*.template.html']);
+    return del.sync(['django/css', 'django/js']);//, 'django/*.template.html']);
 });
 
 gulp.task('django:build', function(callback) {
     runSequence('django:clean',
-        'sass',
-        'django:build:minify',
-        ['django:build:templatise', 'django:build:images', 'django:build:css'],
-        ['django:build:gathercss', 'django:build:gatherjs', 'django:build:gathertemplates'],
+        'sass',                             // Construct css from scss
+        'django:build:minify',              // Copy html files and minify any css/js found
+        [
+            'django:build:staticpaths',     // Inject full path to static assets
+            'django:build:images',          // Copy images
+            'django:build:css'              // Copy css
+        ],
+        [
+            'django:build:gathercss',       // Copy minified css
+            'django:build:gatherjs',        // Copy minified js
+        ],
         'django:clean:temp',
         'django:build:flatpages',
         callback
    );
 });
 
-// gulp.task('django:publish', function() {
-//     return gulp.src('django/**')
-//     .pipe(rsync({
-//         options: {
-//             chmod: "Du=rwx,Dgo=rx,Fu=rw,Fgo=r"
-//         },
-        
-//         username: 'pi',
-//         hostname: '192.168.1.119',
-//         destination: "path",
-//         recursive: true,
-//         root: 'django',
-//         progress: true
-//     }));
-// });
 gulp.task('django:publish', function() {
     return gulp.src('django/**')
     .pipe(rsync({
