@@ -51,7 +51,7 @@ gulp.task('browserSync', function() {
 // e.g. '/css/base.min.css' will be replaced with '{% static projects/css/base.min.css %}'
 gulp.task('django:build:staticpaths', function() {
     return gulp.src('django/**/*.template.html') 
-        .pipe(replace(/(css\/\w*\.min\.css)|(js\/\w*\.min\.js)/g, "{% static 'projects/$&' %}"))
+        .pipe(replace(/(css\/\w*\.min\.css)|(js\/\w*\.min\.js)/g, "{% static '$&' %}"))
         .pipe(gulp.dest('django/'))
     
 });
@@ -94,23 +94,22 @@ gulp.task('django:build:gatherjs', function() {
         .pipe(gulp.dest('django/static/projects/js'));
 });
 
-//gulp.task('django:build:flatpages', function() {
-//    return gulp.src('django/templates/base.template.html')
-//        .pipe(replace(/{% block (title|header) %}.*%}/g, '{{ flatpage.title }}'))
-//        .pipe(replace(/{% block content %}.*%}/g, '{{ flatpage.content }}'))
-//        .pipe(gulp.dest('django/templates/flatpages'))
-//});
-// gulp.task('django:build:flatpages', function() {
-//     return gulp.src('django/**/*.flat.template.html')
-//         .pipe(replace(/{% block (title|header) %}.*%}/g, '{{ flatpage.title }}'))
-//         .pipe(replace(/{% block content %}.*%}/g, '{{ flatpage.content }}'))
-//         .pipe(gulp.dest('django/'))
-// });
 gulp.task('django:build:flatpages', function() {
     return gulp.src('django/**/*.template.html')
         .pipe(replace(/{% block (title|header) %}.*%}/g, '{{ flatpage.title }}'))
         .pipe(replace(/{% block content %}.*%}/g, '{{ flatpage.content }}'))
-        .pipe(gulp.dest('django/templates/flatpages/'))
+        .pipe(replace(/{% extends '(.*?)' %}/g, function(match) {
+            let fname = /{% extends '(.*?)' %}/g.exec(match)[1];
+            fname = fname.replace('.template.html', '.flat.html');
+
+            return '{% extends \'flatpages/' + fname + '\' %}';
+        }))
+        .pipe(rename(function(path) {
+            path.dirname = '',
+            path.basename = path.basename.replace('.template', ''),
+            path.extname = '.flat.html'
+        }))
+        .pipe(gulp.dest('django/templates/flatpages'))
 });
 
 gulp.task('django:clean', function() {
@@ -159,4 +158,31 @@ gulp.task('django:publish', function() {
 
 gulp.task('django', function(callback) {
     runSequence('django:build', 'django:publish', callback);
+});
+
+
+/*
+ * DEV
+ * Same as django() except files are pushed to development server for
+ * testing.
+ */ 
+
+gulp.task('django:dev:clean', function() {
+    let options = {
+        'dryRun': false,
+        'force': true
+    };
+    del.sync('C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\projects\\templates', options);
+    del.sync('C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\projects\\static', options);
+});
+
+// Push constructed files to dev server
+gulp.task('django:dev:publish', function(callback) {
+    return gulp.src('django/**')
+        .pipe(gulp.dest('C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\projects'));
+});
+
+// Build files and copy to dev server location
+gulp.task('django:dev', function(callback) {
+    runSequence('django:dev:clean', 'django:build', 'django:dev:publish', callback);
 });
