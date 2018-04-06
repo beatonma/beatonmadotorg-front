@@ -3,11 +3,13 @@
 {% block title %}beatonma.org{% endblock %}
 
 {% block content %}
+{% if featured %}
 <div class="featured">
     <h1>Featured</h1>
     {% include 'fragments/post-grid.fragment.html' with posts=featured %}
 </div>
 <br/>
+{% endif %}
 
 <div class="recent">
     <h1>Recent</h1>
