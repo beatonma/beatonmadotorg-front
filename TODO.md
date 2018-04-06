@@ -1,0 +1,13 @@
+- remove jquery dependencies
+    - ~~app.js~~
+    - ~~page_transitions.js~~
+        - ~~need to test getScript()~~
+    - ~~theme.js~~
+    - ~~util.js~~
+- enable iife()
+- ~~remove material icons dependency~~
+- remove mdl library dependencies
+    - ~~tooltips~~
+    - collapsing header
+    - inputs
+    - search
