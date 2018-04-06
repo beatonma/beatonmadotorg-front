@@ -16,7 +16,7 @@ function setDayNightAutoTheme(forceAuto) {
         return;
     }
     
-    $('#theme_icon').html('');
+    document.getElementById('theme_icon');
     
     let h = new Date().getHours();
     if (h > 8 && h < 20) {
@@ -35,21 +35,20 @@ function setTheme(newtheme, args) {
     let stylesheet = document.getElementById('theme');
     if (newtheme == 'day') {
         stylesheet.setAttribute('href', '/static/projects/css/colors-day.css');
-        $('meta[name=theme-color]').attr('content', 'var(--header-background-color)');
-        $('#beatonma_header').css('background', 'var(--header-background-color)');
-        if (arguments.length > 1) {
-            $('#theme_icon').html('<i class="material-icons">brightness_7</i>');
-        }
-        $('.header-item').css('color', 'var(--header-text-color)');
+        document.querySelector('meta[name=theme-color]').setAttribute('content', 'var(--header-background-color)');
+        document.getElementById('beatonma_header').style = 'background: var(--header-background-color);';
+        // if (arguments.length > 1) {
+        //     document.getElementById('theme_icon').innerHTML = '<i class="material-icons">brightness_7</i>';
+        // }
         theme = newtheme;
     }
     else if (newtheme == 'night') {
         stylesheet.setAttribute('href', '/static/projects/css/colors-night.css');
-        $('meta[name=theme-color]').attr('content', 'var(--header-background-color)');
-        $('#beatonma_header').css('background', 'var(--header-background-color)');
-        if (arguments.length > 1) {
-            $('#theme_icon').html('<i class="material-icons">brightness_2</i>');
-        }
+        document.querySelector('meta[name=theme-color]').setAttribute('content', 'var(--header-background-color)');
+        document.getElementById('beatonma_header').style = 'background: var(--header-background-color);';
+        // if (arguments.length > 1) {
+        //     document.getElementById('theme_icon').innerHTML = '<i class="material-icons">brightness_2</i>';
+        // }
         theme = newtheme;
     }
     else if (newtheme == '') {
@@ -61,10 +60,12 @@ function setTheme(newtheme, args) {
     }
     else {
         if (theme == 'day' && newtheme != '') {
-            $('meta[name=theme-color]').attr('content', newtheme);
-            $('#beatonma_header').css('background', newtheme);
+            document.querySelector('meta[name=theme-color]').setAttribute('content', newtheme);
+            document.getElementById('beatonma_header').style = 'background: ' + newtheme;
             if (arguments.length > 1) {
-                $('.header-item').css('color', args);
+                document.querySelectorAll('.header-item').forEach((el) => {
+                    el.style = 'color: ' + args;
+                })
             }
         }
     }

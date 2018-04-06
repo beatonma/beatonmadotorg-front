@@ -1,6 +1,5 @@
 function initScrollTransitions() {
     document.getElementsByTagName('main')[0].addEventListener('scroll', () => {
-        console.log('scrolling');
         const main_header = document.getElementById('beatonma_header');
         const article_header = document.getElementById('article_header');
 
@@ -50,3 +49,5 @@ function initSearch() {
     //     document.getElementById('searchform').classList.remove('search-container');
     // });
 }
+
+init();

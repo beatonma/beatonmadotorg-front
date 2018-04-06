@@ -4,9 +4,31 @@ const enterInterpolator = 'ease';
 const exitInterpolator = 'ease-in';
 const pageAnimationDuration = 200;
 
+function getScript(element, callback) {
+    const src = element.src;
+    element.parentElement.removeChild(element);
+
+    let script = document.createElement('script');
+    script.async = 1;
+
+    script.onload = script.onreadystatechange = (_, isAbort) => {
+        if(isAbort || !script.readyState || /loaded|complete/.test(script.readyState) ) {
+            script.onload = script.onreadystatechange = null;
+            script = undefined;
+
+            if(!isAbort && callback) {
+                callback();
+            }
+        }
+    };
+
+    script.src = src;
+    document.body.appendChild(script);
+}
+
 function initPageTransitions() {
     // Intercept all click events
-    document.addEventListener('click', function (e) {
+    document.addEventListener('click', (e) => {
         let el = e.target;
         // Go up in the nodelist until we find a node with .href (HTMLAnchorElement)
         while (el && !el.href) {
@@ -14,7 +36,7 @@ function initPageTransitions() {
         }
         if (el) {
             // If target is on a different domain then handle it the normal way
-            if (!el.href.includes('beatonma.org') && !el.href.includes('beatonma.com')) {
+            if (!el.href.includes('beatonma.org') && !el.href.includes('beatonma.com') && !el.href.includes('localhost')) {
                 return;
             }
             // Links annotated with 'noanim' class should be treated as external (no content transition animations)
@@ -51,15 +73,15 @@ function changePage(use_url) {
         url = use_url.replace(/url=/g, '');
     }
     
-    $('#beatonma_loading').removeClass('hidden');
+    document.getElementById('beatonma_loading').classList.add('loading');
 
-    loadPage(url).then(function (responseText) {
+    loadPage(url).then((responseText) => {
         let wrapper = document.createElement('div');
         wrapper.innerHTML = responseText;
         
-        document.title = $(wrapper).find("title").text();
+        document.title = wrapper.querySelector('title').textContent;
 
-        let oldContent = document.querySelector('#content');
+        let oldContent = document.getElementById('content');
         let newContent = wrapper.querySelector('#content');
 
         try {
@@ -74,56 +96,58 @@ function changePage(use_url) {
 }
 
 function animatePageChange(oldContent, newContent) {
-    let container = document.querySelector('#content_wrapper');
+    let container = document.getElementById('content_wrapper');
     let fadeOut = oldContent.animate(
             [
                 {opacity: 1},
                 {opacity: 0}
             ], pageAnimationDuration);
 
-    fadeOut.onfinish = function () {
+    fadeOut.onfinish = () => {
         oldContent.parentNode.removeChild(oldContent);
         container.appendChild(newContent);
-        $('main').scrollTop(0);
+        document.body.scrollIntoView(true);
         let fadeIn = newContent.animate(
                 [
                     {opacity: 0},
                     {opacity: 1}
                 ], pageAnimationDuration);
 
-        $('#beatonma_loading').addClass('hidden');
+        document.getElementById('beatonma_loading').classList.remove('loading');
         animateCardsIn(newContent);
         
-        let onPageChange = newContent.querySelectorAll(".onPageChange");
-        for (var i = 0; i < onPageChange.length; i++) {
-            let p = onPageChange[i];
-            if (p.src == "") {
-                eval(p.innerHTML);
+        newContent.querySelectorAll('.onPageChange').forEach((el) => {
+            if (el.src) {
+                getScript(el);
             }
             else {
-                $.getScript(p.src);
+                try {
+                    eval(el.innerHTML);
+                }
+                catch (err) {};
             }
-        }
-        
-        let onPageUnload = oldContent.querySelectorAll('.onPageUnload');
-        for (let i = 0; i < onPageUnload.length; i++) {
-            let p = onPageUnload[i];
-            if (p.src == '') {
-                eval(p.innerHTML);
+        });
+
+        oldContent.querySelectorAll('.onPageUnload').forEach((el) => {
+            if (el.src) {
+                getScript(el);
             }
             else {
-                $.getScript(p.src);
+                try {
+                    eval(el.innerHTML);
+                }
+                catch (err) {};
             }
-        }
+        });
     };
 }
 
 function animateCardsOut(parent) {
     let delay = 0;
-    let container = $(parent).find('.card-container');
+    let container = parent.querySelector('.card-container');
 
-    $(container).children('.card').each(function () {
-        elementOut(this, delay);
+    container.querySelectorAll('.card').forEach((el) => {
+        elementOut(el, delay);
 
         delay += itemAnimationDelay;
     });
@@ -131,10 +155,10 @@ function animateCardsOut(parent) {
 
 function animateCardsIn(parent) {
     let delay = 0;
-    let container = $(parent).find('.card-container');
+    let container = parent.querySelector('.card-container');
     
-    $(container).children('.card').each(function () {
-        elementIn(this, delay);
+    container.querySelectorAll('.card').forEach((el) => {
+        elementIn(el, delay);
 
         delay += itemAnimationDelay;
     });
@@ -196,23 +220,23 @@ function elementOut(element, delay) {
 
 
 
-function replaceBannerImage(path) {
-    if (path === "") {
-        path = 'images/play_banner.png';
-    }
-    console.log("loading banner: " + path);
-    let banner = document.querySelector('#banner_image');
+// function replaceBannerImage(path) {
+//     if (path === "") {
+//         path = 'images/play_banner.png';
+//     }
+//     console.log("loading banner: " + path);
+//     let banner = document.querySelector('#banner_image');
 
-    let fadeout = banner.animate([
-        {opacity: 1},
-        {opacity: 0}
-    ], itemAnimationDuration);
+//     let fadeout = banner.animate([
+//         {opacity: 1},
+//         {opacity: 0}
+//     ], itemAnimationDuration);
 
-    fadeout.onfinish = function () {
-        $(banner).css('background', "url('" + path + "') center / cover");
-        banner.animate([
-            {opacity: 0},
-            {opacity: 1}
-        ], itemAnimationDuration);
-    };
-}
+//     fadeout.onfinish = function () {
+//         $(banner).css('background', "url('" + path + "') center / cover");
+//         banner.animate([
+//             {opacity: 0},
+//             {opacity: 1}
+//         ], itemAnimationDuration);
+//     };
+// }

@@ -1,7 +1,7 @@
 function loadPage(url) {
     return fetch(url, {
         method: 'GET'
-    }).then(function (response) {
+    }).then((response) => {
         return response.text();
     });
 }
