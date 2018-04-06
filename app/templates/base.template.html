@@ -1,8 +1,7 @@
 {% load static %}
 {% load google_analytics %}
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,38 +21,35 @@
         <link rel="webmention" href="https://beatonma.org/webmention/" />
         
         <title>{% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Mono"/>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
+
         <!--build:css css/base.min.css-->
         <link rel="stylesheet" href="../css/base.css"/>
         <!--endbuild-->
         <link id="theme" rel="stylesheet" href=""/>
         
-        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <!--build:js js/app.min.js-->
+        <!--build:js js/app.min.js async -->
         <script src="../js/util.js"></script>
         <script src="../js/page_transitions.js"></script>
-        <script src="../js/app.js"></script>
         <script src="../js/theme.js"></script>
+        <script src="../js/related-content.js"></script>
+        <script src="../js/app.js"></script>
         <!--endbuild-->
-        <script>$(document).ready(init());</script>
-        
         {% block html_head %}{% endblock %}
         
         {% google_analytics %}
     </head>
     <body>
-        <div id="beatonma_loading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate hidden"></div>
+        <div id="beatonma_loading" class="progressbar"></div>
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
             <div id="beatonma_header" class="mdl-layout__header mdl-layout__header--waterfall">
-                <div class="mdl-layout__header-row header-row-primary">
+                <div class="header-row-primary">
                     <a href="/"><div class="title header-item">beatonma.org</div></a>
-                    <div class="mdl-layout-spacer"></div>
+                    <div class="spacer"></div>
                     <form action="/search" method="get" id="searchform">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable search-container" style="padding:0;">
                             <label class="mdl-button mdl-js-button mdl-button--icon icon header-item" style="top:inherit;bottom:auto;position:inherit;padding:8px;" for="search">
-                                <i class="material-icons">search</i>
+                                @@include('./svg/search.svg', {"class": "search", "id": ""});
                             </label>
                             <div id="search-wrapper" class="mdl-textfield__expandable-holder" style="margin:0px;">
                                 <input class="mdl-textfield__input" type="text" id="search" name="query" placeholder="Search beatonma.org">
@@ -62,28 +58,25 @@
                         </div>
                     </form>
                 </div>
-                <div class="mdl-layout__header-row header-row-secondary">
+                <div class="header-row-secondary">
                     <div id="theme_icon" class="icon header-item" onclick="toggleTheme()"></div>
-                    <div class="mdl-layout-spacer"></div>
-                    <a class="mdl-navigation__link header-item" href="/about/">About</a>
-                    <a class="mdl-navigation__link header-item noanim" href="/contact/">Contact</a>
-                    <a class="mdl-navigation__link header-item" href="/donate/">Donate</a>{% if user.is_superuser %}<a class="mdl-navigation__link header-item noanim" href="/admin/">Admin</a>{% endif %}
+                    <div class="spacer"></div>
+                    <a class="header-item" href="/about/">About</a>
+                    <a class="header-item noanim" href="/contact/">Contact</a>
+                    <a class="header-item" href="/donate/">Donate</a>
+                    {% if user.is_superuser %}<a class=" header-item noanim" href="/admin/">Admin</a>{% endif %}
                 </div>
             </div>
             <main class="mdl-layout__content">
-                <div class="container flex-box-col" id="content_wrapper">
+                <div class="container flex-col" id="content_wrapper">
                     <div id="content">
                         {% block content %}{% endblock %}
                     </div>
                 </div>
-                <footer id="beatonma_footer" class="mdl-mini-footer">
+                <footer id="beatonma_footer" class="footer">
                     {% include 'fragments/footer.fragment.html' %}
                 </footer>
             </main>
         </div>
-        
-        <script class="onPageChange" type="text/javascript">
-            componentHandler.upgradeDom();
-        </script>
     </body>
 </html>
