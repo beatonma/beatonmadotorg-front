@@ -15,14 +15,21 @@ const rsync = require('gulp-rsync');
 const htmlmin = require('gulp-htmlmin');
 const replace = require('gulp-replace');
 const rename = require('gulp-rename');
+const shell = require('gulp-shell');
+const iife = require('gulp-iife');
+// const include = require('gulp-include-template');
+const include = require('gulp-file-include');
+const gzip = require('gulp-gzip');
 
-gulp.task('default', function (callback) {
-  runSequence(['sass', 'watch'],
-    callback
-  )
-})
+gulp.task('default', ['watch:dev']);
 gulp.task('watch', ['sass'], function() {
     gulp.watch('app/scss/**/*.scss', ['sass']);
+});
+
+gulp.task('watch:dev', ['django:dev'], () => {
+    gulp.watch('app/**/*.scss', ['django:dev']);
+    gulp.watch('app/**/*.js', ['django:dev']);
+    gulp.watch('app/**/*.html', ['django:dev']);
 });
 
 // Convert sass/scss to standard css
@@ -167,6 +174,46 @@ gulp.task('django', function(callback) {
  * testing.
  */ 
 
+// Same as django:build but without obfuscating js/css
+gulp.task('django:dev:build', (callback) => {
+    runSequence('django:clean',
+        'sass',                             // Construct css from scss
+        'django:dev:build:minify',              // Copy html files and minify any css/js found
+        [
+            'django:build:staticpaths',     // Inject full path to static assets
+            // 'django:build:images',          // Copy images
+            'django:build:css'              // Copy css
+        ],
+        [
+            'django:build:gathercss',       // Copy minified css
+            'django:build:gatherjs',        // Copy minified js
+        ],
+        'django:clean:temp',
+        // 'django:build:flatpages',
+        callback
+   );
+});
+
+// Same as django:build:minify but without obfuscating js/css
+gulp.task('django:dev:build:minify', function() {
+    return gulp.src('app/**/*.*.html')
+        .pipe(useref().on('error', logError))
+        .pipe(include().on('error', logError))
+        // .pipe(gulpIf('**/*.{css,js}', gzip({
+        //     append: false,
+        //     skipGrowingFiles: true
+        // })))
+        // .pipe(gulpIf('*.css', gzip()))
+        // .pipe(gulpIf('*.js', iife()))
+        // .pipe(gulpIf('*.js', minifyjs()))
+        // .pipe(gulpIf('*.css', cssnano()))
+//        .pipe(injectsvg())
+        .pipe(replace(/[ ]{2,}/g, ''))
+        .pipe(replace(/(\r\n){2,}/g, '\r\n'))
+        .pipe(replace(/([%}]{1}})((\r\n)+)/g, '$1'))
+        .pipe(gulp.dest('django/'));
+});
+
 gulp.task('django:dev:clean', function() {
     let options = {
         'dryRun': false,
@@ -182,7 +229,31 @@ gulp.task('django:dev:publish', function(callback) {
         .pipe(gulp.dest('C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\projects'));
 });
 
+gulp.task('django:dev:publish:static', () => {
+    return gulp.src('django/static/**/*')
+        .pipe(gulp.dest('C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\static\\'));
+});
+
+// Update django static files on the dev server
+gulp.task('django:dev:refreshstatic',
+    shell.task(
+        ['python3 manage.py collectstatic --noinput'],
+        {cwd: 'C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\'}));
+
 // Build files and copy to dev server location
 gulp.task('django:dev', function(callback) {
-    runSequence('django:dev:clean', 'django:build', 'django:dev:publish', callback);
+    runSequence(
+        // 'django:dev:clean',
+        'django:dev:build',
+        'django:dev:publish',
+        'django:dev:publish:static',
+        callback
+        // 'django:dev:refreshstatic'
+    );
 });
+
+
+function logError(err) {
+    console.error(err);
+    this.emit('end');
+}
