@@ -1,27 +1,32 @@
 {% extends 'base.template.html' %}
+{% load static %}
+{% load admin_urls %}
 {% block title %}{{post.title}} - beatonma.org{% endblock %}
 {% block html_head %}{{post.html_head|safe}}{% endblock %}
 {% block content %}
+{% if user.is_superuser %}<div class="header-row"><a class="header-item noanim" href="{% url 'admin:projects_post_change' post.pk %}">Edit</a></div>{% endif %}
 <div class="card-container">
     <article class="card h-entry">
-        <div class="article_image {{post.hero_aspect_ratio}} card-image fullbleed" style="background-image:url('/media/{{post.hero_image}}');margin-bottom:0;{% if post.hero_style_override != null %}{{post.hero_style_override}}{% endif %}">{{post.hero_html|safe}}</div>
+        <div class="article-image {{post.hero_aspect_ratio}} card-image fullbleed" style="background-image:url('/media/{{post.hero_image}}');margin-bottom:0;{% if post.hero_style_override != null %}{{post.hero_style_override}}{% endif %}">{{post.hero_html|safe}}</div>
         <div id="article_header" class="card-title-area-raised fullbleed" style="background-color:{{post.accent}};color:{{post.text_color}};">
-            <div style="flex-grow:8;">
+            <div class="flex-col">
                 <div class="card-title article_title p-name">{{post.title}}</div>
-                <div class="flex-box-row" style="justify-content:flex-start !important;">
-                    <p class="article-description text-secondary" style="color:{{post.text_color_secondary}};">{{post.tagline}}</p>
+                <div class="flex-row-start">
+                    <div class="article-description" style="color:{{post.text_color_secondary}};">{{post.tagline}}</div>
                     <!-- build:remove -->
                     <!-- If this post represents an app then include links for installation/download/source code -->
                     <!-- endbuild -->
                     {% if download_info %}
-                    <div id="get_it_links" class="flex-box-row">
+                    <div id="get_it_links" class="flex-row">
                         {% for info in download_info %}
                         {% if info.installation %}
                         {% for install in info.installation %}
-                        <a href="{{install.url}}">
-                            <svg id="{{install.id}}" class="download-icon" viewBox="0 0 48 48" style="stroke:{{post.text_color_secondary}}">{{install.icon|safe}}</svg>
-                        </a>
-                        <div class="mdl-tooltip" for="{{install.id}}">{{install.tooltip}}</div>
+                        <div class="tooltip">
+                            <a href="{{install.url}}">
+                                <svg id="{{install.id}}" class="download-icon" viewBox="0 0 48 48" style="stroke:{{post.text_color_secondary}}">{{install.icon|safe}}</svg>
+                            </a>
+                            <div class="tooltip-popup">{{install.tooltip}}</div>
+                        </div>
                         {% endfor %}
                         {% endif %}
                         {% if info.source %}
@@ -47,7 +52,7 @@
             </p>
         </div>
         <div class="card-content">
-            <div class="article_abstract p-summary"{% if post.abstract %} style="padding-top:30px;padding-bottom:30px;"{% endif %}>
+            <div class="article_abstract p-summary"{% if post.abstract %}{% endif %}>
                 {{post.abstract|safe}}
             </div>
             
@@ -86,12 +91,12 @@
 {% endif %}
     
 <div class="card-container">
-    <div id="related_content" class="card wrap">
+    <div id="related_content" class="card wrap hidden">
         <div class="card-content">
             <div class="card-title">Related</div>
-            <div class="flex-box-row">
+            <div class="flex-row">
                 <!-- build:remove -->
-                <!-- Container for webmentions - populated with ajax -->
+                <!-- Container for webmentions - populated asynchronously -->
                 <!-- endbuild -->
                 <div id="webmentions_container" class="related-section"><div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div></div>
                 <!-- build:remove -->
@@ -116,7 +121,7 @@
                 <!-- build:remove -->
                 <!-- TODO Include links to other articles about similar stuff. Part of the same project, same app, similar tags, that sort of thing -->
                 <!-- endbuild -->
-                <div id="related_articles"><!-- TODO --></div>
+                <div id="related_articles"></div>
             </div>
         </div>
     </div>
@@ -129,38 +134,7 @@
 <!-- endbuild -->
 <img class="webfeedsFeaturedVisual hidden" src="/media/{{post.preview_image}}"/>
 <script class="onPageChange" type="text/javascript">
-    function loadWebmentions() {
-        $.ajax({
-            type: 'post',
-            url: 'https://beatonma.org/webmentions',
-            data: {'slug': '{{post.slug}}'},
-            success: function(data) {
-                $('#webmentions_container').html(data);
-                
-                hideRelatedIfEmpty();
-                // Notify the mdl handler that the DOM has changed
-                componentHandler.upgradeDom();
-            },
-            error: function() {
-                $('#webmentions_container').html('');
-                hideRelatedIfEmpty();
-            }
-        });
-    }
-    // Hide the container if there is nothing to go in it
-    function hideRelatedIfEmpty() {
-        if ($('#webmentions_container').html() == '' && $('#related_apps').length == 0) {
-            $('#related_content').addClass('hidden');
-            console.log('Hiding related content (empty)')
-        }
-        else if ($('#webmentions_container').html() == '') {
-            $('#webmentions_container').addClass('hidden');
-        }
-    }
-    $('document').ready(loadWebmentions());
-</script>
-<script class="onPageChange" type="text/javascript">
-    setAccent("{{post.accent}}", "{{post.text_color}}");
-    loadWebmentions();
+    setAccent('{{post.accent}}', '{{post.text_color}}');
+    loadWebmentions('{{post.slug}}');
 </script>
 {% endblock %}
