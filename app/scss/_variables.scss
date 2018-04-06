@@ -1,8 +1,11 @@
 // Variables that may appear in multiple stylesheets
 
-$header_padding_hor: 16px;
-$header_second_row_height: 36px;
-$font: 'Roboto Mono', monospace;
+
+$title-font: 'Oswald', sans-serif;
+$content-font: 'Open Sans', sans-serif;
+$font: $content-font;
+$font-size: 16px;
+
 $debug_alpha: 0.4;
 $main_content_max_width: 1030px;
 

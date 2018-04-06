@@ -2,7 +2,7 @@
 $download_icon_size: 24px;
 
 #get_it_links {
-    padding-left: 4px;
+    // padding-left: 4px;
 }
 
 //.get-it-section {
@@ -20,5 +20,5 @@ $download_icon_size: 24px;
     stroke: var(--text-secondary);
     stroke-width: 3px;
     height: $download_icon_size;
-    padding-left: 4px;
+    padding-right: 4px;
 }

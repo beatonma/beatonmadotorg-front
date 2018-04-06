@@ -1,0 +1,24 @@
+.light {
+    color: var(--text-light-primary);
+}
+
+.light.secondary {
+    color: var(--text-light-secondary);
+}
+
+.light.tertiary {
+    color: var(--text-light-tertiary);
+}
+
+
+.dark {
+    color: var(--text-dark-primary);
+}
+
+.dark.secondary {
+    color: var(--text-dark-secondary);
+}
+
+.dark.tertiary {
+    color: var(--text-dark-tertiary);
+}

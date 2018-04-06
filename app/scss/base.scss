@@ -1,158 +1,52 @@
 @import 'variables';
+@import 'util';
 @import 'card';
-@import 'my-mdl';
-@import 'colors-material';
-@import 'mdl-overrides';
+@import 'colors';
+@import 'header';
+@import 'footer';
+@import 'loading';
+@import 'aspect-ratios';
+// @import 'colors-material';
+// @import 'my-mdl';    // TODO this should be removed
+// @import 'mdl-overrides';    // TODO this should be removed
 @import 'get-it';
 @import 'article';
 @import 'webmention';
 @import 'related';
 @import 'changelog';
 @import 'code';
-
-::selection {
-    background: var(--selected);
-}
-
-::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-}
-::-webkit-scrollbar-button {
-    background: transparent;
-}
-::-webkit-scrollbar-track-piece {
-    background: transparent;
-}
-::-webkit-scrollbar-thumb {
-    background: var(--text-secondary);
-}
-
-// Objects
-html {
-    background: var(--tabletop);
-    color: var(--text-primary);
-    transition: background 300ms;
-}
-body {
-    margin: 0px !important;
-    font-family: $font !important;
-    font-size: 14px;
-    transition: font-size $transition_duration;
-    line-height: normal !important;
-}
-main {
-    flex-direction:column;
-    margin:8px;
-}
-h1, h2, h3, h4, h5, h6 {
-    font-family: $font;
-    text-align: center;
-    color: var(--text-primary);
-    width: 100%;
-    transition: 
-        margin $transition_duration ease-in-out,
-        width $transition_duration ease-in-out,
-        font-size $transition_duration;
-}
-h1 {
-    font-size: 2em;
-}
-h2 {
-    font-size: 1.8em;
-}
-h3 {
-    font-size: 1.6em;
-}
-h4 {
-    font-size: 1.4em;
-}
-p {
-    font-size: inherit;
-    font-weight: inherit;
-    line-height: inherit;
-}
-a {
-    text-decoration: none;
-}
-a p {
-    color: var(--text-primary);
-}
-button {
-    font-family: $font !important;
-}
-textarea {
-    font-family: $font !important;
-    font-size: 1em;
-}
-input {
-    font-family: $font !important;
-    font-size: 1em;
-}
-ol, ul {
-    font-size: 1em;
-    line-height: normal;
-}
-li {
-    font-size: 1em;
-}
-pre, pre code {
-    font-family: 'Roboto Mono', monospace !important;
-    overflow-x: scroll;
-    color: var(--code-text);
-    background-color: var(--code-background);
-}
-pre {
-    padding: 8px;
-    margin-bottom: 2em;
-}
-code {
-    white-space: pre;
-}
-table {
-    border-collapse: collapse;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
-        0 3px 1px -2px rgba(0, 0, 0, .2),
-        0 1px 5px 0 rgba(0, 0, 0, .12);
-//    border: 1px solid var(--card-background-invert);
-    margin: auto;
-}
-td {
-    padding: 8px;
-}
+@import 'chrome';  // Browser decoration: scrollbars, etc
+@import 'objects';  // HTML elements: body, main, h1, etc
+@import 'text';
+@import 'icons';
+@import 'flex';
+@import 'tooltip';
 
 // Classes
-.flex-box-col {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-}
-.flex-box-row {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-}
+// .flex-box-col {
+//     display: flex;
+//     flex-wrap: wrap;
+//     flex-direction: column;
+//     justify-content: center;
+// }
+// .flex-box-row {
+//     display: flex;
+//     flex-wrap: wrap;
+//     flex-direction: row;
+//     justify-content: center;
+// }
+
+// .flex-row-center {
+//     justify-content: center;
+// }
+
+// .flex-row-start {
+//     justify-content: flex-start;
+// }
 
 .title {
     font-size: 2em;
     color: var(--header-text-color);
-}
-.header-item {
-    color: var(--header-text-color);
-}
-.header-row-primary {
-    padding-left: $header_padding_hor;
-    padding-right: $header_padding_hor;
-    height: inherit;
-    line-height: 56px;
-    flex-wrap: wrap;
-}
-.header-row-secondary {
-    height: $header_second_row_height !important;
-    padding-left: $header_padding_hor;
-    padding-right: $header_padding_hor;
 }
 .accent {
     color: var(--accent-color);
@@ -171,14 +65,14 @@ p.synopsis {
     flex-grow: 2;
 }
 
-.text-primary {
-    color: var(--text-primary);
-    font-size: 1em;
-}
-.text-secondary {
-    color: var(--text-secondary);
-    font-size: 0.9em;
-}
+// .text-primary {
+//     color: var(--text-primary);
+//     font-size: 1em;
+// }
+// .text-secondary {
+//     color: var(--text-secondary);
+//     font-size: 0.9em;
+// }
 .text-larger {
     font-size: 1.2em;
 }
@@ -201,65 +95,16 @@ p.synopsis {
     text-align: center;
 }
 
-a.foot-link {
-    padding: 4px 8px;
-    line-height: 48px;
-    color: var(--text-tertiary);
-}
-
-.foot-icon {
-    background-size: contain !important;
-    height: 36px;
-    fill: none;
-    stroke: var(--text-tertiary);
-    stroke-width: 2px;
-}
-
-.foot-icon:hover {
-    stroke: var(--text-secondary);
-}
 
 .hidden {
-    display: none;
-}
-
-// Aspect ratios
-.aspect-1to1 {
-    width: 100% !important;
-    padding-bottom: 100% !important;
-    height: 0 !important;
-}
-.aspect-2to1 {
-    width: 100% !important;
-    padding-bottom: 50% !important;
-    height: auto !important;
-}
-.aspect-4to3 {
-    width: 100% !important;
-    padding-bottom: 75% !important;
-    height: auto !important;
-}
-.aspect-16to9 {
-    width: 100% !important;
-    padding-bottom: 56.25% !important;
-    height: auto !important;
+    visibility: hidden;
+    max-height: 0;
+    transition: visibility 300ms;
+    // display: none;
 }
 
 // Specific objects
-#beatonma_loading {
-    position: absolute;
-    z-index: 300;
-    width: 100%;
-}
 
-#beatonma_header {
-    transition: all 600ms;
-}
-
-#beatonma_footer {
-    // Padding to allow tooltips to show properly within page bounds
-    padding-bottom: 48px !important;
-}
 
 .search-container {
     padding: 0;
@@ -267,20 +112,6 @@ a.foot-link {
 
 
 @media only screen and (min-width:480px) {
-    body {
-        font-size: 14px;
-        margin:8px;
-        transition: font-size $transition_duration;
-    }
-    
-    h1, h2, h3, h4, h5, h6 {
-        text-align: left;
-        margin:0px 0px 16px 0px;
-        transition:
-            margin $transition_duration ease-in-out,
-            width $transition_duration ease-in-out,
-            font-size $transition_duration;
-    }
     .container {
         width: 90vw;
         max-width: 672px;
@@ -298,17 +129,11 @@ a.foot-link {
 }
 
 //@media only screen and (min-width:1120px) {
-@media only screen and (min-width:747px) {
-    .flex-box-row {
-        justify-content: flex-start;
-    }
-}
-
-@media only screen and (min-width:1024px) {
-    .header-row-primary {
-        line-height: 64px;
-    }
-}
+// @media only screen and (min-width:747px) {
+//     .flex-box-row {
+//         justify-content: flex-start;
+//     }
+// }
 
 @media only screen and (min-width:1120px) {
     .container {

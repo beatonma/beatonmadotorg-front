@@ -1,0 +1,42 @@
+#beatonma_loading {
+    z-index: 300;
+}
+
+.loading {
+    animation-name: loading;
+    animation-duration: 1200ms;
+    animation-timing-function: cubic-bezier(.4, 0, .2, 1);
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+    background: var(--accent) !important;
+}
+
+.progressbar {
+    position: fixed;
+    top: 0;
+    height: 4px;
+    width: 500px;
+    z-index: 300;
+    max-width: 100%;
+    background: transparent;
+    transition: background 300ms, width 200ms cubic-bezier(.4, 0, .2, 1), left 200ms cubic-bezier(.4, 0, .2, 1);
+}
+
+@keyframes loading {
+    0% {
+        left: 0%;
+        width: 0%;
+    }
+    50% {
+        left: 25%;
+        width: 75%;
+    }
+    75% {
+        left: 100%;
+        width: 0%;
+    }
+    100% {
+        left: 0%;
+        width: 0%;
+    }
+}

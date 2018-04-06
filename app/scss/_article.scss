@@ -13,7 +13,7 @@ article {
     line-height: $download_icon_size;
 }
 
-.article_image {
+.article-image {
     height: 40vh !important;
 }
 
@@ -22,17 +22,20 @@ article {
 }
 
 .article_abstract {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 600;
+    font-family: 'Oswald', sans-serif;
     padding-bottom: 15px;
     padding-top: 15px;
-    line-height: 1.5;
+    line-height: 1.5em;
     font-size: 1.1em
 }
 
 .article_content {
     font-family: 'Open Sans', sans-serif;
-    line-height: 1.5;
+    line-height: 1.3em;
     font-size: 1.1em;
     padding-bottom: 24px;
+}
+
+.appname {
+    color: var(--appname);
 }
