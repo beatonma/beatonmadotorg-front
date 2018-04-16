@@ -1,0 +1,9 @@
+{% extends 'search-results.template.html' %}
+
+{% block result_text %}
+{% if not apps and not articles %}
+    No items found for #{{ tag }}
+{% else %}
+    Items tagged with <span class="accent">#{{ tag }}</span>:
+{% endif %}
+{% endblock %}

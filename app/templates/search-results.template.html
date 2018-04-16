@@ -1,0 +1,38 @@
+{% extends 'base.template.html' %}
+
+{% block title %}beatonma.org - Search{% endblock %}
+
+{% block content %}
+
+<h3>
+{% block result_text %}
+{% if not apps and not articles %}
+    No results for '{{ query }}''
+{% else %}
+    Results for '<span class="accent">{{ query }}</span>':
+{% endif %}
+{% endblock %}
+</h3>
+
+{% if articles %}
+<section id="articles">
+    <h1>Articles</h1>
+    <div class="card wrap">
+        <div class="card-content flex-row">
+            {% include 'article/article-list.fragment.html' %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if apps %}
+<section id="apps">
+    <h1>Apps</h1>
+    <div class="card wrap">
+        <div class="card-content flex-row">
+            {% include 'app/app-list.template.html' %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
