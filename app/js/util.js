@@ -1,6 +1,7 @@
 function loadPage(url) {
     return fetch(url, {
-        method: 'GET'
+        method: 'GET',
+        credentials: 'same-origin'
     }).then((response) => {
         return response.text();
     });
@@ -31,7 +32,7 @@ function getCookie(cname) {
             return c.substring(name.length, c.length);
         }
     }
-    return "";
+    return '';
 }
 
 function cookieExists(cname) {
