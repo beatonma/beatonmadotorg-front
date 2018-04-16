@@ -20,10 +20,10 @@ const app = (() => {
 //     });
 // }
 
-function init() {
-    initPageTransitions();
-    initSearch();
-}
+// function init() {
+    // initPageTransitions();
+//     initSearch();
+// }
 
 function initSearch() {
     // Replace the default form submission so we can animate the page change
@@ -34,7 +34,7 @@ function initSearch() {
         const searchUrl = '/search?' + new URLSearchParams(
             new FormData(searchform)).toString();
         history.pushState(null, null, searchUrl);
-        changePage('url=' + searchUrl);
+        transitions.changePage('url=' + searchUrl);
     });
 
     const searchIcon = document.getElementById('search_icon');
@@ -56,5 +56,5 @@ function initSearch() {
     // });
 }
 
-init();
+initSearch();
 })();
