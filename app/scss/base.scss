@@ -31,11 +31,11 @@
 @import 'item';     // apply per-page color scheme, defined in style#local_style tag
 
 .title {
-    font-size: 2em;
+    font-size: 2rem;
     color: var(--header-text-color);
 }
 .accent {
-    color: var(--accent-color);
+    color: var(--item-accent);
 }
 .container {
     max-width: 1030px;

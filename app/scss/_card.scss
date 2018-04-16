@@ -1,7 +1,7 @@
 $max_card_width: 1200px;
 $max_preview_width: 480px;
-$card_title_size: 1.3em;
-$card_title_size_large: 1.8em;
+$card_title_size: 1.3rem;
+$card_title_size_large: 1.8rem;
 
 .card {
     max-width: $max_card_width;
@@ -59,7 +59,7 @@ $card_title_size_large: 1.8em;
 
 .card-description {
     margin: 0 0 16px;
-    // font-size: .9em;
+    // font-size: .9rem;
 }
 
 .card-content {

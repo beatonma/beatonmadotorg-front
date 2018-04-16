@@ -193,14 +193,14 @@ h6 small {
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: 400;
     line-height: 1.35;
-    letter-spacing: -.02em;
+    letter-spacing: -.02rem;
     opacity: .54;
     font-size: .6em
 }
 h1 {
     font-size: 56px;
     line-height: 1.35;
-    letter-spacing: -.02em;
+    letter-spacing: -.02rem;
     margin: 24px 0
 }
 h1,
@@ -272,7 +272,7 @@ blockquote {
 }
 blockquote:before {
     position: absolute;
-    left: -.5em;
+    left: -.5rem;
     content: '“'
 }
 blockquote:after {
@@ -3370,7 +3370,7 @@ fieldset[disabled] .mdl-checkbox .mdl-checkbox__ripple-container .mdl-ripple,
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-size: 16px;
     font-weight: 400;
-    letter-spacing: .04em;
+    letter-spacing: .04rem;
     line-height: 1;
     min-height: 48px;
     -webkit-flex-direction: row;
@@ -3846,7 +3846,7 @@ fieldset[disabled] .mdl-checkbox .mdl-checkbox__ripple-container .mdl-ripple,
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-size: 20px;
     line-height: 1;
-    letter-spacing: .02em;
+    letter-spacing: .02rem;
     font-weight: 400;
     box-sizing: border-box
 }

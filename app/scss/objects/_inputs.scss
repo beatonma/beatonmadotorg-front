@@ -1,46 +1,63 @@
-button {
+input, textarea {
+    resize: both;
     font-family: $font-content;
-}
-
-textarea {
-    font-family: $font-content;
-    font-size: 1em;
-    resize: vertical;
-}
-
-input {
-    font-family: $font-content;
-    font-size: 1em;
+    font-size: .9rem;
     padding: 4px;
+    margin: 0;
+    color: var(--text-primary);
+    min-width: 300px;
+    width: 600px;
+    max-width: 100%;
+    background: transparent;
+    outline: none;
+    // border-radius: $corner-radius;
+    border: none;
+    border-bottom: 1px solid var(--card-separator);
     transition: border 300ms;
 }
 
-input:focus {
-    border-bottom: solid 1px var(--item-accent);
+// input[type='text'] {
+//     color: var(--text-primary);
+//     background: none;
+//     margin: 0;
+//     border: none;
+//     outline: none;
+//     border-bottom: 1px solid var(--card-separator);
+// }
+
+input:focus, textarea:focus {
+    border-bottom: solid 2px var(--item-accent);
     outline: none;
 }
-input:active {
-    border-bottom: solid 1px var(--item-accent);
+input:active, textarea:active {
+    border-bottom: solid 2px var(--item-accent);
     outline: none;
 }
 
-input[type='text'] {
-    color: var(--text-primary);
-    // font-weight: 800;
-    background: none;
-    margin: 0;
+// input[type='text']:after {
+//     background-color: var(--accent);
+//     content: '';
+//     height: 2px;
+//     max-width: 200px;
+//     // visibility: hidden;
+//     transition: width 300ms;
+// }
+
+button {
+    font-family: $font-title;
+    padding: 8px;
+    font-size: 1.1rem;
+    background: transparent;
+    border-radius: $corner-radius;
+    color: var(--item-accent);
     border: none;
     outline: none;
-    border-bottom: 1px solid var(--card-separator);
+    transition: background 300ms;
+    cursor: pointer;
 }
 
-input[type='text']:after {
-    background-color: var(--accent);
-    content: '';
-    height: 2px;
-    max-width: 200px;
-    // visibility: hidden;
-    transition: width 300ms;
+button:hover {
+    background: var(--hover);
 }
 
 .collapsing-wrapper {
