@@ -1,3 +1,4 @@
+const app = (() => {
 function initScrollTransitions() {
     document.getElementsByTagName('main')[0].addEventListener('scroll', () => {
         const main_header = document.getElementById('beatonma_header');
@@ -51,3 +52,4 @@ function initSearch() {
 }
 
 init();
+})();
