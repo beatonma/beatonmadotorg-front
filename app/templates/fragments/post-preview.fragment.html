@@ -1,8 +1,0 @@
-<a class="card post preview" href="{{post.get_absolute_url}}">
-    <div class="card-image" style="background-image:url('/media/{{post.preview_image}}');{% if post.preview_style_override != null %}{{post.preview_style_override}}{% endif %}"></div>
-    <div class="card-content preview">
-        <div class="card-title">{{post.title}}</div>
-        <p class="synopsis">{{post.preview_text}}</p>
-        <p class="card-timestamp"><time datetime="{{post.updated|date}}">{{post.updated|date}}</time></p>
-    </div>
-</a>
