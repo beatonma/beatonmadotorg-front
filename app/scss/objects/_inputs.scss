@@ -12,17 +12,21 @@ input {
     font-family: $font-content;
     font-size: 1em;
     padding: 4px;
+    transition: border 300ms;
 }
 
 input:focus {
+    border-bottom: solid 1px var(--item-accent);
     outline: none;
 }
 input:active {
+    border-bottom: solid 1px var(--item-accent);
     outline: none;
 }
 
 input[type='text'] {
-    font-weight: 800;
+    color: var(--text-primary);
+    // font-weight: 800;
     background: none;
     margin: 0;
     border: none;

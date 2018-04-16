@@ -11,19 +11,3 @@ style="border-color:{{ app.accent_color }};{% if app.icon %}background-image:url
     <div class="tooltip-popup">{{ app.app_type.tooltip }}</div>
 </div>
 {% endblock %}
-<!-- build:remove -->
-<!-- {% for app in apps %}
-<a href="{{ app.get_absolute_url }}">
-    <div class="related-app">
-        <div class="related-app-icon" {% if app.icon %}style="background-image:url('{{ app.icon.url }}');"{% endif %}></div>
-        <div class="related-app-text">
-            <div class="related-app-name">{{ app.title }}</div>
-            <div class="tooltip">
-                <div class="icon fill related-app-type app-type-{{ app.app_type }}">{{ app.app_type.icon_svg|safe }}</div>
-                <div class="tooltip-popup">{{ app.app_type.tooltip }}</div>
-            </div>
-        </div>
-    </div>
-</a>
-{% endfor %} -->
-<!-- endbuild -->

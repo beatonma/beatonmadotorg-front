@@ -13,6 +13,10 @@ $header_second_row_height: 36px;
     transition: background-color 220ms;
 }
 
+.header-item svg {
+    fill: var(--header-text-color);
+}
+
 .header-item:hover {
     background-color: var(--hover);
 }

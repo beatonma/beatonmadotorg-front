@@ -6,16 +6,6 @@ style="{% if article.preview_image %}background-image:url('{{ article.preview_im
 {% endblock %}
 {% block content %}
 <h3 class="card-title">{{ article.title }}</h3>
-<div class="card-description spacer">{{ article.preview_text }}</div>
-<div class="card-timestamp secondary"><time datetime="{{article.updated|date}}">{{ article.updated|date }}</time></div>
+<div>{{ article.preview_text }}</div>
+<div class="secondary"><time datetime="{{article.updated|date}}">{{ article.updated|date }}</time></div>
 {% endblock %}
-<!-- build:remove -->
-<!-- <a class="flex-row preview-h" href="{{ article.get_absolute_url }}">
-    <div class="preview-h-image {{ article.preview_image_css }}" style="{% if article.preview_image %}background-image:url('{{ article.preview_image.url }}');{% endif %}background-color:{{ article.primary_color }};"></div>
-    <div class="content preview">
-        <h3 class="card-title">{{ article.title }}</h3>
-        <div class="card-description spacer">{{ article.preview_text }}</div>
-        <div class="card-timestamp secondary"><time datetime="{{article.updated|date}}">{{ article.updated|date }}</time></div>
-    </div>
-</a> -->
-<!-- endbuild -->

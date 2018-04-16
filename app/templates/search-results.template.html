@@ -17,8 +17,8 @@
 {% if articles %}
 <section id="articles">
     <h1>Articles</h1>
-    <div class="card wrap">
-        <div class="card-content flex-row">
+    <div class="card">
+        <div class="card-content flex-row grid">
             {% include 'article/article-list.fragment.html' %}
         </div>
     </div>
@@ -28,8 +28,8 @@
 {% if apps %}
 <section id="apps">
     <h1>Apps</h1>
-    <div class="card wrap">
-        <div class="card-content flex-row">
+    <div class="card">
+        <div class="card-content flex-row grid">
             {% include 'app/app-list.template.html' %}
         </div>
     </div>

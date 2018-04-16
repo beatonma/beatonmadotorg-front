@@ -1,6 +1,5 @@
 // Vertical layout
 .preview {
-    // max-width: 480px;
     max-width: $preview-width;
 }
 
@@ -14,19 +13,32 @@
 
 // Horizontal layout
 .preview-h {
-    margin-right: $smallgap;
-    margin-bottom: $smallgap;
-    // max-width: $preview-width;
+    margin-right: $gap;
+    margin-bottom: $gap;
+    min-width: 394px;
+    max-width: 472px;
+    // width: 472px;
+    // max-width: 90%;
+    align-items: start;
 }
 
 .preview-h-image {
     max-width: 200px;
     max-height: 200px;
-    min-width: 100px;
-    min-height: 100px;
-    // border-radius: $corner-radius;
+    min-width: 60px;
+    min-height: 60px;
     overflow: hidden;
     background-position: center;
     background-repeat: no-repeat;
     margin-right: 12px;
+}
+
+@media screen and (min-width: 480px) {
+    .preview-h {
+        align-items: center;
+    }
+    .preview-h-image {
+        min-width: 100px;
+        min-height: 100px;
+    }
 }

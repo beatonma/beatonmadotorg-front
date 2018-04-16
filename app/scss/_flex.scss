@@ -49,16 +49,21 @@
     justify-content: flex-end;
 }
 
-.nowrap {
-    flex-wrap: nowrap;
-}
-
 .baseline {
     align-items: baseline;
 }
 
-@media only screen and (min-width:747px) {
+@media screen and (min-width:747px) {
     .flex-row {
         justify-content: flex-start;
     }
+}
+
+.grid {
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+.nowrap {
+    flex-wrap: nowrap;
 }

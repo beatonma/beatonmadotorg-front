@@ -90,6 +90,7 @@ $card_title_size_large: 1.8em;
 .card-container {
     // display: flex;
     // justify-content: center;
+    align-items: stretch !important;
 }
 
 @media screen and (min-width: $preview-width) {   
