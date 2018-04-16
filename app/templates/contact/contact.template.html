@@ -1,0 +1,48 @@
+{% extends 'base.template.html' %}
+{% load static %}
+
+{% block title %}beatonma.org - Search{% endblock %}
+
+{% block content %}
+<div class="card-container">
+    <div class="card">
+        <div class="card-content">
+            <h2>Contact me</h2>
+            <form id="contact_form" name="contact_form" method="post" action="/contact/send">
+                {% csrf_token %}
+                <div class="p">
+                    <label>What should I call you?</label>
+                    <div><input type="text" name="name" autofocus required placeholder="Your name" /></div>
+                </div>
+                <div class="p">
+                    <label>How can I contact you?</label>
+                    <div><input type="text" name="contact_method" required placeholder="Email address, IM service &amp; username, whatever."/></div>
+                </div>
+                <div class="p">
+                    <label>What would you like to say?</label>
+                    <div><textarea type="text" name="message" required placeholder="Your message"></textarea></div>
+                </div>
+                <div class="flex-row-end">
+                    <button>Send</button>
+                </div>
+            </form>
+            <div id="failure_message" class="warn hidden">
+                Something went wrong - please try again.
+            </div>
+        </div>
+    </div>
+    <div id="success_message" class="card hidden">
+        <div class="card-content">
+            <p>Thank you</p>
+            <p>
+                Your message has been sent and I will get back to you
+                as soon as possible!
+            </p>
+        </div>
+    </div>
+</div>
+
+<!--build:js js/contact.min.js async class="onPageChange" -->
+<script class="onPageChange" src="../../js/contact/sendmail.js"></script>
+<!-- endbuild -->
+{% endblock %}
