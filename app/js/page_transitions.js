@@ -1,3 +1,4 @@
+const transitions = (() => {
 const itemAnimationDuration = 200;
 const itemAnimationDelay = 60;
 const enterInterpolator = 'ease';
@@ -151,22 +152,32 @@ function animateCardsOut(parent) {
     let delay = 0;
     let container = parent.querySelector('.card-container');
 
-    container.querySelectorAll('.card').forEach((el) => {
-        elementOut(el, delay);
+    try {
+        container.querySelectorAll('.card').forEach((el) => {
+            elementOut(el, delay);
 
-        delay += itemAnimationDelay;
-    });
+            delay += itemAnimationDelay;
+        });
+    }
+    catch(e) {
+
+    }
 }
 
 function animateCardsIn(parent) {
     let delay = 0;
     let container = parent.querySelector('.card-container');
     
-    container.querySelectorAll('.card').forEach((el) => {
-        elementIn(el, delay);
+    try {
+        container.querySelectorAll('.card').forEach((el) => {
+            elementIn(el, delay);
 
-        delay += itemAnimationDelay;
-    });
+            delay += itemAnimationDelay;
+        });
+    }
+    catch(e) {
+
+    }
 }
 
 function elementIn(element, delay) {
@@ -176,7 +187,7 @@ function elementIn(element, delay) {
                 {opacity: 0}
             ], {
         delay: 0,
-        duration: delay
+        duration: delay || 0
     });
 
     element.animate(
@@ -184,7 +195,7 @@ function elementIn(element, delay) {
                 {opacity: 0},
                 {opacity: 1}
             ], {
-        delay: delay,
+        delay: delay || 0,
         duration: itemAnimationDuration,
         easing: enterInterpolator
     });
@@ -194,7 +205,7 @@ function elementIn(element, delay) {
                 {transform: 'translateY(50px)'},
                 {transform: 'translateY(0px)'}
             ], {
-        delay: delay,
+        delay: delay || 0,
         duration: itemAnimationDuration,
         easing: enterInterpolator
     });
@@ -206,7 +217,7 @@ function elementOut(element, delay) {
                 {opacity: 1},
                 {opacity: 0}
             ], {
-        delay: delay,
+        delay: delay || 0,
         duration: itemAnimationDuration,
         easing: exitInterpolator
     });
@@ -216,8 +227,18 @@ function elementOut(element, delay) {
                 {transform: 'translateY(0px)'},
                 {transform: 'translateY(50px)'}
             ], {
-        delay: delay,
+        delay: delay || 0,
         duration: itemAnimationDuration,
         easing: exitInterpolator
     });
 }
+
+initPageTransitions();
+
+return {
+    'in': elementIn,
+    'out': elementIn,
+    'changePage': changePage,
+}
+
+})(window);
