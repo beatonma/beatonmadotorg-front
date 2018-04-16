@@ -11,24 +11,50 @@
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
 }
 
 // Always center
 .flex-row-center {
-    @extend .flex-row;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
 }
 
 // Always flex-start
 .flex-row-start {
-    @extend .flex-row;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
     justify-content: flex-start;
 }
 
 // Always flex-end
 .flex-row-end {
-    @extend .flex-row;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
     justify-content: flex-end;
+}
+
+.flex-start {
+    justify-content: flex-start;
+}
+
+.flex-end {
+    justify-content: flex-end;
+}
+
+.nowrap {
+    flex-wrap: nowrap;
+}
+
+.baseline {
+    align-items: baseline;
 }
 
 @media only screen and (min-width:747px) {

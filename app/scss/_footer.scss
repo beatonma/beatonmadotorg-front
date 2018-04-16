@@ -1,27 +1,41 @@
-footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+.footer {
+    // display: flex;
+    // flex-direction: row;
+    // justify-content: center;
     padding: 8px 16px 48px;
     color: var(--text-primary);
-    justify-content: center;
 }
 
 a.foot-link {
     padding: 4px 8px;
-    line-height: 48px;
+    // line-height: 48px;
     color: var(--text-tertiary);
 }
 
 .foot-icon {
-    background-size: contain !important;
-    height: 36px;
-    fill: none;
+    @extend .icon;
+    // background-size: contain !important;
+    width: $icon-large;
+    height: $icon-large;
+    min-width: $icon-large;
+    max-width: $icon-large;
+    padding: 8px;
+    fill: transparent;
+    // fill: none;
     stroke: var(--text-tertiary);
     stroke-width: 2px;
-    transition: stroke 200ms;
+    transition: stroke 200ms, fill 200ms;
+    overflow: visible;
+}
+
+.foot-icon svg {
+    width: $icon-large;
+    height: $icon-large;
+    min-width: $icon-large;
+    max-width: $icon-large;
 }
 
 .foot-icon:hover {
     stroke: var(--text-secondary);
+    fill: var(--text-primary-invert);
 }

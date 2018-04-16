@@ -2,22 +2,22 @@
     width: 100% !important;
 }
 
-.aspect-1to1 {
+.aspect-1-1 {
     @extend .aspect-ratio;
     padding-bottom: 100% !important;
     height: 0 !important;
 }
-.aspect-2to1 {
+.aspect-2-1 {
     @extend .aspect-ratio;
     padding-bottom: 50% !important;
     height: auto !important;
 }
-.aspect-4to3 {
+.aspect-4-3 {
     @extend .aspect-ratio;
     padding-bottom: 75% !important;
     height: auto !important;
 }
-.aspect-16to9 {
+.aspect-16-9 {
     @extend .aspect-ratio;
     padding-bottom: 56.25% !important;
     height: auto !important;

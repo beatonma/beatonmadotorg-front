@@ -1,0 +1,25 @@
+.icon {
+    width: $icon-small;
+    height: $icon-small;
+    min-width: $icon-small;
+    max-width: $icon-small;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 300ms;
+}
+
+.icon:hover {
+    background-color: var(--hover);
+}
+
+.icon svg {
+    width: $icon-small;
+    height: $icon-small;
+    min-width: $icon-small;
+    max-width: $icon-small;
+}
+
+.fill {
+    stoke-width: 0;
+    fill: var(--text-secondary);
+}

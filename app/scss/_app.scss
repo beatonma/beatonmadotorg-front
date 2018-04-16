@@ -1,0 +1,35 @@
+.app-icon {
+    min-width: 100px;
+    max-width: 200px;
+    max-height: 200px;
+    min-height: 100px;
+    width: 15vh;
+    height: 15vh;
+    overflow: hidden;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 12px;
+    border-right: solid 4px var(--item-primary);
+}
+
+.app-title {
+    margin-bottom: 0;
+}
+
+.app-tagline {
+    @extend .tagline;
+    margin-bottom: .5em;
+}
+
+.app-links {
+
+}
+
+.app-tags {
+
+}
+
+.app-project {
+
+}

@@ -1,0 +1,78 @@
+button {
+    font-family: $font-content;
+}
+
+textarea {
+    font-family: $font-content;
+    font-size: 1em;
+    resize: vertical;
+}
+
+input {
+    font-family: $font-content;
+    font-size: 1em;
+    padding: 4px;
+}
+
+input:focus {
+    outline: none;
+}
+input:active {
+    outline: none;
+}
+
+input[type='text'] {
+    font-weight: 800;
+    background: none;
+    margin: 0;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--card-separator);
+}
+
+input[type='text']:after {
+    background-color: var(--accent);
+    content: '';
+    height: 2px;
+    max-width: 200px;
+    // visibility: hidden;
+    transition: width 300ms;
+}
+
+.collapsing-wrapper {
+
+}
+
+.input-wrapper {
+    max-width: 0;
+    // width: 0;
+    // visibility: hidden;
+    // height: 2px;
+    // width: 0;
+    overflow-x: hidden;
+    opacity: 0;
+    // transform: scale(0);
+    // transform-origin: left center;
+    transition: all 300ms;
+}
+
+.collapsing-wrapper:focus-within .input-wrapper {
+    max-width: 300px;
+    opacity: 1;
+    // transform: scale(1);
+}
+
+// input[type='text']:after:focus {
+//     max-width: 100%;
+//     width: 100%;
+//     visibility: visible;
+// }
+
+// @keyframes input-underline {
+//     0% {
+//         border-bottom: none;
+//     }
+//     1% {
+
+//     }
+// }

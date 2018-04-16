@@ -1,0 +1,22 @@
+// Variables that may appear in multiple stylesheets
+
+$title-font: 'Oswald', sans-serif;
+$content-font: 'Open Sans', sans-serif;
+$font-title: $title-font;  // Alias
+$font-content: $content-font;  // Alias
+$font: $content-font;
+$font-size: 16px;
+
+$icon-small: 24px;
+$icon-large: 36px;
+
+$gap: 8px;         // Space between groups of things
+$smallgap: 6px;     // Space between items in a group
+
+// $debug_alpha: 0.4;
+// $main_content_max_width: 1030px;
+
+$transition_duration: 300ms;
+
+$corner-radius: 6px;
+$preview-width: 320px;

@@ -14,14 +14,18 @@
     --text-secondary-invert: var(--text-dark-secondary);
     --text-tertiary-invert: var(--text-dark-tertiary);
     
-    --primary-color: #ff4081;
-    --primary-color-hightlight: #F50057;
+    // --primary-color: #ff4081;
+    // --primary-color-hightlight: #F50057;
+    --primary-color: #070707;
+    --item-primary: var(--primary-color);
     
     --accent-color: #ff4081;
     --accent-color-highlight: #F50057;
     --accent: var(--accent-color);
+    --item-accent: var(--accent-color);
     
     --selected: #aaaaaa;
+    --hover: rgba(255,255,255, .08);
     
     --backsheet: #111111;
     --tabletop: #070707;

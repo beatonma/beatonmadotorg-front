@@ -1,0 +1,32 @@
+// Vertical layout
+.preview {
+    // max-width: 480px;
+    max-width: $preview-width;
+}
+
+.preview-content {
+    padding: 6px 12px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    transition: padding 300ms;
+}
+
+// Horizontal layout
+.preview-h {
+    margin-right: $smallgap;
+    margin-bottom: $smallgap;
+    // max-width: $preview-width;
+}
+
+.preview-h-image {
+    max-width: 200px;
+    max-height: 200px;
+    min-width: 100px;
+    min-height: 100px;
+    // border-radius: $corner-radius;
+    overflow: hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 12px;
+}

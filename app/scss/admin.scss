@@ -1,0 +1,39 @@
+.admin-indented {
+    padding: 12px;
+    width: auto;
+    max-width: 800px;
+    margin: 4px 0;
+}
+
+.html-preview {
+    @extend .admin-indented;
+    border: solid 1px var(--text-tertiary);
+    border-radius: 6px;
+    margin: 16px 0;
+}
+.html-preview:before {
+    content: 'Render preview:';
+    color: var(--accent);
+    font-variant: all-small-caps;
+    font-weight: 600;
+}
+
+.html-preview p {
+    margin-left: 0 !important;
+}
+
+textarea {
+    min-width: 300px;
+    resize: both;
+}
+
+@media screen and (min-width: 768px) {
+    .admin-indented {
+        margin-left: 210px;
+    }
+
+    textarea {
+        min-width: 600px;
+        resize: both;
+    }
+}

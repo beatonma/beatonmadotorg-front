@@ -2,7 +2,6 @@ $max_card_width: 1200px;
 $max_preview_width: 480px;
 $card_title_size: 1.3em;
 $card_title_size_large: 1.8em;
-$corner-radius: 6px;
 
 .card {
     max-width: $max_card_width;
@@ -22,20 +21,28 @@ $corner-radius: 6px;
         0 1px 10px 0 rgba(0, 0, 0, 0.12),
         0 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
+// .card.wrap {
+//     width: inherit;
+// }
+// 
 .card.wrap {
-    width: inherit;
+    width: 100%;
 }
+
 .card-title {
-    font-size: $card_title_size;
-    font-family: 'Oswald', sans-serif;
+    // font-size: $card_title_size;
+    // font-family: $title-font;
+    margin: 0;
+    text-align: left;
+    color: var(--text-primary);
 }
-.card-title-padded {
-    font-size: $card_title_size;
-    padding-bottom: 16px;
-}
-.card-title-large {
-    font-size: $card_title_size_large;
-}
+// .card-title-padded {
+//     font-size: $card_title_size;
+//     padding-bottom: 16px;
+// }
+// .card-title-large {
+//     font-size: $card_title_size_large;
+// }
 .card-title-area {
     padding: 12px 16px;
 }
@@ -46,15 +53,20 @@ $corner-radius: 6px;
     padding: 12px 16px;
     background: var(--card-header-color);
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
-        0 3px 1px -2px rgba(0, 0, 0, .2),
-        0 1px 5px 0 rgba(0, 0, 0, .12);
+        0 3px 1px -1px rgba(0, 0, 0, .2);
+        // 0 2px 3px 0 rgba(0, 0, 0, .12);
 }
-    
+
+.card-description {
+    margin: 0 0 16px;
+    // font-size: .9em;
+}
+
 .card-content {
-    padding:6px 12px;
+    padding: 8px 12px;
     display: flex;
     flex-direction: column;
-    flex-grow: 2;
+    flex-grow: 1;
     transition: padding 300ms;
 }
 
@@ -64,85 +76,56 @@ $corner-radius: 6px;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
+    overflow: hidden;
+    transition: height 300ms;
 }
 
 .card-timestamp {
     text-align: right;
-    font-size: 0.8em;
-    margin-bottom: 0;
-    line-height: 1.4;
-    color: var(--text-secondary);
 }
 
 // A container for one or more card. The container is usually invisible
+// Flex should be applied using classes from _flex.scss, but we need to
+// keep this class as a selector for card animations
 .card-container {
-    display: flex;
-    justify-content: center;
+    // display: flex;
+    // justify-content: center;
 }
 
-.preview {
-    max-width: 480px !important;
-}
-
-.card.preview {
-    font-size: 1.2em;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Open Sans', sans-serif;
-}
-
-@media screen and (min-width: 480px) {   
-    .card {
-        margin: 8px 8px 16px 8px;
+@media screen and (min-width: $preview-width) {   
+    .card.preview {
         border-radius: $corner-radius;
     }
-    .card-content:not(.preview) {
-        padding: 12px 16px;
-    }
-    
-//    .card-content .fullbleed {
-//        margin-left: -16px;
-//        margin-right: -16px;
-//        margin-top: inherit;
-//    }
-    .preview {
-        max-width: 320px !important;
-    }
 }
 
-@media screen and (min-width:800px) {
-    .card-content:not(.preview) {
-        padding: 12px 24px;
+@media screen and (min-width: 480px) {
+    .flex-row .card {
+        margin: 0 8px 16px;
+        border-radius: $corner-radius;
     }
-//    .card-content .fullbleed {
-//        margin-left: -24px;
-//        margin-right: -24px;
-//        margin-top: inherit;
-//    }
+    .card {
+        border-radius: $corner-radius;
+    }
+    .card-image {
+        border-top-left-radius: $corner-radius;
+        border-top-right-radius: $corner-radius;
+    }
+    .card-content {
+        padding: 16px 16px 24px;
+    }
+    .card.wrap {
+        width: max-content;
+    }
 }
 
 @media screen and (min-width:1120px) {
-//    .card:not(.preview) {
-//        padding:24px 72px;
-//    }
     .card-image {
         height: 280px;
-        background-size: cover;
-        background-position: top center;
-        background-repeat: no-repeat;
     }
-//    .fullbleed {
-//        margin:-24px -72px;
-//    }
-    .card-content:not(.preview) {
-        padding: 24px 72px;
-    }
-//    .card-content .fullbleed {
-//        margin-left: -96px;
-//        margin-right: -96px;
-//        margin-top: inherit;
-//    }
     .card-title-area-raised {
         padding: 12px 72px;
+    }
+    .card-content {
+        padding: 24px 24px 36px;
     }
 }

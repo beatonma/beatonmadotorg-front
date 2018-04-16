@@ -1,4 +1,4 @@
-$related_app_icon_size: 50px;
+$related_app_icon_size: 3em;
 
 .related-section {
     padding: 16px 4px 16px 0;
@@ -7,7 +7,7 @@ $related_app_icon_size: 50px;
 
 .related-section-title {
     font-size: 0.85em;
-    color: var(--accent-color);
+    color: var(--text-primary);
     padding-bottom: 4px;
 }
 
@@ -20,9 +20,13 @@ $related_app_icon_size: 50px;
 
 .related-app-icon {
     background-size: contain;
-    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    // border-radius: 50%;
     width: $related_app_icon_size;
     height: $related_app_icon_size;
+    margin-right: 12px;
+    border-right: solid 4px var(--item-primary);
 }
 
 .related-app-text {
@@ -37,7 +41,6 @@ $related_app_icon_size: 50px;
 .related-app-type {
     font-size: 0.85em;
     color: var(--text-secondary);
-//    line-height: $related_app_icon_size / 2;
 }
 
 .app-type-icon {
