@@ -45,6 +45,7 @@ function initPageTransitions() {
             }
             
             if (el.pathname == window.location.pathname && el.hash != '') {
+                // Handle links to element #id
                 e.preventDefault();
                 history.pushState(null, null, el.href);
                 scrollToId(el.hash);
@@ -75,27 +76,27 @@ function changePage(use_url) {
     
     document.getElementById('beatonma_loading').classList.add('loading');
 
-    loadPage(url).then((responseText) => {
-        let wrapper = document.createElement('div');
-        wrapper.innerHTML = responseText;
-        
-        document.title = wrapper.querySelector('title').textContent;
+    loadPage(url)
+        .then((responseText) => {
+            const wrapper = document.createElement('div');
+            wrapper.innerHTML = responseText;
+            
+            document.title = wrapper.querySelector('title').textContent;
+            const newLocalStyle = wrapper.querySelector('#local_style').innerHTML;
+            document.getElementById('local_style').innerHTML = newLocalStyle;
 
-        let oldContent = document.getElementById('content');
-        let newContent = wrapper.querySelector('#content');
+            const oldContent = document.getElementById('content');
+            const newContent = wrapper.querySelector('#content');
 
-        try {
             animatePageChange(oldContent, newContent);
-        }
-        catch (exception) {
-            // If something went wrong with the animation then just open the page the normal way
-            console.log("Page transition animation error - opening normally.")
+        })
+        .catch((err) => {
+            console.error(err);
             window.location.href = url;
-        }
-    });
+        });
 }
 
-function animatePageChange(oldContent, newContent) {
+function animatePageChange(oldContent, newContent, callback) {
     let container = document.getElementById('content_wrapper');
     let fadeOut = oldContent.animate(
             [
@@ -139,6 +140,10 @@ function animatePageChange(oldContent, newContent) {
                 catch (err) {};
             }
         });
+
+        if (callback) {
+            callback();
+        }
     };
 }
 
@@ -216,27 +221,3 @@ function elementOut(element, delay) {
         easing: exitInterpolator
     });
 }
-
-
-
-
-// function replaceBannerImage(path) {
-//     if (path === "") {
-//         path = 'images/play_banner.png';
-//     }
-//     console.log("loading banner: " + path);
-//     let banner = document.querySelector('#banner_image');
-
-//     let fadeout = banner.animate([
-//         {opacity: 1},
-//         {opacity: 0}
-//     ], itemAnimationDuration);
-
-//     fadeout.onfinish = function () {
-//         $(banner).css('background', "url('" + path + "') center / cover");
-//         banner.animate([
-//             {opacity: 0},
-//             {opacity: 1}
-//         ], itemAnimationDuration);
-//     };
-// }
