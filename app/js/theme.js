@@ -12,7 +12,7 @@ function setDayNightAutoTheme(forceAuto) {
     }
     else if (cookieExists('theme')) {
         let t = getCookie('theme');
-        console.log('Setting theme from cookie: ' + t);
+        // console.log('Setting theme from cookie: ' + t);
         setTheme(t, true);
         return;
     }
@@ -31,7 +31,7 @@ function setDayNightAutoTheme(forceAuto) {
 }
 
 function setTheme(newtheme, args) {
-    console.log('theme:' + newtheme);
+    // console.log('theme:' + newtheme);
     let stylesheet = document.getElementById('theme');
     if (newtheme == 'day') {
         stylesheet.setAttribute('href', '/static/css/colors-day.min.css');
