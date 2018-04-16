@@ -18,15 +18,15 @@
         <meta name="msapplication-config" content="{% static 'images/favicon/browserconfig.xml' %}">
         
         <link rel="pgpkey" type="application/pgp-keys" title="Michael Beaton's PGP Public Key" href="https://beatonma.org/key"/>
-        <link rel="webmention" href="https://beatonma.org/webmention/" />
+        <link rel="webmention" href="/webmention/" />
         
         <title>{% block title %}{% endblock %}</title>
-         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
 
         <!--build:css css/base.min.css-->
         <link rel="stylesheet" href="../css/base.css"/>
         <!--endbuild-->
-        <link id="theme" rel="stylesheet" href=""/>
+        <link id="theme" rel="stylesheet" href="{% static 'css/colors-day.min.css' %}"/>
+        <style id="local_style">{% if local_style %}{% include 'fragments/local-style.fragment.html' %}{% endif %}</style>
         
         <!--build:js js/app.min.js async -->
         <script src="../js/util.js"></script>
@@ -41,42 +41,19 @@
     </head>
     <body>
         <div id="beatonma_loading" class="progressbar"></div>
-        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-            <div id="beatonma_header" class="mdl-layout__header mdl-layout__header--waterfall">
-                <div class="header-row-primary">
-                    <a href="/"><div class="title header-item">beatonma.org</div></a>
-                    <div class="spacer"></div>
-                    <form action="/search" method="get" id="searchform">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable search-container" style="padding:0;">
-                            <label class="mdl-button mdl-js-button mdl-button--icon icon header-item" style="top:inherit;bottom:auto;position:inherit;padding:8px;" for="search">
-                                @@include('./svg/search.svg', {"class": "search", "id": ""});
-                            </label>
-                            <div id="search-wrapper" class="mdl-textfield__expandable-holder" style="margin:0px;">
-                                <input class="mdl-textfield__input" type="text" id="search" name="query" placeholder="Search beatonma.org">
-                                <label class="mdl-textfield__label" for="search"></label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="header-row-secondary">
-                    <div id="theme_icon" class="icon header-item" onclick="toggleTheme()"></div>
-                    <div class="spacer"></div>
-                    <a class="header-item" href="/about/">About</a>
-                    <a class="header-item noanim" href="/contact/">Contact</a>
-                    <a class="header-item" href="/donate/">Donate</a>
-                    {% if user.is_superuser %}<a class=" header-item noanim" href="/admin/">Admin</a>{% endif %}
+        <header id="beatonma_header">
+            {% include 'fragments/header.fragment.html' %}
+        </header>
+        <main>
+            <div class="container flex-col" id="content_wrapper">
+                <div id="content">
+                    {% block content %}{% endblock %}
                 </div>
             </div>
-            <main class="mdl-layout__content">
-                <div class="container flex-col" id="content_wrapper">
-                    <div id="content">
-                        {% block content %}{% endblock %}
-                    </div>
-                </div>
-                <footer id="beatonma_footer" class="footer">
-                    {% include 'fragments/footer.fragment.html' %}
-                </footer>
-            </main>
-        </div>
+            <footer id="beatonma_footer">
+                {% include 'fragments/footer.fragment.html' %}
+                <div id="theme_icon" class="icon header-item" onclick="theme.toggle()"></div>
+            </footer>
+        </main>
     </body>
 </html>

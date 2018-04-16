@@ -1,0 +1,20 @@
+<div class="header-row-primary">
+<a href="/"><div class="title header-item">beatonma.org</div></a>
+<div class="spacer"></div>
+<form action="/search" method="get" id="searchform">
+    <div class="search-container flex-row collapsing-wrapper">
+        <label class="header-item icon" for="search" tabindex="0">
+            @@include('../svg/search.svg', {"class": "search", "id": ""})
+        </label>
+        <div class="input-wrapper">
+            <input type="text" id="search" name="query" placeholder="Search beatonma.org">
+        </div>
+    </div>
+</form>
+</div>
+<div class="header-row-secondary">
+    <a class="header-item" href="/about/">About</a>
+    <a class="header-item noanim" href="/contact/">Contact</a>
+    <a class="header-item" href="/donate/">Donate</a>
+    {% if user.is_superuser %}<a class=" header-item noanim" href="/admin/">Admin</a>{% endif %}
+</div>

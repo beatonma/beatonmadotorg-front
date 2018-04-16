@@ -1,0 +1,8 @@
+<a class="card preview" href="{{ article.get_absolute_url }}">
+    <div class="card-image {{ article.preview_image_css }}" style="{% if article.preview_image %}background-image:url('{{ article.preview_image.url }}');{% endif %}background-color:{{ article.primary_color }};"></div>
+    <div class="preview-content preview">
+        <h3 class="card-title">{{ article.title }}</h3>
+        <div class="card-description spacer">{{ article.preview_text }}</div>
+        <div class="card-timestamp secondary"><time datetime="{{ article.updated|date }}">{{ article.updated|date }}</time></div>
+    </div>
+</a>

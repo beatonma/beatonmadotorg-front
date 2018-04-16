@@ -1,0 +1,14 @@
+{% extends 'base.template.html' %}
+
+{% block title %}beatonma.org{% endblock %}
+
+{% block content %}
+<section>
+    <h1>Apps</h1>
+    <div class="card wrap">
+        <div class="card-content flex-row-start">
+            {% include 'app/app-list.fragment.html' %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,7 +1,7 @@
 <!-- build:remove -->
 <!-- h-card info is embedded in the footer for every page -->
 <!-- endbuild -->
-<div class="h-card">
+<div class="h-card flex-row-center footer">
     <a rel="me" href="https://beatonma.org" class="u-url foot-link">
         <div class="tooltip">
             @@include('../svg/home.svg', {"class": "foot-icon", "id": "footer_icon_home"})
@@ -48,12 +48,13 @@
     <!-- build:remove -->
     <!-- Additonal stuff for the h-card that we don't actually want to show on the page -->
     <!-- endbuild -->
-    <div class="hidden">
+    <div class="nodisplay">
         <span class="p-name">Michael Beaton</span>
         <span class="p-region">Scotland</span>
         <span class="p-country-name">UK</span>
         <div class="dt-bday">1987-05-16</div>
-        <img class="u-logo u-photo" src="https://beatonma.org/static/projects/images/mb.png"/>
+        <img class="u-logo u-photo" src="https://beatonma.org/static/images/mb.png"/>
+        <!-- build:remove -->
         <div class="u-key">
             -----BEGIN PGP PUBLIC KEY BLOCK-----
             Version: GnuPG v2
@@ -86,6 +87,7 @@
             =oJG3
             -----END PGP PUBLIC KEY BLOCK-----
         </div>
+        <!-- endbuild -->
         <a rel="me" href="https://www.last.fm/user/schadenfreude87">My listening habits since 2005</a>
         <a rel="me" href="https://userstyles.org/users/365999">Custom CSS style overrides</a>
         <a rel="me" href="http://eu.battle.net/sc2/en/profile/2784180/1/fallofmath/">StarCraft II</a>

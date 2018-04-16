@@ -4,21 +4,14 @@
 
 {% block content %}
 {% if featured %}
-<div class="featured">
+<section class="featured">
     <h1>Featured</h1>
-    {% include 'fragments/post-grid.fragment.html' with posts=featured %}
-</div>
-<br/>
+    {% include 'article/article-grid.fragment.html' with articles=featured %}
+</section>
 {% endif %}
 
-<div class="recent">
+<section class="recent">
     <h1>Recent</h1>
-    {% include 'fragments/post-grid.fragment.html' with posts=posts %}
-</div>
-<br/>
-
-<script class="onPageChange" type="text/javascript">
-    setAccent('', '');
-    setDayNightAutoTheme();
-</script>
+    {% include 'article/article-grid.fragment.html' with articles=recent %}
+</section>
 {% endblock %}

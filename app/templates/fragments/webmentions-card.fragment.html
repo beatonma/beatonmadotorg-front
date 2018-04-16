@@ -1,6 +1,8 @@
 {% if mentions %}
-<div id="webmentions_title" class="related-section-title">Webmentions</div>
-<div for="webmentions_title" class="mdl-tooltip">These people mentioned this article on their website. Click a picture to see what they had to say!</div>
+<div class="tooltip">
+    <div id="webmentions_title" class="related-section-title">Webmentions</div>
+    <div class="tooltip-popup">These people mentioned this article on their website. Click a picture to see what they had to say!</div>
+</div>
 <div class="external-webmentions">
     {% for m in mentions %}
     <div class="external-webmention">

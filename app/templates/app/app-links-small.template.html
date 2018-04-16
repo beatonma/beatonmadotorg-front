@@ -1,0 +1,10 @@
+{% if app_links %}
+<div class="flex-row-start">
+    {% for link in app_links %}
+    <div class="tooltip">
+        <a href="{{ link.url }}"><div class="download-icon {{ link.host.name }} {{ article.foreground_color }} secondary">{{ link.host.icon_svg|safe }}</div></a>
+        <div class="tooltip-popup">{{ link.host.tooltip }}</div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
