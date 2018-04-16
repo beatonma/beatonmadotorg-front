@@ -1,4 +1,5 @@
-let theme = 'day'; // values: 'day', 'night'
+const theme = (() => {
+let themeName = 'day'; // values: 'day', 'night'
 let accentColor = '';
 let accentTextColor = ''
 let accentApplied = false;
@@ -20,48 +21,38 @@ function setDayNightAutoTheme(forceAuto) {
     
     let h = new Date().getHours();
     if (h > 8 && h < 20) {
-        theme = 'day';
-        setTheme(theme);
+        themeName = 'day';
+        setTheme(themeName);
     }
     else {
-        theme = 'night';
-        setTheme(theme);
+        themeName = 'night';
+        setTheme(themeName);
     }
 }
 
-// byUser -> indicates this action was explicitely started by user input, not an automatic event
 function setTheme(newtheme, args) {
     console.log('theme:' + newtheme);
     let stylesheet = document.getElementById('theme');
     if (newtheme == 'day') {
-        stylesheet.setAttribute('href', '/static/projects/css/colors-day.css');
+        stylesheet.setAttribute('href', '/static/css/colors-day.min.css');
         document.querySelector('meta[name=theme-color]').setAttribute('content', 'var(--header-background-color)');
-        document.getElementById('beatonma_header').style = 'background: var(--header-background-color);';
-        // if (arguments.length > 1) {
-        //     document.getElementById('theme_icon').innerHTML = '<i class="material-icons">brightness_7</i>';
-        // }
-        theme = newtheme;
+        themeName = newtheme;
     }
     else if (newtheme == 'night') {
-        stylesheet.setAttribute('href', '/static/projects/css/colors-night.css');
+        stylesheet.setAttribute('href', '/static/css/colors-night.min.css');
         document.querySelector('meta[name=theme-color]').setAttribute('content', 'var(--header-background-color)');
-        document.getElementById('beatonma_header').style = 'background: var(--header-background-color);';
-        // if (arguments.length > 1) {
-        //     document.getElementById('theme_icon').innerHTML = '<i class="material-icons">brightness_2</i>';
-        // }
-        theme = newtheme;
+        themeName = newtheme;
     }
     else if (newtheme == '') {
-        if (theme == '') {
+        if (themeName == '') {
             // This should never happen, but better include it just in case to avoid apocalypse
-            theme = 'day';
+            themeName = 'day';
         }
-        setTheme(theme);
+        setTheme(themeName);
     }
     else {
-        if (theme == 'day' && newtheme != '') {
+        if (themeName == 'day' && newtheme != '') {
             document.querySelector('meta[name=theme-color]').setAttribute('content', newtheme);
-            document.getElementById('beatonma_header').style = 'background: ' + newtheme;
             if (arguments.length > 1) {
                 document.querySelectorAll('.header-item').forEach((el) => {
                     el.style = 'color: ' + args;
@@ -72,16 +63,16 @@ function setTheme(newtheme, args) {
 }
 
 function toggleTheme() {
-    if (theme == 'day') {
-        theme = 'night';
+    if (themeName == 'day') {
+        themeName = 'night';
     }
     else {
-        theme = 'day';
+        themeName = 'day';
     }
     
-    setCookie('theme', theme, 24 * 60 * 60 * 1000 * 30); // Remember this theme selection for 30 days
+    setCookie('theme', themeName, 24 * 60 * 60 * 1000 * 30); // Remember this theme selection for 30 days
     
-    setTheme(theme, true);
+    setTheme(themeName, true);
 }
 
 function setAccent(color, textColor) {
@@ -91,7 +82,7 @@ function setAccent(color, textColor) {
 }
 
 function applyAccent() {
-    if (theme != 'day') {
+    if (themeName != 'day') {
         return;
     }
     if (accentColor == '' || accentTextColor == '') {
@@ -114,3 +105,9 @@ function removeAccent() {
 }
 
 setDayNightAutoTheme();
+
+return {
+    setAuto: setDayNightAutoTheme,
+    toggle: toggleTheme,
+}
+})();
