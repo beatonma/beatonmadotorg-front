@@ -17,9 +17,12 @@ const replace = require('gulp-replace');
 const rename = require('gulp-rename');
 const shell = require('gulp-shell');
 const iife = require('gulp-iife');
-// const include = require('gulp-include-template');
 const include = require('gulp-file-include');
 const gzip = require('gulp-gzip');
+const inline64 = require('gulp-inline-base64');
+
+// const DEV_BASE_PATH = 'C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\';
+const DEV_BASE_PATH = 'C:\\Users\\beato\\Desktop\\beatonma.org - refactored\\';
 
 gulp.task('default', ['watch:dev']);
 gulp.task('watch', ['sass'], function() {
@@ -27,6 +30,7 @@ gulp.task('watch', ['sass'], function() {
 });
 
 gulp.task('watch:dev', ['django:dev'], () => {
+    console.log('Using dev directory \'' + DEV_BASE_PATH + '\'');
     gulp.watch('app/**/*.scss', ['django:dev']);
     gulp.watch('app/**/*.js', ['django:dev']);
     gulp.watch('app/**/*.html', ['django:dev']);
@@ -35,11 +39,14 @@ gulp.task('watch:dev', ['django:dev'], () => {
 // Convert sass/scss to standard css
 gulp.task('sass', function() {
     return gulp.src('app/scss/**/*.scss')
-        .pipe(sass())
-        .pipe(gulp.dest('app/css'))
-        .pipe(browserSync.reload({
-          stream: true
-        }));
+        .pipe(sass().on('error', logError))
+        .pipe(inline64({
+            maxSize: 15 * 1024,
+            debug: true,
+            baseDir: 'app/',
+        }).on('error', logError))
+        .pipe(autoprefixer().on('error', logError))
+        .pipe(gulp.dest('app/css'));
 });
 
 // Show live updates in browser
@@ -66,8 +73,8 @@ gulp.task('django:build:staticpaths', function() {
 gulp.task('django:build:minify', function() {
     return gulp.src('app/**/*.*.html')
         .pipe(useref())
-        .pipe(gulpIf('*.js', minifyjs()))
-        .pipe(gulpIf('*.css', cssnano()))
+        // .pipe(gulpIf('*.js', minifyjs()))
+        // .pipe(gulpIf('*.css', cssnano()))
 //        .pipe(injectsvg())
         .pipe(replace(/[ ]{2,}/g, ''))
         .pipe(replace(/(\r\n){2,}/g, '\r\n'))
@@ -81,24 +88,32 @@ gulp.task('django:build:images', function() {
 //        .pipe(cache(imagemin({
 //             interlaced: true,
 //        })))
-        .pipe(gulp.dest('django/static/projects/images'));
+        .pipe(gulp.dest('django/static/main/images'));
 })
 
 gulp.task('django:build:css', function() {
     return gulp.src('app/css/**/*.css')
         .pipe(cssnano())
-        .pipe(gulp.dest('django/static/projects/css'));
+        .pipe(rename((path) => {
+            path.extname = '.min.css';
+        }))
+        .pipe(gulp.dest('django/static/main/css'));
+});
+
+gulp.task('django:build:fonts', () => {
+    return gulp.src('app/fonts/**/*.woff2')
+        .pipe(gulp.dest('django/static/main/fonts'));
 });
 
 // Move resources generated in build:django:minify
 // to where they should be
 gulp.task('django:build:gathercss', function() {
     return gulp.src('django/css/**/*.min.css')
-        .pipe(gulp.dest('django/static/projects/css'));
+        .pipe(gulp.dest('django/static/main/css'));
 });
 gulp.task('django:build:gatherjs', function() {
     return gulp.src('django/js/**/*.min.js')
-        .pipe(gulp.dest('django/static/projects/js'));
+        .pipe(gulp.dest('django/static/main/js'));
 });
 
 gulp.task('django:build:flatpages', function() {
@@ -134,7 +149,8 @@ gulp.task('django:build', function(callback) {
         [
             'django:build:staticpaths',     // Inject full path to static assets
             'django:build:images',          // Copy images
-            'django:build:css'              // Copy css
+            'django:build:css',             // Copy css
+            'django:build:fonts',           // Copy fonts
         ],
         [
             'django:build:gathercss',       // Copy minified css
@@ -182,7 +198,8 @@ gulp.task('django:dev:build', (callback) => {
         [
             'django:build:staticpaths',     // Inject full path to static assets
             // 'django:build:images',          // Copy images
-            'django:build:css'              // Copy css
+            'django:build:css',             // Copy css
+            'django:build:fonts',           // Copy fonts
         ],
         [
             'django:build:gathercss',       // Copy minified css
@@ -219,26 +236,26 @@ gulp.task('django:dev:clean', function() {
         'dryRun': false,
         'force': true
     };
-    del.sync('C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\projects\\templates', options);
-    del.sync('C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\projects\\static', options);
+    del.sync(DEV_BASE_PATH + 'main/templates', options);
+    del.sync(DEV_BASE_PATH + 'main/static', options);
 });
 
 // Push constructed files to dev server
 gulp.task('django:dev:publish', function(callback) {
     return gulp.src('django/**')
-        .pipe(gulp.dest('C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\projects'));
+        .pipe(gulp.dest(DEV_BASE_PATH + 'main/'));
 });
 
 gulp.task('django:dev:publish:static', () => {
     return gulp.src('django/static/**/*')
-        .pipe(gulp.dest('C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\static\\'));
+        .pipe(gulp.dest(DEV_BASE_PATH + 'static/'));
 });
 
 // Update django static files on the dev server
-gulp.task('django:dev:refreshstatic',
-    shell.task(
-        ['python3 manage.py collectstatic --noinput'],
-        {cwd: 'C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\'}));
+// gulp.task('django:dev:refreshstatic',
+//     shell.task(
+//         ['python3 manage.py collectstatic --noinput'],
+//         {cwd: DEV_BASE_PATH}));
 
 // Build files and copy to dev server location
 gulp.task('django:dev', function(callback) {
