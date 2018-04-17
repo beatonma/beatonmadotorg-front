@@ -4,10 +4,12 @@
         - ~~need to test getScript()~~
     - ~~theme.js~~
     - ~~util.js~~
-- enable iife()
+- ~~enable iife()~~
 - ~~remove material icons dependency~~
 - remove mdl library dependencies
     - ~~tooltips~~
-    - collapsing header
+    - ~~collapsing header~~ Not using
     - inputs
-    - search
+    - ~~search~~
+
+- ~~update accent/local styles on page load~~
