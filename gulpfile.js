@@ -24,6 +24,12 @@ const inline64 = require('gulp-inline-base64');
 // const DEV_BASE_PATH = 'C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\';
 const DEV_BASE_PATH = 'C:\\Users\\beato\\Desktop\\beatonma.org - refactored\\';
 
+const FLATPAGE_TEMPLATES = [
+    'base.template.html',
+    'empty.template.html',
+    'null.template.html',
+]
+
 gulp.task('default', ['watch:dev']);
 gulp.task('watch', ['sass'], function() {
     gulp.watch('app/scss/**/*.scss', ['sass']);
@@ -67,7 +73,6 @@ gulp.task('django:build:staticpaths', function() {
     return gulp.src('django/**/*.template.html') 
         .pipe(replace(/(css\/\w*\.min\.css)|(js\/\w*\.min\.js)/g, "{% static '$&' %}"))
         .pipe(gulp.dest('django/'))
-    
 });
 
 gulp.task('django:build:minify', function() {
