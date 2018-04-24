@@ -1,4 +1,4 @@
-input, textarea {
+input[type='text'], textarea {
     resize: both;
     font-family: $font-content;
     font-size: .9rem;
@@ -10,38 +10,19 @@ input, textarea {
     max-width: 100%;
     background: transparent;
     outline: none;
-    // border-radius: $corner-radius;
     border: none;
     border-bottom: 1px solid var(--card-separator);
     transition: border 300ms;
 }
 
-// input[type='text'] {
-//     color: var(--text-primary);
-//     background: none;
-//     margin: 0;
-//     border: none;
-//     outline: none;
-//     border-bottom: 1px solid var(--card-separator);
-// }
-
-input:focus, textarea:focus {
+input[type='text']:focus, textarea:focus {
     border-bottom: solid 2px var(--item-accent);
     outline: none;
 }
-input:active, textarea:active {
+input[type='text']:active, textarea:active {
     border-bottom: solid 2px var(--item-accent);
     outline: none;
 }
-
-// input[type='text']:after {
-//     background-color: var(--accent);
-//     content: '';
-//     height: 2px;
-//     max-width: 200px;
-//     // visibility: hidden;
-//     transition: width 300ms;
-// }
 
 button {
     font-family: $font-title;

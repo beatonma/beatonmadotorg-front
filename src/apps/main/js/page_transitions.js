@@ -37,7 +37,10 @@ function initPageTransitions() {
         }
         if (el) {
             // If target is on a different domain then handle it the normal way
-            if (!el.href.includes('beatonma.org') && !el.href.includes('beatonma.com') && !el.href.includes('localhost')) {
+            if (!el.href.includes('beatonma.org')
+                    && !el.href.includes('beatonma.com')
+                    && !el.href.includes('localhost')
+                    && !el.href.includes('192.168.1.')) {
                 return;
             }
             // Links annotated with 'noanim' class should be treated as external (no content transition animations)

@@ -1,3 +1,12 @@
+::-webkit-scrollbar {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+body {
+    overflow: scroll !important;
+}
+
 .admin-indented {
     padding: 12px;
     width: auto;
@@ -22,9 +31,14 @@
     margin-left: 0 !important;
 }
 
+input[type='text'] {
+    resize: both !important;
+    border: solid 1px var(--text-tertiary);
+}
 textarea {
     min-width: 300px;
-    resize: both;
+    resize: both !important;
+    border: solid 1px var(--text-tertiary);
 }
 
 @media screen and (min-width: 768px) {
@@ -34,6 +48,5 @@ textarea {
 
     textarea {
         min-width: 600px;
-        resize: both;
     }
 }
