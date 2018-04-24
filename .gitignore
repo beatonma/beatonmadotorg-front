@@ -45,5 +45,5 @@ node_modules/
 django/
 preview/
 preview_data.json
-app/css/
+*.css
 gulpfile.js.bak
