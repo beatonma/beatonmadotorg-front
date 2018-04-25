@@ -43,3 +43,9 @@ function scrollToId(id) {
     const el = document.getElementById(id.replace('#', ''));
     el.scrollIntoView();
 }
+
+function removeChildren(el) {
+    while (el.firstChild) {
+        el.removeChild(el.firstChild);
+    }
+}
