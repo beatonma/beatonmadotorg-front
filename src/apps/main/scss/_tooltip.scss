@@ -1,6 +1,7 @@
 .tooltip {
     position: relative;
     display: inline-block;
+    width: fit-content;
 }
 
 .tooltip-popup {
@@ -10,7 +11,7 @@
     // background: var(--text-primary);
     background: var(--accent);
     padding: 8px;
-    border-radius: 2px;
+    border-radius: $corner-radius;
     transition: all 200ms;
     position: absolute;
     z-index: 1;
