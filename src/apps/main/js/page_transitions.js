@@ -240,7 +240,7 @@ initPageTransitions();
 
 return {
     'in': elementIn,
-    'out': elementIn,
+    'out': elementOut,
     'changePage': changePage,
 }
 
