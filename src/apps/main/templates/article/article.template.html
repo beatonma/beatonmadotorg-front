@@ -59,6 +59,7 @@
         </div>
     </div>
     {% endif %}
+    <div id="mentions"></div>
 </div>
 
 <!-- build:remove -->
@@ -67,8 +68,9 @@
      main article image -->
 <!-- endbuild -->
 {% if article.preview_image %}<img class="webfeedsFeaturedVisual hidden" src="{{ article.preview_image.url }}"/>{% endif %}
-<!-- <script class="onPageChange" type="text/javascript">
-    setAccent('{{ article.accent }}', '{{ article.text_color }}');
-    loadWebmentions('{{ article.slug }}');
-</script> -->
+
+{% include 'webmention/webmention.template.html' %}
+<script class="onPageChange">
+    mentions.get();
+</script>
 {% endblock %}

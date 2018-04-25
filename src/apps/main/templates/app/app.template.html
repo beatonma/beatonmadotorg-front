@@ -29,20 +29,13 @@
     </div>
     {% endif %}
 
-    <!-- build:remove -->
-    <!--
-    TODO
-    Add quotes/links to reviews and suchlike
-    Implement webmention endpoint
-    -->
-    <div id="related_content" class="card wrap">
-        <div class="card-content">
-            <div class="flex-col">
-                <div id="related_articles"></div>
-                <div id="webmentions_container" class="related-section"></div>
-            </div>
-        </div>
+    <div class="card-container flex-row-start">
+        <div id="mentions"></div>
     </div>
-    <!-- endbuild -->
+
 </div>
+{% include 'webmention/webmention.template.html' %}
+<script class="onPageChange">
+    mentions.get();
+</script>
 {% endblock %}

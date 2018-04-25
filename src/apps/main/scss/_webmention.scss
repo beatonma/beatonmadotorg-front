@@ -1,24 +1,86 @@
-$avatar_size: 30px;
+$avatar_default: 48px;
+$avatar_large: 72px;
 
-.external-webmentions {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    padding-bottom: 24px;
+.mention-mini {
+    margin: $smallgap $smallgap $smallgap 0;
 }
 
-.external-webmention {
-    width: $avatar_size;
-    height: $avatar_size;
-    padding-right: 4px;
-    padding-bottom: 4px;
+.mention-quoted {
+    margin: 0 0 16px;
 }
 
-.webmention-avatar {
-    width: $avatar_size;
-    height: $avatar_size;
-    border-radius: 50%;
+.avatar {
+    border-radius: 2 * $corner-radius;
     background-size: contain;
     background-position: center center;
+}
+
+.mention-avatar {
+    @extend .avatar;
+    min-width: $avatar_default;
+    min-height: $avatar_default;
+    width: $avatar_default;
+    height: $avatar_default;
+}
+
+.mention-quoted .mention-avatar {
+    min-width: $avatar_large;
+    min-height: $avatar_large;
+    width: $avatar_large;
+    height: $avatar_large;
+    margin-right: 12px;
+}
+
+.hcard-avatar {
+    @extend .avatar;
+    min-width: $avatar_large;
+    min-height: $avatar_large;
+    width: $avatar_large;
+    height: $avatar_large;
+    margin: auto;
+}
+
+// Small, mention with link and popup hcard, no quote
+.hcard-popup {
+
+}
+
+.hcard-content {
+    margin-top: $smallgap;
+    letter-spacing: .05rem;
+    font-size: .9rem;
+}
+
+.hcard-name {
+
+}
+
+.hcard-homepage {
+
+}
+
+
+// Full size, quoted mention
+.mention-content {
+
+}
+
+.mention-quote {
+    color: var(--text-secondary);
+    letter-spacing: .05rem;
+    font-weight: 600;
+}
+
+.mention-byline {
+    margin-top: 4px;
+}
+
+.mention-name {
+    font-size: .9rem;
+    letter-spacing: .05rem;
+    margin-left: $gap;
+}
+
+.mention-homepage {
+    font-size: .9rem;
 }
