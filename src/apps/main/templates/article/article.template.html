@@ -70,7 +70,4 @@
 {% if article.preview_image %}<img class="webfeedsFeaturedVisual hidden" src="{{ article.preview_image.url }}"/>{% endif %}
 
 {% include 'webmention/webmention.template.html' %}
-<script class="onPageChange">
-    mentions.get();
-</script>
 {% endblock %}
