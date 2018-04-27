@@ -23,6 +23,9 @@
     --accent-color-highlight: #F50057;
     --accent: var(--accent-color);
     --item-accent: var(--accent-color);
+
+    --item-foreground: var(--text-dark-primary);
+    --item-accent-foreground: var(--text-light-primary);
     
     --selected: #aaaaaa;
     --hover: rgba(255,255,255, .08);
@@ -58,6 +61,6 @@
     
     --card-header-color: var(--primary_color);
 
-    --appname: var(--accent-color-highlight);
+    --appname: var(--item-accent);
     --warn: #f44336;
 }

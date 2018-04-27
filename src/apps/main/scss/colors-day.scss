@@ -16,13 +16,16 @@
     
     // --primary-color: #ff4081;
     // --primary-color-hightlight: #F50057;
-    --primary-color: #eeeeee;
+    --primary-color: var(--text-primary);
     --item-primary: var(--primary-color);
     
     --accent-color: #ff4081;
     --accent-color-highlight: #F50057;
     --accent: var(--accent-color);
     --item-accent: var(--accent-color);
+
+    --item-foreground: var(--text-light-primary);
+    --item-accent-foreground: var(--text-light-primary);
     
     --selected: #eeeeee;
     --hover: rgba(0, 0, 0, .08);
@@ -58,6 +61,6 @@
     
     --card-header-color: var(--primary_color);
 
-    --appname: var(--accent-color-highlight);
+    --appname: var(--item-accent);
     --warn: #f44336;
 }
