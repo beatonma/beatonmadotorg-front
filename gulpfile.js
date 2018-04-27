@@ -25,8 +25,8 @@ const flatmap = require('gulp-flatmap');
 const PUBLIC_SERVER = '192.168.1.115';
 const TEST_SERVER = '192.168.1.119';
 
-// const DEV_BASE_PATH = 'C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\';
-const DEV_BASE_PATH = 'C:\\Users\\beato\\Desktop\\beatonma.org - refactored\\';
+const DEV_BASE_PATH = 'C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\';
+// const DEV_BASE_PATH = 'C:\\Users\\beato\\Desktop\\beatonma.org - refactored\\';
 const SRC_PATH = 'src/';
 const DIST_PATH = 'dist/';
 const TEMP_PATH = DIST_PATH + 'temp/';
@@ -44,10 +44,17 @@ const APP_NAMES = [
 ];
 const DEFAULT_APP_NAME = APP_NAMES[0];
 
+
 gulp.task('default', ['watch']);
+gulp.task('dev', ['watch']);
+gulp.task('test', ['django:publish:test']);
+gulp.task('public', ['django:publish:public']);
+
+
 gulp.task('watch', ['sass'], () => {
     gulp.watch(SRC_PATH + '**/*.scss', ['sass']);
 });
+
 
 gulp.task('watch', ['django:dev'], () => {
     console.log('Using dev directory \'' + DEV_BASE_PATH + '\'');
@@ -55,6 +62,7 @@ gulp.task('watch', ['django:dev'], () => {
     gulp.watch(SRC_PATH + '**/*.js', ['django:dev']);
     gulp.watch(SRC_PATH + '**/*.html', ['django:dev']);
 });
+
 
 // Convert sass/scss to standard css
 gulp.task('sass', () => {
@@ -209,6 +217,7 @@ gulp.task('django:dev', ['django:build'], (callback) => {
         .pipe(gulp.dest(DEV_BASE_PATH));
 });
 
+
 gulp.task('django:publish:test', ['django:build'], (callback) => {
     return gulp.src(DIST_PATH + '**')
         .pipe(rsync({
@@ -224,8 +233,20 @@ gulp.task('django:publish:test', ['django:build'], (callback) => {
         }));
 });
 
+
 gulp.task('django:publish:public', ['django:build'], (callback) => {
-    // TODO
+    return gulp.src(DIST_PATH + '**')
+        .pipe(rsync({
+            options: {
+                chmod: 'Du=rwx,Dgo=rx,Fu=rw,Fgo=r'
+            },
+            username: 'pi',
+            hostname: PUBLIC_SERVER,
+            destination: "path",
+            recursive: true,
+            root: DIST_PATH,
+            progress: true
+        }));
 });
 
 
