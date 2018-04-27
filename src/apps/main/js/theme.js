@@ -35,12 +35,12 @@ function setTheme(newtheme, args) {
     let stylesheet = document.getElementById('theme');
     if (newtheme == 'day') {
         stylesheet.setAttribute('href', '/static/css/colors-day.min.css');
-        document.querySelector('meta[name=theme-color]').setAttribute('content', 'var(--header-background-color)');
+        // document.querySelector('meta[name=theme-color]').setAttribute('content', 'var(--header-background-color)');
         themeName = newtheme;
     }
     else if (newtheme == 'night') {
         stylesheet.setAttribute('href', '/static/css/colors-night.min.css');
-        document.querySelector('meta[name=theme-color]').setAttribute('content', 'var(--header-background-color)');
+        // document.querySelector('meta[name=theme-color]').setAttribute('content', 'var(--header-background-color)');
         themeName = newtheme;
     }
     else if (newtheme == '') {
