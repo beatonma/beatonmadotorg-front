@@ -7,9 +7,11 @@
 .tooltip-popup {
     font-size: .9rem;
     opacity: 0;
-    color: var(--text-primary-invert);
+    // color: var(--text-primary-invert);
+    color: var(--item-accent-foreground);
     // background: var(--text-primary);
-    background: var(--accent);
+    // background: var(--accent);
+    background: var(--item-accent);
     padding: 8px;
     border-radius: $corner-radius;
     transition: all 200ms;
