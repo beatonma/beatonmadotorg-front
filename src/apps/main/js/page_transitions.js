@@ -145,6 +145,10 @@ function animatePageChange(oldContent, newContent, callback) {
             }
         });
 
+        if (newContent.querySelector('#mentions')) {
+            mentions.get();
+        }
+
         if (callback) {
             callback();
         }
