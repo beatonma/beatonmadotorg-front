@@ -4,6 +4,7 @@
 {% block image_attrs %}
 style="border-color:{{ app.accent_color }};{% if app.icon %}background-image:url('{{ app.icon.url }}');{% endif %}"
 {% endblock %}
+{% block label %}Link to app '{{ app.title }}'{% endblock %}
 {% block content %}
 <div class="related-app-name">{{ app.title }}</div>
 <div class="tooltip">
