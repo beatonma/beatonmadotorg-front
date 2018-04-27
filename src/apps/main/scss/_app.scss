@@ -13,6 +13,22 @@
     border-right: solid 4px var(--item-primary);
 }
 
+.app-icon svg {
+    min-width: 100px;
+    max-width: 200px;
+    max-height: 200px;
+    min-height: 100px;
+    width: 15vh;
+    height: 15vh;
+    overflow: hidden;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 12px;
+    fill: var(--item-primary);
+    // border-right: solid 4px var(--item-primary);
+}
+
 .app-title {
     margin-bottom: 0;
 }
