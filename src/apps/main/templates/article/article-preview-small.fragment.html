@@ -4,6 +4,7 @@
 {% block image_attrs %}
 style="{% if article.preview_image %}background-image:url('{{ article.preview_image.url }}');{% endif %}background-color:{{ article.primary_color }};"
 {% endblock %}
+{% block label %}Link to article '{{ article.title }}'{% endblock %}
 {% block content %}
 <h3 class="card-title">{{ article.title }}</h3>
 <div>{{ article.preview_text }}</div>
