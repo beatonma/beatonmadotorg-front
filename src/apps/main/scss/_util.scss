@@ -17,6 +17,14 @@
     margin-right: $smallgap;
 }
 
+.vgroup {
+    margin-bottom: $gap;
+}
+
+.vgroup * {
+    margin-bottom: 2px;
+}
+
 .hidden {
     visibility: hidden;
     max-height: 0;
