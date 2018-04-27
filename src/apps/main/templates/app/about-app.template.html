@@ -1,5 +1,5 @@
 <div class="flex-row-start nowrap">
-    <div class="app-icon" {% if app.icon %}style="background-image:url('{{ app.icon.url }}');"{% endif %}></div>
+    <div class="app-icon"  aria-label="Icon for app '{{ app.title }}'" alt="Icon for app '{{ app.title }}'" {% if app.icon %}style="background-image:url('{{ app.icon.url }}');">{% else %}>{{ app.app_type.icon_svg|safe }}{% endif %}</div>
     <div class="content">
         <div class="flex-row-start group baseline">
             <h2 class="app-title">{{ app.title }}</h2>
