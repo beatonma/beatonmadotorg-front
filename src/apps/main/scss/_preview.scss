@@ -1,6 +1,6 @@
 // Vertical layout
 .preview {
-    max-width: $preview-width;
+    
 }
 
 .preview-content {
@@ -15,7 +15,7 @@
 .preview-h {
     margin-right: $gap;
     margin-bottom: $gap;
-    min-width: 394px;
+    // min-width: 394px;
     max-width: 472px;
     // width: 472px;
     // max-width: 90%;
@@ -34,7 +34,14 @@
 }
 
 @media screen and (min-width: 480px) {
+    .preview {
+        max-width: $preview-width;
+    }
     .preview-h {
+        margin-right: $gap;
+        margin-bottom: $gap;
+        min-width: 394px;
+        max-width: 472px;
         align-items: center;
     }
     .preview-h-image {
