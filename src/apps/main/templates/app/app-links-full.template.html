@@ -1,10 +1,10 @@
 {% if app_links_by_type %}
-<div class="flex-row-start">
+<div class="vgroup">
     {% if app_links_by_type.instances %}
     <div class="flex-row-start group baseline">
         <label>Live instance:</label>
         {% for link in app_links_by_type.instances %}
-        <div class="download instance"><a href="{{ link.url }}">{{ link.host.name }}</a></div>{% if not forloop.last %},{% endif %}
+        <div class="download instance"><a class="chip" href="{{ link.url }}">{{ link.host.name }}</a></div>{% if not forloop.last %}{% endif %}
         {% endfor %}
     </div>
     {% endif %}
@@ -13,7 +13,7 @@
     <div class="flex-row-start group baseline">
         <label>Install:</label>
         {% for link in app_links_by_type.installs %}
-        <div class="download install"><a href="{{ link.url }}">{{ link.host.name }}</a></div>{% if not forloop.last %},{% endif %}
+        <div class="download install"><a class="chip" href="{{ link.url }}">{{ link.host.name }}</a></div>{% if not forloop.last %}{% endif %}
         {% endfor %}
     </div>
     {% endif %}
@@ -22,7 +22,7 @@
     <div class="flex-row-start group baseline">
         <label>Source:</label>
         {% for link in app_links_by_type.sources %}
-        <div class="download source"><a href="{{ link.url }}">{{ link.host.name }}</a></div>{% if not forloop.last %},{% endif %}
+        <div class="download source"><a class="chip" href="{{ link.url }}">{{ link.host.name }}</a></div>{% if not forloop.last %}{% endif %}
         {% endfor %}
     </div>
     {% endif %}
