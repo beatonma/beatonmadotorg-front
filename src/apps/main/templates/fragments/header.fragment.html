@@ -2,12 +2,12 @@
 <a href="/"><div class="title header-item">beatonma.org</div></a>
 <div class="spacer"></div>
 <form action="/search" method="get" id="searchform">
-    <div class="search-container flex-row collapsing-wrapper">
+    <div class="search-container flex-row collapsing-wrapper nowrap">
         <label id="search_icon" class="header-item icon" for="search" tabindex="0">
             @@include('../svg/search.svg', {"class": "search", "id": ""})
         </label>
         <div class="input-wrapper">
-            <input type="text" id="search" name="query" placeholder="Search beatonma.org">
+            <input type="text" id="search" name="query" placeholder="Search beatonma.org" aria-label="Search">
         </div>
     </div>
 </form>
