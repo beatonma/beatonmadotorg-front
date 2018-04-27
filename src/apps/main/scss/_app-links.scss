@@ -9,8 +9,8 @@ $download-icon-size: 24px;
     min-width: $download-icon-size;
     height: $download-icon-size;
     width: $download-icon-size;
-    margin-right: $smallgap;
     stroke-width: 0;
+    margin: 2px $smallgap 2px 0;
 }
 
 .light.download-icon {
