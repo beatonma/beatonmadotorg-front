@@ -29,6 +29,10 @@ $related_app_icon_size: 3rem;
     border-right: solid 4px var(--item-primary);
 }
 
+.related-app-icon svg {
+    fill: var(--item-primary);
+}
+
 .related-app-text {
     padding-left: 8px;
 }
