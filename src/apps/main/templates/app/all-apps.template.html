@@ -1,14 +1,22 @@
 {% extends 'base.template.html' %}
 
-{% block title %}beatonma.org{% endblock %}
+{% block title %}Apps - beatonma.org{% endblock %}
 
 {% block content %}
 <section>
     <h1>Apps</h1>
-    <div class="card wrap">
-        <div class="card-content flex-row-start">
-            {% include 'app/app-list.fragment.html' %}
+
+    {% regroup apps by app_type as grouped_apps %}
+
+    {% for group in grouped_apps %}
+    <div class="card">
+        <div class="card-content">
+            <h3>{{ group.grouper }}</h3>
+            <div class="flex-row-start">
+                {% include 'app/app-list.template.html' with app_list=group.list %}
+            </div>
         </div>
     </div>
+    {% endfor %}
 </section>
 {% endblock %}
