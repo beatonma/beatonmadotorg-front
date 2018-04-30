@@ -1,5 +1,9 @@
 {% extends 'search-results.template.html' %}
 
+{% block html_head %}
+<meta name="description" content="Items tagged with #{{ tag }}">
+{% endblock %}
+
 {% block result_text %}
 {% if not apps and not articles %}
     No items found for #{{ tag }}

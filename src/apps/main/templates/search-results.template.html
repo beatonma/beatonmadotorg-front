@@ -1,6 +1,10 @@
 {% extends 'base.template.html' %}
 
-{% block title %}beatonma.org - Search{% endblock %}
+{% block title %}Search results - beatonma.org{% endblock %}
+
+{% block html_head %}
+<meta name="description" content="beatonma.org search results for query '{{ query }}'">
+{% endblock %}
 
 {% block content %}
 
