@@ -14,4 +14,9 @@
     <h1>Recent</h1>
     {% include 'article/article-grid.fragment.html' with articles=recent %}
 </section>
+
+<section class="apps">
+    <h1>Apps</h1>
+    {% include 'app/app-list.template.html' with app_list=apps %}
+</section>
 {% endblock %}
