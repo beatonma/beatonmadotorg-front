@@ -22,7 +22,7 @@ const gzip = require('gulp-gzip');
 const inline64 = require('gulp-inline-base64');
 const flatmap = require('gulp-flatmap');
 
-const PUBLIC_SERVER = '192.168.1.115';
+const PUBLIC_SERVER = '192.168.1.117';
 const TEST_SERVER = '192.168.1.119';
 
 const DEV_BASE_PATH = 'C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\';
