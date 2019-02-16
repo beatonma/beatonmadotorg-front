@@ -12,8 +12,8 @@
    viewBox="0 0 48 47.9"
    id="svg2"
    version="1.1"
-   sodipodi:docname="chrome-min2.svg"
-   inkscape:version="0.92.1 r15371">
+   sodipodi:docname="ic_chrome.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -28,8 +28,8 @@
      id="namedview5405"
      showgrid="false"
      inkscape:zoom="13.9"
-     inkscape:cx="27.8"
-     inkscape:cy="19.2"
+     inkscape:cx="30.188811"
+     inkscape:cy="17.894976"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -66,141 +66,27 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <clipPath
-     id="clips">
-    <circle
-       id="circle6232"
-       r="20"
-       cx="24"
-       cy="24" />
-  </clipPath>
-  <mask
-     id="masks">
-    <circle
-       id="circle4508"
-       r="9"
-       cx="24"
-       cy="24"
-       style="fill:#000000" />
-    <rect
-       id="rect6246"
-       width="40"
-       height="40"
-       x="4"
-       y="4"
-       fill="#ffffff" />
-  </mask>
   <path
-     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 15.9,28.1 L -0.636,-0.279"
-     id="path6242"
-     inkscape:connector-curvature="0"
-     clip-path="url(#clips)"
-     mask="url(#masks)" />
-  <path
-     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 32,28.2 L 20.2,49"
-     id="path6244"
-     inkscape:connector-curvature="0"
-     clip-path="url(#clips)"
-     mask="url(#masks)" />
-  <circle
+     style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 44,24 C 44.492459,36.969868 30.322756,47.394304 18.089596,43.10673 5.5617617,39.741885 -0.23192508,23.130761 7.4932877,12.707151 14.410268,1.7288944 31.990314,1.106333 39.666538,11.567801 42.458004,15.066995 44.011136,19.524406 44,24 Z"
      id="circle4512"
-     r="20"
-     cx="24"
-     cy="24"
-     style="fill:none;stroke:#000000;stroke-opacity:1;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none" />
-  <circle
-     id="circle4511"
-     r="9"
-     cx="24"
-     cy="24"
-     style="fill:none;stroke:#000000;stroke-opacity:1" />
-  <g
-     inkscape:groupmode="layer"
-     id="layer1"
-     inkscape:label="guide"
-     style="display:none"
-     sodipodi:insensitive="true">
-    <g
-       transform="matrix(0.227,0,0,0.227,2.21,2.13)"
-       clip-path="url(#b)"
-       id="red">
-      <path
-         style="fill:#db4437"
-         inkscape:connector-curvature="0"
-         d="M 22,8 V 116 H 61.4 L 96,56 H 184 V 8 Z"
-         id="path5956" />
-      <path
-         style="fill:url(#linearGradient6159)"
-         inkscape:connector-curvature="0"
-         d="M 22,8 V 116 H 61.4 L 96,56 H 184 V 8 Z"
-         id="path5963" />
-    </g>
-    <g
-       transform="matrix(0.227,0,0,0.227,2.21,2.13)"
-       clip-path="url(#b)"
-       id="green">
-      <path
-         style="fill:#0f9d58"
-         inkscape:connector-curvature="0"
-         d="M 8,184 H 91.8 L 131,145 V 116 H 61.4 L 8,24.5 Z"
-         id="path5969" />
-      <linearGradient
-         id="d"
-         y2="130"
-         gradientUnits="userSpaceOnUse"
-         y1="164"
-         x2="52.5"
-         x1="111">
-        <stop
-           stop-color="#055524"
-           stop-opacity=".4"
-           offset="0"
-           id="stop5971" />
-        <stop
-           stop-color="#055524"
-           stop-opacity="0"
-           offset=".33"
-           id="stop5973" />
-      </linearGradient>
-      <path
-         style="fill:url(#linearGradient6161)"
-         inkscape:connector-curvature="0"
-         d="M 8,184 H 91.8 L 131,145 V 116 H 61.4 L 8,24.5 Z"
-         id="path5976" />
-    </g>
-    <g
-       transform="matrix(0.227,0,0,0.227,2.21,2.13)"
-       clip-path="url(#b)"
-       id="yellow">
-      <path
-         style="fill:#ffcd40"
-         inkscape:connector-curvature="0"
-         d="M 96,56 L 131,116 L 91.8,184 H 184 V 56 Z"
-         id="path6001" />
-      <path
-         style="fill:url(#linearGradient6165)"
-         inkscape:connector-curvature="0"
-         d="M 96,56 L 131,116 L 91.8,184 H 184 V 56 Z"
-         id="path6003" />
-    </g>
-  </g>
+     inkscape:connector-curvature="0" />
   <path
-     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="M 24,15 H 55.4"
+     style="fill:none;stroke:#000000;stroke-opacity:1"
+     d="m 33,24 c 0.221607,5.836441 -6.15476,10.527437 -11.659682,8.598028 -5.637525,-1.51418 -8.244684,-8.989186 -4.768339,-13.67981 C 19.684621,13.978002 27.595641,13.69785 31.049942,18.40551 32.306102,19.980148 33.005011,21.985983 33,24 Z"
+     id="circle4511"
+     inkscape:connector-curvature="0" />
+  <path
      id="path4518"
-     inkscape:connector-curvature="0"
-     clip-path="url(#clips)"
-     mask="url(#masks)" />
-  <circle
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 24,15 c 5.958273,0 11.916547,0 17.87482,0 M 32,28.2 c -2.988057,5.267083 -5.976113,10.534165 -8.96417,15.801248 M 15.9,28.1 C 12.992098,23.109473 10.084196,18.118946 7.1762935,13.128419" />
+  <path
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+     d="m 31,24 c 0.172361,4.539454 -4.787035,8.188006 -9.068641,6.687355 C 17.546617,29.50966 15.518826,23.695766 18.222651,20.047503 20.643594,16.205113 26.79661,15.987217 29.483288,19.64873 30.460301,20.873448 31.003898,22.433542 31,24 Z"
      id="circle4521"
-     r="7"
-     cx="24"
-     cy="24"
-     style="stroke:#000000;stroke-opacity:1;fill:none;fill-opacity:1" />
+     inkscape:connector-curvature="0" />
 </svg>
