@@ -30,6 +30,7 @@
 @import 'background';  // background-image size and alignment
 @import 'util';
 @import 'item';     // apply per-page color scheme, defined in style#local_style tag
+@import 'tile';
 
 .title {
     font-size: 2rem;

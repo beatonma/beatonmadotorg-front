@@ -1,0 +1,36 @@
+.tile {
+    margin-right: 12px;
+}
+
+.tile-icon {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    // border-radius: 50%;
+    width: $related_app_icon_size;
+    height: $related_app_icon_size;
+    // margin-right: 12px;
+}
+
+.tile-icon svg {
+    min-width: $related_app_icon_size;
+    max-width: $related_app_icon_size;
+    max-height: $related_app_icon_size;
+    min-height: $related_app_icon_size;
+    width: $related_app_icon_size;
+    height: $related_app_icon_size;
+    overflow: hidden;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 12px;
+    fill: var(--item-primary);
+}
+
+.tile-overlay {
+
+}
+
+.tile-text {
+
+}
