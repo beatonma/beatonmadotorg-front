@@ -1,0 +1,10 @@
+{% extends '../fragments/preview-tile.fragment.html' %}
+{% block href %}{{ app.get_absolute_url }}{% endblock %}
+{% block image_class %}{% endblock %}
+{% block image_attrs %}
+style="{% if app.icon %}background-image:url('{{ app.icon.url }}');{% endif %}"
+{% endblock %}
+{% block image_content %}{% if not app.icon %}{{ app.app_type.icon_svg|safe }}{% endif %}{% endblock %}
+{% block label %}Link to app '{{ app.title }}'{% endblock %}
+{% block tooltip %}{{ app.title }} ({{ app.app_type.tooltip }}){% endblock %}
+{% block content %}{% endblock %}
