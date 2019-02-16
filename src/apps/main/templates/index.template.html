@@ -15,8 +15,10 @@
     {% include 'article/article-grid.fragment.html' with articles=recent %}
 </section>
 
+{% if apps %}
 <section class="apps">
-    <h1>Apps</h1>
-    {% include 'app/app-list.template.html' with app_list=apps %}
+    <h3>Apps</h3>
+    {% include 'app/app-grid.template.html' with app_list=apps %}
 </section>
+{% endif %}
 {% endblock %}
