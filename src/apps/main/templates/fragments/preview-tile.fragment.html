@@ -1,0 +1,7 @@
+<a class="tile tooltip" href="{% block href %}{% endblock %}" aria-label="{% block label %}{% endblock %}">
+    <div class="tooltip-popup">{% block tooltip %}{% endblock %}</div>
+    <div class="tile-icon {% block image_class %}{% endblock %}" {% block image_attrs %}{% endblock %}>{% block image_content %}{% endblock %}</div>
+    <div class="tile-text-container">
+        <div class="tile-text">{% block content %}{% endblock %}</div>
+    </div>
+</a>
