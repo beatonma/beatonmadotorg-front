@@ -26,10 +26,12 @@
         <link id="theme" rel="stylesheet" href=""/>
         <style id="local_style">{% if local_style %}{% include 'fragments/local-style.fragment.html' %}{% endif %}</style>
         
-        <!--build:js apps/main/static/main/js/app.min.js defer -->
+        <!--build:js apps/main/static/main/js/app.min.js defer id="bmascript"-->
         <script src="../js/util.js"></script>
+        <script src="../js/const.js"></script>
         <script src="../js/events.js"></script>
         <script src="../../mentions/js/get-mentions.js"></script>
+        <script src="../js/image-viewer.js"></script>
         <script src="../js/page_transitions.js"></script>
         <script src="../js/theme.js"></script>
         <!-- <script src="../js/related-content.js"></script> -->
