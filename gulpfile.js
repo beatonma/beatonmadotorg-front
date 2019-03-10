@@ -25,8 +25,7 @@ const flatmap = require('gulp-flatmap');
 const PUBLIC_SERVER = '192.168.1.117';
 const TEST_SERVER = '192.168.1.119';
 
-const DEV_BASE_PATH = 'C:\\Users\\beato\\Documents\\dev\\django-dev\\beatonma.org\\';
-// const DEV_BASE_PATH = 'C:\\Users\\beato\\Desktop\\beatonma.org - refactored\\';
+const DEV_BASE_PATH = 'D:\\local\\home\\dev\\django-dev\\beatonma.org\\';
 const SRC_PATH = 'src/';
 const DIST_PATH = 'dist/';
 const TEMP_PATH = DIST_PATH + 'temp/';
@@ -45,7 +44,7 @@ const APP_NAMES = [
 const DEFAULT_APP_NAME = APP_NAMES[0];
 
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['dev']);
 gulp.task('dev', ['watch']);
 gulp.task('test', ['django:publish:test']);
 gulp.task('public', ['django:publish:public']);
@@ -217,6 +216,7 @@ gulp.task('django:build', ['sass'], (callback) => {
 
 gulp.task('django:dev', ['django:build'], (callback) => {
     // Build and push to local dev server directory
+    console.log(`Pushing content to ${DEV_BASE_PATH}...`);
     return gulp.src(DIST_PATH + '**/*')
         .pipe(gulp.dest(DEV_BASE_PATH));
 });
