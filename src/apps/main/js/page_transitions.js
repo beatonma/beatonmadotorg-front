@@ -149,6 +149,10 @@ function animatePageChange(oldContent, newContent, callback) {
             mentions.get();
         }
 
+        if (newContent.querySelector('#app_images')) {
+            imageViewer.load();
+        }
+
         if (callback) {
             callback();
         }
