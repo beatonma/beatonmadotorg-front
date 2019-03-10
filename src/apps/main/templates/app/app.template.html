@@ -1,7 +1,7 @@
 {% extends 'base.template.html' %}
 {% load static %}
 {% load admin_urls %}
-{% block title %}{{app.title}} - beatonma.org{% endblock %}
+{% block title %}{{ app.title }} - beatonma.org{% endblock %}
 {% block html_head %}
 <meta name="description" content="{{ app.tagline }}">
 {% endblock %}
@@ -10,13 +10,16 @@
 <div class="header-row">
     <a class="header-item noanim" href="{% url 'admin:main_app_change' app.pk %}">Edit</a>
     <a class="header-item noanim" href="{% url 'admin:main_changelog_add' %}">Add changelog</a>
+    <a class="header-item noanim" href="/api/images/app/{{ app.app_id|safe }}">Images JSON</a>
 </div>{% endif %}
-<div class="card-container flex-col">
+<div class="card-container">
     <div class="card">
         <div class="card-content">
             {% include 'app/about-app.template.html' %}
         </div>
     </div>
+
+    {% include 'fragments/image-viewer.fragment.html' %}
 
     {% if changelogs %}
     <div class="card">
@@ -39,7 +42,6 @@
     <div class="card-container flex-row-start">
         <div id="mentions"></div>
     </div>
-
 </div>
 {% include 'webmention/webmention.template.html' %}
 {% endblock %}
