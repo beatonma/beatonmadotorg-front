@@ -1,23 +1,32 @@
-function loadPage(url) {
+function get(url) {
     return fetch(url, {
         method: 'GET',
         credentials: 'same-origin'
-    }).then((response) => {
+    });
+}
+
+function loadPage(url) {
+    return get(url).then((response) => {
         return response.text();
+    });
+}
+
+function loadJson(url) {
+    return get(url).then((response) => {
+        return response.json();
     });
 }
 
 function setCookie(cname, cvalue, expiry) {
     const d = new Date();
     d.setTime(d.getTime() + (expiry));
-    const expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    document.cookie = `${cname}=${cvalue};expires=${d.toUTCString()};path=/`;
 }
 
 function clearCookie(cname) {
     const d = new Date();
     d.setTime(0);
-    document.cookie = cname + "=0;path=/;expires=" + d.toUTCString();
+    document.cookie = `${cname}=0;path=/;expires=${d.toUTCString()}`;
 }
 
 function getCookie(cname) {
@@ -36,7 +45,7 @@ function getCookie(cname) {
 }
 
 function cookieExists(cname) {
-    return getCookie(cname) !== "";
+    return getCookie(cname) !== '';
 }
 
 function scrollToId(id) {
