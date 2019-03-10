@@ -1,0 +1,61 @@
+#image_viewer {
+    display: flex;
+    max-width: $max_card_width;
+    transition: width 400ms, height 400ms, background 160ms;
+    overflow-x: scroll;
+}
+
+#image_viewer_wrapper {
+    display: flex;
+    transition: width 400ms, height 400ms, background 160ms;
+}
+
+#image_viewer_wrapper.fullscreen {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    align-items: center;
+    background: var(--text-dark-primary);
+    justify-content: center;
+}
+
+.image-viewer-item {
+    margin-right: $smallgap;
+}
+
+.app-image-description {
+    background: var(--text-dark-secondary);
+    color: var(--text-light-primary);
+    padding: $smallgap;
+}
+
+.app-image {
+    transition: width 160ms, height 160ms;
+}
+
+#image_viewer_wrapper.fullscreen .app-image {
+    background: var(--text-light-secondary);
+}
+
+@media (orientation: portrait) {
+    .app-image {
+        height: 40vh;
+        width: auto;
+    }
+
+    #image_viewer_wrapper.fullscreen .app-image {
+        height: 60vh;
+    }
+}
+@media (orientation: landscape) {
+    .app-image {
+        height: 25vh;
+        width: auto;
+    }
+
+    #image_viewer_wrapper.fullscreen .app-image {
+        height: 60vh;
+    }
+}
