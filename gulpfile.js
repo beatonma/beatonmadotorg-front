@@ -14,6 +14,7 @@ const runSequence = require('run-sequence');
 const rsync = require('gulp-rsync');
 const htmlmin = require('gulp-htmlmin');
 const replace = require('gulp-replace');
+const find = require('gulp-find');
 const rename = require('gulp-rename');
 const shell = require('gulp-shell');
 const iife = require('gulp-iife');
@@ -21,13 +22,17 @@ const include = require('gulp-file-include');
 const gzip = require('gulp-gzip');
 const inline64 = require('gulp-inline-base64');
 const flatmap = require('gulp-flatmap');
+const concat = require('gulp-concat');
+const merge = require('merge-stream');
 
 const PUBLIC_SERVER = '192.168.1.117';
 const TEST_SERVER = '192.168.1.119';
 
-const DEV_BASE_PATH = 'D:\\local\\home\\dev\\django-dev\\beatonma.org\\';
+// const DEV_BASE_PATH = 'D:\\local\\home\\dev\\django-dev\\beatonma.org\\';
+const DEV_BASE_PATH = 'F:\\active\\beatonma.org\\back\\';
 const SRC_PATH = 'src/';
 const DIST_PATH = 'dist/';
+const BUILD_PATH = 'build/';
 const TEMP_PATH = DIST_PATH + 'temp/';
 const FLATPAGE_TEMPLATES = [
     'base.template.html',
@@ -37,17 +42,19 @@ const FLATPAGE_TEMPLATES = [
 
 // Django app names.
 const APP_NAMES = [
+    'contact',
     'main',
     'mentions',
-    'contact',
 ];
 const DEFAULT_APP_NAME = APP_NAMES[0];
 
 
 gulp.task('default', ['dev']);
 gulp.task('dev', ['watch']);
+gulp.task('build', ['django:build'])
 gulp.task('test', ['django:publish:test']);
 gulp.task('public', ['django:publish:public']);
+gulp.task('meta', ['js:find_references'])
 
 
 gulp.task('watch', ['sass'], () => {
@@ -258,3 +265,37 @@ function log(err) {
     console.error(err);
     this.emit('end');
 }
+
+
+/**
+ * Additional meta-tools that provide information without contributing
+ * to dist output. Outputs to BUILD_PATH
+ */
+gulp.task('js:find_references', () => {
+    // TODO find references to html id or class names and show whichever
+    // values are found so we can avoid making breaking changes while
+    // editing html
+
+    return merge(
+        // HTML IDs
+        gulp.src([SRC_PATH + '**/*.js'])
+            .pipe(find(/(querySelector\(['"]#(.*?)['"]\)|getElementById\(['"](.*?)['"]\))/g)),
+
+        // HTML classes
+        gulp.src([SRC_PATH + '**/*.js'])
+            .pipe(find(/querySelector\(['"]\.(.*?)['"]\)/g))
+    )
+        .pipe(concat('references.txt'))
+
+        // Show all ID references as #name
+        .pipe(replace(/getElementById\('(.*?)'\)/g, '#$1,'))
+        .pipe(replace(/querySelector\('(#.*?)'\)/g, '$1,'))
+
+        // Show all class references as .name
+        .pipe(replace(/querySelector\('(\..*?)'\)/g, '$1,'))
+
+        // Reformat to one reference per line
+        .pipe(replace(/\s/g, ''))
+        .pipe(replace(/,+/g, '\n'))
+        .pipe(gulp.dest(BUILD_PATH));
+});
