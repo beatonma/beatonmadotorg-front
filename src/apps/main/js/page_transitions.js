@@ -38,9 +38,11 @@ function initPageTransitions() {
         if (el) {
             // If target is on a different domain then handle it the normal way
             if (!el.href.includes('beatonma.org')
+                    && !el.href.includes('inverness.io')
                     && !el.href.includes('beatonma.com')
                     && !el.href.includes('localhost')
-                    && !el.href.includes('192.168.1.')) {
+                    && !el.href.includes('192.168.1.')
+                    ) {
                 return;
             }
             // Links annotated with 'noanim' class should be treated as external (no content transition animations)
@@ -151,6 +153,10 @@ function animatePageChange(oldContent, newContent, callback) {
 
         if (newContent.querySelector('#app_images')) {
             imageViewer.load();
+        }
+
+        if (newContent.querySelector('#github_recent')) {
+            commits.load();
         }
 
         if (callback) {
