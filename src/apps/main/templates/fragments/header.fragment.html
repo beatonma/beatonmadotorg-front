@@ -15,6 +15,6 @@
 <div class="header-row-secondary">
     <a class="header-item" href="/about/">About</a>
     <a class="header-item" href="/contact/">Contact</a>
-    <a class="header-item" href="/donate/">Donate</a>
+    <!--build:remove--><a class="header-item" href="/donate/">Donate</a><!--endbuild-->
     {% if user.is_superuser %}<a class=" header-item noanim" href="{% url 'admin:index' %}">Admin</a>{% endif %}
 </div>
