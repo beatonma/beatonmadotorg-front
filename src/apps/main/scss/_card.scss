@@ -1,5 +1,6 @@
 $max_card_width: 1200px;
 $max_preview_width: 480px;
+$max_preview_height: 376px;
 $card_title_size: 1.3rem;
 $card_title_size_large: 1.8rem;
 
@@ -91,6 +92,10 @@ $card_title_size_large: 1.8rem;
     // display: flex;
     // justify-content: center;
     align-items: stretch !important;
+}
+
+.card.preview {
+    max-height: $max_preview_height;
 }
 
 @media screen and (min-width: $preview-width) {   
