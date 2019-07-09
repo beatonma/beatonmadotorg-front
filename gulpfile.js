@@ -28,7 +28,6 @@ const merge = require('merge-stream');
 const PUBLIC_SERVER = '192.168.1.117';
 const TEST_SERVER = '192.168.1.119';
 
-// const DEV_BASE_PATH = 'D:\\local\\home\\dev\\django-dev\\beatonma.org\\';
 const DEV_BASE_PATH = 'F:\\active\\beatonma.org\\back\\';
 const SRC_PATH = 'src/';
 const DIST_PATH = 'dist/';
