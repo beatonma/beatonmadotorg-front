@@ -3,6 +3,7 @@
 {% block title %}beatonma.org{% endblock %}
 
 {% block content %}
+
 {% if featured %}
 <section class="featured">
     <h1>Featured</h1>
@@ -12,7 +13,7 @@
 
 <section class="recent">
     <h1>Recent</h1>
-    {% include 'article/article-grid.fragment.html' with articles=recent %}
+    {% include 'article/article-grid.fragment.html' with articles=recent insert='<div id="github_recent" class="card preview"></div>' %}
 </section>
 
 {% if apps %}
