@@ -10,7 +10,11 @@ const commits = (() => {
 
         return (
             <div className="github-recent-commit">
-                <a href={"" + props.commit.repo.url} className="github-recent-repo">{props.commit.repo.name}</a>
+                <a href={"" + props.commit.repo.url} className="github-recent-repo">
+                    {props.commit.repo.name}
+                </a> <time class="dt-updated label" datetime={"" + new Date(props.commit.created_at)}>
+                    {formatDate(new Date(props.commit.created_at))}
+                </time>
                 {renderCommitMessages(props.commit.changes)}
             </div>
         );
@@ -20,7 +24,7 @@ const commits = (() => {
         render() {
             return (
                 <div className="github-commit-message">
-                    {this.props.message}
+                    - {this.props.message}
                 </div>
             )
         }
