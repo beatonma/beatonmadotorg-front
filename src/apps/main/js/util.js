@@ -58,3 +58,30 @@ function removeChildren(el) {
         el.removeChild(el.firstChild);
     }
 }
+
+function formatDate(date) {
+    const now = new Date();
+
+    date.setHours(0, 0, 0, 0);
+    now.setHours(0, 0, 0, 0);
+
+    if (date.getMonth() == now.getMonth() && date.getDate() == now.getDate()) {
+        return 'today';
+    }
+
+    now.setDate(now.getDate() - 1);
+    if (date.getMonth() == now.getMonth() && date.getDate() == now.getDate()) {
+        return 'yesterday';
+    }
+
+    var options = {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+    }
+    if (date.getFullYear() == now.getFullYear()) {
+        delete options['year'];
+    }
+
+    return date.toLocaleDateString('default', options);
+}
