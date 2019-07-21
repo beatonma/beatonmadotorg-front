@@ -1,15 +1,28 @@
 const commits = (() => {
     function GithubLatestCommits(props) {
         function renderCommits(commits) {
-            return commits.map(c => 
-                <PublicCommit
-                    key={c.created_at}
-                    commit={c} />
-            );
+            let rendered = [];
+
+            commits.forEach((c) => {
+                if (c instanceof PublicBucket) {
+                    rendered.push(
+                        <PublicCommit
+                            key={c.end}
+                            commit={c} />
+                    );
+                } else if (c instanceof PrivateBucket) {
+                    rendered.push(
+                        <PrivateCommit
+                            key={c.end}
+                            commit={c} />
+                    );
+                }
+            });
+            return rendered;
         }
 
         return (
-            <div className="card-content">
+            <div className="github-recent">
                 <h3>Commits:</h3>
                 {renderCommits(props.commits)}
             </div>
@@ -17,9 +30,22 @@ const commits = (() => {
     }
 
     function Timestamp(props) {
-        return <time class="dt-updated label" datetime={"" + new Date(props.timestamp)}>
+        return <time class="dt-updated github-recent-timestamp" datetime={"" + new Date(props.timestamp)}>
             {formatDate(new Date(props.timestamp))}
         </time>
+    }
+
+    function renderTimestamp(commit) {
+        if (formatDate(new Date(commit.start)) == formatDate(new Date(commit.end))) {
+            return <span className="github-recent-timestamp">
+                <Timestamp timestamp={commit.start} />
+            </span>
+        }
+        else {
+            return <span className="github-recent-timestamp">
+                <Timestamp timestamp={commit.start} /> - <Timestamp timestamp={commit.end} />
+            </span>
+        }
     }
 
     function PublicCommit(props) {
@@ -27,39 +53,56 @@ const commits = (() => {
             return changes.map((change) =>
                 <GitCommitMessage
                     key={change.sha}
-                    message={change.message} />
+                    message={change.message}
+                    url={change.url} />
             );
-        }
-
-        function renderTimestamp(commit) {
-            if (formatDate(new Date(commit.start)) == formatDate(new Date(commit.end))) {
-                return <Timestamp timestamp={commit.start} />
-            }
-            else {
-                return <span>
-                    <Timestamp timestamp={commit.start} /> - <Timestamp timestamp={commit.end} />
-                </span>
-            }
         }
 
         return (
             <div className="github-recent-commit">
                 <a href={"" + props.commit.repo.url} className="github-recent-repo">
                     {props.commit.repo.name}
-                </a> {renderTimestamp(props.commit)}
+                </a> <RepoMetadata commit={props.commit}/>
                 {renderCommitMessages(props.commit.changes)}
             </div>
         );
     }
 
-    function PrivateCommitGroup(props) {
+    function PrivateCommit(props) {
+        return (
+            <div className="github-recent-private">
+                <span className="github-recent-private-icon" title="Private repository" role="img" aria-label="Private repository">
+                     @@include('src/apps/main/templates/svg/private.svg', {"id": "", "class": ""})
+                </span>
+                <span className="github-recent-repo">{props.commit.repo.name}</span> <RepoMetadata commit={props.commit}/>
+            </div>
+        );
+    }
 
+    function RepoMetadata(props) {
+        return (
+            <span className="github-recent-repo-meta">
+                <CommitCount change_count={props.commit.change_count}/> {renderTimestamp(props.commit)}
+            </span>
+        );
+    }
+
+    function CommitCount(props) {
+        return (
+            <span className="github-recent-commit-count" title="Commit count">
+                {props.change_count}<span className="github-recent-commit-count-icon">
+                @@include('src/apps/main/templates/svg/git-commit.svg', {"id": "", "class": ""})
+                </span>
+            </span>
+        );
     }
 
     function GitCommitMessage(props) {
         return (
-            <div className="github-commit-message">
-                - {props.message}
+            <div className="github-recent-commit-message">
+                {props.message} <a className="github-recent-link-icon" title="View commit on Github" href={props.url}>
+                    @@include('src/apps/main/templates/svg/link.svg', {"id": "", "class": ""})
+                </a>
             </div>
         );
     }
@@ -76,56 +119,84 @@ const commits = (() => {
             }
             const commits = compressCommits(data['commits']);
             buildViews(commits);
-        }).catch((err) => {
-            console.log('Error getting recent commits:' + err);
-        })
+        });
+        // }).catch((err) => {
+        //     console.log('Error getting recent commits:' + err);
+        // });
     }
 
     function compressCommits(commits) {
-        let compressed = [];
+        return combineConsecutiveCommits(commits);
+    }
 
-        // Group consecutive commits to same repo
-        let bucket = {
-            name: null,
-            repo: null,
-            start: null,
-            end: null,
-            changes: [],
-            changeCount: 0,
-            public: null
-        };
-
-        commits.forEach((c) => {
-            if (bucket.name === c.repo.name) {
-                // Update existing bucket
-                bucket.start = c.created_at;
-                bucket.changes.push(...c.changes);
-                bucket.changeCount += c.changeCount;
-            }
-            else {
-                // Store old bucket
-                if (bucket.name != null) {
-                    compressed.push(bucket);
-                }
-
-                bucket = {
-                    name: c.repo.name,
-                    repo: c.repo,
-                    start: c.created_at,
-                    end: c.created_at,
-                    changes: c.changes,
-                    change_count: c.change_count,
-                    public: c.public
-                };
-            }
-        });
-        if (bucket.name != null) {
-            compressed.push(bucket);
+    class PublicBucket {
+        constructor(commit) {
+            this.name = commit.repo.name;
+            this.repo = commit.repo;
+            this.start = commit.created_at;
+            this.end = commit.created_at;
+            this.changes = commit.changes;
+            this.change_count = commit.change_count;
         }
 
-        // TODO combine private repos and show commit count
+        add(commit) {
+            this.start = commit.created_at;
+            this.changes.push(...commit.changes);
+            this.change_count += commit.change_count;
+        }
+    }
 
-        return compressed;
+    class PrivateBucket {
+        constructor(commit) {
+            this.name = commit.repo.name;
+            this.repo = commit.repo;
+            this.start = commit.created_at;
+            this.end = commit.created_at;
+            this.change_count = commit.change_count;
+        }
+
+        add(commit) {
+            this.start = commit.created_at;
+            this.change_count += commit.change_count;
+        }
+    }
+
+    /**
+     * Reduce consecutive commits to a single repo into a single item
+     */
+    function combineConsecutiveCommits(commits) {
+        let combined = [];
+        let bucket = null;
+
+        commits.forEach((c) => {
+            if (bucket === null) {
+                bucket = c.public ? new PublicBucket(c) : new PrivateBucket(c);
+                return;
+            }
+
+            if (bucket instanceof PublicBucket) {
+                if (c.repo.name === bucket.name) {
+                    bucket.add(c);
+                }
+                else {
+                    combined.push(bucket);
+                    bucket = c.public ? new PublicBucket(c) : new PrivateBucket(c);
+                }
+            } else if (bucket instanceof PrivateBucket) {
+                if (c.public) {
+                    combined.push(bucket);
+                    bucket = new PublicBucket(c);
+                }
+                else {
+                    bucket.add(c);
+                }
+            }
+        });
+        if (bucket != null) {
+            combined.push(bucket);
+        }
+
+        return combined;
     }
 
     function buildViews(commits) {
