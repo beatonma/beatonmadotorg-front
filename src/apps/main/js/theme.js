@@ -105,6 +105,12 @@ function removeAccent() {
 }
 
 setDayNightAutoTheme();
+try {
+    document.getElementById('theme_icon').addEventListener('click', toggleTheme);
+}
+catch(e) {
+    console.error(e);
+}
 
 return {
     setAuto: setDayNightAutoTheme,
