@@ -3,23 +3,23 @@
 {% block title %}beatonma.org{% endblock %}
 
 {% block content %}
-
 {% if featured %}
 <section class="featured">
-    <h1>Featured</h1>
     {% include 'article/article-grid.fragment.html' with articles=featured %}
 </section>
 {% endif %}
 
 <section class="recent">
-    <h1>Recent</h1>
-    {% include 'article/article-grid.fragment.html' with articles=recent insert='<div id="github_recent" class="card preview"></div>' %}
+    {% include 'article/article-grid.fragment.html' with articles=recent insert='<div id="github_recent" class="card preview nobackground"></div>' %}
 </section>
 
 {% if apps %}
 <section class="apps">
-    <h3>Apps</h3>
     {% include 'app/app-grid.template.html' with app_list=apps %}
 </section>
 {% endif %}
+
+<section class="tags">
+
+</section>
 {% endblock %}
