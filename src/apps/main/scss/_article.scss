@@ -55,7 +55,7 @@ article {
     }
 }
 
-@media screen and (min-width:1120px) {
+@media screen and (min-width: $screen-wide) {
     .article-content {
         padding: 24px 72px;
     }
