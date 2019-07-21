@@ -1,32 +1,54 @@
+// const sourcemaps = require('gulp-sourcemaps');
+// const browserSync = require('browser-sync');
+// const imagemin = require('gulp-imagemin');
+// const cache = require('gulp-cache');
+// const htmlmin = require('gulp-htmlmin');
+// const shell = require('gulp-shell');
+// const iife = require('gulp-iife');
+// const gzip = require('gulp-gzip');
+// const flatmap = require('gulp-flatmap');
+
+
+// TODO:
+// Search/replace "@@include('src/apps/main/templates/svg/private.svg', ",
+//                svgAttrs,
+//                ")" in js/react-generated
+
+// Gulp
 const gulp = require('gulp');
-const sass = require('gulp-sass');
-const autoprefixer = require('gulp-autoprefixer');
-const sourcemaps = require('gulp-sourcemaps');
-const browserSync = require('browser-sync');
-const useref = require('gulp-useref');
-const minifyjs = require('gulp-babel-minify');
-const gulpIf = require('gulp-if');
-const minifycss = require('gulp-cssnano');
-const imagemin = require('gulp-imagemin');
-const cache = require('gulp-cache');
-const del = require('del');
 const runSequence = require('run-sequence');
-const rsync = require('gulp-rsync');
-const htmlmin = require('gulp-htmlmin');
-const replace = require('gulp-replace');
-const find = require('gulp-find');
-const rename = require('gulp-rename');
-const shell = require('gulp-shell');
-const iife = require('gulp-iife');
-const include = require('gulp-file-include');
-const gzip = require('gulp-gzip');
-const inline64 = require('gulp-inline-base64');
-const flatmap = require('gulp-flatmap');
-const concat = require('gulp-concat');
 const merge = require('merge-stream');
+const gulpIf = require('gulp-if');
+const debug = require('gulp-debug');
+
+// Compilation
+const sass = require('gulp-sass');
+const autoprefixer = require('gulp-autoprefixer');  // CSS compatibility
+const inline64 = require('gulp-inline-base64');
+const babel = require('gulp-babel');
+
+// File reduction/combination
+const concat = require('gulp-concat');
+const useref = require('gulp-useref');
+const include = require('gulp-file-include');
+
+// Minification/obfuscation
+const minifycss = require('gulp-cssnano');
+const minifyjs = require('gulp-babel-minify');
+
+// Text processing
+const find = require('gulp-find');
+const replace = require('gulp-replace');
+
+// Filesystem
+const del = require('del');
+const rename = require('gulp-rename');
+const rsync = require('gulp-rsync');
+
 
 const PUBLIC_SERVER = '192.168.1.117';
 const TEST_SERVER = '192.168.1.119';
+
 
 const DEV_BASE_PATH = 'F:\\active\\beatonma.org\\back\\';
 const SRC_PATH = 'src/';
@@ -40,12 +62,12 @@ const FLATPAGE_TEMPLATES = [
 ];
 
 // Django app names.
-const APP_NAMES = [
-    'contact',
-    'main',
-    'mentions',
-];
-const DEFAULT_APP_NAME = APP_NAMES[0];
+// const APP_NAMES = [
+//     'contact',
+//     'main',
+//     'mentions',
+// ];
+// const DEFAULT_APP_NAME = APP_NAMES[0];
 
 
 gulp.task('default', ['dev']);
@@ -86,15 +108,37 @@ gulp.task('sass', () => {
 });
 
 
+gulp.task('jsx:babel', () => {
+    return gulp.src(SRC_PATH + '**/react/**/*.js')
+        .pipe(include({ basepath: 'F:/active/beatonma.org/front/' }))//.on('error', log))  // Process @@include)
+        .pipe(debug())
+        .pipe(babel({
+            plugins: ['transform-react-jsx']
+        }))
+        .pipe(gulp.dest(BUILD_PATH + 'react-generated/'))
+});
+
+
 // Build join js/css files
-gulp.task('django:build:concat', () => {
+gulp.task('django:build:concat', ['jsx:babel'], () => {
     return gulp.src(SRC_PATH + '**/*.html')
         .pipe(useref())     // join scripts/stylesheets together
-        .pipe(include().on('error', log))  // Process @@include
+        .pipe(include({ basepath: 'F:/active/beatonma.org/front/' }))
         .pipe(gulp.dest(TEMP_PATH));
 });
 
-gulp.task('django:build:minify', ['django:build:minifyjs', 'django:build:minifycss', 'django:build:minifyhtml']);
+// gulp.task('django:build:concat:js', () => {
+//     return gulp.src(TEMP_PATH + '**/*.js')
+//         .pipe(debug())
+//         .pipe(include({ basepath: 'F:/active/beatonma.org/front/' }))//.on('error', log))  // Process @@include
+//         .pipe(gulp.dest(TEMP_PATH));
+// });
+
+gulp.task('django:build:minify', [
+    'django:build:minifyjs',
+    'django:build:minifycss',
+    'django:build:minifyhtml'
+]);
 
 gulp.task('django:build:minifyjs', () => {
     return gulp.src(TEMP_PATH + '**/*.js')
@@ -202,6 +246,42 @@ gulp.task('django:build', ['sass'], (callback) => {
 });
 
 
+/*
+ * django:build:debug - same as django:build except js/css minification is bypassed
+ */
+gulp.task('nominify', ['nominify:js', 'nominify:css', 'django:build:minifyhtml']);
+
+gulp.task('nominify:js', () => {
+    return gulp.src(TEMP_PATH + '**/*.js')
+        .pipe(gulp.dest(DIST_PATH));
+});
+
+gulp.task('nominify:css', () => {
+    return gulp.src([SRC_PATH + '**/*.css', TEMP_PATH + '**/*.css'])
+        .pipe(rename((path) => {
+            // Move to apps/appname/static/appname/css
+            path.dirname = path.dirname.replace(/apps[/\\](.+?)[/\\]css/g, 'apps/$1/static/$1/css');
+            path.extname = '.min.css';
+        }))
+        .pipe(gulp.dest(DIST_PATH));
+});
+
+gulp.task('django:build:debug', ['sass'], (callback) => {
+    return runSequence(
+        'django:clean',
+        'django:build:concat',
+        // 'django:build:concat:js',
+        'nominify',
+        [
+            'django:build:flatpages',
+            'django:build:images',
+        ],
+        'django:unwrap',
+        'django:clean:temp',
+        callback);
+});
+
+
 // gulp.task('django:dev:build', ['sass'], (callback) => {
 //     // Same as django:build but without minification
 //     // TODO currently does not copy files that would otherwise copied by minify tasks
@@ -220,7 +300,7 @@ gulp.task('django:build', ['sass'], (callback) => {
 // });
 
 
-gulp.task('django:dev', ['django:build'], (callback) => {
+gulp.task('django:dev', ['django:build:debug'], () => {
     // Build and push to local dev server directory
     console.log(`Pushing content to ${DEV_BASE_PATH}...`);
     return gulp.src(DIST_PATH + '**/*')
@@ -228,7 +308,7 @@ gulp.task('django:dev', ['django:build'], (callback) => {
 });
 
 
-gulp.task('django:publish:test', ['django:build'], (callback) => {
+gulp.task('django:publish:test', ['django:build'], () => {
     return gulp.src(DIST_PATH + '**')
         .pipe(rsync({
             options: {
@@ -244,7 +324,7 @@ gulp.task('django:publish:test', ['django:build'], (callback) => {
 });
 
 
-gulp.task('django:publish:public', ['django:build'], (callback) => {
+gulp.task('django:publish:public', ['django:build'], () => {
     return gulp.src(DIST_PATH + '**')
         .pipe(rsync({
             options: {
@@ -261,6 +341,7 @@ gulp.task('django:publish:public', ['django:build'], (callback) => {
 
 
 function log(err) {
+    err.showStack = true;
     console.error(err);
     this.emit('end');
 }
@@ -271,10 +352,6 @@ function log(err) {
  * to dist output. Outputs to BUILD_PATH
  */
 gulp.task('js:find_references', () => {
-    // TODO find references to html id or class names and show whichever
-    // values are found so we can avoid making breaking changes while
-    // editing html
-
     return merge(
         // HTML IDs
         gulp.src([SRC_PATH + '**/*.js'])
