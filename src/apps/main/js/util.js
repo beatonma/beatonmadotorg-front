@@ -66,12 +66,12 @@ function formatDate(date) {
     now.setHours(0, 0, 0, 0);
 
     if (date.getMonth() == now.getMonth() && date.getDate() == now.getDate()) {
-        return 'today';
+        return 'Today';
     }
 
     now.setDate(now.getDate() - 1);
     if (date.getMonth() == now.getMonth() && date.getDate() == now.getDate()) {
-        return 'yesterday';
+        return 'Yesterday';
     }
 
     var options = {
