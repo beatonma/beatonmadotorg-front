@@ -9,11 +9,6 @@
 // const flatmap = require('gulp-flatmap');
 
 
-// TODO:
-// Search/replace "@@include('src/apps/main/templates/svg/private.svg', ",
-//                svgAttrs,
-//                ")" in js/react-generated
-
 // Gulp
 const gulp = require('gulp');
 const runSequence = require('run-sequence');
@@ -60,14 +55,6 @@ const FLATPAGE_TEMPLATES = [
     'empty.template.html',
     'null.template.html',
 ];
-
-// Django app names.
-// const APP_NAMES = [
-//     'contact',
-//     'main',
-//     'mentions',
-// ];
-// const DEFAULT_APP_NAME = APP_NAMES[0];
 
 
 gulp.task('default', ['dev']);
@@ -127,12 +114,6 @@ gulp.task('django:build:concat', ['jsx:babel'], () => {
         .pipe(gulp.dest(TEMP_PATH));
 });
 
-// gulp.task('django:build:concat:js', () => {
-//     return gulp.src(TEMP_PATH + '**/*.js')
-//         .pipe(debug())
-//         .pipe(include({ basepath: 'F:/active/beatonma.org/front/' }))//.on('error', log))  // Process @@include
-//         .pipe(gulp.dest(TEMP_PATH));
-// });
 
 gulp.task('django:build:minify', [
     'django:build:minifyjs',
@@ -140,11 +121,13 @@ gulp.task('django:build:minify', [
     'django:build:minifyhtml'
 ]);
 
+
 gulp.task('django:build:minifyjs', () => {
     return gulp.src(TEMP_PATH + '**/*.js')
         .pipe(minifyjs())
         .pipe(gulp.dest(DIST_PATH));
 });
+
 
 gulp.task('django:build:minifycss', () => {
     return gulp.src([SRC_PATH + '**/*.css', TEMP_PATH + '**/*.css'])
@@ -270,7 +253,6 @@ gulp.task('django:build:debug', ['sass'], (callback) => {
     return runSequence(
         'django:clean',
         'django:build:concat',
-        // 'django:build:concat:js',
         'nominify',
         [
             'django:build:flatpages',
