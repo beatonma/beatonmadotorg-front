@@ -23,7 +23,7 @@ const commits = (() => {
 
         return (
             <div className="github-recent">
-                <h3>Commits:</h3>
+                <h3>Recent commits:</h3>
                 {renderCommits(props.commits)}
             </div>
         )
@@ -89,7 +89,7 @@ const commits = (() => {
 
     function CommitCount(props) {
         return (
-            <span className="github-recent-commit-count" title="Commit count">
+            <span className="github-recent-commit-count" title={props.change_count + (props.change_count == 1 ? " commit" : " commits")}>
                 {props.change_count}<span className="github-recent-commit-count-icon">
                 @@include('src/apps/main/templates/svg/git-commit.svg', {"id": "", "class": ""})
                 </span>
