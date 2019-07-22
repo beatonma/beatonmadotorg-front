@@ -97,11 +97,11 @@ gulp.task('sass', () => {
 
 gulp.task('jsx:babel', () => {
     return gulp.src(SRC_PATH + '**/react/**/*.js')
-        .pipe(include({ basepath: 'F:/active/beatonma.org/front/' }))//.on('error', log))  // Process @@include)
+        .pipe(include({ basepath: 'F:/active/beatonma.org/front/' })).on('error', log)  // Process @@include)
         .pipe(debug())
         .pipe(babel({
             plugins: ['transform-react-jsx']
-        }))
+        })).on('error', log)
         .pipe(gulp.dest(BUILD_PATH + 'react-generated/'))
 });
 
@@ -110,7 +110,7 @@ gulp.task('jsx:babel', () => {
 gulp.task('django:build:concat', ['jsx:babel'], () => {
     return gulp.src(SRC_PATH + '**/*.html')
         .pipe(useref())     // join scripts/stylesheets together
-        .pipe(include({ basepath: 'F:/active/beatonma.org/front/' }))
+        .pipe(include({ basepath: 'F:/active/beatonma.org/front/' })).on('error', log)
         .pipe(gulp.dest(TEMP_PATH));
 });
 
