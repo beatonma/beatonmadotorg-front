@@ -34,7 +34,7 @@
     <h1>Apps</h1>
     <div class="card">
         <div class="card-content flex-row grid">
-            {% include 'app/app-list.template.html' %}
+            {% include 'app/app-list.template.html' with app_list=apps %}
         </div>
     </div>
 </section>
