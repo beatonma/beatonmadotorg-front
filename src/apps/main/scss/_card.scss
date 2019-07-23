@@ -139,3 +139,19 @@ $card_title_size_large: 1.8rem;
         padding: 24px 24px 36px;
     }
 }
+
+
+
+@media only screen and (min-width:820px) {
+    .card-container {
+        max-width: 672px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media only screen and (min-width:1120px) {
+    .card-container {
+        max-width: 1030px;
+    }
+}
