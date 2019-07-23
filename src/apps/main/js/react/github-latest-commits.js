@@ -80,9 +80,12 @@ const commits = (() => {
     }
 
     function RepoMetadata(props) {
+        console.log(props.commit);
         return (
             <span className="github-recent-repo-meta">
-                <CommitCount change_count={props.commit.change_count}/> {renderTimestamp(props.commit)}
+                <Languages languages={props.commit.languages}/>
+                <CommitCount change_count={props.commit.change_count}/>
+                {renderTimestamp(props.commit)}
             </span>
         );
     }
@@ -90,8 +93,24 @@ const commits = (() => {
     function CommitCount(props) {
         return (
             <span className="github-recent-commit-count" title={props.change_count + (props.change_count == 1 ? " commit" : " commits")}>
-                {props.change_count}<span className="github-recent-commit-count-icon">
-                @@include('src/apps/main/templates/svg/git-commit.svg', {"id": "", "class": ""})
+                {props.change_count}
+                <span className="github-recent-commit-count-icon">
+                    @@include('src/apps/main/templates/svg/git-commit.svg', {"id": "", "class": ""})
+                </span>
+            </span>
+        );
+    }
+
+    function Languages(props) {
+        const languages = Object.keys(props.languages);
+        if (languages.length == 0) {
+            return (null);
+        }
+        return (
+            <span className="github-recent-languages" title={languages.length + " languages: " + languages.join(', ')}>
+                {"" + languages.length} 
+                <span className="github-recent-languages-icon">
+                    @@include('src/apps/main/templates/svg/code.svg', {"id": "", "class": ""})
                 </span>
             </span>
         );
@@ -119,14 +138,13 @@ const commits = (() => {
             }
             const commits = compressCommits(data['commits']);
             buildViews(commits);
+        }).catch((err) => {
+            console.log('Error getting recent commits:' + err);
         });
-        // }).catch((err) => {
-        //     console.log('Error getting recent commits:' + err);
-        // });
     }
 
     function compressCommits(commits) {
-        return combineConsecutiveCommits(commits);
+        return groupCommitsByRepo(commits);
     }
 
     class PublicBucket {
@@ -137,12 +155,14 @@ const commits = (() => {
             this.end = commit.created_at;
             this.changes = commit.changes;
             this.change_count = commit.change_count;
+            this.languages = commit.languages;
         }
 
         add(commit) {
             this.start = commit.created_at;
             this.changes.push(...commit.changes);
             this.change_count += commit.change_count;
+            this.languages = Object.assign(this.languages, commit.languages);
         }
     }
 
@@ -153,48 +173,45 @@ const commits = (() => {
             this.start = commit.created_at;
             this.end = commit.created_at;
             this.change_count = commit.change_count;
+            this.languages = commit.languages;
         }
 
         add(commit) {
             this.start = commit.created_at;
             this.change_count += commit.change_count;
+            this.languages = Object.assign(this.languages, commit.languages);
         }
     }
 
     /**
-     * Reduce consecutive commits to a single repo into a single item
+     * Group commits by repo and sort with most recent first.
      */
-    function combineConsecutiveCommits(commits) {
+    function groupCommitsByRepo(commits) {
         let combined = [];
         let bucket = null;
 
+        function newBucket(commit) {
+            return commit.public ? new PublicBucket(commit) : new PrivateBucket(commit);
+        }
+        commits.sort((a, b) => a.repo.name.localeCompare(b.repo.name));
+
         commits.forEach((c) => {
             if (bucket === null) {
-                bucket = c.public ? new PublicBucket(c) : new PrivateBucket(c);
+                bucket = newBucket(c);
                 return;
             }
-
-            if (bucket instanceof PublicBucket) {
-                if (c.repo.name === bucket.name) {
-                    bucket.add(c);
-                }
-                else {
-                    combined.push(bucket);
-                    bucket = c.public ? new PublicBucket(c) : new PrivateBucket(c);
-                }
-            } else if (bucket instanceof PrivateBucket) {
-                if (c.public) {
-                    combined.push(bucket);
-                    bucket = new PublicBucket(c);
-                }
-                else {
-                    bucket.add(c);
-                }
+            else if (c.repo.name === bucket.name) {
+                bucket.add(c);
+            }
+            else {
+                combined.push(bucket);
+                bucket = newBucket(c);
             }
         });
         if (bucket != null) {
             combined.push(bucket);
         }
+        combined.sort((a, b) => a.end.localeCompare(b.end)).reverse();
 
         return combined;
     }
