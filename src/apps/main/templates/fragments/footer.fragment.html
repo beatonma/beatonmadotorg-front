@@ -2,19 +2,12 @@
 <!-- h-card info is embedded in the footer for every page -->
 <!-- endbuild -->
 <div class="h-card flex-row-center footer">
-    <a rel="me" href="https://beatonma.org" class="u-url foot-link" alt="beatonma.org" aria-label="beatonma.org">
+    <a href="https://beatonma.org" class="foot-link" alt="beatonma.org" aria-label="beatonma.org">
         <div class="tooltip">
             @@include('src/apps/main/templates/svg/home.svg', {"class": "foot-icon", "id": "footer_icon_home"})
             <div class="tooltip-popup">beatonma.org</div>
         </div>
-    </a><!-- build:remove -->
-    <!-- G+ has been discontinued -->
-    <!-- <a rel="me" href="https://plus.google.com/+MichaelBeaton" class="foot-link" alt="Google+" aria-label="Google Plus">
-        <div class="tooltip">
-            @@include('src/apps/main/templates/svg/gplus.svg', {"class": "foot-icon", "id": "footer_icon_gplus"})
-            <div class="tooltip-popup">G+</div>
-        </div>
-    </a> --><!-- endbuild -->
+    </a>
     <a rel="me" href="https://play.google.com/store/apps/developer?id=Michael+Beaton" class="foot-link" alt="Play Store" aria-label="Play Store">
         <div class="tooltip">
             @@include('src/apps/main/templates/svg/playstore.svg', {"class": "foot-icon", "id": "footer_icon_playstore"})
@@ -49,51 +42,6 @@
     <!-- build:remove -->
     <!-- Additonal stuff for the h-card that we don't actually want to show on the page -->
     <!-- endbuild -->
-    <div class="nodisplay">
-        <span class="p-name">Michael Beaton</span>
-        <span class="p-region">Scotland</span>
-        <span class="p-country-name">UK</span>
-        <div class="dt-bday">1987-05-16</div>
-        <img class="u-logo u-photo" src="https://beatonma.org/static/images/mb.png"/>
-        <!-- build:remove -->
-        <div class="u-key">
-            -----BEGIN PGP PUBLIC KEY BLOCK-----
-            Version: GnuPG v2
-
-            mQENBFi0Cv8BCACeqLKCZoxNOG4nHw8zyK+26fSsiEfVoWm3fOspjItMeSw8e7MZ
-            rCcz7XsQT7fdzaD9qMUR0thotDRWbROLG57YHjSydBc9uX4QaOR2DcEuS36Dw5od
-            BPtC6CMTyuN0/3A+aUGdV3jsqSSVZLlleXVIKxK/eOAWn3NHrt3RSbY+oF+oI6Rd
-            eUCN2ps3nrwcJ/XaHZXHO77HcetooxvubQgXrKMFWX3p9eauuo6Uu7ZzQVAz3uFX
-            SxL93UQVZ465huWmlyox8F/AC7XfB9k6tNfM5S20OVLnbibQ1IRYegOUfPtTjnb2
-            uRgHwJGAIUpsLjMbqVffVqlT41vXqtr/qVEHABEBAAG0I01pY2hhZWwgQmVhdG9u
-            IDxiZWF0b25tYUBnbWFpbC5jb20+iQE5BBMBCAAjBQJYtAr/AhsDBwsJCAcDAgEG
-            FQgCCQoLBBYCAwECHgECF4AACgkQD4vcxfU+WWKykwf9HAk2av6GQBhfkecmkD7/
-            LBIR9z3mHQL9kIgEnaa6pIw4Ct9YHN75plQIC2Tptpz5yygPFdI53c+m56+aw7cH
-            GwoNXa2JYre9vo/LM4Frvp4mRTXmbqF7qAjlKEzx+iAambjLWktkQtA7YFLR1hyL
-            HU/hJht11NNyjFAIvYCMx6mLKgMF3OjfhxbLSV9qRQ68/EEiNnzG7MAf6K7fLLZz
-            VcuVuGVtllXbzZUjKSKgYVyWe3wPR6Z/e9/xy8kB9mcHk3w/SeD5UL8DSRX1QhPz
-            +oxp+FeO1q7CKsXNCZLWjZxSMGc8FiXT6vaJnVFDi/+NdSDMtAKow/g1Z4rAKNMI
-            07kBDQRYtAr/AQgAucNkTN29bMkxHRnjvn9iBkywdhGtqmjE1LlIt5HzLF0Pa2A4
-            BretEPJzGwXfA+GEEj2T/9MJ+A5iO08qLmQXGsnidCFNuHNgUcoEnNIk0VfhyNfm
-            sIgW5/HoicbgrYhIsBf04n+d1ysRqGmvr1472fE6OmrAan6joC8TgfET/ULHmUbT
-            Xz19pDZHbKOUYmuwHKAORM0jVOZjfQ6bfSSnzrMIujhWqBVj7PV7iCrrnX8dNN4V
-            33McYzzZmhBPpRdmPRPIzcTMyabUQ1e+a9Bl2UjRwXRjRjfu6BVh6TpVM9rRlKCK
-            UyfKlGkyg4SRGmRewAPUFlHHt9Vn+PLQDIveswARAQABiQEfBBgBCAAJBQJYtAr/
-            AhsMAAoJEA+L3MX1PlliR4QH/2MlMBJ5Vh28jalX7AahXe/MRb81TIqNlnwJq9WW
-            zhlP+EXkwtTlnJ0klcO7C9iMpqRLvnPf2gwmH44pTHy5d4RDhQu5DfZm1mMwDmcu
-            H/vR/vnah5KrHr39X2T/GG5+lq9a5F4sFXQqq6ma4YoSM5YQzh3zWgtzE+yKSRau
-            QZPIarOi2F65eS8JlXqCP2/x7V3kv9YBf55CKJVGQYsHjL7MY/qaRP+cX2sqpN8t
-            GJGcJ33s+0TqnYSRhYF6A8zPxZAU/cxkQe8l+yyrMwyhT93BtOc9uBSZxIsra2IQ
-            e25mVk7T0sNE+hR3O/QRxCl7y8Ggkteekti9wPQqbZSSh1E=
-            =oJG3
-            -----END PGP PUBLIC KEY BLOCK-----
-        </div>
-        <!-- endbuild -->
-        <a rel="me" href="https://www.last.fm/user/schadenfreude87" aria-label="Last.fm profile page">My listening habits since 2005</a>
-        <a rel="me" href="https://userstyles.org/users/365999" aria-label="Userstyles.org profile page">Custom CSS style overrides</a>
-        <a rel="me" href="http://eu.battle.net/sc2/en/profile/2784180/1/fallofmath/" aria-label="StarCraft II battle.net profile page">StarCraft II</a>
-        <a rel="me" href="https://www.duolingo.com/fallofmath" aria-label="Duolingo profile page">Duolingo</a>
-        <a rel="me" href="https://gravatar.com/beatonma" aria-label="Gravatar profile page">Gravatar</a>
-        <a rel="webmention" href="https://beatonma.org/webmention/" aria-label="Webmention endpoint for beatonma.org"/>
-    </div>
+    {% include 'fragments/hcard.fragment.html' %}
+    <!-- @@include('src/apps/main/templates/fragments/hcard.fragment.html') -->
 </div>
