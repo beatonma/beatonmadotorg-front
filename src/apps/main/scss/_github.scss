@@ -42,6 +42,13 @@
 .github-recent-commit-count-icon {
     @extend .github-icon-inline;
     margin-left: 1px;
+    margin-right: $smallgap;
+}
+
+.github-recent-languages-icon {
+    @extend .github-icon-inline;
+    margin-left: 1px;
+    margin-right: $smallgap;
 }
 
 .github-recent-commit-message {
