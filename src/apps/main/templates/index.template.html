@@ -26,10 +26,18 @@
 {% endif %}
 
 {% if tags %}
-<section class="tags flex-row-center">
-    {% for tag in tags %}
-    <a class="tag" href="/tag/{{ tag.slug }}">#{{ tag.name }}</a>
-    {% endfor %}
+<section class="tags">
+    <div class=" flex-row-center">
+        {% for tag in tags %}
+        <a class="tag" href="/tag/{{ tag.slug }}">#{{ tag.name }}</a>
+        {% endfor %}
+    </div>
+    <div class=" flex-row-center">
+        {% for language in languages %}
+        <a class="tag" href="/language/{{ language.name }}">{{ language.name }}</a>
+        {% endfor %}
+    </div>
 </section>
 {% endif %}
+
 {% endblock %}
