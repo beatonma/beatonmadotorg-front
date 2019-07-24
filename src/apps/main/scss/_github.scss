@@ -1,6 +1,7 @@
 .github-recent {
     @extend .card-content;
     font-size: 0.8em;
+    overflow-x: hidden;
     overflow-y: scroll;
 }
 
