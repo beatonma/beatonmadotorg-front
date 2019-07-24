@@ -59,7 +59,26 @@ function removeChildren(el) {
     }
 }
 
-function formatDate(date) {
+function isSameDay(first, second) {
+    return (first.getFullYear() == second.getFullYear()
+        && first.getMonth() == second.getMonth()
+        && first.getDate() == second.getDate());
+}
+
+function isSameMonth(first, second) {
+    return (first.getFullYear() == second.getFullYear()
+        && first.getMonth() == second.getMonth());
+}
+
+function isSameYear(first, second) {
+    return (first.getFullYear() == second.getFullYear());
+}
+
+function formatDate(date, options={
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+}) {
     const now = new Date();
 
     date.setHours(0, 0, 0, 0);
@@ -74,14 +93,14 @@ function formatDate(date) {
         return 'Yesterday';
     }
 
-    var options = {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric'
-    }
     if (date.getFullYear() == now.getFullYear()) {
         delete options['year'];
     }
 
-    return date.toLocaleDateString('default', options);
+    const dayOptions = { day: options.day };
+    const monthOptions = { month: options.month };
+    const day = date.toLocaleDateString('default', { day: options.day });
+    const month = date.toLocaleDateString('default', { month: options.month });
+
+    return `${day} ${month}${ options.year ? " " + date.toLocaleDateString('default', { year: options.year }) : "" }`;
 }
