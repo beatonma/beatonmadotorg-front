@@ -23,27 +23,42 @@ const commits = (() => {
 
         return (
             <div className="github-recent">
-                <h3>Recent commits:</h3>
+                <h3>Recent activity:</h3>
                 {renderCommits(props.commits)}
             </div>
         )
     }
 
     function Timestamp(props) {
-        return <time class="dt-updated github-recent-timestamp" datetime={"" + new Date(props.timestamp)}>
-            {formatDate(new Date(props.timestamp))}
+        return <time class="dt-updated github-recent-timestamp" datetime={"" + props.date}>
+            {props.text ? props.text : formatDate(props.date)}
         </time>
     }
 
+    function formatTimestampString(_start, _end) {
+        const start = new Date(_start);
+        const end = new Date(_end);
+
+        if (isSameDay(start, end)) {
+            return formatDate(end);
+        }
+        else {
+            return formatDate(start) + " - " + formatDate(end);
+        }
+    }
+
     function renderTimestamp(commit) {
-        if (formatDate(new Date(commit.start)) == formatDate(new Date(commit.end))) {
+        const start = new Date(commit.start);
+        const end = new Date(commit.end);
+
+        if (isSameDay(start, end)) {
             return <span className="github-recent-timestamp">
-                <Timestamp timestamp={commit.start} />
+                <Timestamp date={start} />
             </span>
         }
         else {
             return <span className="github-recent-timestamp">
-                <Timestamp timestamp={commit.start} /> - <Timestamp timestamp={commit.end} />
+                <Timestamp date={start}/> - <Timestamp date={end}/>
             </span>
         }
     }
@@ -60,9 +75,12 @@ const commits = (() => {
 
         return (
             <div className="github-recent-commit">
+                <span className="github-recent-public-icon" title="Public repository" role="img" aria-label="Public repository">
+                     @@include('src/apps/main/templates/svg/public.svg', {"id": "", "class": ""})
+                </span>
                 <a href={"" + props.commit.repo.url} className="github-recent-repo">
                     {props.commit.repo.name}
-                </a> <RepoMetadata commit={props.commit}/>
+                </a><RepoMetadata commit={props.commit}/>
                 {renderCommitMessages(props.commit.changes)}
             </div>
         );
@@ -74,29 +92,26 @@ const commits = (() => {
                 <span className="github-recent-private-icon" title="Private repository" role="img" aria-label="Private repository">
                      @@include('src/apps/main/templates/svg/private.svg', {"id": "", "class": ""})
                 </span>
-                <span className="github-recent-repo">{props.commit.repo.name}</span> <RepoMetadata commit={props.commit}/>
+                <span className="github-recent-repo">{props.commit.repo.name}</span><RepoMetadata commit={props.commit}/>
             </div>
         );
     }
 
     function RepoMetadata(props) {
-        console.log(props.commit);
         return (
             <span className="github-recent-repo-meta">
-                <Languages languages={props.commit.languages}/>
-                <CommitCount change_count={props.commit.change_count}/>
-                {renderTimestamp(props.commit)}
+                <CommitCount change_count={props.commit.change_count} timestamp={formatTimestampString(props.commit.start, props.commit.end)}/>
             </span>
         );
     }
 
     function CommitCount(props) {
         return (
-            <span className="github-recent-commit-count" title={props.change_count + (props.change_count == 1 ? " commit" : " commits")}>
-                {props.change_count}
-                <span className="github-recent-commit-count-icon">
+            <span className="github-recent-commit-count" title={props.timestamp}>
+                {/*<span className="github-recent-commit-count-icon">
                     @@include('src/apps/main/templates/svg/git-commit.svg', {"id": "", "class": ""})
-                </span>
+                </span>*/}
+                {props.change_count} {(props.change_count == 1 ? " commit" : " commits")}
             </span>
         );
     }
@@ -108,10 +123,10 @@ const commits = (() => {
         }
         return (
             <span className="github-recent-languages" title={languages.length + " languages: " + languages.join(', ')}>
-                {"" + languages.length} 
                 <span className="github-recent-languages-icon">
                     @@include('src/apps/main/templates/svg/code.svg', {"id": "", "class": ""})
                 </span>
+                {"" + languages.length} 
             </span>
         );
     }
