@@ -9,14 +9,8 @@
 </section>
 {% endif %}
 
-{% if featured %}
-<section class="featured">
-    {% include 'article/article-grid.fragment.html' with articles=featured %}
-</section>
-{% endif %}
-
 <section class="recent">
-    {% include 'article/article-grid.fragment.html' with articles=recent insert='<div id="github_recent" class="card preview nobackground"></div>' %}
+    {% include 'recent-grid.template.html' %}
 </section>
 
 {% if apps %}
