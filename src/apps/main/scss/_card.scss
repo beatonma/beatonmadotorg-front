@@ -37,6 +37,10 @@ $card_title_size_large: 1.8rem;
     text-align: left;
     color: var(--text-primary);
 }
+
+.card-title.noimage {
+    margin-bottom: $smallgap;
+}
 // .card-title-padded {
 //     font-size: $card_title_size;
 //     padding-bottom: 16px;
