@@ -1,5 +1,4 @@
 // const sourcemaps = require('gulp-sourcemaps');
-// const browserSync = require('browser-sync');
 // const imagemin = require('gulp-imagemin');
 // const cache = require('gulp-cache');
 // const htmlmin = require('gulp-htmlmin');
@@ -15,6 +14,7 @@ const runSequence = require('run-sequence');
 const merge = require('merge-stream');
 const gulpIf = require('gulp-if');
 const debug = require('gulp-debug');
+const browserSync = require('browser-sync').create();
 
 // Compilation
 const sass = require('gulp-sass');
@@ -49,13 +49,17 @@ const DEV_BASE_PATH = 'F:\\active\\beatonma.org\\back\\';
 const SRC_PATH = 'src/';
 const DIST_PATH = 'dist/';
 const BUILD_PATH = 'build/';
-const TEMP_PATH = DIST_PATH + 'temp/';
+const TEMP_PATH = BUILD_PATH + 'temp/';
 const FLATPAGE_TEMPLATES = [
     'base.template.html',
     'empty.template.html',
     'null.template.html',
 ];
 
+browserSync.init({
+    browser: "C:\\Program Files (x86)\\Google\\Chrome Beta\\Application\\chrome.exe",
+    proxy: 'http://localhost:8083'
+});
 
 gulp.task('default', ['dev']);
 gulp.task('dev', ['watch']);
@@ -72,9 +76,9 @@ gulp.task('watch', ['sass'], () => {
 
 gulp.task('watch', ['django:dev'], () => {
     console.log('Using dev directory \'' + DEV_BASE_PATH + '\'');
-    gulp.watch(SRC_PATH + '**/*.scss', ['django:dev']);
-    gulp.watch(SRC_PATH + '**/*.js', ['django:dev']);
-    gulp.watch(SRC_PATH + '**/*.html', ['django:dev']);
+    gulp.watch(SRC_PATH + '**/*.scss', ['django:dev:autorefresh']);
+    gulp.watch(SRC_PATH + '**/*.js', ['django:dev:autorefresh']);
+    gulp.watch(SRC_PATH + '**/*.html', ['django:dev:autorefresh']);
 });
 
 
@@ -287,6 +291,9 @@ gulp.task('django:dev', ['django:build:debug'], () => {
     console.log(`Pushing content to ${DEV_BASE_PATH}...`);
     return gulp.src(DIST_PATH + '**/*')
         .pipe(gulp.dest(DEV_BASE_PATH));
+});
+gulp.task('django:dev:autorefresh', ['django:dev'], () => {
+    browserSync.reload();
 });
 
 
