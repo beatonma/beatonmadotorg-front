@@ -1,6 +1,7 @@
 {% extends 'base.template.html' %}
 {% load static %}
 {% load admin_urls %}
+{% load date_tag %}
 {% block title %}{{ article.title }} - beatonma.org{% endblock %}
 {% block html_head %}
 <meta name="description" content="{{ article.preview_text }}">
@@ -23,9 +24,9 @@
             </div>
             <div class="spacer"></div>
             <div class="card-timestamp flex-col flex-end {{ article.foreground_color }} secondary">
-                <time datetime="{{ article.created|date:'Y-m-d' }}">Posted {{ article.created|date:"d N Y" }}</time>
+                <time datetime="{{ article.created|date:'Y-m-d' }}">Posted {{ article.created|minimaldate }}</time>
                 {% if article.created|date != article.updated|date %}
-                <time datetime="{{ article.updated|date:'Y-m-d' }}">Updated {{ article.updated|date:"d N Y" }}</time>
+                <time datetime="{{ article.updated|date:'Y-m-d' }}">Updated {{ article.updated|minimaldate }}</time>
                 {% endif %}
             </div>
         </div>
