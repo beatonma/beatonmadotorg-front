@@ -1,0 +1,16 @@
+{% load date_tag %}
+{% if notes %}
+<div class="card preview flex-col">
+    <div class="card-content">
+        <h3 class="card-title noimage">Notes:</h3>
+        <div class="notes-container">
+        {% for note in notes %}
+        <div class="note h-entry">
+            <span class="p-content">{{ note.content }}</span>
+            <time class="dt-updated label" datetime="{{ note.created|date }}">{{ note.created|minimaldate }}</time>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
