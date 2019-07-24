@@ -1,6 +1,7 @@
 .github-recent {
     @extend .card-content;
     font-size: 0.8em;
+    overflow-y: scroll;
 }
 
 .github-recent-repo {
@@ -22,6 +23,11 @@
     fill: var(--text-secondary);
 }
 
+.github-recent-public-icon {
+    @extend .github-icon-inline;
+    padding-right: 2px;
+}
+
 .github-recent-private-icon {
     @extend .github-icon-inline;
     padding-right: 2px;
@@ -32,29 +38,27 @@
 }
 
 .github-recent-repo-meta {
-    font-size: .9em;
+    font-size: .8em;
 }
 
 .github-recent-commit-count {
-
+    margin: 0 $smallgap;
+    cursor: default;
 }
 
 .github-recent-commit-count-icon {
     @extend .github-icon-inline;
-    margin-left: 1px;
-    margin-right: $smallgap;
 }
 
 .github-recent-languages-icon {
     @extend .github-icon-inline;
-    margin-left: 1px;
-    margin-right: $smallgap;
 }
 
 .github-recent-commit-message {
     border-left: var(--text-tertiary) solid 2px;
     padding-left: $smallgap;
-    padding-bottom: $smallgap / 2;
+    margin-bottom: $smallgap;
+    font-size: .9em;
 }
 
 .github-recent-private {
