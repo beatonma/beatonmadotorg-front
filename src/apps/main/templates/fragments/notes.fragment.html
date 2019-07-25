@@ -6,8 +6,8 @@
         <div class="notes-container">
         {% for note in notes %}
         <div class="note h-entry">
-            <span class="p-content">{{ note.content }}</span>
-            <time class="dt-updated label" datetime="{{ note.created|date }} {{ note.created|time }}" title="{{ note.created|date }} {{ note.created|time }}">
+            <span class="e-content">{{ note.content }}</span>
+            <time class="dt-published label" datetime="{{ note.created|date }} {{ note.created|time }}" title="{{ note.created|date }} {{ note.created|time }}">
                 {{ note.created|minimaltime }}
             </time>
         </div>
