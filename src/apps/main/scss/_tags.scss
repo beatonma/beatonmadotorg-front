@@ -3,3 +3,14 @@
     margin-right: $smallgap;
     color: var(--item-accent);
 }
+
+@media (max-width: $screen-narrow) {
+    .tag {
+        font-size: .9em;
+        padding: $smallgap;
+        margin: $smallgap;
+        background: var(--item-accent);
+        color: $light;
+        border-radius: $corner-radius;
+    }
+}
