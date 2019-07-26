@@ -26,15 +26,14 @@
         <link id="theme" rel="stylesheet" href=""/>
         <style id="local_style">{% if local_style %}{% include 'fragments/local-style.fragment.html' %}{% endif %}</style>
         
-        <!--build:js({build/,src/apps/main/js/}) apps/main/static/main/js/app.min.js defer id="bmascript"-->
-        <script src="util.js"></script>
-        <script src="const.js"></script>
-        <script src="events.js"></script>
-        <script src="mentions/js/get-mentions.js"></script>
-        <script src="image-viewer.js"></script>
+        <!--build:js({build/,src/apps/}) apps/main/static/main/js/app.min.js defer id="bmascript"-->
+        <script src="main/js/util.js"></script>
+        <script src="main/js/events.js"></script>
+        <script src="react-generated/apps/main/js/react/get-webmentions.js"></script>
+        <script src="react-generated/apps/main/js/react/load-images.js"></script>
         <script src="react-generated/apps/main/js/react/github-latest-commits.js"></script>
-        <script src="page_transitions.js"></script>
-        <script src="theme.js"></script>
+        <script src="main/js/page_transitions.js"></script>
+        <script src="main/js/theme.js"></script>
         <!-- <script src="related-content.js"></script> -->
         <script src="js/app.js"></script>
         <!--endbuild-->
