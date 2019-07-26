@@ -46,9 +46,8 @@ $avatar_large: 72px;
 }
 
 .hcard-content {
-    margin-top: $smallgap;
-    letter-spacing: .05rem;
     font-size: .9rem;
+    color: var(--item-accent-foreground);
 }
 
 .hcard-name {
