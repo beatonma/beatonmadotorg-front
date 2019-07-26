@@ -2,9 +2,9 @@
     @extend .card-content;
     font-size: 0.8em;
     overflow-x: hidden;
-    overflow-y: scroll;
     animation-name: github-enter;
     animation-duration: 220ms;
+    overflow-y: auto;
 }
 
 .github-recent-repo {
