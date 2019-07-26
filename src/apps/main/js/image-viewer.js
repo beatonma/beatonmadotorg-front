@@ -1,3 +1,6 @@
+/**
+ * @deprecated Replaced by React implementation: react/load-images.js
+ */
 const imageViewer = (() => {
     let imageUrls = [];
 
