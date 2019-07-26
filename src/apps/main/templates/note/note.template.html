@@ -1,0 +1,19 @@
+{% extends 'base.template.html' %}
+{% load date_tag %}
+
+{% block title %}beatonma.org{% endblock %}
+
+{% block content %}
+<div class="card-container flex-row-center">
+    <div class="card preview">
+        <div class="card-content">
+            <div class="note h-entry">
+                <div class="e-content">{{ note.content }}</div>
+                <time class="dt-published label" datetime="{{ note.created|date }} {{ note.created|time }}" title="{{ note.created|date }} {{ note.created|time }}">
+                    {{ note.created|minimaltime }}
+                </time>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
