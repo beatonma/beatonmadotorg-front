@@ -41,7 +41,8 @@ const rename = require('gulp-rename');
 const rsync = require('gulp-rsync');
 
 
-const PUBLIC_SERVER = '192.168.1.117';
+// const PUBLIC_SERVER = '192.168.1.117';
+const PUBLIC_SERVER_PATH = '\\\\inverness.io\\home\\beatonma.org\\'
 const TEST_SERVER = '192.168.1.119';
 
 
@@ -55,11 +56,6 @@ const FLATPAGE_TEMPLATES = [
     'empty.template.html',
     'null.template.html',
 ];
-
-browserSync.init({
-    browser: "C:\\Program Files (x86)\\Google\\Chrome Beta\\Application\\chrome.exe",
-    proxy: 'http://localhost:8083'
-});
 
 gulp.task('default', ['dev']);
 gulp.task('dev', ['watch']);
@@ -76,6 +72,10 @@ gulp.task('watch', ['sass'], () => {
 
 gulp.task('watch', ['django:dev'], () => {
     console.log('Using dev directory \'' + DEV_BASE_PATH + '\'');
+    browserSync.init({
+        browser: "C:\\Program Files (x86)\\Google\\Chrome Beta\\Application\\chrome.exe",
+        proxy: 'http://localhost:8083'
+    });
     gulp.watch(SRC_PATH + '**/*.scss', ['django:dev:autorefresh']);
     gulp.watch(SRC_PATH + '**/*.js', ['django:dev:autorefresh']);
     gulp.watch(SRC_PATH + '**/*.html', ['django:dev:autorefresh']);
@@ -315,17 +315,7 @@ gulp.task('django:publish:test', ['django:build'], () => {
 
 gulp.task('django:publish:public', ['django:build'], () => {
     return gulp.src(DIST_PATH + '**')
-        .pipe(rsync({
-            options: {
-                chmod: 'Du=rwx,Dgo=rx,Fu=rw,Fgo=r'
-            },
-            username: 'pi',
-            hostname: PUBLIC_SERVER,
-            destination: "path",
-            recursive: true,
-            root: DIST_PATH,
-            progress: true
-        }));
+        .pipe(gulp.dest(PUBLIC_SERVER_PATH)).on('error', log);
 });
 
 
