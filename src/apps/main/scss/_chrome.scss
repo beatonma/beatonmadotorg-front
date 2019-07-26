@@ -15,3 +15,8 @@
 ::-webkit-scrollbar-thumb {
     background: var(--text-secondary);
 }
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--text-secondary);
+}
