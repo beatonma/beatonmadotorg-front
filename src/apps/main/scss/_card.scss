@@ -73,7 +73,6 @@ $card_title_size_large: 1.8rem;
     flex-direction: column;
     flex-grow: 1;
     transition: padding 300ms;
-    overflow-y: scroll;
 }
 
 .card-image {
@@ -107,7 +106,7 @@ $card_title_size_large: 1.8rem;
     border-radius: 0;
 }
 
-@media screen and (min-width: $preview-width) {   
+@media screen and (min-width: $screen-narrow) {   
     .card.preview {
         border-radius: $corner-radius;
     }
