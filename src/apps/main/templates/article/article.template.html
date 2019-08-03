@@ -8,7 +8,12 @@
 {{ article.html_head|safe }}
 {% endblock %}
 {% block content %}
-{% if user.is_superuser %}<div class="header-row"><a class="header-item noanim" href="{% url 'admin:main_article_change' article.pk %}">Edit</a></div>{% endif %}
+{% if user.is_superuser %}
+<div class="header-row">
+    <a class="header-item noanim" href="{% url 'admin:main_article_change' article.pk %}">Edit</a>
+</div>
+{% endif %}
+
 <div class="card-container">
     <article class="card h-entry">
         <div class="article-image card-image {{ article.hero_aspect_ratio }} item-primary-bg {{ article.hero_css }}" style="{% if article.hero_image %}background-image:url('{{ article.hero_image.url }}');{% endif %}">
@@ -44,8 +49,8 @@
         <div class="hidden">
             <a rel="author" class="p-author" href="https://beatonma.org">Michael Beaton</a>
             <a class="u-url" href="https://beatonma.org{{ article.get_absolute_url }}">{{ article.title }}</a>
-            <time class="dt-published" datetime="{{ article.created|date:'Y-m-d' }}">{{ article.created|date:"Y-m-d" }}</time>
-            <time class="dt-updated" datetime="{{ article.updated|date:'Y-m-d' }}">{{ article.updated|date:"Y-m-d" }}</time>
+            <time class="dt-published" datetime="{{ article.created|date:'Y-m-d' }}">{{ article.created|minimaldate }}</time>
+            <time class="dt-updated" datetime="{{ article.updated|date:'Y-m-d' }}">{{ article.updated|minimaldate }}</time>
             {% if article.tweet_id %}<a rel="syndication" class="u-syndication" href="https://twitter.com/_beatonma/status/{{ article.tweet_id }}">Tweet</a>{% endif %}
         </div>
     </article>
@@ -73,5 +78,4 @@
 <!-- endbuild -->
 {% if article.preview_image %}<img class="webfeedsFeaturedVisual hidden" src="{{ article.preview_image.url }}"/>{% endif %}
 
-{% include 'webmention/webmention.template.html' %}
 {% endblock %}
