@@ -8,7 +8,7 @@
     <div class="card preview">
         <div class="card-content">
             <div class="note h-entry">
-                <div class="e-content">{{ note.content }}</div>
+                <div class="e-content">{{ note.content|safe }}</div>
                 <time class="dt-published label" datetime="{{ note.created|date }} {{ note.created|time }}" title="{{ note.created|date }} {{ note.created|time }}">
                     {{ note.created|minimaltime }}
                 </time>
