@@ -3,20 +3,17 @@
 @import 'objects/inputs';
 @import 'objects/lists';
 @import 'objects/tables';
+@import 'fonts';
 
 html {
     background: var(--tabletop);
-    color: var(--text-primary);
     transition: background 300ms;
 }
 
 body {
+    @extend .normaltext;
     padding: 0;
     margin: 0;
-    font-family: $content-font;
-    font-size: $font-size;
-    transition: font-size $transition_duration;
-    line-height: 1.3;
 }
 
 p, .p {
