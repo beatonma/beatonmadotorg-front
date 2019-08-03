@@ -1,166 +1,5 @@
 const commits = (() => {
-    function GithubLatestCommits(props) {
-        function renderCommits(commits) {
-            let rendered = [];
-
-            commits.forEach((c) => {
-                if (c instanceof PublicBucket) {
-                    rendered.push(
-                        <PublicCommit
-                            key={c.end}
-                            commit={c} />
-                    );
-                } else if (c instanceof PrivateBucket) {
-                    rendered.push(
-                        <PrivateCommit
-                            key={c.end}
-                            commit={c} />
-                    );
-                }
-            });
-            return rendered;
-        }
-
-        return (
-            <div className="github-recent">
-                <h3>Recent activity:</h3>
-                {renderCommits(props.commits)}
-            </div>
-        )
-    }
-
-    function Timestamp(props) {
-        return <time class="dt-updated github-recent-timestamp" datetime={"" + props.date}>
-            {props.text ? props.text : formatDate(props.date)}
-        </time>
-    }
-
-    function formatTimestampString(_start, _end) {
-        const start = new Date(_start);
-        const end = new Date(_end);
-
-        if (isSameDay(start, end)) {
-            return formatDate(end);
-        }
-        else {
-            return formatDate(start) + " - " + formatDate(end);
-        }
-    }
-
-    function renderTimestamp(commit) {
-        const start = new Date(commit.start);
-        const end = new Date(commit.end);
-
-        if (isSameDay(start, end)) {
-            return <span className="github-recent-timestamp">
-                <Timestamp date={start} />
-            </span>
-        }
-        else {
-            return <span className="github-recent-timestamp">
-                <Timestamp date={start}/> - <Timestamp date={end}/>
-            </span>
-        }
-    }
-
-    function PublicCommit(props) {
-        function renderCommitMessages(changes) {
-            return changes.map((change) =>
-                <GitCommitMessage
-                    key={change.sha}
-                    message={change.message}
-                    url={change.url} />
-            );
-        }
-
-        return (
-            <div className="github-recent-commit">
-                <span className="github-recent-public-icon" title="Public repository" role="img" aria-label="Public repository">
-                     @@include('src/apps/main/templates/svg/public.svg', {"id": "", "class": ""})
-                </span>
-                <a href={"" + props.commit.repo.url} className="github-recent-repo">
-                    {props.commit.repo.name}
-                </a><RepoMetadata commit={props.commit}/>
-                {renderCommitMessages(props.commit.changes)}
-            </div>
-        );
-    }
-
-    function PrivateCommit(props) {
-        return (
-            <div className="github-recent-private">
-                <span className="github-recent-private-icon" title="Private repository" role="img" aria-label="Private repository">
-                     @@include('src/apps/main/templates/svg/private.svg', {"id": "", "class": ""})
-                </span>
-                <span className="github-recent-repo">{props.commit.repo.name}</span><RepoMetadata commit={props.commit}/>
-            </div>
-        );
-    }
-
-    function RepoMetadata(props) {
-        return (
-            <span className="github-recent-repo-meta">
-                <CommitCount change_count={props.commit.change_count} timestamp={formatTimestampString(props.commit.start, props.commit.end)}/>
-            </span>
-        );
-    }
-
-    function CommitCount(props) {
-        return (
-            <span className="github-recent-commit-count" title={props.timestamp}>
-                {/*<span className="github-recent-commit-count-icon">
-                    @@include('src/apps/main/templates/svg/git-commit.svg', {"id": "", "class": ""})
-                </span>*/}
-                {props.change_count} {(props.change_count == 1 ? " commit" : " commits")}
-            </span>
-        );
-    }
-
-    function Languages(props) {
-        const languages = Object.keys(props.languages);
-        if (languages.length == 0) {
-            return (null);
-        }
-        return (
-            <span className="github-recent-languages" title={languages.length + " languages: " + languages.join(', ')}>
-                <span className="github-recent-languages-icon">
-                    @@include('src/apps/main/templates/svg/code.svg', {"id": "", "class": ""})
-                </span>
-                {"" + languages.length} 
-            </span>
-        );
-    }
-
-    function GitCommitMessage(props) {
-        return (
-            <div className="github-recent-commit-message">
-                {props.message} <a className="github-recent-link-icon" title="View commit on Github" href={props.url}>
-                    @@include('src/apps/main/templates/svg/link.svg', {"id": "", "class": ""})
-                </a>
-            </div>
-        );
-    }
-
-    function getRecentGithubCommits() {
-        const url = '/api/github_latest/';
-        fetch(url, {
-            method: 'GET',
-        }).then((response) => {
-            return response.json();
-        }).then((data) => {
-            if (!data['commits']) {
-                return;
-            }
-            const commits = compressCommits(data['commits']);
-            buildViews(commits);
-        }).catch((err) => {
-            console.log('Error getting recent commits:' + err);
-        });
-    }
-
-    function compressCommits(commits) {
-        return groupCommitsByRepo(commits);
-    }
+    const MAX_RENDER_MESSAGES = 5;
 
     class PublicBucket {
         constructor(commit) {
@@ -198,6 +37,27 @@ const commits = (() => {
         }
     }
 
+    function getRecentGithubCommits() {
+        const url = '/api/github_latest/';
+        fetch(url, {
+            method: 'GET',
+        }).then((response) => {
+            return response.json();
+        }).then((data) => {
+            if (!data['commits']) {
+                return;
+            }
+            const commits = compressCommits(data['commits']);
+            buildViews(commits);
+        }).catch((err) => {
+            console.log('Error getting recent commits:' + err);
+        });
+    }
+
+    function compressCommits(commits) {
+        return groupCommitsByRepo(commits);
+    }
+
     /**
      * Group commits by repo and sort with most recent first.
      */
@@ -231,11 +91,163 @@ const commits = (() => {
         return combined;
     }
 
+    function formatTimestampString(_start, _end) {
+        const start = new Date(_start);
+        const end = new Date(_end);
+
+        if (isSameDay(start, end)) {
+            return formatDate(end);
+        }
+        else {
+            return formatDate(start) + " - " + formatDate(end);
+        }
+    }
+
+    /*
+     * Rendering
+     */
+
     function buildViews(commits) {
         ReactDOM.render(
             <GithubLatestCommits
                 commits={commits} />,
             document.getElementById('github_recent'));
+    }
+
+    function GithubLatestCommits(props) {
+        function renderCommits(commits) {
+            let rendered = [];
+
+            commits.forEach((c) => {
+                if (c instanceof PublicBucket) {
+                    rendered.push(
+                        <PublicCommit
+                            key={c.end}
+                            commit={c} />
+                    );
+                } else if (c instanceof PrivateBucket) {
+                    rendered.push(
+                        <PrivateCommit
+                            key={c.end}
+                            commit={c} />
+                    );
+                }
+            });
+            return rendered;
+        }
+
+        return (
+            <div className="github-recent">
+                <h3>Recent activity:</h3>
+                {renderCommits(props.commits)}
+            </div>
+        )
+    }
+
+    function PublicCommit(props) {
+        function renderCommitMessages(changes) {
+            let uniqueMessages = [];
+            const uniqueChanges = changes.filter(item => {
+                const result = uniqueMessages.indexOf(item.message) == -1;
+                uniqueMessages.push(item.message);
+                return result;
+            });
+
+            return (
+                <div class="github-recent-public-messages">
+                    {uniqueChanges.slice(0, MAX_RENDER_MESSAGES).map((change) =>
+                        <GitCommitMessage
+                            key={change.sha}
+                            message={change.message}
+                            url={change.url} />
+                    )}
+                </div>
+            )
+        }
+
+        return (
+            <div className="github-recent-commit">
+                <span className="github-recent-public-icon" title="Public repository" role="img" aria-label="Public repository">
+                     @@include('src/apps/main/templates/svg/public.svg', {"id": "", "class": ""})
+                </span>
+                <a href={"" + props.commit.repo.url} className="github-recent-repo">
+                    {props.commit.repo.name}
+                </a><a href={props.commit.repo.url + "/commits/"}><RepoMetadata commit={props.commit}/></a>
+                {renderCommitMessages(props.commit.changes)}
+            </div>
+        );
+    }
+
+    function PrivateCommit(props) {
+        return (
+            <div className="github-recent-private">
+                <span className="github-recent-private-icon" title="Private repository" role="img" aria-label="Private repository">
+                     @@include('src/apps/main/templates/svg/private.svg', {"id": "", "class": ""})
+                </span>
+                <span className="github-recent-repo">{props.commit.repo.name}</span><RepoMetadata commit={props.commit}/>
+            </div>
+        );
+    }
+
+    function RepoMetadata(props) {
+        return (
+            <span className="github-recent-repo-meta">
+                <CommitCount change_count={props.commit.change_count} timestamp={formatTimestampString(props.commit.start, props.commit.end)}/>
+            </span>
+        );
+    }
+
+    // function renderTimestamp(commit) {
+    //     const start = new Date(commit.start);
+    //     const end = new Date(commit.end);
+
+    //     if (isSameDay(start, end)) {
+    //         return <span className="github-recent-timestamp">
+    //             <Timestamp date={start} />
+    //         </span>
+    //     }
+    //     else {
+    //         return <span className="github-recent-timestamp">
+    //             <Timestamp date={start}/> - <Timestamp date={end}/>
+    //         </span>
+    //     }
+    // }
+
+    // function Timestamp(props) {
+    //     return <time class="dt-updated github-recent-timestamp" datetime={"" + props.date}>
+    //         {props.text ? props.text : formatDate(props.date)}
+    //     </time>
+    // }
+
+    function CommitCount(props) {
+        return (
+            <span className="github-recent-commit-count" title={props.timestamp}>
+                {props.change_count} {(props.change_count == 1 ? " commit" : " commits")}
+            </span>
+        );
+    }
+
+    function Languages(props) {
+        const languages = Object.keys(props.languages);
+        if (languages.length == 0) {
+            return (null);
+        }
+        return (
+            <span className="github-recent-languages" title={languages.length + " languages: " + languages.join(', ')}>
+                <span className="github-recent-languages-icon">
+                    @@include('src/apps/main/templates/svg/code.svg', {"id": "", "class": ""})
+                </span>
+                {"" + languages.length} 
+            </span>
+        );
+    }
+
+    function GitCommitMessage(props) {
+        return (
+            <div className="github-recent-commit-message">
+                <a className="primary"  href={props.url} title="View on Github">{props.message}</a>
+            </div>
+        );
     }
 
     if (document.getElementById('github_recent')) {
