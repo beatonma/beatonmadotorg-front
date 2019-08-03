@@ -12,6 +12,9 @@ const imageViewer = (() => {
     function loadAppImages(appID) {
         loadJson(`/api/images/app/${appID}`)
         .then((json) => {
+            if (json.images.length == 0) {
+                return;
+            }
             buildViews(json.app_id, json.images);
             getImageWrapper().addEventListener('click', toggleFullscreen);
         })
