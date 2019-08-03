@@ -17,6 +17,9 @@ const mentions = (() => {
     }
 
     function buildViews(mentions) {
+        if (mentions.length == 0) {
+            return;
+        }
         ReactDOM.render(
             <MentionsContainer
                 mentions={mentions} />,
@@ -30,14 +33,16 @@ const mentions = (() => {
             );
         }
 
-        return (
-            <div className="card">
-                <div className="card-content">
-                    <h3>Mentions</h3>
-                    {renderMentions(props.mentions)}
+        if (props.mentions) {
+            return (
+                <div className="card">
+                    <div className="card-content">
+                        <h3>Mentions</h3>
+                        {renderMentions(props.mentions)}
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 
     function Webmention(props) {
