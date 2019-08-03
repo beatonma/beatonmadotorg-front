@@ -1,3 +1,7 @@
+#github_recent {
+    overflow-y: auto;
+}
+
 .github-recent {
     @extend .card-content;
     font-size: 0.8em;
@@ -55,6 +59,10 @@
 
 .github-recent-languages-icon {
     @extend .github-icon-inline;
+}
+
+.github-recent-public-messages {
+    margin-top: $smallgap;
 }
 
 .github-recent-commit-message {
