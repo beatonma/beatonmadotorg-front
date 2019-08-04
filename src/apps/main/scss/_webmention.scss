@@ -1,6 +1,10 @@
 $avatar_default: 48px;
 $avatar_large: 72px;
 
+.mentions {
+    min-width: 300px;
+}
+
 .mention-mini {
     margin: $smallgap $smallgap $smallgap 0;
 }
@@ -46,7 +50,7 @@ $avatar_large: 72px;
 }
 
 .hcard-content {
-    font-size: .9rem;
+    font-size: $midtext;
     color: var(--item-accent-foreground);
 }
 
@@ -81,5 +85,5 @@ $avatar_large: 72px;
 }
 
 .mention-homepage {
-    font-size: .9rem;
+    font-size: $midtext;
 }

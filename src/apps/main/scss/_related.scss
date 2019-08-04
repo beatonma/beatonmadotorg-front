@@ -6,7 +6,7 @@ $related_app_icon_size: 3rem;
 }
 
 .related-section-title {
-    font-size: 0.85rem;
+    font-size: $smalltext;
     color: var(--text-primary);
     padding-bottom: 4px;
 }
@@ -43,7 +43,7 @@ $related_app_icon_size: 3rem;
 }
 
 .related-app-type {
-    font-size: 0.85rem;
+    font-size: $smalltext;
     color: var(--text-secondary);
 }
 

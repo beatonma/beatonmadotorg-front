@@ -61,7 +61,7 @@ hr {
 }
 
 label, .label {
-    font-size: .7rem;
+    font-size: $smalltext;
     color: var(--text-secondary);
     font-weight: 600;
 }
