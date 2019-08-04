@@ -1,0 +1,88 @@
+$animated-property: fill;
+$animate-from: rgba(0, 0, 0, 0);
+$animate-to: var(--text-light-tertiary);
+$max-size: 300px;
+$delay: 200ms;
+$stroke-width: 2px;
+$zerg: var(--zerg);
+$terran: var(--terran);
+$protoss: var(--protoss);
+
+:root {
+    --zerg: #823daed9;
+    --terran: #74cddcd9;
+    --protoss: #fdf472d9;
+}
+
+#intro_icons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    max-height: $max-size;
+    margin: 32px 24px;
+}
+
+.sc2am-icon {
+    width: 33%;
+    max-width: $max-size;
+    min-height: 80px;
+    max-height: $max-size;
+    animation-name: sc2am-intro;
+    animation-duration: 5000ms;
+    animation-timing-function: ease-in;
+    animation-fill-mode: backwards;
+    transition: all 300ms;
+    stroke-width: 0;
+    fill: var(--text-light-tertiary);
+}
+
+#intro_icons .terran {
+    animation-delay: $delay;
+    stroke: $terran;
+}
+#intro_icons .protoss {
+    animation-delay: $delay * 2;
+    stroke: $protoss;
+}
+#intro_icons .zerg {
+    animation-delay: $delay * 3;
+    stroke: $zerg;
+}
+
+.terran:hover {
+    fill: $terran;
+}
+
+.protoss:hover {
+    fill: $protoss;
+}
+
+.zerg:hover {
+    fill: $zerg;
+}
+
+
+
+@keyframes sc2am-intro {
+    0% {
+        #{$animated-property}: $animate-from;
+        stroke-width: 0;
+    }
+    20% {
+        stroke-width: $stroke-width;
+    }
+    40% {
+        stroke-width: $stroke-width;
+    }
+    60% {
+        stroke-width: 0;
+    }
+    70% {
+        #{$animated-property}: $animate-from;
+    }
+    100% {
+        // #{$animated-property}: $animate-to;
+        stroke-width: 0;
+    }
+}
