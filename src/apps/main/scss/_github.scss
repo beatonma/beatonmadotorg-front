@@ -4,7 +4,7 @@
 
 .github-recent {
     @extend .card-content;
-    font-size: 0.8em;
+    font-size: $smalltext;
     overflow-x: hidden;
     animation-name: github-enter;
     animation-duration: 220ms;
@@ -45,7 +45,7 @@
 }
 
 .github-recent-repo-meta {
-    font-size: .8em;
+    font-size: $smalltext;
 }
 
 .github-recent-commit-count {
@@ -69,7 +69,7 @@
     border-left: var(--text-tertiary) solid 2px;
     padding-left: $smallgap;
     margin-bottom: $smallgap;
-    font-size: .9em;
+    font-size: $smalltext;
 }
 
 .github-recent-private {
