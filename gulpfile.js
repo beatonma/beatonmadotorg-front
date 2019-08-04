@@ -65,9 +65,10 @@ gulp.task('public', ['django:publish:public']);
 gulp.task('meta', ['js:find_references'])
 
 
-gulp.task('watch', ['sass'], () => {
-    gulp.watch(SRC_PATH + '**/*.scss', ['sass']);
-});
+// gulp.task('watch', ['sass'], () => {
+//     console.log('Using dev directory \'' + DEV_BASE_PATH + '\'');
+//     gulp.watch(SRC_PATH + '**/*.scss', ['sass']);
+// });
 
 
 gulp.task('watch', ['django:dev'], () => {
@@ -164,6 +165,11 @@ gulp.task('django:build:images', () => {
         .pipe(gulp.dest(DIST_PATH));
 });
 
+gulp.task('django:collectstatic', () => {
+    return gulp.src(SRC_PATH + 'static/**/*')
+        .pipe(gulp.dest(DIST_PATH + 'main/static/main/'));
+});
+
 
 // Replace generic tags with flatpage-specific ones
 // Replace 'extends' declarations with the flatpage version
@@ -226,6 +232,7 @@ gulp.task('django:build', ['sass'], (callback) => {
         [
             'django:build:flatpages',
             'django:build:images',
+            'django:collectstatic',
         ],
         'django:unwrap',
         'django:clean:temp',
@@ -254,6 +261,7 @@ gulp.task('nominify:css', () => {
 });
 
 gulp.task('django:build:debug', ['sass'], (callback) => {
+    console.log('Debug build initiated...');
     return runSequence(
         'django:clean',
         'django:build:concat',
@@ -261,29 +269,12 @@ gulp.task('django:build:debug', ['sass'], (callback) => {
         [
             'django:build:flatpages',
             'django:build:images',
+            'django:collectstatic',
         ],
         'django:unwrap',
         'django:clean:temp',
         callback);
 });
-
-
-// gulp.task('django:dev:build', ['sass'], (callback) => {
-//     // Same as django:build but without minification
-//     // TODO currently does not copy files that would otherwise copied by minify tasks
-//     runSequence(
-//         'django:clean',
-//         'django:build:concat',
-//         'django:build:minify',
-//         [
-//             'django:build:flatpages',
-//             // 'django:build:fonts',    // Included in css as base64 data
-//             'django:build:images',
-//         ],
-//         'django:unwrap',
-//         'django:clean:temp',
-//         callback);
-// });
 
 
 gulp.task('django:dev', ['django:build:debug'], () => {
@@ -292,6 +283,7 @@ gulp.task('django:dev', ['django:build:debug'], () => {
     return gulp.src(DIST_PATH + '**/*')
         .pipe(gulp.dest(DEV_BASE_PATH));
 });
+
 gulp.task('django:dev:autorefresh', ['django:dev'], () => {
     browserSync.reload();
 });
