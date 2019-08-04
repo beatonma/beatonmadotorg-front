@@ -5,22 +5,16 @@
 }
 
 .tooltip-popup {
-    font-size: .9rem;
+    font-size: $midtext;
     opacity: 0;
-    // color: var(--text-primary-invert);
     color: var(--item-accent-foreground);
-    // background: var(--text-primary);
-    // background: var(--accent);
     background: var(--item-accent);
     padding: 8px;
     border-radius: $corner-radius;
-    transition: all 200ms;
     position: absolute;
     z-index: 1;
     transform: scale(0);
     transform-origin: top center;
-    line-height: 1;
-    flex-shrink: 0;
 }
 
 .tooltip:hover .tooltip-popup {
@@ -28,10 +22,13 @@
     animation-name: tooltip;
     animation-duration: 200ms;
     animation-timing-function: cubic-bezier(0, 0, .2, 1);
-    animation-fill-mode: forwards;
+    animation-fill-mode: none;
     text-align: center;
-    // min-width: 60px;
     white-space: nowrap;
+    left: 50%;
+    transform: scale(1) translateX(-50%);
+    opacity: 1;
+    visibility: visible;
 }
 
 @keyframes tooltip {
@@ -48,10 +45,31 @@
         left: 50%;
         transform: scale(.99) translateX(-50%);
     }
-    100% {
-        left: 50%;
-        transform: scale(1) translateX(-50%);
-        opacity: 1;
-        visibility: visible;
+}
+
+@media (max-width: $screen-narrow) {
+    .tooltip:hover .tooltip-popup {
+        position: fixed;
+        bottom: 32px;
+        padding: 16px;
+        width: 80%;
+        transform-origin: bottom center;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
+            0 3px 1px -2px rgba(0, 0, 0, .2),
+            0 1px 5px 0 rgba(0, 0, 0, .12);
+    }
+
+    @keyframes tooltip {
+        0% {
+            transform: scale(0) translateX(-50%);
+            opacity: 0;
+            visibility: hidden;
+        }
+        1% {
+            visibility: visible;
+        }
+        50% {
+            transform: scale(.99) translateX(-50%);
+        }
     }
 }
