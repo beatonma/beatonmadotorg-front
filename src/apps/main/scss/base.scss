@@ -1,13 +1,16 @@
 @import 'constants';
+@import 'text/text';
+@import 'actions/actions';
 @import 'screensize';
 @import 'fonts';
 @import 'chrome';   // Browser decoration: scrollbars, etc
 @import 'objects';  // HTML elements: body, main, h1, etc
 @import 'util';
+@import 'alignment';
 
 @import 'tagline';
-@import 'card';
 @import 'flex';
+@import 'card';
 @import 'code';
 @import 'colors';
 @import 'header';
@@ -37,6 +40,8 @@
 @import 'item';     // apply per-page color scheme, defined in style#local_style tag
 @import 'tile';
 @import 'imageviewer';
+
+@import 'content/content';
 
 .title {
     font-size: 2rem;
