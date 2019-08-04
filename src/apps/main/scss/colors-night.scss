@@ -17,10 +17,11 @@
     --primary-color: #070707;
     --item-primary: var(--primary-color);
     
-    --accent-color: #823DAE;
-    --accent-color-highlight: #A973CD;
+    --accent-color: #60b4e3;
+    --accent-color-highlight: #1e6197;
     --accent: var(--accent-color);
     --item-accent: var(--accent-color);
+    --accent-background: var(--accent-color-highlight);
 
     --item-foreground: var(--text-light-primary);
     --item-accent-foreground: var(--text-light-primary);
