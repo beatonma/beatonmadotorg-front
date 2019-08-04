@@ -34,12 +34,15 @@ const mentions = (() => {
         }
 
         if (props.mentions) {
+            // Insert into existing card, or create new card if none
+            const cardExists = document.getElementById('related_content');
+            if (!cardExists) {
+                document.getElementById('mentions').classList.add('card');
+            }
             return (
-                <div className="card">
-                    <div className="card-content">
-                        <h3>Mentions</h3>
-                        {renderMentions(props.mentions)}
-                    </div>
+                <div className={"mentions overflow" + (cardExists ? "" : " card-content")}>
+                    <h3>Mentions</h3>
+                    {renderMentions(props.mentions)}
                 </div>
             );
         }
