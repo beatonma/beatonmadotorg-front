@@ -1,9 +1,8 @@
 .chip {
     background: var(--item-accent);
-    border-radius: 1rem;
+    border-radius: $corner-radius;
     padding: 2px .5rem;
     margin: 0 $smallgap;
-    font-family: monospace;
     color: var(--item-accent-foreground);
-    font-size: .8rem;
+    font-size: $smalltext;
 }
