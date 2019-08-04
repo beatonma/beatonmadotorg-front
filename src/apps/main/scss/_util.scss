@@ -41,6 +41,18 @@
     transition: padding 300ms, height 300ms, margin 300ms;
 }
 
+.overflow {
+    overflow: visible;
+}
+
+.overflowx {
+    overflow-x: visible;
+}
+
+.overflowy {
+    overflow-y: visible;
+}
+
 @keyframes visibility {
     0% {
         visibility: visible;
@@ -57,4 +69,8 @@
 
 .wrap {
     width: max-content;
+}
+
+.gap {
+    margin-top: 24px;
 }
