@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block result_text %}
-{% if not apps and not articles %}
+{% if not apps and not articles and not notes %}
     No items found for #{{ tag }}
 {% else %}
     Items tagged with <span class="accent">#{{ tag }}</span>:
