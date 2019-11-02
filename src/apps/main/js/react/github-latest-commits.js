@@ -148,7 +148,7 @@ const commits = (() => {
         function renderCommitMessages(changes) {
             let uniqueMessages = [];
             const uniqueChanges = changes.filter(item => {
-                const result = uniqueMessages.indexOf(item.message) == -1;
+                const result = item.message && uniqueMessages.indexOf(item.message) == -1;
                 uniqueMessages.push(item.message);
                 return result;
             });
