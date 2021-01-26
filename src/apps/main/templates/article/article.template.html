@@ -54,6 +54,8 @@
             {% if article.tweet_id %}<a rel="syndication" class="u-syndication" href="https://twitter.com/_beatonma/status/{{ article.tweet_id }}">Tweet</a>{% endif %}
         </div>
     </article>
+    
+    {% include 'fragments/image-viewer.fragment.html' %}
 </div>
 
 <!-- build:remove -->

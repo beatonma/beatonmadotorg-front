@@ -151,7 +151,7 @@ function animatePageChange(oldContent, newContent, callback) {
             mentions.get();
         }
 
-        if (newContent.querySelector('#app_images')) {
+        if (newContent.querySelector('#related_images')) {
             imageViewer.load();
         }
 

@@ -7,31 +7,52 @@ const imageViewer = (() => {
         if (matches) {
             loadAppImages(matches[1]);
         }
+        else {
+            loadRelatedImages(window.location.pathname);
+        }
     }
 
     function loadAppImages(appID) {
         loadJson(`/api/images/app/${appID}`)
-        .then((json) => {
-            if (json.images.length == 0) {
-                return;
-            }
-            buildViews(json.app_id, json.images);
-            getImageWrapper().addEventListener('click', toggleFullscreen);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+            .then((json) => {
+                if (json.images.length == 0) {
+                    return;
+                }
+                buildViews(json.images, json.app_id);
+                getImageWrapper().addEventListener('click', toggleFullscreen);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     }
 
-    function buildViews(appID, images) {
+    function loadRelatedImages(path) {
+        loadJson(`/api/images/related?url=${path}`)
+            .then((json) => {
+                if (json.images.length == 0) {
+                    return;
+                }
+                buildViews(json.images);
+                getImageWrapper().addEventListener('click', toggleFullscreen);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }
+
+    function buildViews(images, appID) {
         return ReactDOM.render(
             <ImageViewer appID={appID} images={images}/>,
-            document.getElementById('app_images'));
+            document.getElementById('related_images')
+        );
     }
 
     function ImageViewer(props) {
         function renderImages() {
-            return props.images.map((image) => <Image key={image.url} image={image} appID={props.appID}/>);
+            return props.images.map((image) => {
+                const description = props.appID ? `Image for app ${props.appID}` : "Related image";
+                return (<Image key={image.url} image={image} description={description}/>);
+            });
         }
 
         return (
@@ -40,7 +61,7 @@ const imageViewer = (() => {
                     <h3>Images</h3>
                     <div id={ID_IMAGE_VIEWER_WRAPPER}>
                         <div id="image_viewer">
-                            {renderImages(props.images)}
+                            {renderImages()}
                         </div>
                     </div>
                 </div>
@@ -48,18 +69,19 @@ const imageViewer = (() => {
         );
     }
 
+    /**
+     * Generic related image.
+     */
     function Image(props) {
         function renderDescription(d) {
             if (d) {
-                return (<div className="app-image-description">{d}</div>)
+                return (<div className="related-image-description">{d}</div>);
             }
         }
 
-        const url = props.image.url;
-        const description = props.image.description || `Image for app '${props.appID}'`;
         return (
             <div className="image-viewer-item">
-                <img className="app-image" src={url} alt={description} aria-label={description}/>
+                <img className="related-image" src={props.image.url} alt={props.description} aria-label={props.description}/>
                 {renderDescription(props.image.description)}
             </div>
         );
