@@ -1,0 +1,10 @@
+.button {
+    width: max-content;
+    cursor: default;
+    background: var(--item-accent);
+    border-radius: $corner-radius;
+    padding: .5rem .75rem;
+    margin: 0 $smallgap ($smallgap * 2);
+    color: var(--item-accent-foreground);
+    user-select: none;
+}

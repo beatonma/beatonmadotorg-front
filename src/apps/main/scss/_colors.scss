@@ -1,11 +1,5 @@
-$accent: var(--accent-color);
-$light: var(--text-light-primary);
-$dark: var(--text-dark-primary);
-$primary: var(--text-primary);
-$secondary: var(--text-secondary);
-
 .light {
-    color: var(--text-light-primary);
+    color: $light;
 }
 
 .light.secondary {
@@ -17,20 +11,20 @@ $secondary: var(--text-secondary);
 }
 
 .primary {
-    color: var(--text-primary);
+    color: $primary;
 }
 
 .secondary {
-    color: var(--text-secondary);
+    color: $secondary;
 }
 
 .tertiary {
-    color: var(--text-tertiary);
+    color: $tertiary;
 }
 
 
 .dark {
-    color: var(--text-dark-primary);
+    color: $dark;
 }
 
 .dark.secondary {
@@ -42,5 +36,10 @@ $secondary: var(--text-secondary);
 }
 
 .warn {
-    color: var(--warn);
+    color: $warn;
+}
+
+:root {
+    --black: #000000;
+    --white: #ffffff;
 }

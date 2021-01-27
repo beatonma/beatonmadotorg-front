@@ -38,7 +38,7 @@
 
 .animate-visibility {
     animation-name: visibility;
-    transition: padding 300ms, height 300ms, margin 300ms;
+    transition: padding $transition-duration, height $transition-duration, margin $transition-duration;
 }
 
 .overflow {

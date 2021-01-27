@@ -5,7 +5,7 @@
     max-width: $icon-small;
     border-radius: 50%;
     background-color: transparent;
-    transition: background-color 300ms;
+    transition: background-color $transition-duration;
 }
 
 .icon:hover {

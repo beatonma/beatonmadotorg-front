@@ -19,7 +19,7 @@
     z-index: 300;
     max-width: 100%;
     background: transparent;
-    transition: background 300ms, width 200ms cubic-bezier(.4, 0, .2, 1), left 200ms cubic-bezier(.4, 0, .2, 1);
+    transition: background $transition-duration, width 200ms cubic-bezier(.4, 0, .2, 1), left 200ms cubic-bezier(.4, 0, .2, 1);
 }
 
 @keyframes loading {

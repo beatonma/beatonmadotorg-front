@@ -1,6 +1,3 @@
-$avatar_default: 48px;
-$avatar_large: 72px;
-
 .mentions {
     min-width: 300px;
 }
@@ -21,52 +18,52 @@ $avatar_large: 72px;
 
 .mention-avatar {
     @extend .avatar;
-    min-width: $avatar_default;
-    min-height: $avatar_default;
-    width: $avatar_default;
-    height: $avatar_default;
+    min-width: $wm-avatar-default;
+    min-height: $wm-avatar-default;
+    width: $wm-avatar-default;
+    height: $wm-avatar-default;
 }
 
 .mention-quoted .mention-avatar {
-    min-width: $avatar_large;
-    min-height: $avatar_large;
-    width: $avatar_large;
-    height: $avatar_large;
+    min-width: $wm-avatar-large;
+    min-height: $wm-avatar-large;
+    width: $wm-avatar-large;
+    height: $wm-avatar-large;
     margin-right: 12px;
 }
 
 .hcard-avatar {
     @extend .avatar;
-    min-width: $avatar_large;
-    min-height: $avatar_large;
-    width: $avatar_large;
-    height: $avatar_large;
+    min-width: $wm-avatar-large;
+    min-height: $wm-avatar-large;
+    width: $wm-avatar-large;
+    height: $wm-avatar-large;
     margin: auto;
 }
 
 // Small, mention with link and popup hcard, no quote
-.hcard-popup {
+// .hcard-popup {
 
-}
+// }
 
 .hcard-content {
     font-size: $midtext;
     color: var(--item-accent-foreground);
 }
 
-.hcard-name {
+// .hcard-name {
 
-}
+// }
 
-.hcard-homepage {
+// .hcard-homepage {
 
-}
+// }
 
 
-// Full size, quoted mention
-.mention-content {
+// // Full size, quoted mention
+// .mention-content {
 
-}
+// }
 
 .mention-quote {
     color: var(--text-secondary);

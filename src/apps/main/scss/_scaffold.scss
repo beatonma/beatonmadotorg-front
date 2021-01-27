@@ -1,0 +1,62 @@
+// /**
+//  * Top level structure of site content.
+//  */
+
+.container {
+    padding: 16px 0 8px;
+    margin: auto;
+    transition: width $transition-duration;
+}
+ 
+@media only screen and (min-width:$screen-single-column) {
+    .container {
+        padding: 16px ($card-spacing * 2) 8px;
+    }
+}
+
+// A container for one or more card. The container is usually invisible
+// Flex should be applied using classes from _flex.scss, but we need to
+// keep this class as a selector for card animations
+.card-container {
+    align-items: stretch !important;
+    transition: width $transition-duration;
+}
+
+@media only screen and (min-width:$screen-mid) {
+    .card-container {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media only screen and (min-width:$screen-wide) {
+    .card-container {
+        max-width: $max-card-width;
+    }
+}
+
+/**
+ * Front screen grid
+ */
+.flex-row.card-container {
+    padding: 16px 0 8px;
+    margin: auto;
+    transition: width $transition-duration;
+}
+@media only screen and (min-width:$screen-two-columns) {
+    .flex-row.card-container {
+        max-width: ($preview-width + $card-spacing) * 2;
+    }
+}
+
+@media only screen and (min-width:$screen-three-columns) {
+    .flex-row.card-container {
+        max-width: ($preview-width + $card-spacing) * 3;
+    }
+}
+
+@media only screen and (min-width:$screen-max-columns) {
+    .flex-row.card-container {
+        max-width: ($preview-width + $card-spacing) * 4;
+    }
+}

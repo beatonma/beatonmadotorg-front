@@ -40,8 +40,6 @@ function initPageTransitions() {
             if (!el.href.includes('beatonma.org')
                     && !el.href.includes('inverness.io')
                     && !el.href.includes('beatonma.com')
-                    && !el.href.includes('localhost')
-                    && !el.href.includes('192.168.1.')
                     ) {
                 return;
             }

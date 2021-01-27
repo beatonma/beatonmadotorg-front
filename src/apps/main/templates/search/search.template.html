@@ -20,10 +20,12 @@
 
 {% if articles %}
 <section id="articles">
-    <h1>Articles</h1>
-    <div class="card">
-        <div class="card-content flex-row grid">
-            {% include 'article/article-list.fragment.html' %}
+    <div class="card-container">
+        <h1>Articles</h1>
+        <div class="card">
+            <div class="card-content flex-row grid">
+                {% include 'article/article-list.fragment.html' %}
+            </div>
         </div>
     </div>
 </section>
@@ -31,10 +33,12 @@
 
 {% if apps %}
 <section id="apps">
-    <h1>Apps</h1>
-    <div class="card">
-        <div class="card-content flex-row grid">
-            {% include 'app/app-list.template.html' with app_list=apps %}
+    <div class="card-container">
+        <h1>Apps</h1>
+        <div class="card">
+            <div class="card-content flex-row grid">
+                {% include 'app/app-list.template.html' with app_list=apps %}
+            </div>
         </div>
     </div>
 </section>

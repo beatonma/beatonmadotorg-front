@@ -67,7 +67,7 @@
     align-items: baseline;
 }
 
-@media screen and (min-width:747px) {
+@media screen and (min-width:$screen-two-columns) {
     .flex-row {
         justify-content: flex-start;
     }

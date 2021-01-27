@@ -1,6 +1,6 @@
 #image_viewer {
     display: flex;
-    max-width: $max_card_width;
+    max-width: $max-card-width;
     transition: width 400ms, height 400ms, background 160ms;
     overflow-x: scroll;
 }
@@ -25,37 +25,37 @@
     margin-right: $smallgap;
 }
 
-.app-image-description {
+.related-image-description {
     background: var(--text-dark-secondary);
     color: var(--text-light-primary);
     padding: $smallgap;
 }
 
-.app-image {
+.related-image {
     transition: width 160ms, height 160ms;
 }
 
-#image_viewer_wrapper.fullscreen .app-image {
+#image_viewer_wrapper.fullscreen .related-image {
     background: var(--text-light-secondary);
 }
 
 @media (orientation: portrait) {
-    .app-image {
+    .related-image {
         height: 40vh;
         width: auto;
     }
 
-    #image_viewer_wrapper.fullscreen .app-image {
+    #image_viewer_wrapper.fullscreen .related-image {
         height: 60vh;
     }
 }
 @media (orientation: landscape) {
-    .app-image {
+    .related-image {
         height: 25vh;
         width: auto;
     }
 
-    #image_viewer_wrapper.fullscreen .app-image {
+    #image_viewer_wrapper.fullscreen .related-image {
         height: 60vh;
     }
 }

@@ -1,14 +1,15 @@
 // Vertical layout
 .preview {
-    
+    @extend .flex-col;
 }
 
 .preview-content {
+    @extend .flex-col;
     padding: 6px 12px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    transition: padding 300ms;
+    transition: padding $transition-duration;
 }
 
 // Horizontal layout

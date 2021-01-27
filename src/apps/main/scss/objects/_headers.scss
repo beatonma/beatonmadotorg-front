@@ -12,9 +12,9 @@ h1, h2, h3, h4, h5, h6 {
     // margin: 0px 0px 8px 0px;
     // width: 100%;
     transition: 
-        margin $transition_duration ease-in-out,
-        width $transition_duration ease-in-out,
-        font-size $transition_duration;
+        margin $transition-duration ease-in-out,
+        width $transition-duration ease-in-out,
+        font-size $transition-duration;
 }
 
 h1 {
@@ -33,7 +33,7 @@ h4 {
     font-size: 1.1rem;
 }
 
-@media only screen and (min-width:480px) {   
+@media only screen and (min-width:$screen-narrow) {   
     // h1, h2, h3, h4, h5, h6 {
     section h1 {
         margin: 0 0 8px;
