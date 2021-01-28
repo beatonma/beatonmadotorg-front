@@ -30,9 +30,6 @@ const del = require('del');
 const rename = require('gulp-rename');
 const rsync = require('gulp-rsync');
 
-const TEST_SERVER = 'beatonma.com';
-
-
 const SRC_PATH = 'src/';
 const DIST_PATH = 'dist/';
 const BUILD_PATH = 'build/';
@@ -41,6 +38,7 @@ const FLATPAGE_TEMPLATES = [
     'base.template.html',
     'empty.template.html',
     'null.template.html',
+    'about.template.html',
 ];
 gulp.task('default', ['build']);
 gulp.task('meta', ['js:find_references']);
@@ -260,20 +258,41 @@ gulp.task('build:debug', ['sass'], (callback) => {
 });
 
 
-gulp.task('test', ['build'], () => {
+function rsyncConfig(config) {
+    // config must have values for `keyfile`, `username`, and `hostname`.
+    return {
+        options: {
+            chmod: 'Du=rwx,Dgo=rx,Fu=rw,Fgo=r',
+            e: `ssh -i "${config.keyfile}"`
+        },
+        username: config.username,
+        hostname: config.hostname,
+        destination: "path",
+        recursive: true,
+        silent: true,
+        root: DIST_PATH,
+        progress: false
+    }
+}
+
+gulp.task('publish', ['build'], () => {
+    // Build and push result to PUBLIC server!
     return gulp.src(DIST_PATH + '**')
-        .pipe(rsync({
-            options: {
-                chmod: 'Du=rwx,Dgo=rx,Fu=rw,Fgo=r',
-                e: 'ssh -i "keyfile"'
-            },
+        .pipe(rsync(rsyncConfig({
+            keyfile: "keyfile",
             username: "username",
-            hostname: TEST_SERVER,
-            destination: "path",
-            recursive: true,
-            root: DIST_PATH,
-            progress: false
-        }));
+            ""
+        })));
+})
+
+gulp.task('test', ['build'], () => {
+    // Build and push result to TEST server
+    return gulp.src(DIST_PATH + '**')
+        .pipe(rsync(rsyncConfig({
+            keyfile: "keyfile",
+            username: "username",
+            hostname: 'beatonma.com'
+        })));
 });
 
 
