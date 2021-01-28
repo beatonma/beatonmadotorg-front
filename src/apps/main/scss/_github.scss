@@ -1,14 +1,15 @@
-#github_recent {
-    overflow-y: auto;
-}
+// #github_recent {
+    // overflow-y: auto;
+// }
 
 .github-recent {
-    @extend .card-content;
-    font-size: $smalltext;
-    overflow-x: hidden;
+    // @extend .card-content;
+    @extend %preview-list;
+    // font-size: $smalltext;
+    // overflow-x: hidden;
     animation-name: github-enter;
     animation-duration: 220ms;
-    overflow-y: auto;
+    // overflow-y: auto;
 }
 
 .github-recent-repo {

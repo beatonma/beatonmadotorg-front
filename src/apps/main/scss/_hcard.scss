@@ -1,0 +1,26 @@
+.u-key {
+    display: none;
+}
+
+.my-hcard-profile {
+    display: flex;
+    width: max-content;
+    flex-direction: row;
+    margin-bottom: $padding-large;
+}
+
+.my-hcard-profile img {
+    @extend .hcard-avatar;
+    margin-right: $padding-large;
+    width: 128px;
+    height: 128px;
+}
+
+.my-hcard .relme {
+    @extend  .flex-row-center;
+    max-width: $screen-narrow;
+}
+
+.my-hcard .relme * {
+    @extend .tag;
+}

@@ -36,6 +36,7 @@
     <!-- build:remove -->
     <!-- Additonal stuff for the h-card that we don't actually want to show on the page -->
     <!-- endbuild -->
-    {% include 'fragments/hcard.fragment.html' %}
-    <!-- @@include('src/apps/main/templates/fragments/hcard.fragment.html') -->
+    <div class="nodisplay">
+        {% include 'fragments/hcard.fragment.html' %}
+    </div>
 </div>

@@ -34,7 +34,7 @@
 }
 
 .app-tagline {
-    @extend .tagline;
+    @extend %tagline;
     margin-bottom: .5rem;
 }
 

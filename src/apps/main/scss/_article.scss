@@ -8,7 +8,7 @@ article {
 }
 
 .article-tagline {
-    @extend .tagline;
+    @extend %tagline;
     margin-bottom: 0;
 }
 

@@ -137,9 +137,11 @@ const commits = (() => {
         }
 
         return (
-            <div className="github-recent">
+            <div class="preview-list-container">
                 <h3>Recent activity:</h3>
-                {renderCommits(props.commits)}
+                <div className="github-recent">
+                    {renderCommits(props.commits)}
+                </div>
             </div>
         )
     }
@@ -196,29 +198,6 @@ const commits = (() => {
             </span>
         );
     }
-
-    // function renderTimestamp(commit) {
-    //     const start = new Date(commit.start);
-    //     const end = new Date(commit.end);
-
-    //     if (isSameDay(start, end)) {
-    //         return <span className="github-recent-timestamp">
-    //             <Timestamp date={start} />
-    //         </span>
-    //     }
-    //     else {
-    //         return <span className="github-recent-timestamp">
-    //             <Timestamp date={start}/> - <Timestamp date={end}/>
-    //         </span>
-    //     }
-    // }
-
-    // function Timestamp(props) {
-    //     return <time class="dt-updated github-recent-timestamp" datetime={"" + props.date}>
-    //         {props.text ? props.text : formatDate(props.date)}
-    //     </time>
-    // }
-
     function CommitCount(props) {
         return (
             <span className="github-recent-commit-count" title={props.timestamp}>

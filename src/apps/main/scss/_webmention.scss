@@ -10,14 +10,14 @@
     margin: 0 0 16px;
 }
 
-.avatar {
+%avatar {
     border-radius: 2 * $corner-radius;
     background-size: contain;
     background-position: center center;
 }
 
 .mention-avatar {
-    @extend .avatar;
+    @extend %avatar;
     min-width: $wm-avatar-default;
     min-height: $wm-avatar-default;
     width: $wm-avatar-default;
@@ -33,7 +33,7 @@
 }
 
 .hcard-avatar {
-    @extend .avatar;
+    @extend %avatar;
     min-width: $wm-avatar-large;
     min-height: $wm-avatar-large;
     width: $wm-avatar-large;

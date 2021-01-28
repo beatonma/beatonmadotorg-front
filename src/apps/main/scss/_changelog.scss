@@ -18,7 +18,7 @@
 }
 
 .changelog-tagline {
-    @extend .tagline;
+    @extend %tagline;
 }
 
 .changelog-date {
@@ -30,7 +30,7 @@
 // }
 
 .changelog-content {
-    font-size: $smalltext;
+    font-size: $midtext;
 }
 
 .changelog-content ul {

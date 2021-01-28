@@ -1,6 +1,6 @@
 {% load class_tag %}
 <div class="flex-row card-container">
-    <div id="github_recent" class="card preview nobackground"></div>
+    <div id="github_recent"></div>
     {% include 'fragments/notes.fragment.html' %}
     {% for item in recent %}
         {% if item|get_class == 'Article' %}

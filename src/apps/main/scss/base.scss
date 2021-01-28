@@ -1,14 +1,15 @@
 @import 'constants';
-@import 'screensize';
+@import 'elevation';
 @import 'scaffold';
 @import 'fonts';
 @import 'chrome';   // Browser decoration: scrollbars, etc
 @import 'objects';  // HTML elements: body, main, h1, etc
 @import 'util';
 @import 'alignment';
+@import 'flex';
+@import 'aspect-ratios';
 
 @import 'tagline';
-@import 'flex';
 @import 'card';
 @import 'code';
 @import 'colors';
@@ -16,7 +17,6 @@
 @import 'icons';
 @import 'footer';
 @import 'loading';
-@import 'aspect-ratios';
 @import 'preview';
 @import 'app-links';
 @import 'article';
@@ -39,6 +39,7 @@
 @import 'item';     // apply per-page color scheme, defined in style#local_style tag
 @import 'tile';
 @import 'imageviewer';
+@import 'hcard';  // Visible hcard on About page
 
 @import 'content/content';
 
@@ -54,6 +55,10 @@
     box-shadow: none;
 }
 .nobackground:active {
+    background: none;
+    box-shadow: none;
+}
+.nobackground:hover {
     background: none;
     box-shadow: none;
 }

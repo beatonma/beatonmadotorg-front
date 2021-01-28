@@ -1,4 +1,5 @@
 .button {
+    @extend %elevated;
     width: max-content;
     cursor: default;
     background: var(--item-accent);
