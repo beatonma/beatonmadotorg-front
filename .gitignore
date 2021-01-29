@@ -48,3 +48,10 @@ preview_data.json
 *.css
 gulpfile.js.bak
 svg2svg/
+scratch
+package-lock.json
+npm-shrinkwrap.json
+env/
+build/
+dist/
+*.gitbundle
