@@ -149,8 +149,8 @@ function animatePageChange(oldContent, newContent, callback) {
             mentions.get();
         }
 
-        if (newContent.querySelector('#related_images')) {
-            imageViewer.load();
+        if (newContent.querySelector('#related_media')) {
+            mediaViewer.load();
         }
 
         if (newContent.querySelector('#github_recent')) {

@@ -1,61 +1,75 @@
-#image_viewer {
+#media_viewer {
     display: flex;
     max-width: $max-card-width;
     transition: width 400ms, height 400ms, background 160ms;
     overflow-x: scroll;
 }
 
-#image_viewer_wrapper {
+#media_viewer_wrapper {
     display: flex;
     transition: width 400ms, height 400ms, background 160ms;
 }
 
-#image_viewer_wrapper.fullscreen {
+.fullscreen {
     position: fixed;
     height: 100%;
     width: 100%;
     top: 0;
     left: 0;
-    align-items: center;
     background: var(--text-dark-primary);
+    z-index: 1000;
+    transition: background $transition-duration;
+}
+
+#media_viewer_wrapper.fullscreen {
+    align-items: center;
     justify-content: center;
 }
 
-.image-viewer-item {
+.media-viewer-item {
     margin-right: $smallgap;
 }
 
-.related-image-description {
+.related-media-description {
     background: var(--text-dark-secondary);
     color: var(--text-light-primary);
     padding: $smallgap;
 }
 
-.related-image {
+%related-media {
     transition: width 160ms, height 160ms;
 }
 
-#image_viewer_wrapper.fullscreen .related-image {
+.related-image {
+    @extend %related-media;
+}
+
+.related-video {
+    @extend %related-media;
+}
+
+#media_viewer_wrapper.fullscreen %related-media {
     background: var(--text-light-secondary);
+    margin-right: $padding-large;
 }
 
 @media (orientation: portrait) {
-    .related-image {
+    %related-media {
         height: 40vh;
         width: auto;
     }
 
-    #image_viewer_wrapper.fullscreen .related-image {
+    #media_viewer_wrapper.fullscreen %related-media {
         height: 60vh;
     }
 }
 @media (orientation: landscape) {
-    .related-image {
+    %related-media {
         height: 25vh;
         width: auto;
     }
 
-    #image_viewer_wrapper.fullscreen .related-image {
+    #media_viewer_wrapper.fullscreen %related-media {
         height: 60vh;
     }
 }
