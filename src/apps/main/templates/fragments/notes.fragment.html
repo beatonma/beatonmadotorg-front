@@ -1,19 +1,13 @@
-{% load date_tag %}
-{% if notes %}
+{% if notes_with_media %}
 <div class="preview-list-container">
     <h3>Notes:</h3>
     <div class="notes-container">
-        {% for note in notes %}
-            <div class="note h-entry">
-                <span class="e-content">{{ note.content|safe }}</span>
-                <time class="dt-published label accent" datetime="{{ note.created|date }} {{ note.created|time }}" title="{{ note.created|date }} {{ note.created|time }}">
-                    {{ note.created|minimaltime }}
-                </time>
-            </div>
+        {% for note_with_media in notes_with_media %}
+            {% include 'elements/note.element.html' with note=note_with_media.note media=note_with_media.media %}
         {% endfor %}
         {% if perms.notes.add %}
         <div class="card-buttons">
-            <div class="button">New note</div>
+            <a href="{% url 'admin:main_note_add' %}" class="noanim button">New note</a>
         </div>
         {% endif %}
     </div>
