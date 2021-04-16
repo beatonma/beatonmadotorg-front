@@ -17,3 +17,14 @@
     margin-bottom: .9em;
     font-size: $smalltext;
 }
+
+.note-media {
+    border-radius: $corner-radius;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.note-media-wrapper {
+    padding: 0.5rem;
+}

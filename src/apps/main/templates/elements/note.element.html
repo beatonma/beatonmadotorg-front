@@ -6,9 +6,19 @@
     </time>
     {% if media.url %}
         <div class="note-media-wrapper">
+            {% if media.type == "video" %}
+            <a href="{{ media.url }}" title="Open video" class="noanim">
+                <video src="{{ media.url }}" alt="{{ media.description }}" aria-label="{{ media.description }}" class="note-media" muted autoplay></video>
+            </a>
+            {% elif media.type == "audio" %}
+            <a href="{{ media.url }}" title="Open audio" class="noanim">
+                <audio src="{{ media.url }}" alt="{{ media.description }}" aria-label="{{ media.description }}" class="note-media" controls></audio>
+            </a>
+            {% else %}
             <a href="{{ media.url }}" title="Open full image" class="noanim">
                 <img src="{{ media.url }}" alt="{{ media.description }}" aria-label="{{ media.description }}" class="note-media"/>
             </a>
+            {% endif %}
         </div>
     {% endif %}
 </div>
