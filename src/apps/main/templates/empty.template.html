@@ -1,4 +1,4 @@
-{% load static %}{% load google_analytics %}<!DOCTYPE html>
+{% load static %}<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -15,7 +15,7 @@
         <meta name="msapplication-config" content="{% static 'images/favicon/browserconfig.xml' %}">
         <title>{% block title %}{% endblock %}</title>
         <style type="text/css">html,body,main{margin:0;padding:0;}</style>
-        {% google_analytics %}
+        {% include 'fragments/analytics.fragment.html' %}
     </head>
     <body>
         <main>

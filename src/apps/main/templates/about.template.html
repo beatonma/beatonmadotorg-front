@@ -1,5 +1,4 @@
 {% load static %}
-{% load google_analytics %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -44,8 +43,7 @@
         {% block html_head %}
         <meta name="description" content="Software projects by Michael Beaton">
         {% endblock %}
-
-        {% google_analytics %}
+        {% include 'fragments/analytics.fragment.html' %}
     </head>
     <body>
         <div id="beatonma_loading" class="progressbar"></div>
