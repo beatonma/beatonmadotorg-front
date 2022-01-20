@@ -11,6 +11,7 @@ const inline64 = require("gulp-inline-base64");
 
 // File reduction/combination
 const include = require("gulp-file-include");
+const useref = require("gulp-useref");
 
 // Minification/obfuscation
 const cssNano = require("gulp-cssnano");
@@ -35,6 +36,7 @@ const TEMP_PATH = buildPath("temp/");
 const PREPROCESSING_PATH = buildPath("preprocessed/");
 
 const srcPath = path => SRC_PATH + path;
+const prepPath = path => PREPROCESSING_PATH + path;
 const tempPath = path => TEMP_PATH + path;
 
 const LOCAL_PATH = "../back/";
@@ -45,8 +47,12 @@ const FLATPAGE_TEMPLATES = [
   "about.template.html",
 ];
 
-// const buildMinify = series(minifyCss, minifyHtml);
-// const buildNoMinify = series(nominifyCss, minifyHtml);
+const anyJs = "**/*.js";
+const anyJsx = "**/*.jsx";
+const anyCss = "**/*.css";
+const anyHtml = "**/*.html";
+const anyScss = "**/*.scss";
+const anyFile = "**";
 
 const build = series(
   clean,
@@ -68,26 +74,29 @@ const buildDebug = series(
   cleanTemp
 );
 
-const localDist = () => src(DIST_PATH + "**").pipe(dest(LOCAL_PATH));
+const localDist = () => src(distPath(anyFile)).pipe(dest(LOCAL_PATH));
+const localDistStatic = () =>
+  src([distPath(anyJs), distPath(anyCss)]).pipe(dest());
 const localBuild = series(buildDebug, localDist);
 
 function watch() {
-  gulp.watch(SRC_PATH + "**/*.scss", localBuild);
-  gulp.watch(SRC_PATH + "**/*.js", localBuild);
-  gulp.watch(SRC_PATH + "**/*.jsx", localBuild);
-  gulp.watch(SRC_PATH + "**/*.html", localBuild);
+  gulp.watch(srcPath(anyScss), localBuild);
+  gulp.watch(srcPath(anyJs), localBuild);
+  gulp.watch(srcPath(anyJsx), localBuild);
+  gulp.watch(srcPath(anyHtml), localBuild);
 }
 
 function buildInclude() {
   // Process @@include() tags before anything else
-  return src([srcPath("**/*.js"), srcPath("**/*.jsx"), srcPath("**/*.html")])
+  return src([srcPath(anyJs), srcPath(anyJsx), srcPath(anyHtml)])
     .pipe(include({ basepath: "@root" }))
+    .pipe(useref())
     .on("error", log)
     .pipe(dest(PREPROCESSING_PATH));
 }
 
 function buildSass() {
-  return src(SRC_PATH + "**/*.scss")
+  return src(srcPath(anyScss))
     .pipe(sass().on("error", log))
     .pipe(
       inline64({
@@ -105,6 +114,10 @@ function buildSass() {
     .pipe(dest(TEMP_PATH));
 }
 
+/**
+ * Process webapp javascript via webpack.
+ * Source files are read from PREPROCESSING_PATH and output to TEMP_PATH.
+ */
 function js() {
   return new Promise((resolve, reject) => {
     webpack(webpackConfig, (err, stats) => {
@@ -121,7 +134,7 @@ function js() {
 
 function collectJs() {
   // TODO move to static dir
-  return src(tempPath("**/*.js"))
+  return src(tempPath(anyJs))
     .pipe(
       rename(path => {
         // Move to apps/appname/static/appname/js
@@ -136,7 +149,7 @@ function collectJs() {
 }
 
 function minifyCss() {
-  return src(tempPath("**/*.css"))
+  return src(tempPath(anyCss))
     .pipe(
       rename(path => {
         // Move to apps/appname/static/appname/css
@@ -152,11 +165,11 @@ function minifyCss() {
 }
 
 function collectTemplates() {
-  return src(srcPath("**/*.html")).pipe(dest(TEMP_PATH));
+  return src(prepPath(anyHtml)).pipe(dest(TEMP_PATH));
 }
 
 function minifyHtml() {
-  return src(TEMP_PATH + "**/*.html")
+  return src(tempPath(anyHtml))
     .pipe(
       replace(
         /(apps\/.*\/static\/.*)?\/?((js|css)\/.*\.(js|css))/g,
@@ -170,7 +183,7 @@ function minifyHtml() {
 }
 
 function buildImages() {
-  return src(SRC_PATH + "**/images/**/*")
+  return src(srcPath("**/images/**/*"))
     .pipe(
       rename(path => {
         // Move to apps/appname/static/appname/images
@@ -184,9 +197,7 @@ function buildImages() {
 }
 
 function collectStatic() {
-  return src(SRC_PATH + "static/**/*").pipe(
-    dest(DIST_PATH + "main/static/main/")
-  );
+  return src(srcPath("static/**/*")).pipe(dest(distPath("main/static/main/")));
 }
 
 /**
@@ -200,7 +211,7 @@ function collectStatic() {
 function buildFlatpageTemplates() {
   const fps = [];
   for (let x in FLATPAGE_TEMPLATES) {
-    const p = TEMP_PATH + "**/templates/**/" + FLATPAGE_TEMPLATES[x];
+    const p = tempPath(`**/templates/**/${FLATPAGE_TEMPLATES[x]}`);
     fps.push(p);
   }
 
@@ -236,33 +247,34 @@ function buildFlatpageTemplates() {
 }
 
 async function clean() {
-  return del.sync([buildPath("**/*"), DIST_PATH + "**/*"]);
+  return del.sync([buildPath(anyFile), distPath(anyFile)]);
 }
 
 async function cleanTemp() {
   return del.sync([
-    // buildPath("**/*"),
-    DIST_PATH + "/apps/",
+    // buildPath(anyFile),
+    distPath("/apps/"),
   ]);
 }
 
 /**
  * Move everything up a directory, removing 'apps' parent directory
  */
-const unwrap = () =>
-  src(DIST_PATH + "/**/*")
+function unwrap() {
+  return src(distPath(anyFile))
     .pipe(
       rename(path => {
         path.dirname = path.dirname.replace(/^apps[/\\]/, "");
       })
     )
     .pipe(dest(DIST_PATH));
+}
 
 /**
  * Copy css files to dist directory without minification for debugging.
  */
 function nominifyCss() {
-  return src([SRC_PATH + "**/*.css", TEMP_PATH + "**/*.css"])
+  return src([srcPath(anyCss), tempPath(anyCss)])
     .pipe(
       rename(path => {
         // Move to apps/appname/static/appname/css
@@ -337,12 +349,12 @@ const merge = require("merge-stream");
 const jsFindReferences = () =>
   merge(
     // HTML IDs
-    src([SRC_PATH + "**/*.js"]).pipe(
+    src([srcPath(anyJs)]).pipe(
       find(/(querySelector\(['"]#(.*?)['"]\)|getElementById\(['"](.*?)['"]\))/g)
     ),
 
     // HTML classes
-    src([SRC_PATH + "**/*.js"]).pipe(find(/querySelector\(['"]\.(.*?)['"]\)/g))
+    src([srcPath(anyJs)]).pipe(find(/querySelector\(['"]\.(.*?)['"]\)/g))
   )
     .pipe(concat("references.txt"))
 
