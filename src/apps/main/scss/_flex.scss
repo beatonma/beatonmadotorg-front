@@ -6,13 +6,16 @@
     overflow-x: hidden;
 }
 
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
 // Center on small screens, flex-start on large
 .flex-row {
-    display: flex;
+    @extend .row;
     flex-wrap: wrap;
-    flex-direction: row;
     justify-content: center;
-    // align-items: center;
 }
 
 // Always center
@@ -67,7 +70,7 @@
     align-items: baseline;
 }
 
-@media screen and (min-width:$screen-two-columns) {
+@media screen and (min-width: $screen-two-columns) {
     .flex-row {
         justify-content: flex-start;
     }
@@ -80,4 +83,13 @@
 
 .nowrap {
     flex-wrap: nowrap;
+}
+
+.row-item {
+    margin-right: $smallgap;
+}
+
+.vertical-bottom {
+    align-items: baseline;
+    vertical-align: bottom;
 }
