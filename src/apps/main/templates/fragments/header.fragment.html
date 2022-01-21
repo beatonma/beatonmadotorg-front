@@ -1,7 +1,7 @@
 <div class="header-row-primary">
 <a href="/"><div class="title header-item">beatonma.org</div></a>
 <div class="spacer"></div>
-<form action="/search" method="get" id="searchform">
+<form action="/search" method="get" id="search_form">
     <div class="search-container flex-row collapsing-wrapper nowrap">
         <label id="search_icon" class="header-item icon" for="search" tabindex="0">
             @@include('src/apps/main/templates/svg/search.svg', {"class": "search", "id": ""})
@@ -15,6 +15,5 @@
 <div class="header-row-secondary">
     <a class="header-item" href="/about/">About</a>
     <a class="header-item" href="/contact/">Contact</a>
-    <!--build:remove--><a class="header-item" href="/donate/">Donate</a><!--endbuild-->
     {% if user.is_superuser %}<a class=" header-item noanim" href="{% url 'admin:index' %}">Admin</a>{% endif %}
 </div>

@@ -1,106 +1,120 @@
-function get(url) {
-    return fetch(url, {
-        method: 'GET',
-        credentials: 'same-origin'
-    });
+export const get = url =>
+  fetch(url, {
+    method: "GET",
+    credentials: "same-origin",
+  });
+
+export const loadPage = url => get(url).then(response => response.text());
+export const loadJson = url => get(url).then(response => response.json());
+
+export function setCookie(cname, cvalue, expiry) {
+  const d = new Date();
+  d.setTime(d.getTime() + expiry);
+  document.cookie = `${cname}=${cvalue};expires=${d.toUTCString()};path=/`;
 }
 
-function loadPage(url) {
-    return get(url).then((response) => {
-        return response.text();
-    });
+export function clearCookie(cname) {
+  const d = new Date();
+  d.setTime(0);
+  document.cookie = `${cname}=0;path=/;expires=${d.toUTCString()}`;
 }
 
-function loadJson(url) {
-    return get(url).then((response) => {
-        return response.json();
-    });
-}
-
-function setCookie(cname, cvalue, expiry) {
-    const d = new Date();
-    d.setTime(d.getTime() + (expiry));
-    document.cookie = `${cname}=${cvalue};expires=${d.toUTCString()};path=/`;
-}
-
-function clearCookie(cname) {
-    const d = new Date();
-    d.setTime(0);
-    document.cookie = `${cname}=0;path=/;expires=${d.toUTCString()}`;
-}
-
-function getCookie(cname) {
-    const name = cname + "=";
-    const ca = document.cookie.split(';');
-    for (let i=0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
+export function getCookie(cname) {
+  const name = cname + "=";
+  const ca = document.cookie.split(";");
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == " ") {
+      c = c.substring(1);
     }
-    return '';
-}
-
-function cookieExists(cname) {
-    return getCookie(cname) !== '';
-}
-
-function scrollToId(id) {
-    const el = document.getElementById(id.replace('#', ''));
-    el.scrollIntoView();
-}
-
-function removeChildren(el) {
-    while (el.firstChild) {
-        el.removeChild(el.firstChild);
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
     }
+  }
+  return "";
 }
 
-function isSameDay(first, second) {
-    return (first.getFullYear() == second.getFullYear()
-        && first.getMonth() == second.getMonth()
-        && first.getDate() == second.getDate());
+export const getCsrfToken = () => getCookie("csrftoken");
+export const cookieExists = cname => getCookie(cname) !== "";
+
+export function scrollToId(id) {
+  document.getElementById(id.replace("#", "")).scrollIntoView();
 }
 
-function isSameMonth(first, second) {
-    return (first.getFullYear() == second.getFullYear()
-        && first.getMonth() == second.getMonth());
+export function removeChildren(el) {
+  while (el.firstChild) {
+    el.removeChild(el.firstChild);
+  }
 }
 
-function isSameYear(first, second) {
-    return (first.getFullYear() == second.getFullYear());
+export const isSameDay = (first, second) =>
+  first.getFullYear() == second.getFullYear() &&
+  first.getMonth() == second.getMonth() &&
+  first.getDate() == second.getDate();
+
+const isSameMonth = (first, second) =>
+  first.getFullYear() == second.getFullYear() &&
+  first.getMonth() == second.getMonth();
+
+const isSameYear = (first, second) =>
+  first.getFullYear() == second.getFullYear();
+
+export function formatDate(
+  date,
+  options = {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  }
+) {
+  const now = new Date();
+
+  date.setHours(0, 0, 0, 0);
+  now.setHours(0, 0, 0, 0);
+
+  if (date.getMonth() == now.getMonth() && date.getDate() == now.getDate()) {
+    return "Today";
+  }
+
+  now.setDate(now.getDate() - 1);
+  if (date.getMonth() == now.getMonth() && date.getDate() == now.getDate()) {
+    return "Yesterday";
+  }
+
+  if (date.getFullYear() == now.getFullYear()) {
+    delete options["year"];
+  }
+
+  const day = date.toLocaleDateString("default", { day: options.day });
+  const month = date.toLocaleDateString("default", { month: options.month });
+
+  return `${day} ${month}${
+    options.year
+      ? " " + date.toLocaleDateString("default", { year: options.year })
+      : ""
+  }`;
 }
 
-function formatDate(date, options={
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric'
-}) {
-    const now = new Date();
+export function formatTimeDelta(totalSeconds, options = { verbose: false }) {
+  const hours = Math.floor(totalSeconds / 3600);
+  let remaining = totalSeconds % 3600;
+  const minutes = Math.floor(remaining / 60);
+  const seconds = remaining % 60;
 
-    date.setHours(0, 0, 0, 0);
-    now.setHours(0, 0, 0, 0);
+  const verbose = options.verbose;
+  const hoursLabel = verbose ? " hours" : "h";
+  const minutesLabel = verbose ? " minutes" : "min";
+  const secondsLabel = verbose ? " seconds" : "sec";
 
-    if (date.getMonth() == now.getMonth() && date.getDate() == now.getDate()) {
-        return 'Today';
+  if (hours) {
+    return `${hours}${hoursLabel} ${minutes}${minutesLabel}`;
+  } else if (minutes) {
+    if (minutes > 15) {
+      return `~${minutes}${minutesLabel}`;
+    } else {
+      return `${minutes}${minutesLabel} ${seconds}${secondsLabel}`;
     }
-
-    now.setDate(now.getDate() - 1);
-    if (date.getMonth() == now.getMonth() && date.getDate() == now.getDate()) {
-        return 'Yesterday';
-    }
-
-    if (date.getFullYear() == now.getFullYear()) {
-        delete options['year'];
-    }
-
-    const dayOptions = { day: options.day };
-    const monthOptions = { month: options.month };
-    const day = date.toLocaleDateString('default', { day: options.day });
-    const month = date.toLocaleDateString('default', { month: options.month });
-
-    return `${day} ${month}${ options.year ? " " + date.toLocaleDateString('default', { year: options.year }) : "" }`;
+  } else {
+    return `${seconds}${secondsLabel}`;
+  }
 }

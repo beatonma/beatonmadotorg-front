@@ -1,9 +1,9 @@
-const events = (() => {
-    const onPageChangeEvent = new Event('onPageChange');
-    const onPageExitEvent = new Event('onPageExit');
+// const events = (() => {
+// export const onPageChangeEvent = new Event("onPageChange");
+// export const onPageExitEvent = new Event("onPageExit");
 
-    return {
-        onPageChange: onPageChangeEvent,
-        onPageExit: onPageExitEvent
-    }
-})();
+// return {
+//     onPageChange: onPageChangeEvent,
+//     onPageExit: onPageExitEvent
+// }
+// })();
