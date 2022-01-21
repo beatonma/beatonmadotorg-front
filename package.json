@@ -20,7 +20,7 @@
   ],
   "prettier": {
     "arrowParens": "avoid",
-    "tabWidth": 2
+    "tabWidth": 4
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",
