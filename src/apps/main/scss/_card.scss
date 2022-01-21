@@ -35,8 +35,8 @@
     align-items: center;
     padding: 12px 16px;
     background: var(--card-header-color);
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
-        0 3px 1px -1px rgba(0, 0, 0, .2);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        0 3px 1px -1px rgba(0, 0, 0, 0.2);
 }
 
 .card-description {
@@ -82,7 +82,7 @@
 
 @media screen and (min-width: $screen-narrow) {
     .flex-row .card {
-        margin: 0 ($card-spacing / 2) $card-spacing;
+        margin: 0 calc($card-spacing / 2) $card-spacing;
         border-radius: $corner-radius;
     }
     .card {

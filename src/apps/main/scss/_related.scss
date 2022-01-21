@@ -37,7 +37,7 @@
 
 .related-app-name {
     color: var(--text-primary);
-    line-height: $related-app-icon-size / 2;
+    line-height: calc($related-app-icon-size / 2);
 }
 
 .related-app-type {
