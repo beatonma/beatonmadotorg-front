@@ -3,13 +3,11 @@ const path = require("path");
 module.exports = {
   mode: "production",
   entry: {
-    // main: "./src/apps/main/js/app.js",
     app: {
       import: [
         "./build/preprocessed/apps/main/js/app.js",
         "./build/preprocessed/apps/webmentions_tester/app.js",
       ],
-      dependOn: "shared",
       chunkLoading: false,
       filename: "apps/main/js/[name].min.js",
     },
@@ -18,7 +16,6 @@ module.exports = {
       chunkLoading: false,
       filename: "apps/contact/js/[name].min.js",
     },
-    shared: ["react", "react-dom"],
   },
   output: {
     path: path.resolve(__dirname, "build/temp/"),

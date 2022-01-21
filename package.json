@@ -1,16 +1,16 @@
 {
   "name": "beatonma.org",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Main site for beatonma.org",
+  "type": "module",
   "scripts": {
-    "build": "webpack --mode=production",
-    "dev": "webpack --mode=development",
-    "watch": "webpack --watch --mode=development",
+    "build": "gulp build",
+    "dev": "gulp local",
+    "watch": "gulp watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "beatonma",
-    "main"
+    "beatonma"
   ],
   "author": "Michael Beaton",
   "license": "ISC",

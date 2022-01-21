@@ -5,29 +5,32 @@ const webpack = require("webpack");
 const webpackConfig = require("./webpack.config.js");
 
 // Compilation
-const sass = require("gulp-sass")(require("sass"));
-const autoprefixer = require("gulp-autoprefixer");
-const inline64 = require("gulp-inline-base64");
+const gulpSass = require("gulp-sass")(require("sass"));
+const gulpAutoprefixer = require("gulp-autoprefixer");
+const gulpInline64 = require("gulp-inline-base64");
+const gulpIf = require("gulp-if");
 
 // File reduction/combination
-const include = require("gulp-file-include");
-const useref = require("gulp-useref");
+const gulpInclude = require("gulp-file-include");
+const gulpUseref = require("gulp-useref");
 
 // Minification/obfuscation
-const cssNano = require("gulp-cssnano");
+const gulpCssNano = require("gulp-cssnano");
 
 // Text processing
-const find = require("gulp-find");
-const replace = require("gulp-replace");
+const gulpFind = require("gulp-find");
+const gulpReplace = require("gulp-replace");
 
 // Filesystem
 const del = require("del");
-const rename = require("gulp-rename");
-const rsync = require("gulp-rsync");
+const gulpRename = require("gulp-rename");
+const gulpRsync = require("gulp-rsync");
 
+/* Paths */
 const SRC_PATH = "src/";
 const DIST_PATH = "dist/";
 const BUILD_PATH = "build/";
+const LOCAL_PATH = "../back/";
 
 const buildPath = path => BUILD_PATH + path;
 const distPath = path => DIST_PATH + path;
@@ -39,7 +42,13 @@ const srcPath = path => SRC_PATH + path;
 const prepPath = path => PREPROCESSING_PATH + path;
 const tempPath = path => TEMP_PATH + path;
 
-const LOCAL_PATH = "../back/";
+const ANY_JS = "**/*.js";
+const ANY_JSX = "**/*.jsx";
+const ANY_CSS = "**/*.css";
+const ANY_HTML = "**/*.html";
+const ANY_SCSS = "**/*.scss";
+const ANY_FILE = "**";
+
 const FLATPAGE_TEMPLATES = [
   "base.template.html",
   "empty.template.html",
@@ -47,80 +56,70 @@ const FLATPAGE_TEMPLATES = [
   "about.template.html",
 ];
 
-const anyJs = "**/*.js";
-const anyJsx = "**/*.jsx";
-const anyCss = "**/*.css";
-const anyHtml = "**/*.html";
-const anyScss = "**/*.scss";
-const anyFile = "**";
+const BUILD_TYPE_PRODUCTION = "production";
+const BUILD_TYPE_DEVELOPMENT = "development"; // Disable js/css minification
+let buildType = "none";
 
-const build = series(
-  clean,
-  buildInclude,
-  parallel(buildSass, js, collectTemplates),
-  parallel(minifyCss, minifyHtml, collectJs),
-  parallel(buildFlatpageTemplates, buildImages, collectStatic),
-  unwrap,
-  cleanTemp
-);
+const localDist = () => src(distPath(ANY_FILE)).pipe(dest(LOCAL_PATH));
 
-const buildDebug = series(
-  clean,
-  buildInclude,
-  parallel(buildSass, js, collectTemplates),
-  parallel(nominifyCss, minifyHtml, collectJs),
-  parallel(buildFlatpageTemplates, buildImages, collectStatic),
-  unwrap,
-  cleanTemp
-);
-
-const localDist = () => src(distPath(anyFile)).pipe(dest(LOCAL_PATH));
-const localDistStatic = () =>
-  src([distPath(anyJs), distPath(anyCss)]).pipe(dest());
-const localBuild = series(buildDebug, localDist);
-
-function watch() {
-  gulp.watch(srcPath(anyScss), localBuild);
-  gulp.watch(srcPath(anyJs), localBuild);
-  gulp.watch(srcPath(anyJsx), localBuild);
-  gulp.watch(srcPath(anyHtml), localBuild);
-}
-
-function buildInclude() {
-  // Process @@include() tags before anything else
-  return src([srcPath(anyJs), srcPath(anyJsx), srcPath(anyHtml)])
-    .pipe(include({ basepath: "@root" }))
-    .pipe(useref())
-    .on("error", log)
-    .pipe(dest(PREPROCESSING_PATH));
-}
-
-function buildSass() {
-  return src(srcPath(anyScss))
-    .pipe(sass().on("error", log))
+/**
+ * Collect js|css files together into static/(js|css)/ directory
+ */
+const localCollectStatic = () =>
+  src([distPath(ANY_JS), distPath(ANY_CSS)])
     .pipe(
-      inline64({
+      gulpRename(path => {
+        const ext = path.extname.replace(".", "");
+        path.dirname = `static/${ext}/`;
+      })
+    )
+    .pipe(dest(DIST_PATH));
+
+/**
+ * Apply include tags to inline any specified
+ */
+const buildInclude = () =>
+  src([srcPath(ANY_JS), srcPath(ANY_JSX), srcPath(ANY_HTML)])
+    .pipe(gulpInclude({ basepath: "@root" }))
+    .pipe(gulpUseref())
+    .pipe(dest(PREPROCESSING_PATH));
+
+const prepJsx = () =>
+  src(prepPath(ANY_JSX))
+    .pipe(gulpReplace("class=", "className="))
+    .pipe(gulpReplace("@@id", ""))
+    .pipe(gulpReplace("@@class", ""))
+    .pipe(gulpReplace("@@", ""))
+    .pipe(dest(PREPROCESSING_PATH));
+
+const buildSass = () =>
+  src(srcPath(ANY_SCSS))
+    .pipe(gulpSass())
+    .pipe(
+      gulpInline64({
         maxSize: 16 * 1024,
         debug: true,
         baseDir: SRC_PATH,
-      }).on("error", log)
+      })
     )
     .pipe(
-      rename(path => {
+      gulpRename(path => {
         path.dirname = path.dirname.replace("scss", "css");
       })
     )
-    .pipe(autoprefixer().on("error", log))
+    .pipe(gulpAutoprefixer())
     .pipe(dest(TEMP_PATH));
-}
 
 /**
  * Process webapp javascript via webpack.
  * Source files are read from PREPROCESSING_PATH and output to TEMP_PATH.
  */
-function js() {
+const js = () => {
+  const buildConfig = webpackConfig;
+  buildConfig.mode = buildType;
+
   return new Promise((resolve, reject) => {
-    webpack(webpackConfig, (err, stats) => {
+    webpack(buildConfig, (err, stats) => {
       if (err) {
         return reject(err);
       }
@@ -130,28 +129,25 @@ function js() {
       resolve();
     });
   });
-}
+};
 
-function collectJs() {
-  // TODO move to static dir
-  return src(tempPath(anyJs))
+const collectJs = () =>
+  src(tempPath(ANY_JS))
     .pipe(
-      rename(path => {
+      gulpRename(path => {
         // Move to apps/appname/static/appname/js
         path.dirname = path.dirname.replace(
           /apps[/\\](.+?)[/\\]js/g,
           "apps/$1/static/$1/js"
         );
-        path.extname = ".min.js";
       })
     )
     .pipe(dest(DIST_PATH));
-}
 
-function minifyCss() {
-  return src(tempPath(anyCss))
+const minifyCss = () =>
+  src(tempPath(ANY_CSS))
     .pipe(
-      rename(path => {
+      gulpRename(path => {
         // Move to apps/appname/static/appname/css
         path.dirname = path.dirname.replace(
           /apps[/\\](.+?)[/\\]css/g,
@@ -160,32 +156,31 @@ function minifyCss() {
         path.extname = ".min.css";
       })
     )
-    .pipe(cssNano())
+    .pipe(gulpIf(buildType == BUILD_TYPE_PRODUCTION, gulpCssNano()))
     .pipe(dest(DIST_PATH));
-}
 
-function collectTemplates() {
-  return src(prepPath(anyHtml)).pipe(dest(TEMP_PATH));
-}
+const collectTemplates = () => src(prepPath(ANY_HTML)).pipe(dest(TEMP_PATH));
 
-function minifyHtml() {
-  return src(tempPath(anyHtml))
+const minifyHtml = () =>
+  src(tempPath(ANY_HTML))
     .pipe(
-      replace(
+      gulpReplace(
         /(apps\/.*\/static\/.*)?\/?((js|css)\/.*\.(js|css))/g,
         "{% static '$2' %}"
       )
     ) // Fix filenames generated by useref in :concat and insert {% static %} tag
-    .pipe(replace(/[ ]{2,}/g, "")) // Remove extra spaces
-    .pipe(replace(/(\r\n){2,}/g, "\r\n")) // Remove extra line breaks
-    .pipe(replace(/([%}]{1}})([\r\n]+)/g, "$1")) // Remove line breaks after django template stuff
+    .pipe(gulpReplace(/[ ]{2,}/g, "")) // Remove extra spaces
+    .pipe(gulpReplace(/(\r\n){2,}/g, "\r\n")) // Remove extra line breaks
+    .pipe(gulpReplace(/([%}]{1}})([\r\n]+)/g, "$1")) // Remove line breaks after django template stuff
+    .pipe(gulpReplace("@@id", "")) // Remove any 'leftover' tags from buildInclude()
+    .pipe(gulpReplace("@@class", "")) // Remove any 'leftover' tags from buildInclude()
+    .pipe(gulpReplace("@@", "")) // Remove any 'leftover' tags from buildInclude()
     .pipe(dest(DIST_PATH));
-}
 
-function buildImages() {
-  return src(srcPath("**/images/**/*"))
+const buildImages = () =>
+  src(srcPath("**/images/**/*"))
     .pipe(
-      rename(path => {
+      gulpRename(path => {
         // Move to apps/appname/static/appname/images
         path.dirname = path.dirname.replace(
           /apps[/\\](.+?)[/\\]images/g,
@@ -194,11 +189,9 @@ function buildImages() {
       })
     )
     .pipe(dest(DIST_PATH));
-}
 
-function collectStatic() {
-  return src(srcPath("static/**/*")).pipe(dest(distPath("main/static/main/")));
-}
+const collectStatic = () =>
+  src(srcPath("static/**/*")).pipe(dest(distPath("main/static/main/")));
 
 /**
  * Create a flatpage-compatible variant of each template specified in FLATPAGE_TEMPLATES.
@@ -208,7 +201,7 @@ function collectStatic() {
  * - Rename to .flat.html extension
  * - TODO Remove dynamic tags e.g. {% if %}, {% for %}, etc.
  */
-function buildFlatpageTemplates() {
+const buildFlatpageTemplates = () => {
   const fps = [];
   for (let x in FLATPAGE_TEMPLATES) {
     const p = tempPath(`**/templates/**/${FLATPAGE_TEMPLATES[x]}`);
@@ -217,18 +210,20 @@ function buildFlatpageTemplates() {
 
   return src(fps)
     .pipe(
-      replace(
+      gulpReplace(
         /(apps\/.*\/static\/.*)?\/?((js|css)\/.*\.(js|css))/g,
         "{% static '$2' %}"
       )
     ) // Fix filenames generated by useref in :concat and insert {% static %} tag
-    .pipe(replace(/[ ]{2,}/g, "")) // Remove extra spaces
-    .pipe(replace(/(\r\n){2,}/g, "\r\n")) // Remove extra line breaks
-    .pipe(replace(/([%}]{1}})([\r\n]+)/g, "$1")) // Remove line breaks after django template stuff
-    .pipe(replace(/{% block (title|header) %}.*%}/g, "{{ flatpage.title }}"))
-    .pipe(replace(/{% block content %}.*%}/g, "{{ flatpage.content }}"))
+    .pipe(gulpReplace(/[ ]{2,}/g, "")) // Remove extra spaces
+    .pipe(gulpReplace(/(\r\n){2,}/g, "\r\n")) // Remove extra line breaks
+    .pipe(gulpReplace(/([%}]{1}})([\r\n]+)/g, "$1")) // Remove line breaks after django template stuff
     .pipe(
-      replace(/{% extends '(.*?)' %}/g, match => {
+      gulpReplace(/{% block (title|header) %}.*%}/g, "{{ flatpage.title }}")
+    )
+    .pipe(gulpReplace(/{% block content %}.*%}/g, "{{ flatpage.content }}"))
+    .pipe(
+      gulpReplace(/{% extends '(.*?)' %}/g, match => {
         // If this template extends another, it must also be a flatpage
         // template with .flat.html extension.
         let fname = /{% extends '(.*?)' %}/g.exec(match)[1];
@@ -237,140 +232,137 @@ function buildFlatpageTemplates() {
       })
     )
     .pipe(
-      rename(path => {
+      gulpRename(path => {
         path.dirname += "/flatpages/";
         path.basename = path.basename.replace(".template", "");
         path.extname = ".flat.html";
       })
     )
     .pipe(dest(DIST_PATH));
-}
+};
 
-async function clean() {
-  return del.sync([buildPath(anyFile), distPath(anyFile)]);
-}
+const clean = async () => del.sync([buildPath(ANY_FILE), distPath(ANY_FILE)]);
 
-async function cleanTemp() {
-  return del.sync([
-    // buildPath(anyFile),
+const cleanTemp = async () =>
+  del.sync([
+    // buildPath(ANY_FILE),
     distPath("/apps/"),
   ]);
-}
 
 /**
  * Move everything up a directory, removing 'apps' parent directory
  */
-function unwrap() {
-  return src(distPath(anyFile))
+const unwrap = () =>
+  src(distPath(ANY_FILE))
     .pipe(
-      rename(path => {
+      gulpRename(path => {
         path.dirname = path.dirname.replace(/^apps[/\\]/, "");
       })
     )
     .pipe(dest(DIST_PATH));
-}
 
-/**
- * Copy css files to dist directory without minification for debugging.
- */
-function nominifyCss() {
-  return src([srcPath(anyCss), tempPath(anyCss)])
-    .pipe(
-      rename(path => {
-        // Move to apps/appname/static/appname/css
-        path.dirname = path.dirname.replace(
-          /apps[/\\](.+?)[/\\]css/g,
-          "apps/$1/static/$1/css"
-        );
-        path.extname = ".min.css";
+const rsyncConfig = config => ({
+  options: {
+    chmod: "Du=rwx,Dgo=rx,Fu=rw,Fgo=r",
+    e: `ssh -i "${config.keyfile}"`,
+  },
+  username: config.username,
+  hostname: config.hostname,
+  destination: "path",
+  recursive: true,
+  silent: true,
+  root: DIST_PATH,
+  progress: false,
+});
+
+const publish = () =>
+  src(distPath(ANY_FILE)).pipe(
+    gulpRsync(
+      rsyncConfig({
+        keyfile:
+          "keyfile",
+        username: "username",
+        "",
       })
     )
-    .pipe(dest(DIST_PATH));
-}
-
-function rsyncConfig(config) {
-  // config must have values for `keyfile`, `username`, and `hostname`.
-  return {
-    options: {
-      chmod: "Du=rwx,Dgo=rx,Fu=rw,Fgo=r",
-      e: `ssh -i "${config.keyfile}"`,
-    },
-    username: config.username,
-    hostname: config.hostname,
-    destination: "path",
-    recursive: true,
-    silent: true,
-    root: DIST_PATH,
-    progress: false,
-  };
-}
-
-// gulp.task("publish", gulp.series("build"), () =>
-//   // Build and push result to PUBLIC server!
-//   gulp.src(DIST_PATH + "**").pipe(
-//     rsync(
-//       rsyncConfig({
-//         keyfile:
-//           "keyfile",
-//         username: "username",
-//         "",
-//       })
-//     )
-//   )
-// );
-
-// gulp.task("test", gulp.series("build"), () =>
-//   // Build and push result to TEST server
-//   gulp.src(DIST_PATH + "**").pipe(
-//     rsync(
-//       rsyncConfig({
-//         keyfile:
-//           "keyfile",
-//         username: "username",
-//         hostname: "beatonma.com",
-//       })
-//     )
-//   )
-// );
-
-function log(err) {
-  err.showStack = true;
-  console.error(err);
-  this.emit("end");
-}
+  );
 
 /**
  * Additional meta-tools that provide information without contributing
  * to dist output. Outputs to BUILD_PATH
  */
-// gulp.task("js:find_references", () =>
 const concat = require("gulp-concat");
 const merge = require("merge-stream");
 const jsFindReferences = () =>
   merge(
     // HTML IDs
-    src([srcPath(anyJs)]).pipe(
-      find(/(querySelector\(['"]#(.*?)['"]\)|getElementById\(['"](.*?)['"]\))/g)
+    src([srcPath(ANY_JS)]).pipe(
+      gulpFind(
+        /(querySelector\(['"]#(.*?)['"]\)|getElementById\(['"](.*?)['"]\))/g
+      )
     ),
 
     // HTML classes
-    src([srcPath(anyJs)]).pipe(find(/querySelector\(['"]\.(.*?)['"]\)/g))
+    src([srcPath(ANY_JS)]).pipe(gulpFind(/querySelector\(['"]\.(.*?)['"]\)/g))
   )
     .pipe(concat("references.txt"))
 
     // Show all ID references as #name
-    .pipe(replace(/getElementById\('(.*?)'\)/g, "#$1,"))
-    .pipe(replace(/querySelector\('(#.*?)'\)/g, "$1,"))
+    .pipe(gulpReplace(/getElementById\('(.*?)'\)/g, "#$1,"))
+    .pipe(gulpReplace(/querySelector\('(#.*?)'\)/g, "$1,"))
 
     // Show all class references as .name
-    .pipe(replace(/querySelector\('(\..*?)'\)/g, "$1,"))
+    .pipe(gulpReplace(/querySelector\('(\..*?)'\)/g, "$1,"))
 
     // Reformat to one reference per line
-    .pipe(replace(/\s/g, ""))
-    .pipe(replace(/,+/g, "\n"))
+    .pipe(gulpReplace(/\s/g, ""))
+    .pipe(gulpReplace(/,+/g, "\n"))
     .pipe(dest(BUILD_PATH));
 
-exports.default = exports.build = build;
-exports.local = localBuild;
+const initDev = cb => {
+  buildType = BUILD_TYPE_DEVELOPMENT;
+  return cb();
+};
+const initProduction = cb => {
+  buildType = BUILD_TYPE_PRODUCTION;
+  return cb();
+};
+const checkConfiguration = cb => {
+  if (![BUILD_TYPE_DEVELOPMENT, BUILD_TYPE_PRODUCTION].includes(buildType)) {
+    throw `gulpfile task configuration error
+    buildType must be set before calling 'build' task!
+    Expected (${BUILD_TYPE_PRODUCTION} | ${BUILD_TYPE_DEVELOPMENT}), found '${buildType}'\n`;
+  } else {
+    console.log(`Build configuration: ${buildType}`);
+  }
+  return cb();
+};
+
+const build = series(
+  checkConfiguration,
+  clean,
+  buildInclude,
+  prepJsx,
+  parallel(buildSass, js, collectTemplates),
+  parallel(minifyCss, minifyHtml, collectJs),
+  parallel(buildFlatpageTemplates, buildImages, collectStatic),
+  unwrap,
+  cleanTemp
+);
+
+const localBuild = series(build, localCollectStatic, localDist);
+
+const watch = () => {
+  gulp.watch(srcPath(ANY_SCSS), localBuild);
+  gulp.watch(srcPath(ANY_JS), localBuild);
+  gulp.watch(srcPath(ANY_JSX), localBuild);
+  gulp.watch(srcPath(ANY_HTML), localBuild);
+};
+
+exports.default = exports.build = series(initProduction, build);
+exports.local = series(initDev, localBuild);
+exports.watch = series(initDev, localBuild, watch);
+exports.buildLocal = series(initProduction, localBuild);
+exports.publish = series(initProduction, build, publish);
+
 exports.ref = jsFindReferences;
-exports.watch = series(localBuild, watch);
