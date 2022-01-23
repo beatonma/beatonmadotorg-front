@@ -1,0 +1,96 @@
+.github-recent {
+    @extend %preview-list;
+    animation-name: github-enter;
+    animation-duration: 220ms;
+}
+
+.github-recent-repo {
+    font-weight: 600;
+}
+
+.github-recent-commit {
+    margin-bottom: $smallgap;
+    font-family: $monospace-font;
+}
+
+.github-icon-inline {
+    vertical-align: middle;
+    background-color: #ff0000;
+}
+
+.github-icon-inline svg {
+    width: .9em;
+    height: .9em;
+    fill: var(--text-secondary);
+}
+
+.github-recent-public-icon {
+    @extend .github-icon-inline;
+    padding-right: 2px;
+}
+
+.github-recent-private-icon {
+    @extend .github-icon-inline;
+    padding-right: 2px;
+}
+
+.github-recent-link-icon {
+    @extend .github-icon-inline;
+}
+
+.github-recent-repo-meta {
+    font-size: $smalltext;
+}
+
+.github-recent-commit-count {
+    margin: 0 $smallgap;
+    cursor: default;
+}
+
+.github-recent-commit-count-icon {
+    @extend .github-icon-inline;
+}
+
+.github-recent-languages-icon {
+    @extend .github-icon-inline;
+}
+
+.github-recent-public-messages {
+    margin-top: $smallgap;
+}
+
+.github-recent-commit-message {
+    border-left: var(--text-tertiary) solid 2px;
+    padding-left: $smallgap;
+    margin-bottom: $smallgap;
+    font-size: $smalltext;
+}
+
+.github-recent-private {
+    @extend .github-recent-commit;
+    border-left: none;
+    padding-left: 0;
+}
+
+.github-recent-timestamp {
+    color: $secondary;
+}
+
+
+@media screen and (min-width: $screen-narrow) {
+    .github-recent {
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0;
+    }
+}
+
+@keyframes github-enter {
+    from {
+        opacity: 0;
+        transform: scale(.99) translateY(.1em);
+    }
+    to {
+        opacity: 1;
+    }
+}

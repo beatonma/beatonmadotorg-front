@@ -49,10 +49,12 @@ preview_data.json
 gulpfile.js.bak
 svg2svg/
 scratch
-# package-lock.json
-# npm-shrinkwrap.json
 env/
 build/
 dist/
 *.gitbundle
 .eslintrc.json
+__pycache__/
+*.pyc
+.idea/
+*.egg-info/
