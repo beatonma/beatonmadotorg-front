@@ -11,6 +11,10 @@
     flex-direction: row;
 }
 
+.row > * {
+    margin-right: $smallgap;
+}
+
 // Center on small screens, flex-start on large
 .flex-row {
     @extend .row;

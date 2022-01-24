@@ -5,28 +5,18 @@
     min-height: 100px;
     width: 15vh;
     height: 15vh;
-    overflow: hidden;
+    margin: 8px;
+    border-radius: $corner-radius;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    margin-right: 12px;
-    border-right: solid 4px var(--item-primary);
 }
 
-.app-icon svg {
-    min-width: 100px;
-    max-width: 200px;
-    max-height: 200px;
-    min-height: 100px;
+.app-icon img {
     width: 15vh;
     height: 15vh;
-    overflow: hidden;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin-right: 12px;
+    margin: 16px;
     fill: var(--item-primary);
-    // border-right: solid 4px var(--item-primary);
 }
 
 .app-title {
@@ -35,17 +25,5 @@
 
 .app-tagline {
     @extend %tagline;
-    margin-bottom: .5rem;
-}
-
-.app-links {
-
-}
-
-.app-tags {
-
-}
-
-.app-project {
-
+    margin-bottom: 0.5rem;
 }

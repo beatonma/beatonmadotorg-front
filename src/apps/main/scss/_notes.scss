@@ -1,20 +1,9 @@
 .notes-container {
     @extend %preview-list;
-    // @extend .card;
-    // @extend .preview;
-    // @extend .nobackground;
-    // @extend %scrolling-list;
-    // @extend .card-content;
-
-    // display: block;
-
-    // overflow-y: auto;
-    margin-bottom: $smallgap;
 }
 
-
 .note {
-    margin-bottom: .9em;
+    margin-bottom: 0.9em;
     font-size: $smalltext;
 }
 

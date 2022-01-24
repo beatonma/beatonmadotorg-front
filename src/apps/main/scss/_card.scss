@@ -8,9 +8,6 @@
     margin: 0 0 $card-spacing;
     transition: all $transition-duration ease-in-out;
 }
-.card.wrap {
-    width: 100%;
-}
 
 .card.noalign {
     margin: 0 0 $card-spacing;
@@ -95,21 +92,23 @@
     .card-content {
         padding: $padding-large $padding-large 24px;
     }
-    .card.wrap {
-        width: max-content;
-    }
 }
 
 @media screen and (min-width: $screen-wide) {
     .card-image {
         min-height: $preview-width * 0.85;
-        // height: 400px;
     }
     .card-title-area-raised {
         padding: 12px 72px;
     }
     .card-content {
         padding: 24px 24px 36px;
+    }
+}
+
+@media screen and (max-width: $screen-two-columns) {
+    .wrap {
+        width: 100%;
     }
 }
 
@@ -120,4 +119,9 @@
 
 .card-button {
     @extend .button;
+}
+
+.wrap {
+    max-width: 100%;
+    width: max-content;
 }

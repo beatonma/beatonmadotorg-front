@@ -1,47 +1,48 @@
-@import 'constants';
-@import 'elevation';
-@import 'scaffold';
-@import 'fonts';
-@import 'chrome';   // Browser decoration: scrollbars, etc
-@import 'objects';  // HTML elements: body, main, h1, etc
-@import 'util';
-@import 'alignment';
-@import 'flex';
-@import 'aspect-ratios';
+@import "constants";
+@import "util";
+@import "elevation";
+@import "scaffold";
+@import "fonts";
+@import "chrome"; // Browser decoration: scrollbars, etc
+@import "objects"; // HTML elements: body, main, h1, etc
+@import "alignment";
+@import "flex";
+@import "aspect-ratios";
+@import "display-size";
 
-@import 'tagline';
-@import 'card';
-@import 'code';
-@import 'colors';
-@import 'header';
-@import 'icons';
-@import 'footer';
-@import 'loading';
-@import 'preview';
-@import 'app-links';
-@import 'article';
-@import 'app';
-@import 'microformats';
-@import 'webmention';
-@import 'related';
-@import 'changelog';
-@import 'blog';
-@import 'notes';
-@import 'text';
-@import 'tags';
-@import 'search';
-@import 'tooltip';
-@import 'button';
-@import 'chip';
-@import 'background';  // background-image size and alignment
-@import 'util';
-@import 'github';
-@import 'item';     // apply per-page color scheme, defined in style#local_style tag
-@import 'tile';
-@import 'imageviewer';
-@import 'hcard';  // Visible hcard on About page
+@import "tagline";
+@import "card";
+@import "code";
+@import "colors";
+@import "header";
+@import "icons";
+@import "footer";
+@import "loading";
+@import "preview";
+@import "app-links";
+@import "article";
+@import "app";
+@import "microformats";
+@import "webmention";
+@import "related";
+@import "changelog";
+@import "blog";
+@import "notes";
+@import "text";
+@import "tags";
+@import "search";
+@import "tooltip";
+@import "button";
+@import "chip";
+@import "background"; // background-image size and alignment
+@import "util";
+@import "github";
+@import "item"; // apply per-page color scheme, defined in style#local_style tag
+@import "tile";
+@import "imageviewer";
+@import "hcard"; // Visible hcard on About page
 
-@import 'content/content';
+@import "content/content";
 
 .title {
     font-size: 2rem;

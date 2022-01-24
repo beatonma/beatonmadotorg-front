@@ -16,11 +16,11 @@
     height: 128px;
 }
 
-.my-hcard .relme {
-    @extend  .flex-row-center;
+.my-hcard > .relme {
+    @extend .flex-row-center;
     max-width: $screen-narrow;
 }
 
-.my-hcard .relme * {
+.my-hcard > .relme > a {
     @extend .tag;
 }
