@@ -2,10 +2,8 @@ import os
 import re
 from typing import Dict
 
-
 OUTPUT_DIR = "build/"
 OUTPUT_FILENAME = "report.html"
-
 
 REPORT_CSS_STYLE = """
 html {
