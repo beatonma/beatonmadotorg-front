@@ -1,5 +1,6 @@
 import os
 import re
+from datetime import datetime
 from typing import Dict
 
 OUTPUT_DIR = "build/"
@@ -166,6 +167,7 @@ def report_html(results: Dict[str, Dict[str, int]], src):
             <body>
             <h1>Resources</h1>
             <div>Source: {src}</div>
+            <div>Generated: {datetime.now().strftime("%Y/%m/%d %H:%M")}</div>
             {table}
             {SCRIPT}
             </body>
