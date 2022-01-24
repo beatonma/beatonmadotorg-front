@@ -1,0 +1,8 @@
+{% load static %}
+<link rel="stylesheet" href="/css/base.min.css" />
+<link id="theme" rel="stylesheet" href="" />
+<style id="local_style">
+    {% if local_style %}
+    {% include 'fragments/head/local-style.fragment.html' %}
+    {% endif %}
+</style>

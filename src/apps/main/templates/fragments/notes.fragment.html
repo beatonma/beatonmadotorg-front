@@ -1,15 +1,17 @@
 {% if notes_with_media %}
 <div class="preview-list-container">
-    <h3>Notes:</h3>
+    <div class="row">
+        <h3>Notes:
+        
+        </h3>{% if perms.notes.add %}
+            <h3><a href="{% url 'admin:main_note_add' %}" class="noanim">+</a></h3>
+        {% endif %}
+        
+    </div>
     <div class="notes-container">
         {% for note_with_media in notes_with_media %}
             {% include 'elements/note.element.html' with note=note_with_media.note media=note_with_media.media %}
         {% endfor %}
-        {% if perms.notes.add %}
-        <div class="card-buttons">
-            <a href="{% url 'admin:main_note_add' %}" class="noanim button">New note</a>
-        </div>
-        {% endif %}
     </div>
 </div>
 {% endif %}

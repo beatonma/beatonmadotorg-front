@@ -1,25 +1,10 @@
-{% load static %}<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#111111">
-        <meta name="description" content="Software projects by Michael Beaton">
-        <link rel="alternate" type="application/rss+xml" title="beatonma.org - Recent" href="/feed"/>
-        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-touch-icon.png' %}"/>
-        <link rel="icon" type="image/png" href="{% static 'images/favicon/favicon-32x32.png' %}" sizes="32x32"/>
-        <link rel="icon" type="image/png" href="{% static 'images/favicon/favicon-16x16.png' %}" sizes="16x16"/>
-        <link rel="manifest" href="{% static 'images/favicon/manifest.json' %}"/>
-        <link rel="mask-icon" href="{% static 'images/favicon/safari-pinned-tab.svg' %}" color="#a8186f"/>
-        <link rel="shortcut icon" href="{% static 'images/favicon/favicon.ico' %}"/>
-        <meta name="msapplication-config" content="{% static 'images/favicon/browserconfig.xml' %}">
-        <title>{% block title %}{% endblock %}</title>
-        <style type="text/css">html,body,main{margin:0;padding:0;}</style>
-        {% include 'fragments/analytics.fragment.html' %}
-    </head>
-    <body>
-        <main>
-            {% block content %}{% endblock %}
-        </main>
-    </body>
-</html>
+{% extends "base.template.html" %}
+{% block theme %}
+<style type="text/css">html,body,main{margin:0;padding:0;}</style>
+{% endblock %}
+
+{% block body %}
+<main>
+  {% block content %}{% endblock %}
+</main>
+{% endblock %}

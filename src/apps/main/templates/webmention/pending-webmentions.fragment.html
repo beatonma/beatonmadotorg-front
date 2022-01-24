@@ -1,0 +1,7 @@
+{% if perms.mentions.approve_webmention %}
+<a href="{% url 'admin:mentions_webmention_changelist' %}">
+    <div class="mentions-pending-approval">
+        {{ mentions_pending_approval|length }} unapproved mentions
+    </div>
+</a>
+{% endif %}

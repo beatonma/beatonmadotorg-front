@@ -5,7 +5,7 @@
         <div class="flex-row-start changelog-title-row">
             <h3 class="changelog-title">{{ log.title }}</h3>
             <time class="changelog-date secondary" datetime="{{log.date|date:'Y-m-d'}}">{{log.date|date:"d N Y"}}</time>
-            <div class="changelog-tags secondary">{% include 'tags.template.html' with tags=log.get_tags %}</div>
+            <div class="changelog-tags secondary">{% include 'fragments/tags.template.html' with tags=log.get_tags %}</div>
         </div>
         <div class="changelog-tagline">{% if log.tagline %}{{ log.tagline }}{% elif log.title != log.version %}{{ log.version }}{% endif %}</div>
         <div class="changelog-content">{{ log.content_html|safe }}</div>
