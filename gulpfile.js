@@ -234,6 +234,8 @@ const buildFlatpageTemplates = () => {
                 return "{% extends 'flatpages/" + fname + "' %}";
             })
         )
+        .pipe(gulpReplace(/{% block [a-z_-]+ %}/, "")) // Tidy up any remaining block tags
+        .pipe(gulpReplace(/{% endblock %}/, ""))
         .pipe(
             gulpRename(path => {
                 path.dirname += "/flatpages/";
@@ -278,17 +280,21 @@ const rsyncConfig = config => ({
     progress: false,
 });
 
-const publish = () =>
-    src(distPath(ANY_FILE)).pipe(
-        gulpRsync(
-            rsyncConfig({
-                keyfile:
-                    "keyfile",
-                username: "username",
-                "",
-            })
-        )
-    );
+const publish = () => {
+    const config = rsyncConfig({
+        keyfile:
+            "keyfile",
+        username: "username",
+        "",
+    });
+    console.log(JSON.stringify(config, null, 2));
+
+    return src(distPath(ANY_FILE))
+        .pipe(gulpRsync(config))
+        .on("error", err => {
+            console.log(JSON.stringify(err, null, 2));
+        });
+};
 
 /**
  * Additional meta-tools that provide information without contributing
