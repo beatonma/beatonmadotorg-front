@@ -4,23 +4,23 @@
 
 {% block content %}
   {% if motd %}
-  <section class="motd">
+  <section>
     {% include 'index/motd.template.html' %}
   </section>
   {% endif %}
 
-  <section class="recent">
+  <section>
     {% include 'index/recent-grid.template.html' %}
   </section>
 
   {% if apps %}
-  <section class="apps">
+  <section>
     {% include 'index/app-grid.template.html' with app_list=apps %}
   </section>
   {% endif %}
 
   {% if tags %}
-  <section class="tags">
+  <section>
     <div class=" flex-row-center">
       {% for tag in tags %}
       <a class="tag" href="/tag/{{ tag.slug }}">#{{ tag.name }}</a>

@@ -5,7 +5,11 @@
     transform: translateY(-50%);
 }
 
-.center-h {
+%center {
     margin-left: auto;
     margin-right: auto;
+}
+
+.center-h {
+    @extend %center;
 }

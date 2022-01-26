@@ -7,8 +7,8 @@
     margin: auto;
     transition: width $transition-duration;
 }
- 
-@media only screen and (min-width:$screen-single-column) {
+
+@media only screen and (min-width: $screen-single-column) {
     .container {
         padding: 16px ($card-spacing * 2) 8px;
     }
@@ -22,14 +22,14 @@
     transition: width $transition-duration;
 }
 
-@media only screen and (min-width:$screen-mid) {
+@media only screen and (min-width: $screen-mid) {
     .card-container {
         margin-left: auto;
         margin-right: auto;
     }
 }
 
-@media only screen and (min-width:$screen-wide) {
+@media only screen and (min-width: $screen-wide) {
     .card-container {
         max-width: $max-card-width;
     }
@@ -43,19 +43,19 @@
     margin: auto;
     transition: width $transition-duration;
 }
-@media only screen and (min-width:$screen-two-columns) {
+@media only screen and (min-width: $screen-two-columns) {
     .flex-row.card-container {
         max-width: ($preview-width + $card-spacing) * 2;
     }
 }
 
-@media only screen and (min-width:$screen-three-columns) {
+@media only screen and (min-width: $screen-three-columns) {
     .flex-row.card-container {
         max-width: ($preview-width + $card-spacing) * 3;
     }
 }
 
-@media only screen and (min-width:$screen-max-columns) {
+@media only screen and (min-width: $screen-max-columns) {
     .flex-row.card-container {
         max-width: ($preview-width + $card-spacing) * 4;
     }

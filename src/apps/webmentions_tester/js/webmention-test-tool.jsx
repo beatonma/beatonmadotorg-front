@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
+import { Dropdown } from "../../main/js/react/dropdown";
+import { Label } from "../../main/js/react/label";
+import { classNames } from "../../main/js/react/props";
+import { Row } from "../../main/js/react/row";
 import { loadJson, getCsrfToken, formatTimeDelta } from "../../main/js/util";
 
 const endpoint = "active/";
@@ -18,18 +22,9 @@ function WebmentionsTester() {
 
     return (
         <div>
-            <Blurb />
-            <ActiveMentions onChange={refreshFlag} />
             <CreateTempMention onSubmit={refresh} />
+            <ActiveMentions onChange={refreshFlag} />
         </div>
-    );
-}
-
-function Blurb() {
-    return (
-        <section>
-            <div>TODO explain how this works</div>
-        </section>
     );
 }
 
@@ -40,7 +35,13 @@ function ActiveMentions(props) {
     useEffect(() => {
         loadJson(endpoint).then(data => {
             setTtl(data.ttl);
-            setMentions(data.mentions);
+
+            const mentions = data.mentions;
+            const uniqueUrlMentions = [
+                ...new Map(mentions.map(item => [item["url"], item])).values(),
+            ];
+
+            setMentions(uniqueUrlMentions);
         });
     }, [props.onChange]);
 
@@ -48,49 +49,160 @@ function ActiveMentions(props) {
         return <div>No mentions</div>;
     }
 
+    const timeout = formatTimeDelta(ttl, {
+        verbose: true,
+    });
+
     return (
         <section>
             <div className="active-mentions">
                 <Row className="vertical-bottom">
                     <h3 className="row-item">Active mentions</h3>
-                    <div className="label">{`Timeout: ${formatTimeDelta(ttl, {
-                        verbose: true,
-                    })}`}</div>
+                    <Label>{`Temporary mentions submitted in the last ${timeout}`}</Label>
                 </Row>
-                {mentions.map(m => (
-                    <ActiveMention {...m} key={m.submitted_at} />
-                ))}
+                <div className="flex-row">
+                    <SampleActiveMention ttl={ttl} />
+                    {mentions.map(m => (
+                        <ActiveMention {...m} key={m.submitted_at} />
+                    ))}
+                </div>
             </div>
         </section>
     );
 }
 
+function SampleActiveMention(props) {
+    const submittedAt = new Date();
+    const expiresAt = new Date(submittedAt.seconds + props.ttl);
+    const expiresIn = props.ttl;
+
+    const sampleData = {
+        url: "https://beatonma.org",
+        submitted_at: submittedAt,
+        expires_at: expiresAt,
+        expires_in: expiresIn,
+        status: {
+            successful: true,
+            status_code: 202,
+            message: "The target server accepted the webmention.",
+            source_url: "/webmentions_tester/",
+            target_url: "https://beatonma.org",
+            endpoint: "https://beatonma.org:443/webmention/",
+        },
+    };
+
+    return (
+        <ActiveMention
+            {...sampleData}
+            className="webmention-tester-sample"
+            label="Sample"
+        />
+    );
+}
+
 function ActiveMention(props) {
     return (
-        <div title={`Submitted at ${props.submitted_at}`}>
-            <div>{props.url}</div>
-            <div className="label">
-                Expires: {formatTimeDelta(props.expires_in)}
+        <div
+            className={`webmention-tester-temp card preview-wide`}
+            title={`Submitted at ${props.submitted_at}`}
+        >
+            <div className={classNames(props, "card-content")}>
+                <Row className="flex-row-space-between">
+                    <a href={`${props.url}`}>{props.url}</a>
+                    <div>
+                        <Label className="webmention-tester-temp-label">
+                            {props.label}
+                        </Label>
+
+                        <Label>
+                            Expires: {formatTimeDelta(props.expires_in)}
+                        </Label>
+                    </div>
+                </Row>
+                <MentionStatus status={props.status} expanded={props.label} />
             </div>
         </div>
     );
 }
 
-function CreateTempMention() {
+function MentionStatus(props) {
+    if (props.status == null) return <div>Status unknown</div>;
+
+    const {
+        successful,
+        status_code,
+        message,
+        source_url,
+        target_url,
+        endpoint,
+    } = props.status;
+
+    const successMessage = successful ? (
+        <Row className="vertical-center">
+            <span className="material-icons">check</span>
+            <span>Accepted by server</span>
+        </Row>
+    ) : (
+        <Row className="vertical-center">
+            <span className="material-icons warn">close</span>
+            <span>Rejected by server</span>
+        </Row>
+    );
+
+    return (
+        <Dropdown title={successMessage} expanded={props.expanded}>
+            <table className="webmention-tester-status">
+                <tbody>
+                    <StatusTableRow label="Code" content={status_code} />
+                    <StatusTableRow label="Message" content={message} />
+                    <StatusTableRow label="Source" content={source_url} />
+                    <StatusTableRow label="Target" content={target_url} />
+                    <StatusTableRow label="Endpoint" content={endpoint} />
+                </tbody>
+            </table>
+        </Dropdown>
+    );
+}
+
+function StatusTableRow(props) {
+    return (
+        <tr>
+            <td>
+                <Label>{props.label}</Label>
+            </td>
+            <td>
+                <span className="webmention-tester-status-content">
+                    {props.content}
+                </span>
+            </td>
+        </tr>
+    );
+}
+
+function CreateTempMention(props) {
     const [url, setUrl] = useState("");
     const [isError, setIsError] = useState(false);
 
     const post = () => {
         create(endpoint, { url: url })
             .then(response => {
+                if (response.status == 400) {
+                    throw "Validation failure";
+                }
+
                 console.log(`OK ${JSON.stringify(response)}`);
                 setUrl("");
                 setIsError(false);
+                props.onSubmit();
             })
-            .error(err => setIsError(true));
+            .catch(err => {
+                console.error(err);
+                setIsError(true);
+            });
     };
 
     const onKeyPress = event => {
+        setIsError(false);
         if (event.key == "Enter") {
             event.preventDefault();
             post();
@@ -99,8 +211,20 @@ function CreateTempMention() {
 
     return (
         <section>
-            <h3>Create temporary mention here</h3>
-            <div>
+            <h3>Temporary mentions</h3>
+            <p>Submit a link to your content to test your Webmentions setup!</p>
+            <ul>
+                <li>
+                    Your link will appear on this page for a while (until it
+                    expires).
+                </li>
+                <li>
+                    Your webmentions endpoint should immediately receive a
+                    notification that this page has mentioned your page.
+                </li>
+            </ul>
+
+            <div className="webmention-tester-form">
                 <input
                     type="text"
                     value={url}
@@ -109,19 +233,23 @@ function CreateTempMention() {
                     onKeyUp={onKeyPress}
                 />
                 <button onClick={post}>Submit</button>
+                <ErrorMessage show={isError} />
             </div>
+
+            <p>
+                If your page mentions this page, it should appear{" "}
+                <a href="#related_content">below</a>.
+            </p>
         </section>
     );
 }
 
-function Row(props) {
-    const className = props.className || "";
-
-    return <div className={`row ${className}`}>{props.children}</div>;
-}
-
-function Label(props) {
-    return <div className="label">{props.children}</div>;
+function ErrorMessage(props) {
+    if (props.show) {
+        return <div>Please check your URL - validation failed.</div>;
+    } else {
+        return null;
+    }
 }
 
 const headers = {

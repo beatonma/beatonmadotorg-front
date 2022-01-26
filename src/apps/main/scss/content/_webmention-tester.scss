@@ -1,0 +1,56 @@
+@use "../constants";
+
+.webmention-tester-form {
+    margin: 32px auto;
+    width: fit-content;
+    padding: 32px 48px;
+    border: 2px solid var(--text-tertiary);
+    border-radius: 1rem;
+}
+
+.webmention-tester-form > input[type="text"] {
+    width: auto;
+    min-width: 400px;
+    margin-right: 16px;
+    font-size: 1.2rem;
+}
+
+.webmention-tester-temp .dropdown-title {
+    font-size: 0.9rem;
+}
+
+.webmention-tester-temp .dropdown {
+    margin-bottom: 4px;
+}
+
+.webmention-tester-temp-label {
+    color: var(--accent);
+}
+
+.webmention-tester-temp .fail {
+    color: var(--warn);
+}
+
+.webmention-tester-status-content {
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+table.webmention-tester-status {
+    box-shadow: none;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+table.webmention-tester-status td {
+    vertical-align: baseline;
+    padding: 4px 8px 8px 0;
+}
+
+table.webmention-tester-status td:first-child {
+    text-align: end;
+}
+
+table.webmention-tester-status {
+    margin-bottom: 16px;
+}

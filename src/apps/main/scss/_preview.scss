@@ -3,6 +3,11 @@
     @extend .flex-col;
 }
 
+.preview-wide {
+    @extend .flex-col;
+    max-width: 100%;
+}
+
 .preview-content {
     @extend .flex-col;
     padding: 6px 12px;
@@ -62,19 +67,25 @@
     }
 }
 
+@media screen and (min-width: $screen-wide) {
+    .preview-wide {
+        max-width: calc(($max-card-width / 2) - ($card-spacing));
+    }
+}
+
 .preview-list-container {
     @extend .preview;
     @extend .nobackground;
     @extend .card;
 }
 
-.preview-list-container:last-child:after {
-    content: "HELLO";
-    background-color: var(--text-tertiary);
-    height: 4px;
-    width: 20%;
-    margin: 0 auto;
-}
+// .preview-list-container:last-child:after {
+//     content: "";
+//     background-color: var(--text-tertiary);
+//     height: 4px;
+//     width: 20%;
+//     margin: 0 auto;
+// }
 
 %preview-list {
     @extend .card-content;

@@ -8,15 +8,15 @@ $secondary: var(--text-secondary);
 $tertiary: var(--text-tertiary);
 $warn: var(--warn);
 
-$title-font: 'Oswald', sans-serif;
-$content-font: 'Open Sans', sans-serif;
-$monospace-font: 'Roboto Mono', monospace;
+$title-font: "Oswald", sans-serif;
+$content-font: "Open Sans", sans-serif;
+$monospace-font: "Roboto Mono", monospace;
 $font: $content-font;
 $font-size: 20px;
 $normaltext: $font-size;
-$midtext: .9rem;
-$smalltext: .8rem;
-$labeltext: .65rem;
+$midtext: 0.9rem;
+$smalltext: 0.8rem;
+$labeltext: 0.65rem;
 $changelog-text-size: $midtext;
 
 $header-row-padding: 16px;
@@ -26,8 +26,8 @@ $icon-large: 36px;
 $download-icon-size: $icon-small;
 $related-app-icon-size: 3rem;
 
-$gap: 8px;         // Space between groups of things
-$smallgap: 6px;    // Space between items in a group
+$gap: 8px; // Space between groups of things
+$smallgap: 6px; // Space between items in a group
 
 $transition-duration: 300ms;
 
@@ -42,10 +42,13 @@ $max-card-width: 1200px;
 
 // @media screen width values
 $screen-single-fill: 0px;
-$screen-single-column: ($preview-width + $card-spacing) + ($card-spacing * 4);; // Below this size, content should fill the entire width.
-$screen-two-columns: (($preview-width + $card-spacing) * 2) + ($card-spacing * 4);
-$screen-three-columns: (($preview-width + $card-spacing) * 3) + ($card-spacing * 4);
-$screen-four-columns: (($preview-width + $card-spacing) * 4) + ($card-spacing * 4);
+$screen-single-column: ($preview-width + $card-spacing) + ($card-spacing * 4); // Below this size, content should fill the entire width.
+$screen-two-columns: (($preview-width + $card-spacing) * 2) +
+    ($card-spacing * 4);
+$screen-three-columns: (($preview-width + $card-spacing) * 3) +
+    ($card-spacing * 4);
+$screen-four-columns: (($preview-width + $card-spacing) * 4) +
+    ($card-spacing * 4);
 $screen-max-columns: $screen-four-columns;
 
 $screen-narrow: $screen-single-column;

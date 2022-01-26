@@ -27,7 +27,7 @@
     --item-accent-foreground: var(--text-light-primary);
 
     --selected: #a4ddfb;
-    --hover: rgba(0, 0, 0, .08);
+    --hover: rgba(0, 0, 0, 0.08);
 
     --backsheet: #f5f5f5;
     --tabletop: #eeeeee;
@@ -38,11 +38,11 @@
 
     --card-background: #ffffff;
     --card-background-hover: #eeeeee;
-    --card-separator: rgba(0, 0, 0, .12);
+    --card-separator: rgba(0, 0, 0, 0.12);
 
     --card-background-invert: #222222;
     --card-background-hover-invert: #555555;
-    --card-separator-invert: rgba(255, 255, 255, .12);
+    --card-separator-invert: rgba(255, 255, 255, 0.12);
 
     --table-background: #444444;
     --table-text: var(--text-light-primary);
@@ -63,9 +63,9 @@
     --appname: var(--item-accent);
     --warn: #f44336;
 
-    --red: #EE4545;
-    --blue: #0E70B8;
-    --green: #16B06B;
+    --red: #ee4545;
+    --blue: #0e70b8;
+    --green: #16b06b;
     --purple: #823dae;
     --pink: #e13255;
     --yellow: #fdf472;

@@ -15,6 +15,14 @@
     margin-right: $smallgap;
 }
 
+.row.align-baseline {
+    align-items: baseline;
+}
+
+.row.align-center {
+    align-items: center;
+}
+
 // Center on small screens, flex-start on large
 .flex-row {
     @extend .row;
@@ -91,6 +99,11 @@
 
 .row-item {
     margin-right: $smallgap;
+}
+
+.vertical-center {
+    align-items: center;
+    vertical-align: middle;
 }
 
 .vertical-bottom {

@@ -1,17 +1,15 @@
-// .text-primary {
-//     color: var(--text-primary);
-//     font-size: 1rem;
-// }
-
-// .text-secondary {
-//     color: var(--text-secondary);
-//     font-size: $smalltext;
-// }
-
 .monospace {
     font-family: monospace;
 }
 
 .bold {
     font-weight: bold;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-end {
+    text-align: end;
 }
