@@ -84,13 +84,9 @@ function MentionsContainer(props) {
     );
 
     return (
-        <div
-            className={
-                "mentions overflow" + (cardExists ? "" : " card-content")
-            }
-        >
+        <div className={"overflow" + (cardExists ? "" : " card-content")}>
             <h3>{title}</h3>
-            {content}
+            <div className="row mentions">{content}</div>
         </div>
     );
 }
@@ -98,15 +94,17 @@ function MentionsContainer(props) {
 function Webmention(props) {
     const mention = props.webmention;
     const avatarStyle = {
-        backgroundImage: `url(${mention.hcard.avatar})`,
+        backgroundImage: `url(${
+            mention.hcard?.avatar || "/static/images/icon/ic_no-avatar.svg"
+        })`,
     };
     return (
-        <div className="mention-mini">
+        <div className="mention-mini" title={mention?.quote}>
             <div className="tooltip">
                 <a
                     className="mention-source"
                     aria-label="Mention source"
-                    href={"" + mention.source_url}
+                    href={mention.source_url || ""}
                 >
                     <div
                         className="avatar mention-avatar"
@@ -118,11 +116,13 @@ function Webmention(props) {
                         <a
                             className="hcard-homepage"
                             aria-label="Mention author homepage"
-                            href={"" + mention.hcard.homepage}
+                            href={mention.hcard?.homepage || ""}
                         >
                             <div className="hcard-content">
                                 <div className="hcard-name">
-                                    {mention.hcard.name}
+                                    {mention.hcard?.name ||
+                                        mention.hcard?.homepage ||
+                                        "Somebody?"}
                                 </div>
                             </div>
                         </a>

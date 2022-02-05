@@ -23,7 +23,17 @@ function WebmentionsTester() {
     return (
         <div>
             <CreateTempMention onSubmit={refresh} />
-            <ActiveMentions onChange={refreshFlag} />
+            <ActiveMentions onChange={refreshFlag} refresh={refresh} />
+        </div>
+    );
+}
+
+function TooSoon() {
+    return (
+        <div className="webmention-tester-form">
+            <h1>Welcome!</h1>
+            But I'm afraid the tool isn't quite ready yet :( Check back in a
+            couple of days!
         </div>
     );
 }
@@ -45,13 +55,15 @@ function ActiveMentions(props) {
         });
     }, [props.onChange]);
 
-    if (mentions.length == 0) {
-        return <div>No mentions</div>;
-    }
-
     const timeout = formatTimeDelta(ttl, {
         verbose: true,
     });
+    const requestUpdate = callback => {
+        setTimeout(() => {
+            props.refresh();
+            callback();
+        }, 500);
+    };
 
     return (
         <section>
@@ -61,10 +73,18 @@ function ActiveMentions(props) {
                     <Label>{`Temporary mentions submitted in the last ${timeout}`}</Label>
                 </Row>
                 <div className="flex-row">
-                    <SampleActiveMention ttl={ttl} />
+                    <SampleActiveMention
+                        ttl={ttl}
+                        expanded={mentions.length == 0}
+                    />
                     {mentions.map(m => (
-                        <ActiveMention {...m} key={m.submitted_at} />
+                        <ActiveMention
+                            {...m}
+                            key={m.submitted_at}
+                            requestUpdate={requestUpdate}
+                        />
                     ))}
+                    {}
                 </div>
             </div>
         </section>
@@ -96,11 +116,20 @@ function SampleActiveMention(props) {
             {...sampleData}
             className="webmention-tester-sample"
             label="Sample"
+            expanded={props.expanded}
         />
     );
 }
 
 function ActiveMention(props) {
+    const [awaitingTask, setAwaitingTask] = useState(true);
+
+    useEffect(() => {
+        if (props.status === null && props.requestUpdate) {
+            props.requestUpdate(() => setAwaitingTask(!awaitingTask));
+        }
+    }, [props.status, awaitingTask]);
+
     return (
         <div
             className={`webmention-tester-temp card preview-wide`}
@@ -119,14 +148,23 @@ function ActiveMention(props) {
                         </Label>
                     </div>
                 </Row>
-                <MentionStatus status={props.status} expanded={props.label} />
+                <MentionStatus
+                    status={props.status}
+                    expanded={props.expanded}
+                />
             </div>
         </div>
     );
 }
 
 function MentionStatus(props) {
-    if (props.status == null) return <div>Status unknown</div>;
+    if (props.status == null)
+        return (
+            <Row className="vertical-center">
+                <span className="material-icons refresh">refresh</span>
+                <div>Status unknown - please wait a moment...</div>
+            </Row>
+        );
 
     const {
         successful,
@@ -223,6 +261,8 @@ function CreateTempMention(props) {
                     notification that this page has mentioned your page.
                 </li>
             </ul>
+
+            {/* <TooSoon /> */}
 
             <div className="webmention-tester-form">
                 <input

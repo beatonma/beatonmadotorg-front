@@ -6,8 +6,12 @@
     <div id="webmentions_testing_tool"></div>
     <div id="related_content">
         <div id="mentions" data-show-when-empty data-title="This page has been mentioned by:" data-empty-message="Nobody :("></div>
-        <p>If your content has mentioned this page then you should find a link to it here, along with your h-card information!</p>
+        <p>If your content has mentioned this page then you should find a link to it here, along with your <code>h-card</code> information!</p>
+    </div>
+    <div style="display:none;">
+        {% for url in active_mentions %}
+        <a href="{{ url }}"></a>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
-EDIT
