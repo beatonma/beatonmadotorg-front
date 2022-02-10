@@ -1,9 +1,9 @@
 {% load static %}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#111111">
 <meta name="msapplication-config" content="{% static 'images/favicon/browserconfig.xml' %}">
 <meta name="google-site-verification" content="CsQuYeO7RbwWqq9V-pMt0Bm1bZUBC5Qo0vmJBPZqjPE" />
+<meta name="theme-color" content="#111111">
 
 <link rel="alternate" type="application/rss+xml" title="beatonma.org - Recent" href="/feed"/>
 <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-touch-icon.png' %}"/>
@@ -16,6 +16,4 @@
 <link rel="pgpkey" type="application/pgp-keys" title="Michael Beaton's PGP Public Key" href="https://beatonma.org/key"/>
 <link rel="webmention" href="/webmention/" />
 
-{% block html_head %}
-<meta name="description" content="Software projects by Michael Beaton" />
-{% endblock %}
+{% block html_head %}{% endblock %}

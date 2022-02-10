@@ -5,7 +5,7 @@ import { loadJson } from "./util";
 const getContainerElement = () => document.getElementById("mentions");
 
 export function WebmentionsApp() {
-    ReactDOM.render(<Webmentions mentions={mentions} />, getContainerElement());
+    ReactDOM.render(<Webmentions />, getContainerElement());
 }
 
 function Webmentions() {
@@ -29,6 +29,17 @@ function Webmentions() {
 
         loadJson(url)
             .then(data => data.mentions)
+            .then(mentions => {
+                let keys = [];
+                let unique = mentions.filter(x => {
+                    if (keys.includes(x.source_url)) return false;
+                    else {
+                        keys.push(x.source_url);
+                        return true;
+                    }
+                });
+                return unique;
+            })
             .then(setMentions)
             .catch(console.error);
     }, []);
@@ -111,23 +122,28 @@ function Webmention(props) {
                         style={avatarStyle}
                     ></div>
                 </a>
-                <div className="tooltip-popup hcard-popup">
-                    <div className="hcard-popup flex-row-start">
-                        <a
-                            className="hcard-homepage"
-                            aria-label="Mention author homepage"
-                            href={mention.hcard?.homepage || ""}
-                        >
-                            <div className="hcard-content">
-                                <div className="hcard-name">
-                                    {mention.hcard?.name ||
-                                        mention.hcard?.homepage ||
-                                        "Somebody?"}
-                                </div>
-                            </div>
-                        </a>
+                <HCardTooltip hcard={mention.hcard} />
+            </div>
+        </div>
+    );
+}
+
+function HCardTooltip(props) {
+    const hcard = props.hcard;
+    return (
+        <div className="tooltip-popup hcard-popup">
+            <div className="hcard-popup flex-row-start">
+                <a
+                    className="hcard-homepage"
+                    aria-label="Mention author homepage"
+                    href={hcard?.homepage || ""}
+                >
+                    <div className="hcard-content">
+                        <div className="hcard-name">
+                            {hcard?.name || hcard?.homepage || "Somebody?"}
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     );

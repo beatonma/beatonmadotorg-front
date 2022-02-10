@@ -3,14 +3,13 @@
 <html lang="en">
   <head>
     {% include 'fragments/head/browser.fragment.html' %}
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}Software projects by Michael Beaton{% endblock %}" />
+    
     {% block scripts %}{% include 'fragments/head/scripts.fragment.html' %}{% endblock %}
     {% block theme %}{% include 'fragments/head/theme.fragment.html' %}{% endblock %}
 
-    <title>{% block title %}{% endblock %}</title>
-
-    {% block html_head %}
-      <meta name="description" content="Software projects by Michael Beaton" />
-    {% endblock %}
+    {% block html_head %}{% endblock %}
   </head>
   <body>
     {% block body %}

@@ -3,8 +3,8 @@
 {% load admin_urls %}
 {% load date_tag %}
 {% block title %}{{ article.title }} - beatonma.org{% endblock %}
+{% block description %}{{ article.preview_text }}{% endblock %}
 {% block html_head %}
-<meta name="description" content="{{ article.preview_text }}">
 {{ article.html_head|safe }}
 {% endblock %}
 {% block content %}

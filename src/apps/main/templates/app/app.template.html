@@ -2,9 +2,7 @@
 {% load static %}
 {% load admin_urls %}
 {% block title %}{{ app.title }} - beatonma.org{% endblock %}
-{% block html_head %}
-<meta name="description" content="{{ app.tagline }}">
-{% endblock %}
+{% block description %}{{ app.tagline }}{% endblock %}
 {% block content %}
 {% if user.is_superuser %}
 <div class="header-row">
