@@ -1,13 +1,12 @@
 {% extends 'base.template.html' %}
 
 {% block title %}Search results - beatonma.org{% endblock %}
-
+{% block description %}beatonma.org search results for query '{{ query }}'{% endblock %}
 {% block html_head %}
-<meta name="description" content="beatonma.org search results for query '{{ query }}'">
+<meta name="robots" content="noindex">
 {% endblock %}
 
 {% block content %}
-
 <h3>
 {% block result_text %}
 {% if not apps and not articles and not notes %}
