@@ -16,6 +16,11 @@ module.exports = {
             chunkLoading: false,
             filename: "apps/contact/js/[name].min.js",
         },
+        dashboard: {
+            import: "./build/preprocessed/apps/dashboard/js/dashboard.js",
+            chunkLoading: false,
+            filename: "apps/dashboard/js/[name].min.js",
+        },
     },
     output: {
         path: path.resolve(__dirname, "build/temp/"),

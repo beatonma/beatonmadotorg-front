@@ -15,5 +15,8 @@
 <div class="header-row-secondary">
     <a class="header-item" href="/about/">About</a>
     <a class="header-item" href="/contact/">Contact</a>
-    {% if user.is_superuser %}<a class=" header-item noanim" href="{% url 'admin:index' %}">Admin</a>{% endif %}
+    {% if user.is_superuser %}
+    <a class="header-item noanim" href="{% url 'dashboard' %}">Dashboard</a>
+    <a class=" header-item noanim" href="{% url 'admin:index' %}">Admin</a>
+    {% endif %}
 </div>
