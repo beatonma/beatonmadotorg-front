@@ -67,30 +67,37 @@ export function formatDate(
         year: "numeric",
     }
 ) {
+    const _date = new Date(date);
     const now = new Date();
 
-    date.setHours(0, 0, 0, 0);
+    _date.setHours(0, 0, 0, 0);
     now.setHours(0, 0, 0, 0);
 
-    if (date.getMonth() == now.getMonth() && date.getDate() == now.getDate()) {
+    if (
+        _date.getMonth() == now.getMonth() &&
+        _date.getDate() == now.getDate()
+    ) {
         return "Today";
     }
 
     now.setDate(now.getDate() - 1);
-    if (date.getMonth() == now.getMonth() && date.getDate() == now.getDate()) {
+    if (
+        _date.getMonth() == now.getMonth() &&
+        _date.getDate() == now.getDate()
+    ) {
         return "Yesterday";
     }
 
-    if (date.getFullYear() == now.getFullYear()) {
+    if (_date.getFullYear() == now.getFullYear()) {
         delete options["year"];
     }
 
-    const day = date.toLocaleDateString("default", { day: options.day });
-    const month = date.toLocaleDateString("default", { month: options.month });
+    const day = _date.toLocaleDateString("default", { day: options.day });
+    const month = _date.toLocaleDateString("default", { month: options.month });
 
     return `${day} ${month}${
         options.year
-            ? " " + date.toLocaleDateString("default", { year: options.year })
+            ? " " + _date.toLocaleDateString("default", { year: options.year })
             : ""
     }`;
 }
