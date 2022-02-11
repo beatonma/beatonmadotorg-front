@@ -5,11 +5,10 @@
     {% include 'fragments/head/browser.fragment.html' %}
     <title>{% block title %}{% endblock %}</title>
     <meta name="description" content="{% block description %}Software projects by Michael Beaton{% endblock %}" />
-    
-    {% block scripts %}{% include 'fragments/head/scripts.fragment.html' %}{% endblock %}
-    {% block theme %}{% include 'fragments/head/theme.fragment.html' %}{% endblock %}
-
     {% block html_head %}{% endblock %}
+    
+    {% block theme %}{% include 'fragments/head/theme.fragment.html' %}{% endblock %}
+    {% block scripts %}{% include 'fragments/head/scripts.fragment.html' %}{% endblock %}
   </head>
   <body>
     {% block body %}
