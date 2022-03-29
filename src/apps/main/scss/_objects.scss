@@ -1,9 +1,9 @@
-@import 'constants';
-@import 'objects/headers';
-@import 'objects/inputs';
-@import 'objects/lists';
-@import 'objects/tables';
-@import 'fonts';
+@import "constants";
+@import "objects/headers";
+@import "objects/inputs";
+@import "objects/lists";
+@import "objects/tables";
+@import "fonts";
 
 html {
     @extend %normaltext;
@@ -14,15 +14,17 @@ html {
 body {
     padding: 0;
     margin: 0;
+    line-height: 1.4;
 }
-@media only screen and (min-width:$screen-narrow) {
+@media only screen and (min-width: $screen-narrow) {
     body {
         transition: font-size $transition-duration;
     }
 }
 
-p, .p {
-    margin: .2rem 0 .8rem;
+p,
+.p {
+    margin: 0.2rem 0 0.8rem;
 }
 
 main {
@@ -39,11 +41,14 @@ a > * {
     color: var(--text-primary);
 }
 
-pre, pre code {
-    font-family: 'Roboto Mono', monospace;
+pre,
+pre code {
+    font-family: "Roboto Mono", monospace;
     overflow-x: scroll;
-    color: var(--code-text);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
     background-color: var(--code-background);
+    color: var(--code-text);
 }
 
 pre {
@@ -53,6 +58,13 @@ pre {
 
 code {
     white-space: pre;
+    background-color: var(--code-background);
+    color: var(--code-text);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
 }
 
 hr {
@@ -65,7 +77,8 @@ hr {
     max-width: 200px;
 }
 
-label, .label {
+label,
+.label {
     font-size: $labeltext;
     color: var(--text-secondary);
     font-weight: 600;

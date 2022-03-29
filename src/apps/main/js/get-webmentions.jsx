@@ -83,9 +83,9 @@ function MentionsContainer(props) {
 
     useEffect(() => {
         // Insert into existing card if available, or create new card if none
-        if (!cardExists) {
-            getContainerElement().classList.add("card");
-        }
+        // if (!cardExists) {
+        //     getContainerElement().classList.add("card");
+        // }
     }, []);
 
     const content = isEmpty ? (
@@ -95,7 +95,7 @@ function MentionsContainer(props) {
     );
 
     return (
-        <div className={"overflow" + (cardExists ? "" : " card-content")}>
+        <div className={"overflow" + (cardExists ? "" : "")}>
             <h3>{title}</h3>
             <div className="row mentions">{content}</div>
         </div>

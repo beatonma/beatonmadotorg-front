@@ -23,7 +23,7 @@
             <div class="flex-col overflow">
                 <h1 class="article-title p-name">{{ article.title }}</h1>
                 <div class="flex-row-start">
-                    <div class="article-tagline {{ article.foreground_color }} secondary">{{ article.tagline }}</div>
+                    <div class="article-tagline {{ article.foreground_color }} secondary">{{ article.tagline|default:"" }}</div>
                     <div class="download-links">{% include 'app/app-links-small.template.html' %}</div>
                 </div>
             </div>
@@ -36,9 +36,9 @@
             </div>
         </div>
         <div class="article-content">
-            {% if article.abstract %}
+            {% if article.abstract_html %}
             <div class="article-abstract p-summary">
-                {{ article.abstract|safe }}
+                {{ article.abstract_html|safe }}
             </div>
             {% endif %}
             

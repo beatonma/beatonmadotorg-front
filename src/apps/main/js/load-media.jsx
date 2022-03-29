@@ -28,7 +28,7 @@ function RelatedMedia() {
     const [appID, setAppID] = useState(null);
 
     useEffect(() => {
-        loadJson(`/api/related_media?url=${window.location.pathname}`)
+        loadJson(`/api/related_media/?url=${window.location.pathname}`)
             .then(data => data.files)
             .then(setFiles);
     }, []);

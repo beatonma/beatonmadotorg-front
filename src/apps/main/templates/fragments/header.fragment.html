@@ -1,7 +1,7 @@
 <div class="header-row-primary">
 <a href="/"><div class="title header-item">beatonma.org</div></a>
 <div class="spacer"></div>
-<form action="/search" method="get" id="search_form">
+<form action="/search/" method="get" id="search_form">
     <div class="search-container flex-row collapsing-wrapper nowrap">
         <label id="search_icon" class="header-item icon" for="search" tabindex="0">
             @@include('src/apps/main/templates/svg/search.svg', {"class": "search", "id": ""})
@@ -13,6 +13,7 @@
 </form>
 </div>
 <div class="header-row-secondary">
+    <a class="header-item" href="/apps/">Apps</a>
     <a class="header-item" href="/about/">About</a>
     <a class="header-item" href="/contact/">Contact</a>
     {% if user.is_superuser %}

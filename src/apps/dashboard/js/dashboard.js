@@ -150,7 +150,12 @@ const PageView = props => {
 
     return (
         <a href={view.url}>
-            <div href={view.url} key={view.timestamp} className="page-view row">
+            <div
+                href={view.url}
+                key={view.timestamp}
+                className="page-view row"
+                title={`${view.device} | ${view.os} | ${view.browser}: ${view.ip}`}
+            >
                 <TimeStamp timestamp={view.timestamp} />
                 <Url>{url.pathname}</Url>
                 {view.count > 1 ? (

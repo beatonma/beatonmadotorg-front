@@ -4,6 +4,7 @@
 
 {% block content %}
 <section>
+    <div class="card-container">
     <h1>Apps</h1>
 
     {% regroup apps by app_type as grouped_apps %}
@@ -18,5 +19,6 @@
         </div>
     </div>
     {% endfor %}
+    </div>
 </section>
 {% endblock %}

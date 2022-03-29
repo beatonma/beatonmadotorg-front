@@ -1,7 +1,7 @@
 {% if tags %}
 <div class="flex-row-start">
     {% for tag in tags %}
-    <a class="tag" href="/tag/{{ tag.slug }}">#{{ tag.name }}</a>
+    <a class="tag" href="{% url 'search-tags' tag.slug %}">#{{ tag.name }}</a>
     {% endfor %}
 </div>
 {% endif %}
