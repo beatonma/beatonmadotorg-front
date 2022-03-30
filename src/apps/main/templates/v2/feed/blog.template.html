@@ -1,6 +1,6 @@
 {% include "v2/feed/feed-item.template.html"
     with
-    image=blog.related_files.first.file
+    image_url=blog.related_files.first.file
     title=blog.title
     description=blog.preview_text
     url=blog.get_absolute_url

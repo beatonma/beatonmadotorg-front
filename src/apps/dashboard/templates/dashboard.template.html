@@ -12,7 +12,7 @@
   <body>
     {% block body %}
       <main>
-        <header><a href="{% url 'admin:index' %}">Admin</a> | <a href="{% url 'index_view' %}">Home</a></header>
+        <header><a href="{% url 'admin:index' %}">Admin</a> | <a href="{% url 'index' %}">Home</a></header>
         {% block main %}
           <div id="dashboard_wrapper"></div>
         {% endblock %}

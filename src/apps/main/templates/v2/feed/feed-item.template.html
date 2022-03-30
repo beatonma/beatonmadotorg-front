@@ -1,15 +1,30 @@
 {% load date_tag %}
 {% load repeat_tag %}
-<a class="feed-item h-entry" href="{{ url }}" aria-label="{{ type }}: {{ title }}" title="{{ type }}: {{ title }}" data-type="{{ type|lower }}">
-    {% if image %}
-        <div class="image" style="background-image: url('https://beatonma.org/media/{{ image }}')"></div>
+{% load startswith %}
+<a
+    class="feed-item h-entry"
+    href="{{ url }}"
+    aria-label="{{ type }}: {{ title }}"
+    title="{{ type }}: {{ title }}"
+    data-type="{{ type|lower }}"
+    >
+
+    {% if image_url %}
+        <div class="image" style="{% include 'v2/feed/themeable-style.template.html' %} background-image: url('https://beatonma.org/media/{{ image_url }}')"></div>
+    {% elif image_svg %}
+        <div class="image" style="{% include 'v2/feed/themeable-style.template.html' %}">
+            {{ image_svg|safe }}
+        </div>
     {% else %}
         <div class="image" style="{% include 'v2/feed/themeable-style.template.html' %}">
             <div class="title-as-image">
-            {% for n in 5|range %}{{ title }}{{" "}}{% endfor %}
+                {% for n in 10|range %}
+                {{ title }}{{" "}}
+                {% endfor %}
             </div>
         </div>
     {% endif %}
+
     <div class="text">
         <div class="row">
             <h3 class="title p-name">{{ title }}</h3>

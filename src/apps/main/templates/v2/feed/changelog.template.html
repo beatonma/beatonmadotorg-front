@@ -1,8 +1,10 @@
 {% include "v2/feed/feed-item.template.html"
     with
-    image=changelog.app.resolve_icon
+    image_url=changelog.app.icon
+    image_svg=changelog.app.resolve_icon_svg
     title=changelog.preview_title
     description=changelog.preview_text
     url=changelog.get_absolute_url
     date=changelog.date
+    themeable=changelog.app
 %}
