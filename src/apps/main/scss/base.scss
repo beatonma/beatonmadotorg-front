@@ -44,9 +44,10 @@
 @import "hcard"; // Visible hcard on About page
 @import "dropdown";
 
+@import "v2/v2";
 @import "content/content";
 
-.title {
+#beatonma_title {
     font-size: 2rem;
     color: var(--header-text-color);
 }

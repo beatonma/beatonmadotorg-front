@@ -1,8 +1,8 @@
 {% load date_tag %}
 <div class="note h-entry">
     <div class="e-content">{{ note.content_html|safe }}</div>
-    <time class="dt-published label" datetime="{{ note.created|date }} {{ note.created|time }}" title="{{ note.created|date }} {{ note.created|time }}">
-        {{ note.created|minimaltime }}
+    <time class="dt-published label" datetime="{{ note.created_at|date }} {{ note.created_at|time }}" title="{{ note.created_at|date }} {{ note.created_at|time }}">
+        {{ note.created_at|minimaltime }}
     </time>
     {% if media.url %}
         <div class="note-media-wrapper">

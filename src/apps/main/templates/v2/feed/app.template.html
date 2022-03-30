@@ -1,0 +1,8 @@
+{% include "v2/feed/feed-item.template.html"
+    with
+    image=app.resolve_icon
+    title=app.title
+    description=app.description
+    url=app.get_absolute_url
+    date=app.date_published
+%}

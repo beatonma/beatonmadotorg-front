@@ -1,11 +1,6 @@
-:root {
-    --text-light-primary: rgba(255, 255, 255, 0.83);
-    --text-light-secondary: rgba(255, 255, 255, 0.54);
-    --text-light-tertiary: rgba(255, 255, 255, 0.25);
-    --text-dark-primary: rgba(0, 0, 0, 0.83);
-    --text-dark-secondary: rgba(0, 0, 0, 0.54);
-    --text-dark-tertiary: rgba(0, 0, 0, 0.25);
+@import "color-common";
 
+:root {
     --text-primary: var(--text-light-primary);
     --text-secondary: var(--text-light-secondary);
     --text-tertiary: var(--text-light-tertiary);
@@ -14,35 +9,15 @@
     --text-secondary-invert: var(--text-dark-secondary);
     --text-tertiary-invert: var(--text-dark-tertiary);
 
-    --primary-color: #070707;
-    --item-primary: var(--primary-color);
-
-    --accent-color: #60b4e3;
-    --accent-color-highlight: #1e6197;
-    --accent: var(--accent-color);
-    --item-accent: var(--accent-color);
-    --accent-background: var(--accent-color-highlight);
-
-    --item-foreground: var(--text-light-primary);
-    --item-accent-foreground: var(--text-light-primary);
+    --accent: #60b4e3;
+    --onAccent: var(--text-dark-primary);
 
     --selected: #888888;
     --hover: rgba(255, 255, 255, 0.08);
 
-    --backsheet: #111111;
-    --tabletop: #070707;
-
     --header-background-color: #070707;
     --header-background-color-hover: #111111;
     --header-text-color: var(--text-light-primary);
-
-    --card-background: #222222;
-    --card-background-hover: #555555;
-    --card-separator: rgba(255, 255, 255, 0.12);
-
-    --card-background-invert: #ffffff;
-    --card-background-hover-invert: #eeeeee;
-    --card-separator-invert: rgba(0, 0, 0, 0.12);
 
     --table-background: #272727;
     --table-text: var(--text-light-primary);
@@ -58,19 +33,9 @@
     --embedded-text-secondary: var(--text-light-secondary);
     --embedded-text-tertiary: var(--text-light-secondary);
 
-    --card-header-color: var(--primary_color);
-
-    --appname: var(--item-accent);
-    --warn: #f44336;
-
-    --red: #ee4545;
-    --blue: #0e70b8;
-    --green: #16b06b;
-    --purple: #a068c3;
-    --pink: #e26881;
-    --yellow: #fdf472;
-    --orange: #d86900;
-    --grey: #636363;
+    // v2
+    --background: #111111;
+    --surface: #222222;
 }
 
 // Monokai

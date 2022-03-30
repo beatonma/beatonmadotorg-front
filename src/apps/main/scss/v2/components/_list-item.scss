@@ -1,0 +1,79 @@
+@use "../display";
+@use "../animation";
+@use "../layout";
+@forward "../shape";
+
+%list-item {
+    $height: 3rem;
+
+    @include layout.row($wrap: nowrap);
+    @include layout.height($height);
+    @extend %shape-small;
+    @extend %animate-all;
+
+    margin: 4px;
+    overflow: hidden;
+
+    .image {
+        @include layout.size($height);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        overflow: hidden;
+
+        .title-as-image {
+            // No actual image available, use some artsy text.
+            @include layout.size($height * 2);
+            position: relative;
+            top: -50%;
+            left: -50%;
+            letter-spacing: 1.2;
+            font-size: xx-large;
+            font-weight: bold;
+            text-align: center;
+            transform: rotate(45deg);
+            // transform: translate(-50%, -50%) rotate(-45deg);
+            transform-origin: center;
+        }
+    }
+
+    .text {
+        height: -webkit-fill-available;
+        width: -webkit-fill-available;
+        margin: 16px;
+
+        .row {
+            justify-content: space-between;
+        }
+
+        .title {
+            @include layout.clipped-text(1);
+        }
+        .description {
+            @include layout.clipped-text(2);
+        }
+    }
+}
+
+%list-item-large {
+    $height: 9rem;
+
+    @extend %list-item;
+    @include layout.height($height);
+    @extend %shape-medium;
+
+    .image {
+        @include layout.size($height);
+        .title-as-image {
+            // No actual image available, use some artsy text.
+            @include layout.size($height * 2);
+        }
+    }
+}
+
+@media (max-width: display.$one-column) {
+    %list-item {
+        border-radius: 0;
+        margin: 4px 0;
+    }
+}

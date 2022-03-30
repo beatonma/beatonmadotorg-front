@@ -7,7 +7,7 @@
 
 html {
     @extend %normaltext;
-    background: var(--tabletop);
+    background: var(--background);
     transition: background $transition-duration;
 }
 

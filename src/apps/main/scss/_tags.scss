@@ -1,5 +1,5 @@
 .tags {
-    @extend .row;
+    @extend %v1-row;
     align-items: center;
     flex-flow: wrap;
 }
@@ -24,8 +24,8 @@
         font-size: $smalltext;
         padding: $smallgap;
         margin: $smallgap;
-        background: var(--accent-background);
-        color: $light;
+        background: var(--accent);
+        color: var(--onAccent);
         border-radius: $corner-radius;
     }
 }

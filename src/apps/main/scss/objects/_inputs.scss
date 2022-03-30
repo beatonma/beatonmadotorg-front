@@ -1,7 +1,8 @@
-input[type='text'], textarea {
+input[type="text"],
+textarea {
     resize: both;
     font-family: $content-font;
-    font-size: .9rem;
+    font-size: 0.9rem;
     padding: 4px;
     margin: 0;
     color: var(--text-primary);
@@ -11,15 +12,18 @@ input[type='text'], textarea {
     background: transparent;
     outline: none;
     border: none;
-    border-bottom: 1px solid var(--card-separator);
+    // border-bottom: 1px solid var(--card-separator);
+    border-bottom: 1px solid rgba(var(--onSurface), 0.18);
     transition: border $transition-duration;
 }
 
-input[type='text']:focus, textarea:focus {
+input[type="text"]:focus,
+textarea:focus {
     border-bottom: solid 2px var(--item-accent);
     outline: none;
 }
-input[type='text']:active, textarea:active {
+input[type="text"]:active,
+textarea:active {
     border-bottom: solid 2px var(--item-accent);
     outline: none;
 }
@@ -42,7 +46,6 @@ button:hover {
 }
 
 .collapsing-wrapper {
-
 }
 
 .input-wrapper {

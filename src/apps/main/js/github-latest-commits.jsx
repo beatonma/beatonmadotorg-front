@@ -150,7 +150,7 @@ function Commit(props) {
 function PublicCommit(props) {
     return (
         <div className="github-recent-commit">
-            <div className="row">
+            <div className="v1-row">
                 <span
                     className="github-recent-public-icon"
                     title="Public repository"

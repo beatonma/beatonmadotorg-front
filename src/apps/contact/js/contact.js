@@ -1,3 +1,4 @@
+import { showLoading } from "../../main/js/page-transitions.js";
 import { getCsrfToken } from "../../main/js/util.js";
 
 function showSuccess() {
@@ -12,7 +13,7 @@ function showFailure(response) {
 
 export function onSubmitContact(recaptchaToken) {
     const contact = document.getElementById("contact_form");
-    document.getElementById("beatonma_loading").classList.add("loading");
+    showLoading(true);
 
     const form = new FormData(contact);
     const csrftoken = getCsrfToken();
@@ -26,9 +27,8 @@ export function onSubmitContact(recaptchaToken) {
         credentials: "same-origin",
     })
         .then(response => {
-            document
-                .getElementById("beatonma_loading")
-                .classList.remove("loading");
+            showLoading(false);
+
             if (response.ok) {
                 showSuccess();
             } else {

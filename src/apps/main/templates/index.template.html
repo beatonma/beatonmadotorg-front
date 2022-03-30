@@ -9,26 +9,26 @@
   </section>
   {% endif %}
 
-  <section>
-    {% include 'index/recent-grid.template.html' %}
-  </section>
+  {% include 'v2/feed.template.html' %}
 
   {% if apps %}
   <section>
-    {% include 'index/app-grid.template.html' with app_list=apps %}
+    {% for app in apps %}
+    <a class="tag" href="{% url 'app' app.app_id %}">{{ app.title }}</a>
+    {% endfor %}
   </section>
   {% endif %}
 
   {% if tags %}
   <section>
-    <div class=" flex-row-center">
+    <div class="tags flex-row-center">
       {% for tag in tags %}
-      <a class="tag" href="/tag/{{ tag.slug }}">#{{ tag.name }}</a>
+      <a class="tag" href="{% url 'search-tags' tag.slug %}">#{{ tag.name }}</a>
       {% endfor %}
     </div>
-    <div class=" flex-row-center">
+    <div class="tags flex-row-center">
       {% for language in languages %}
-      <a class="tag" href="/language/{{ language.name }}">{{ language.name }}</a>
+      <a class="tag" href="{% url 'search-languages' language.name %}">{{ language.name }}</a>
       {% endfor %}
     </div>
   </section>

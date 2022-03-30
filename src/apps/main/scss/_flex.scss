@@ -6,26 +6,26 @@
     overflow-x: hidden;
 }
 
-.row {
+%v1-row {
     display: flex;
     flex-direction: row;
 }
 
-.row > * {
-    margin-right: $smallgap;
-}
+// .row > * {
+//     margin-right: $smallgap;
+// }
 
-.row.align-baseline {
-    align-items: baseline;
-}
+// .row.align-baseline {
+//     align-items: baseline;
+// }
 
-.row.align-center {
-    align-items: center;
-}
+// .row.align-center {
+//     align-items: center;
+// }
 
 // Center on small screens, flex-start on large
 .flex-row {
-    @extend .row;
+    @extend %v1-row;
     flex-wrap: wrap;
     justify-content: center;
 }

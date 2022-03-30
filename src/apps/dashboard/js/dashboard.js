@@ -153,7 +153,7 @@ const PageView = props => {
             <div
                 href={view.url}
                 key={view.timestamp}
-                className="page-view row"
+                className="page-view v1-row"
                 title={`${view.device} | ${view.os} | ${view.browser}: ${view.ip}`}
             >
                 <TimeStamp timestamp={view.timestamp} />

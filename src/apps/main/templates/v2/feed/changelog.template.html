@@ -1,0 +1,8 @@
+{% include "v2/feed/feed-item.template.html"
+    with
+    image=changelog.app.resolve_icon
+    title=changelog.preview_title
+    description=changelog.preview_text
+    url=changelog.get_absolute_url
+    date=changelog.date
+%}
