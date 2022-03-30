@@ -1,14 +1,10 @@
-@use "../layout";
 @forward "../elevation";
 @forward "../components/list-item";
-@import "pagination";
-
-#feed {
-}
 
 .feed-item {
     @extend %elevated;
     @extend %list-item-large;
+
     background-color: var(--surface);
     margin: 1rem 0;
 }

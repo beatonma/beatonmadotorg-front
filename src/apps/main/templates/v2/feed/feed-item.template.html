@@ -17,9 +17,9 @@
         </div>
     {% else %}
         <div class="image" style="{% include 'v2/feed/themeable-style.template.html' %}">
-            <div class="title-as-image">
+            <div class="text-as-image">
                 {% for n in 10|range %}
-                {{ title }}{{" "}}
+                <span>{{ title }}</span>
                 {% endfor %}
             </div>
         </div>

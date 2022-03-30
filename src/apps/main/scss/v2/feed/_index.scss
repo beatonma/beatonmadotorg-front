@@ -1,0 +1,10 @@
+@forward "../components/list";
+@forward "pagination";
+@forward "feed-item";
+
+#feed {
+}
+
+.feed-items {
+    // @extend %multicolumn-list;
+}

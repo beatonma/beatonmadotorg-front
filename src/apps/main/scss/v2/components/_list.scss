@@ -1,0 +1,28 @@
+// @use "../display";
+// @use "../layout";
+
+// %list {
+// }
+
+// %multicolumn-list > {
+//     @extend %list;
+//
+// display: flex;
+// flex-direction: row;
+
+// %list-item {
+// max-width: 50%;
+// }
+
+// > * {
+//     max-width: 50%;
+// }
+// }
+
+// @media (max-width: display.$one-column) {
+// %list-item {
+//     min-width: 50%;
+//     width: 50%;
+//     max-width: 50%;
+// }
+// }

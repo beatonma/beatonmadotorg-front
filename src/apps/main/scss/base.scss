@@ -1,3 +1,5 @@
+@forward "v2";
+
 @import "constants";
 @import "util";
 @import "elevation";
@@ -44,7 +46,6 @@
 @import "hcard"; // Visible hcard on About page
 @import "dropdown";
 
-@import "v2/v2";
 @import "content/content";
 
 #beatonma_title {

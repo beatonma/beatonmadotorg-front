@@ -1,7 +1,8 @@
-@use "../display";
-@use "../animation";
-@use "../layout";
 @forward "../shape";
+@forward "../animation";
+
+@use "../display";
+@use "../layout";
 
 %list-item {
     $height: 3rem;
@@ -14,23 +15,24 @@
     margin: 4px;
     overflow: hidden;
 
-    .image {
+    > .image {
         @include layout.size($height);
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
         overflow: hidden;
 
-        .title-as-image {
+        > .text-as-image {
             // No actual image available, use some artsy text.
             @include layout.size($height * 2);
             position: relative;
             top: -50%;
             left: -50%;
-            letter-spacing: 1.2;
+            letter-spacing: 1.2px;
             font-family: monospace;
             letter-spacing: 2px;
             font-size: xx-large;
+            font-size: calc($height / 5);
             font-weight: bold;
             text-align: center;
             text-transform: uppercase;
@@ -38,26 +40,28 @@
             transform-origin: center;
         }
 
-        svg {
+        > svg {
             margin: 16px;
             width: -webkit-fill-available;
             height: -webkit-fill-available;
         }
     }
 
-    .text {
+    > .text {
         height: -webkit-fill-available;
         width: -webkit-fill-available;
         margin: 16px;
 
-        .row {
+        > .row {
             justify-content: space-between;
+            align-items: baseline;
+
+            > .title {
+                @include layout.clipped-text(1);
+            }
         }
 
-        .title {
-            @include layout.clipped-text(1);
-        }
-        .description {
+        > .description {
             @include layout.clipped-text(2);
         }
     }
@@ -70,11 +74,15 @@
     @include layout.height($height);
     @extend %shape-medium;
 
-    .image {
+    margin: 1rem 0;
+
+    > .image {
         @include layout.size($height);
-        .title-as-image {
+
+        > .text-as-image {
             // No actual image available, use some artsy text.
             @include layout.size($height * 2);
+            font-size: calc($height / 5);
         }
     }
 }
@@ -82,6 +90,43 @@
 @media (max-width: display.$one-column) {
     %list-item {
         border-radius: 0;
-        margin: 4px 0;
     }
+}
+
+@media (max-width: display.$prefer-list) {
+    %list-item {
+        flex-wrap: wrap;
+        min-height: unset;
+        max-height: unset;
+        height: auto;
+
+        > .image {
+            width: 100%;
+            max-width: 100%;
+            max-height: unset;
+            height: auto;
+            aspect-ratio: 4/3;
+
+            > .text-as-image {
+                // No actual image available, use some artsy text.
+                @include layout.size(200%);
+                font-size: 10vw;
+            }
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    %list-item {
+        > .text {
+            > .row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    }
+}
+
+.text-as-image > * {
+    // white-space: nowrap;
 }
