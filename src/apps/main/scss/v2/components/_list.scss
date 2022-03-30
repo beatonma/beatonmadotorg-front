@@ -1,28 +1,33 @@
+// @forward "list-item";
 // @use "../display";
 // @use "../layout";
 
-// %list {
-// }
-
-// %multicolumn-list > {
+// %multicolumn-list {
 //     @extend %list;
+
+//     display: flex;
+//     flex-direction: row;
+//     flex-wrap: wrap;
+
+//     > * {
+//         @include layout.width(100%);
+//     }
+// }
 //
-// display: flex;
-// flex-direction: row;
-
-// %list-item {
-// max-width: 50%;
-// }
-
-// > * {
-//     max-width: 50%;
-// }
-// }
-
 // @media (max-width: display.$one-column) {
-// %list-item {
-//     min-width: 50%;
-//     width: 50%;
-//     max-width: 50%;
+//     %multicolumn-list {
+//         > * {
+//             @include layout.width(100%);
+//         }
+//     }
 // }
+
+// @media (min-width: ) {
+//     %multicolumn-list {
+//         gap: 1rem;
+
+//         > * {
+//             @include layout.width(50%);
+//         }
+//     }
 // }

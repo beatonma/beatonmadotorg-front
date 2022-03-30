@@ -1,12 +1,16 @@
-@forward "../elevation";
+@forward "../components/list";
 @forward "../components/list-item";
+@forward "../elevation";
+
+.feed-items {
+    @extend %flow-list;
+}
 
 .feed-item {
     @extend %elevated;
-    @extend %list-item-large;
+    @extend %list-item-with-image;
 
     background-color: var(--surface);
-    margin: 1rem 0;
 }
 
 .feed-item[data-type="changelog"],

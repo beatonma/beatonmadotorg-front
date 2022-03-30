@@ -7,8 +7,8 @@
 %hover {
     @extend %shape-small;
     transition: background-color 220ms;
-}
 
-%hover:hover {
-    background-color: var(--hover);
+    &:hover {
+        background-color: var(--hover);
+    }
 }

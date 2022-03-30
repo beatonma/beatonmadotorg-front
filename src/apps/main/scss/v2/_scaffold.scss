@@ -1,0 +1,19 @@
+@use "animation";
+@use "display";
+
+$content-margin-horizontal: 32px;
+$content-margin-vertical: 16px;
+
+$content-margins-horizontal-total: calc($content-margin-horizontal * 2);
+
+.container {
+    padding: $content-margin-vertical 0;
+    margin: auto;
+    transition: padding animation.$duration;
+}
+
+@media only screen and (min-width: display.$one-column) {
+    .container {
+        padding: $content-margin-vertical $content-margin-horizontal;
+    }
+}

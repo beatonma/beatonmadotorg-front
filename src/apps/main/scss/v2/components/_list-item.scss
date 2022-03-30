@@ -3,6 +3,40 @@
 
 @use "../display";
 @use "../layout";
+@use "../scaffold";
+
+$list-item-max-width: 645px;
+$list-gap: 18px;
+
+$list-single-column-width: 1000px;
+$list-two-column-width: calc(($list-item-max-width * 2) + $list-gap);
+$list-three-column-width: calc(($list-item-max-width * 3) + ($list-gap * 2));
+
+%flow-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: $list-gap;
+    justify-content: flex-start;
+    margin: auto;
+    max-width: $list-single-column-width;
+}
+
+@media (min-width: calc($list-two-column-width + scaffold.$content-margins-horizontal-total)) {
+    %flow-list {
+        max-width: $list-two-column-width;
+    }
+
+    %list-item {
+        max-width: $list-item-max-width;
+    }
+}
+
+@media (min-width: calc($list-three-column-width + scaffold.$content-margins-horizontal-total)) {
+    %flow-list {
+        max-width: $list-three-column-width;
+    }
+}
 
 %list-item {
     $height: 3rem;
@@ -12,8 +46,48 @@
     @extend %shape-small;
     @extend %animate-all;
 
-    margin: 4px;
+    width: 100%;
+
     overflow: hidden;
+
+    > .text {
+        height: -webkit-fill-available;
+        width: -webkit-fill-available;
+        margin: 16px;
+
+        > .row {
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            column-gap: 1rem;
+
+            > .title {
+                @include layout.clipped-text(1);
+            }
+        }
+
+        > .description {
+            @include layout.clipped-text(2);
+        }
+    }
+}
+
+%list-item-with-image {
+    $height: 9rem;
+
+    @extend %list-item;
+    @include layout.height($height);
+    @extend %shape-medium;
+
+    > .image {
+        @include layout.size($height);
+
+        > .text-as-image {
+            // No actual image available, use some artsy text.
+            @include layout.size($height * 2);
+            font-size: calc($height / 5);
+        }
+    }
 
     > .image {
         @include layout.size($height);
@@ -46,45 +120,6 @@
             height: -webkit-fill-available;
         }
     }
-
-    > .text {
-        height: -webkit-fill-available;
-        width: -webkit-fill-available;
-        margin: 16px;
-
-        > .row {
-            justify-content: space-between;
-            align-items: baseline;
-
-            > .title {
-                @include layout.clipped-text(1);
-            }
-        }
-
-        > .description {
-            @include layout.clipped-text(2);
-        }
-    }
-}
-
-%list-item-large {
-    $height: 9rem;
-
-    @extend %list-item;
-    @include layout.height($height);
-    @extend %shape-medium;
-
-    margin: 1rem 0;
-
-    > .image {
-        @include layout.size($height);
-
-        > .text-as-image {
-            // No actual image available, use some artsy text.
-            @include layout.size($height * 2);
-            font-size: calc($height / 5);
-        }
-    }
 }
 
 @media (max-width: display.$one-column) {
@@ -93,8 +128,10 @@
     }
 }
 
-@media (max-width: display.$prefer-list) {
-    %list-item {
+@media (max-width: display.$prefer-vertical-content) {
+    // Display as a card when < $prefer-vertical-content.
+
+    %list-item-card {
         flex-wrap: wrap;
         min-height: unset;
         max-height: unset;
@@ -113,20 +150,13 @@
                 font-size: 10vw;
             }
         }
-    }
-}
 
-@media (max-width: 700px) {
-    %list-item {
         > .text {
-            > .row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+            height: auto;
         }
     }
-}
 
-.text-as-image > * {
-    // white-space: nowrap;
+    %list-item-with-image {
+        @extend %list-item-card;
+    }
 }
