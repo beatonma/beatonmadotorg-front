@@ -24,7 +24,7 @@
                 <h1 class="article-title p-name">{{ article.title }}</h1>
                 <div class="flex-row-start">
                     <div class="article-tagline {{ article.on_primary_color }} secondary">{{ article.tagline|default:"" }}</div>
-                    <div class="download-links">{% include 'app/app-links-small.template.html' %}</div>
+                    <div class="download-links">{% include 'v1/app/app-links-small.template.html' %}</div>
                 </div>
             </div>
             <div class="spacer"></div>
@@ -55,7 +55,7 @@
         </div>
     </article>
     
-    {% include 'fragments/image-viewer.fragment.html' %}
+    {% include 'v1/fragments/image-viewer.fragment.html' %}
 </div>
 
 <!-- build:remove -->
@@ -67,7 +67,7 @@
         <div class="card-content flex-row-start overflow">
             <div>
                 <h3>Apps in this post</h3>
-                {% include 'app/app-list.template.html' with app_list=apps %}
+                {% include 'v1/app/app-list.template.html' with app_list=apps %}
             </div>
 
             <div id="mentions" class="gap"></div>

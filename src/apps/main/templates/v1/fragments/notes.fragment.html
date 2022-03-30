@@ -7,7 +7,7 @@
     </div>
     <div class="notes-container">
         {% for note_with_media in notes_with_media %}
-            {% include 'elements/note.element.html' with note=note_with_media.note media=note_with_media.media %}
+            {% include 'v1/elements/note.element.html' with note=note_with_media.note media=note_with_media.media %}
         {% endfor %}
     </div>
 </div>

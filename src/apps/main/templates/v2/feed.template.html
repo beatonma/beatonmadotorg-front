@@ -3,7 +3,7 @@
 <section id="lists">
 <div class="flex-row card-container">
     <div id="github_recent"></div>
-    {% include 'fragments/notes.fragment.html' %}
+    {% include 'v1/fragments/notes.fragment.html' %}
 </div>
 </section>
 {% endif %}
@@ -23,14 +23,6 @@
                 {% else %}
                     <div>TODO {{ cls }} {{ item.title }}</div>
                 {% endif %}
-
-                {% comment %} {% if item|get_class == 'Article' %} {% endcomment %}
-                    {% comment %} <div>Article {{ article.title }}</div> {% endcomment %}
-                    {% comment %} {% include 'article/article-preview.fragment.html' with article=item %} {% endcomment %}
-                {% comment %} {% elif item|get_class == 'Blog' %} {% endcomment %}
-                    
-                    {% comment %} {% include 'preview/blog.fragment.html' with blog=item %} {% endcomment %}
-                {% comment %} {% endif %} {% endcomment %}
             {% endwith %}
         {% endfor %}
     </div>

@@ -13,17 +13,17 @@
     <section>
         <div class="card">
             <div class="card-content">
-                {% include 'app/about-app.template.html' %}
+                {% include 'v1/app/about-app.template.html' %}
             </div>
         </div>
 
-        {% include 'fragments/image-viewer.fragment.html' %}
+        {% include 'v1/fragments/image-viewer.fragment.html' %}
 
         {% if changelogs %}
         <div class="card">
             <div class="card-content">
                 <h3>Changelog:</h3>
-                {% include 'app/changelog.template.html' %}
+                {% include 'v1/app/changelog.template.html' %}
             </div>
         </div>
         {% endif %}
@@ -33,7 +33,7 @@
     <section>
         <div id="related_posts">
             <h3>Related posts:</h3>
-            {% include 'article/article-list.fragment.html' %}
+            {% include 'v1/article/article-list.fragment.html' %}
         </div>
     </section>
     {% endif %}

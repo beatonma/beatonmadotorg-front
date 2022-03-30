@@ -2,19 +2,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {% include 'fragments/head/browser.fragment.html' %}
+    {% include 'v1/fragments/head/browser.fragment.html' %}
     <title>{% block title %}{% endblock %}</title>
     <meta name="description" content="{% block description %}Software projects by Michael Beaton{% endblock %}" />
     {% block html_head %}{% endblock %}
     
-    {% block theme %}{% include 'fragments/head/theme.fragment.html' %}{% endblock %}
-    {% block scripts %}{% include 'fragments/head/scripts.fragment.html' %}{% endblock %}
+    {% block theme %}{% include 'v1/fragments/head/theme.fragment.html' %}{% endblock %}
+    {% block scripts %}{% include 'v1/fragments/head/scripts.fragment.html' %}{% endblock %}
   </head>
   <body>
     {% block body %}
       <div id="loading" class="progressbar"></div>
       <header id="beatonma_header">
-        {% include 'fragments/header.fragment.html' %}
+        {% include 'v1/fragments/header.fragment.html' %}
       </header>
       <main>
         {% block main %}
@@ -24,7 +24,7 @@
         {% endblock %}
       </main>
       <footer id="beatonma_footer">
-        {% include 'fragments/footer.fragment.html' %}
+        {% include 'v1/fragments/footer.fragment.html' %}
         <div id="theme_icon" class="icon header-item" title="Toggle theme"></div>
       </footer>
     {% endblock %}
