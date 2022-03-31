@@ -7,8 +7,8 @@
 .tooltip-popup {
     font-size: $midtext;
     opacity: 0;
-    color: var(--item-accent-foreground);
-    background: var(--item-accent);
+    color: var(--local-on-accent);
+    background: var(--local-accent);
     padding: 8px;
     border-radius: $corner-radius;
     position: absolute;
@@ -21,7 +21,7 @@
     opacity: 1;
     animation-name: tooltip;
     animation-duration: 200ms;
-    animation-timing-function: cubic-bezier(0, 0, .2, 1);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
     animation-fill-mode: none;
     text-align: center;
     white-space: nowrap;
@@ -43,7 +43,7 @@
     }
     50% {
         left: 50%;
-        transform: scale(.99) translateX(-50%);
+        transform: scale(0.99) translateX(-50%);
     }
 }
 
@@ -54,9 +54,8 @@
         padding: 16px;
         width: 80%;
         transform-origin: bottom center;
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
-            0 3px 1px -2px rgba(0, 0, 0, .2),
-            0 1px 5px 0 rgba(0, 0, 0, .12);
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+            0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     }
 
     @keyframes tooltip {
@@ -69,7 +68,7 @@
             visibility: visible;
         }
         50% {
-            transform: scale(.99) translateX(-50%);
+            transform: scale(0.99) translateX(-50%);
         }
     }
 }

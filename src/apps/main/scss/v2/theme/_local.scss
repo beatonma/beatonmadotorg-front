@@ -1,0 +1,9 @@
+%local-theme-primary {
+    background: var(--local-primary);
+    color: var(--local-on-primary);
+}
+
+%local-theme-accent {
+    background: var(--local-accent);
+    color: var(--local-on-accent);
+}

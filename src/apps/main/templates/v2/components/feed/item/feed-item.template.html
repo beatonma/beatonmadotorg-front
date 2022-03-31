@@ -1,6 +1,4 @@
-{% load date_tag %}
-{% load repeat_tag %}
-{% load startswith %}
+{% load date_tag %}{% load repeat_tag %}
 <a
     class="feed-item h-entry"
     href="{{ url }}"
@@ -10,13 +8,13 @@
     >
 
     {% if image_url %}
-        <div class="image" style="{% include 'v2/feed/themeable-style.template.html' %} background-image: url('https://beatonma.org/media/{{ image_url }}')"></div>
+        <div class="image" style="{% include './themeable-style.template.html' %} background-image: url('https://beatonma.org/media/{{ image_url }}')"></div>
     {% elif image_svg %}
-        <div class="image" style="{% include 'v2/feed/themeable-style.template.html' %}">
+        <div class="image" style="{% include './themeable-style.template.html' %}">
             {{ image_svg|safe }}
         </div>
     {% else %}
-        <div class="image" style="{% include 'v2/feed/themeable-style.template.html' %}">
+        <div class="image" style="{% include './themeable-style.template.html' %}">
             <div class="text-as-image">
                 {% for n in 10|range %}
                 <span>{{ title }}</span>

@@ -13,18 +13,18 @@ textarea {
     outline: none;
     border: none;
     // border-bottom: 1px solid var(--card-separator);
-    border-bottom: 1px solid rgba(var(--onSurface), 0.18);
+    border-bottom: 1px solid rgba(var(--on-surface), 0.18);
     transition: border $transition-duration;
 }
 
 input[type="text"]:focus,
 textarea:focus {
-    border-bottom: solid 2px var(--item-accent);
+    border-bottom: solid 2px var(--local-accent);
     outline: none;
 }
 input[type="text"]:active,
 textarea:active {
-    border-bottom: solid 2px var(--item-accent);
+    border-bottom: solid 2px var(--local-accent);
     outline: none;
 }
 
@@ -34,7 +34,7 @@ button {
     font-size: 1.1rem;
     background: transparent;
     border-radius: $corner-radius;
-    color: var(--item-accent);
+    color: var(--local-accent);
     border: none;
     outline: none;
     transition: background $transition-duration;

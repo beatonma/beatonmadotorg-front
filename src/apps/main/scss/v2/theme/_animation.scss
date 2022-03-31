@@ -1,0 +1,5 @@
+$animation-duration: 600ms;
+
+%animate-all {
+    transition: all $animation-duration;
+}

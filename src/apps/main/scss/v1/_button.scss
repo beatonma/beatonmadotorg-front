@@ -2,11 +2,10 @@
     @extend %elevated;
     width: max-content;
     cursor: pointer;
-    background: var(--item-accent);
+    background: var(--local-accent);
     border-radius: $corner-radius;
-    padding: .5rem .75rem;
+    padding: 0.5rem 0.75rem;
     margin: 0 $smallgap ($smallgap * 2);
-    color: var(--item-accent-foreground);
+    color: var(--local-on-accent);
     user-select: none;
 }
-

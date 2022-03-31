@@ -1,8 +1,8 @@
 .chip {
-    background: var(--item-accent);
+    background: var(--local-accent);
     border-radius: $corner-radius;
-    padding: 2px .5rem;
+    padding: 2px 0.5rem;
     margin: 0 $smallgap;
-    color: var(--item-accent-foreground);
+    color: var(--local-on-accent);
     font-size: $labeltext;
 }

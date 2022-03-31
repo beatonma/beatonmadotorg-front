@@ -10,13 +10,13 @@
 
 .tag {
     font-size: $smalltext;
-    color: var(--item-accent);
+    color: var(--local-accent);
 }
 
 :not(.tags) > .tag {
     font-size: $smalltext;
     margin-right: $smallgap;
-    color: var(--item-accent);
+    color: var(--local-accent);
 }
 
 @media (max-width: $screen-narrow) {
@@ -25,7 +25,7 @@
         padding: $smallgap;
         margin: $smallgap;
         background: var(--accent);
-        color: var(--onAccent);
+        color: var(--on-accent);
         border-radius: $corner-radius;
     }
 }

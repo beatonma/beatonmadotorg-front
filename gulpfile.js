@@ -81,7 +81,8 @@ const localCollectStatic = () =>
 const buildInclude = () =>
     src([srcPath(ANY_JS), srcPath(ANY_JSX), srcPath(ANY_HTML)])
         .pipe(gulpUseref())
-        .pipe(gulpInclude({ basepath: "@root" }))
+        // .pipe(gulpInclude({ basepath: "@root" }))
+        .pipe(gulpInclude({ basepath: "src/apps/main/templates" }))
         .pipe(dest(PREPROCESSING_PATH));
 
 const prepJsx = () =>

@@ -1,0 +1,46 @@
+{% extends 'base.template.html' %}
+
+{% block title %}beatonma.org{% endblock %}
+
+{% block content %}
+
+    {% if motd %}
+        <section>
+            {% include 'v1/index/motd.template.html' %}
+        </section>
+    {% endif %}
+  
+    {% if is_first_page %}
+        <section id="lists">
+            <div class="flex-row card-container">
+                <div id="github_recent"></div>
+                {% include 'v1/fragments/notes.fragment.html' %}
+            </div>
+        </section>
+    {% endif %}
+  
+    {% include 'v2/components/feed/feed.template.html' %}
+  
+    {% if apps %}
+        <section>
+            {% for app in apps %}
+                <a class="tag" href="{% url 'app' app.app_id %}">{{ app.title }}</a>
+            {% endfor %}
+        </section>
+    {% endif %}
+  
+    {% if tags %}
+        <section>
+            <div class="tags flex-row-center">
+                {% for tag in tags %}
+                    <a class="tag" href="{% url 'search-tags' tag.slug %}">#{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+            <div class="tags flex-row-center">
+                {% for language in languages %}
+                    <a class="tag" href="{% url 'search-languages' language.name %}">{{ language.name }}</a>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}

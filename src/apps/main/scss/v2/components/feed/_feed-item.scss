@@ -1,6 +1,5 @@
-@forward "../components/list";
-@forward "../components/list-item";
-@forward "../elevation";
+@forward "../list-item";
+@forward "../../theme";
 
 .feed-items {
     @extend %flow-list;

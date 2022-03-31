@@ -5,6 +5,8 @@
     --text-dark-primary: rgba(0, 0, 0, 0.83);
     --text-dark-secondary: rgba(0, 0, 0, 0.54);
     --text-dark-tertiary: rgba(0, 0, 0, 0.25);
+    --text-light: var(--text-light-primary);
+    --text-dark: var(--text-dark-primary);
 
     --text-primary: var(--text-dark-primary);
     --text-secondary: var(--text-dark-secondary);
@@ -14,18 +16,15 @@
     --text-secondary-invert: var(--text-light-secondary);
     --text-tertiary-invert: var(--text-light-tertiary);
 
-    // --primary-color: var(--text-primary);
-    // --item-primary: var(--primary-color);
-
-    // --accent-color: #e13255;
+    --primary: var(--text-primary);
+    --on-primary: var(var(--text-primary-invert));
     --accent: #e13255;
-    --onAccent: var(--text-light-primary);
-    // --accent-color-highlight: #e64c4c;
-    --item-accent: var(--accent);
-    // --accent-background: var(--accent-color-highlight);
+    --on-accent: var(--text-light-primary);
 
-    --item-foreground: var(--text-light-primary);
-    --item-accent-foreground: var(--text-light-primary);
+    --local-primary: var(--primary);
+    --local-on-primary: var(--text-light-primary);
+    --local-accent: var(--accent);
+    --local-on-accent: var(--text-light-primary);
 
     --selected: #a4ddfb;
     --hover: rgba(0, 0, 0, 0.08);
@@ -50,7 +49,7 @@
 
     --card-header-color: var(--primary_color);
 
-    --appname: var(--item-accent);
+    --appname: var(--local-accent);
 
     --red: #ee4545;
     --blue: #0e70b8;
@@ -62,10 +61,10 @@
     --grey: #636363;
 
     // v2
-    --background: #111111;
-    --onBackground: var(--text-primary);
+    --background: #2a1616;
+    --on-background: var(--text-primary);
     --surface: #222222;
-    --onSurface: var(--text-primary);
+    --on-surface: var(--text-primary);
     --warn: #f44336;
-    --onWarn: var(--text-light-primary);
+    --on-warn: var(--text-light-primary);
 }

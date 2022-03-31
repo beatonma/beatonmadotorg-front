@@ -1,0 +1,23 @@
+@use "../../layout";
+@use "../../theme";
+
+.pagination {
+    @include layout.row(space-between);
+    margin: 16px 0;
+
+    > .pagination-group {
+        @include layout.row();
+
+        > * {
+            margin: 8px;
+        }
+    }
+
+    a {
+        display: inline-block;
+        @include layout.size(2rem);
+        line-height: 2rem;
+        text-align: center;
+        font-weight: bold;
+    }
+}

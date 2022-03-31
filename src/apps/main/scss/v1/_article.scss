@@ -1,5 +1,4 @@
 article {
-    
 }
 
 #article_header {
@@ -43,10 +42,10 @@ article {
 }
 
 .appname {
-    color: var(--item-accent);
+    color: var(--local-accent);
 }
 
-@media screen and (min-width:800px) {
+@media screen and (min-width: 800px) {
     .article-content {
         padding: 12px 24px;
     }

@@ -1,0 +1,27 @@
+$breakpoints: (
+    "small": (
+        max-width: 440px,
+    ),
+    "medium": (
+        max-width: 500px,
+    ),
+    "large": (
+        max-width: 800px,
+    ),
+);
+
+@mixin display-width($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media screen and #{inspect(map-get($breakpoints, $breakpoint))} {
+            @content;
+        }
+    } @else {
+        @warn "Unknown breakpoint #{$breakpoint}. Expected one of #{map-keys($breakpoints)}.";
+    }
+}
+
+@mixin display-min-width($breakpoint) {
+    @media screen and (min-width: $breakpoint) {
+        @content;
+    }
+}

@@ -157,7 +157,7 @@ function PublicCommit(props) {
                     role="img"
                     aria-label="Public repository"
                 >
-                    @@include('src/apps/main/templates/svg/public.svg')
+                    @@include('svg/public.svg')
                 </span>
                 <a
                     href={"" + props.commit.repo.url}
@@ -214,7 +214,7 @@ function PrivateCommit(props) {
                 role="img"
                 aria-label="Private repository"
             >
-                @@include('src/apps/main/templates/svg/private.svg')
+                @@include('svg/private.svg')
             </span>
             <span className="github-recent-repo">{props.commit.repo.name}</span>
             <RepoMetadata commit={props.commit} />
@@ -255,7 +255,7 @@ function Languages(props) {
             title={languages.length + " languages: " + languages.join(", ")}
         >
             <span className="github-recent-languages-icon">
-                @@include('src/apps/main/templates/svg/code.svg')
+                @@include('svg/code.svg')
             </span>
             {"" + languages.length}
         </span>

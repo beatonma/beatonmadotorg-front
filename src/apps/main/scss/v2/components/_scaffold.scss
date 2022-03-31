@@ -1,0 +1,18 @@
+@use "../theme";
+
+$content-margin-horizontal: 32px;
+$content-margin-vertical: 16px;
+
+$content-margins-horizontal-total: calc($content-margin-horizontal * 2);
+
+.container {
+    padding: $content-margin-vertical $content-margin-horizontal;
+    margin: auto;
+    transition: padding theme.$animation-duration;
+}
+
+@include theme.display-width("small") {
+    .container {
+        padding: $content-margin-vertical 0;
+    }
+}

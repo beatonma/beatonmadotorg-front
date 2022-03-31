@@ -1,0 +1,17 @@
+%row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+@mixin row($horizontal: flex-start, $vertical: center, $wrap: wrap) {
+    @extend %row;
+    justify-content: $horizontal;
+    align-content: $vertical;
+    flex-wrap: $wrap;
+}
+
+.row {
+    @extend %row;
+}

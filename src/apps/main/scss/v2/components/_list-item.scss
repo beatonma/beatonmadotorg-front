@@ -1,9 +1,6 @@
-@forward "../shape";
-@forward "../animation";
-
-@use "../display";
+@use "../theme";
 @use "../layout";
-@use "../scaffold";
+@use "./scaffold";
 
 $list-item-max-width: 645px;
 $list-gap: 18px;
@@ -22,7 +19,9 @@ $list-three-column-width: calc(($list-item-max-width * 3) + ($list-gap * 2));
     max-width: $list-single-column-width;
 }
 
-@media (min-width: calc($list-two-column-width + scaffold.$content-margins-horizontal-total)) {
+@include theme.display-min-width(
+    calc($list-two-column-width + scaffold.$content-margins-horizontal-total)
+) {
     %flow-list {
         max-width: $list-two-column-width;
     }
@@ -32,7 +31,9 @@ $list-three-column-width: calc(($list-item-max-width * 3) + ($list-gap * 2));
     }
 }
 
-@media (min-width: calc($list-three-column-width + scaffold.$content-margins-horizontal-total)) {
+@include theme.display-min-width(
+    calc($list-three-column-width + scaffold.$content-margins-horizontal-total)
+) {
     %flow-list {
         max-width: $list-three-column-width;
     }
@@ -69,6 +70,10 @@ $list-three-column-width: calc(($list-item-max-width * 3) + ($list-gap * 2));
         > .description {
             @include layout.clipped-text(2);
         }
+    }
+
+    @include theme.display-width("small") {
+        border-radius: 0;
     }
 }
 
@@ -120,18 +125,9 @@ $list-three-column-width: calc(($list-item-max-width * 3) + ($list-gap * 2));
             height: -webkit-fill-available;
         }
     }
-}
 
-@media (max-width: display.$one-column) {
-    %list-item {
-        border-radius: 0;
-    }
-}
-
-@media (max-width: display.$prefer-vertical-content) {
-    // Display as a card when < $prefer-vertical-content.
-
-    %list-item-card {
+    @include theme.display-width("small") {
+        // Display as a card, image above text.
         flex-wrap: wrap;
         min-height: unset;
         max-height: unset;
@@ -154,9 +150,5 @@ $list-three-column-width: calc(($list-item-max-width * 3) + ($list-gap * 2));
         > .text {
             height: auto;
         }
-    }
-
-    %list-item-with-image {
-        @extend %list-item-card;
     }
 }

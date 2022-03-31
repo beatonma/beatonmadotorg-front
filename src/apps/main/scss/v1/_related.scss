@@ -24,11 +24,11 @@
     width: $related-app-icon-size;
     height: $related-app-icon-size;
     padding-right: 12px;
-    border-right: solid 4px var(--item-primary);
+    border-right: solid 4px var(--local-primary);
 }
 
 .related-app-icon svg {
-    fill: var(--item-primary);
+    fill: var(--local-primary);
 }
 
 .related-app-text {
