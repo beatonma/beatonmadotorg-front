@@ -15,7 +15,7 @@ const gulpReplace = require("gulp-replace");
 const gulpSass = require("gulp-sass")(require("sass"));
 
 const webpack = require("webpack");
-const webpackConfig = require("..//webpack.config.js");
+const webpackConfig = require("../webpack.config.js");
 
 const buildSass = () =>
     src(srcPath(ANY_SCSS))

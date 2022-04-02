@@ -1,4 +1,4 @@
-import "./util.js";
+import "./util";
 import "./page-transitions.js";
 import "./search.js";
 import "./theme.js";

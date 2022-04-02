@@ -1,4 +1,4 @@
-import { changePage } from "./page-transitions.js";
+import { changePage } from "./page-transitions";
 
 const formID = "search_form";
 const iconID = "search_icon";

@@ -15,6 +15,7 @@ const {
     LOCAL_PATH,
     distPath,
     srcPath,
+    ANY_JS_OR_TS,
 } = require("./paths");
 
 const browserSync = require("browser-sync").create();
@@ -54,11 +55,11 @@ const localBuild = series(
 
 const watch = () => {
     gulp.watch(srcPath(ANY_SCSS), localBuild);
-    gulp.watch(srcPath(ANY_JS), localBuild);
-    gulp.watch(srcPath(ANY_JSX), localBuild);
+    gulp.watch(srcPath(ANY_JS_OR_TS), localBuild);
+    // gulp.watch(srcPath(ANY_JSX), localBuild);
     gulp.watch(srcPath(ANY_HTML), localBuild);
-    gulp.watch(srcPath(ANY_TS), localBuild);
-    gulp.watch(srcPath(ANY_TSX), localBuild);
+    // gulp.watch(srcPath(ANY_TS), localBuild);
+    // gulp.watch(srcPath(ANY_TSX), localBuild);
 };
 
 exports.watch = series(initBrowser, localBuild, watch);

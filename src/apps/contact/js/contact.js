@@ -1,5 +1,5 @@
-import { showLoading } from "../../main/js/page-transitions.js";
-import { getCsrfToken } from "../../main/js/util.js";
+import { showLoading } from "../../main/js/page-transitions";
+import { getCsrfToken } from "../../main/js/util";
 
 function showSuccess() {
     document.getElementById("contact_form").classList.add("hidden");

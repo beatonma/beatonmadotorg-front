@@ -1,25 +1,27 @@
-export const get = url =>
+export const get = (url: string) =>
     fetch(url, {
         method: "GET",
         credentials: "same-origin",
     });
 
-export const loadPage = url => get(url).then(response => response.text());
-export const loadJson = url => get(url).then(response => response.json());
+export const loadPage = (url: string) =>
+    get(url).then(response => response.text());
+export const loadJson = (url: string) =>
+    get(url).then(response => response.json());
 
-export function setCookie(cname, cvalue, expiry) {
+export function setCookie(cname: string, cvalue: string, expiry: number) {
     const d = new Date();
     d.setTime(d.getTime() + expiry);
     document.cookie = `${cname}=${cvalue};expires=${d.toUTCString()};path=/`;
 }
 
-export function clearCookie(cname) {
+export function clearCookie(cname: string) {
     const d = new Date();
     d.setTime(0);
     document.cookie = `${cname}=0;path=/;expires=${d.toUTCString()}`;
 }
 
-export function getCookie(cname) {
+export function getCookie(cname: string) {
     const name = cname + "=";
     const ca = document.cookie.split(";");
     for (let i = 0; i < ca.length; i++) {
@@ -35,33 +37,33 @@ export function getCookie(cname) {
 }
 
 export const getCsrfToken = () => getCookie("csrftoken");
-export const cookieExists = cname => getCookie(cname) !== "";
+export const cookieExists = (cname: string): boolean => getCookie(cname) !== "";
 
-export function scrollToId(id) {
+export function scrollToId(id: string) {
     document.getElementById(id.replace("#", "")).scrollIntoView();
 }
 
-export function removeChildren(el) {
+export function removeChildren(el: HTMLElement) {
     while (el.firstChild) {
         el.removeChild(el.firstChild);
     }
 }
 
-export const isSameDay = (first, second) =>
+export const isSameDay = (first: Date, second: Date): boolean =>
     first.getFullYear() == second.getFullYear() &&
     first.getMonth() == second.getMonth() &&
     first.getDate() == second.getDate();
 
-const isSameMonth = (first, second) =>
+const isSameMonth = (first: Date, second: Date): boolean =>
     first.getFullYear() == second.getFullYear() &&
     first.getMonth() == second.getMonth();
 
-const isSameYear = (first, second) =>
+const isSameYear = (first: Date, second: Date): boolean =>
     first.getFullYear() == second.getFullYear();
 
 export function formatDate(
-    date,
-    options = {
+    date: string,
+    options: Intl.DateTimeFormatOptions = {
         day: "2-digit",
         month: "long",
         year: "numeric",
@@ -102,7 +104,10 @@ export function formatDate(
     }`;
 }
 
-export function formatTimeDelta(totalSeconds, options = { verbose: false }) {
+export function formatTimeDelta(
+    totalSeconds: number,
+    options = { verbose: false }
+) {
     const hours = Math.floor(totalSeconds / 3600);
     let remaining = totalSeconds % 3600;
     const minutes = Math.floor(remaining / 60);

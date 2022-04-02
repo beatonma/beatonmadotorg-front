@@ -13,6 +13,7 @@ const {
     DIST_PATH,
     distPath,
     srcPath,
+    ANY_TS,
 } = require("./paths");
 const { BUILD_TYPE_PRODUCTION, buildType } = require("./setup");
 
@@ -30,7 +31,7 @@ const FLATPAGE_TEMPLATES = [
 ];
 
 const collectJs = () =>
-    src(tempPath(ANY_JS))
+    src([tempPath(ANY_JS), tempPath(ANY_TS)])
         .pipe(
             gulpRename(path => {
                 // Move to apps/appname/static/appname/js

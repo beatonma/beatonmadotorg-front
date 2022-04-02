@@ -1,10 +1,29 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import microformats from "./microformats";
+import { microformats } from "./microformats";
 import { formatDate, loadJson } from "./util";
 
 const URL = "/api/notes/";
 const CONTAINER = "#notes";
+
+type Note = {
+    content: string;
+    url: string;
+    timestamp: string;
+    is_published: boolean;
+};
+type Media = {
+    url: string;
+    description?: string;
+    type: string;
+};
+type NoteItem = {
+    note: Note;
+    media?: Media;
+};
+type ApiResponse = {
+    notes: NoteItem[];
+};
 
 export function NotesApp(dom = document) {
     const container = dom.querySelector(CONTAINER);
@@ -19,7 +38,7 @@ function Notes() {
 
     useEffect(() => {
         loadJson(URL)
-            .then(data => data.notes)
+            .then((data: ApiResponse) => data.notes)
             .then(setItems);
     }, []);
 
@@ -30,16 +49,22 @@ function Notes() {
     );
 }
 
-function NotesLayout(props) {
+type NotesLayoutProps = {
+    children?: React.ReactNode;
+};
+function NotesLayout(props: NotesLayoutProps) {
     return (
         <>
-            <h3>Notes</h3>
+            <h3>Notes HELLO THERE</h3>
             <div className="notes">{props.children}</div>
         </>
     );
 }
 
-function NotesContent(props) {
+type NotesContentProps = {
+    items: NoteItem[];
+};
+function NotesContent(props: NotesContentProps) {
     const items = props.items;
     if (items != null) {
         return (
@@ -58,7 +83,12 @@ function NotesContent(props) {
     }
 }
 
-function Note(props) {
+type NoteProps = {
+    note: Note;
+    media?: Media;
+    key: any;
+};
+function Note(props: NoteProps) {
     const note = props.note;
     const formattedDate = formatDate(note.timestamp);
 
@@ -82,7 +112,10 @@ function Note(props) {
     );
 }
 
-function Media(props) {
+type MediaProps = {
+    media?: Media;
+};
+function Media(props: MediaProps) {
     const media = props.media;
     if (!media) return null;
 
@@ -95,7 +128,10 @@ function Media(props) {
     );
 }
 
-function MediaView(props) {
+type MediaViewProps = {
+    media: Media;
+};
+function MediaView(props: MediaViewProps) {
     const { url, description, type } = { ...props.media };
 
     if (type == "video") {
@@ -103,7 +139,6 @@ function MediaView(props) {
             <video
                 src={url}
                 className="media"
-                alt={description}
                 aria-label={description}
                 muted
                 autoPlay
@@ -114,7 +149,6 @@ function MediaView(props) {
             <audio
                 src={url}
                 className="media"
-                alt={description}
                 aria-label={description}
                 controls
             ></audio>

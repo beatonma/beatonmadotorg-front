@@ -1,5 +1,5 @@
-import { loadPage, scrollToId } from "./util.js";
-import { APPS } from "./apps.js";
+import { loadPage, scrollToId } from "./util";
+import { APPS } from "./apps";
 
 const itemAnimationDuration = 120;
 const itemAnimationDelay = 40;

@@ -5,6 +5,9 @@ exports.ANY_TSX = "**/*.tsx";
 exports.ANY_CSS = "**/*.css";
 exports.ANY_HTML = "**/*.html";
 exports.ANY_SCSS = "**/*.scss";
+exports.ANY_TS = "**/*.ts";
+exports.ANY_TSX = "**/*,tsx";
+exports.ANY_JS_OR_TS = "**/*.{j,t}s?(x)"; // .js, .ts, .jsx, .tsx
 exports.ANY_FILE = "**";
 
 /* Paths */

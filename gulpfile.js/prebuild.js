@@ -7,10 +7,10 @@
 
 const {
     ANY_HTML,
-    ANY_JS,
-    ANY_JSX,
     PREPROCESSING_PATH,
     srcPath,
+    prepPath,
+    ANY_JS_OR_TS,
 } = require("./paths");
 
 const { dest, series, src } = require("gulp");
@@ -25,13 +25,14 @@ const gulpUseref = require("gulp-useref");
  */
 // RENAMED from buildInclude
 const prepInclude = () =>
-    src([srcPath(ANY_JS), srcPath(ANY_JSX), srcPath(ANY_HTML)])
+    src([srcPath(ANY_JS_OR_TS), srcPath(ANY_HTML)])
         .pipe(gulpUseref())
         .pipe(gulpInclude({ basepath: "src/apps/main/templates" }))
         .pipe(dest(PREPROCESSING_PATH));
 
 const prepJsx = () =>
-    src([prepPath(ANY_JS), prepPath(ANY_JSX)])
+    // src([prepPath(ANY_JS), prepPath(ANY_JSX)])
+    src(prepPath(ANY_JS_OR_TS))
         .pipe(gulpReplace("class=", "className="))
         .pipe(gulpReplace("@@id", ""))
         .pipe(gulpReplace("@@class", ""))
