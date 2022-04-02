@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { loadJson } from "./util";
 
-const ID_CONTAINER = "related_media";
-const ID_MEDIA_VIEWER_WRAPPER = "media_viewer_wrapper";
-const ID_MEDIA_VIEWER = "media_viewer";
+const CONTAINER = "#related_media";
+const MEDIA_VIEWER_WRAPPER_ID = "media_viewer_wrapper";
+const MEDIA_VIEWER_ID = "media_viewer";
 
 const IMAGE_FILE_TYPES = [
     ".apng",
@@ -19,8 +19,12 @@ const IMAGE_FILE_TYPES = [
 
 const VIDEO_FILE_TYPES = [".mp4", ".webm"];
 
-export function RelatedMediaApp() {
-    ReactDOM.render(<RelatedMedia />, document.getElementById(ID_CONTAINER));
+export function RelatedMediaApp(dom = document) {
+    const container = dom.querySelector(CONTAINER);
+
+    if (container) {
+        ReactDOM.render(<RelatedMedia />, container);
+    }
 }
 
 function RelatedMedia() {
@@ -54,8 +58,8 @@ function MediaViewer(props) {
         <div className="card animate-visibility">
             <div className="card-content">
                 <h3>Media</h3>
-                <div id={ID_MEDIA_VIEWER_WRAPPER}>
-                    <div id={ID_MEDIA_VIEWER}>
+                <div id={MEDIA_VIEWER_WRAPPER_ID}>
+                    <div id={MEDIA_VIEWER_ID}>
                         {props.files.map(file => (
                             <MediaItem file={file} key={file.url} />
                         ))}
@@ -150,11 +154,11 @@ function getAccessibilityDescription(appID, file, isVideo, isImage) {
 }
 
 function getMediaWrapper() {
-    return document.getElementById(ID_MEDIA_VIEWER_WRAPPER);
+    return document.getElementById(MEDIA_VIEWER_WRAPPER_ID);
 }
 
 function getMediaViewer() {
-    return document.getElementById(ID_MEDIA_VIEWER);
+    return document.getElementById(MEDIA_VIEWER_ID);
 }
 
 function setEventHandlers() {

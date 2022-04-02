@@ -2,10 +2,15 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { loadJson } from "./util";
 
+const CONTAINER = "#mentions";
 const getContainerElement = () => document.getElementById("mentions");
 
-export function WebmentionsApp() {
-    ReactDOM.render(<Webmentions />, getContainerElement());
+export function WebmentionsApp(dom = document) {
+    const container = dom.querySelector(CONTAINER);
+
+    if (container) {
+        ReactDOM.render(<Webmentions />, container);
+    }
 }
 
 function Webmentions() {

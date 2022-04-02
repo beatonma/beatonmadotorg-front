@@ -1,13 +1,6 @@
 @import "color-common";
 
 :root {
-    // --text-light-primary: rgba(255, 255, 255, 0.83);
-    // --text-light-secondary: rgba(255, 255, 255, 0.54);
-    // --text-light-tertiary: rgba(255, 255, 255, 0.25);
-    // --text-dark-primary: rgba(0, 0, 0, 0.83);
-    // --text-dark-secondary: rgba(0, 0, 0, 0.54);
-    // --text-dark-tertiary: rgba(0, 0, 0, 0.25);
-
     --text-primary: var(--text-dark-primary);
     --text-secondary: var(--text-dark-secondary);
     --text-tertiary: var(--text-dark-tertiary);
@@ -16,20 +9,23 @@
     --text-secondary-invert: var(--text-light-secondary);
     --text-tertiary-invert: var(--text-light-tertiary);
 
-    --accent: #e13255;
+    --primary: var(#4b495d);
+    --on-primary: var(--text-light);
+    --accent: inherit;
+    --on-accent: inherit;
 
     --selected: #a4ddfb;
     --hover: rgba(0, 0, 0, 0.08);
 
-    --header-background-color: #eeeeee;
-    --header-background-color-hover: #e5e5e5;
-    --header-text-color: var(--text-dark-primary);
+    // --header-background-color: #eeeeee;
+    // --header-background-color-hover: #e5e5e5;
+    // --header-text-color: var(--text-dark-primary);
 
-    --table-background: #444444;
-    --table-text: var(--text-light-primary);
+    // --table-background: #444444;
+    // --table-text: var(--text-light-primary);
 
-    --code-background: #f9f9f9;
-    --code-text: var(--text-dark-primary);
+    // --code-background: #f9f9f9;
+    // --code-text: var(--text-dark-primary);
 
     // Embedded things that could sort of be a card of their own but are already in a parent card
     // e.g. tables

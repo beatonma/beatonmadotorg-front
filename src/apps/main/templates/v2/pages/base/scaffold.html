@@ -1,0 +1,23 @@
+{% load static %}
+{% comment %}
+    Basic layout for a normal page.
+{% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}beatonma.org{% endblock %}</title>
+        <meta name="description" content="{% block description %}Things by Michael Beaton{% endblock %}"/>
+        {% include "./_head.html" %}
+    </head>
+    <body>
+        <header>{% block header %}{% include "./_header.html" %}{% endblock %}</header>
+        {% block main %}
+        <main>
+            <div id="content">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+        {% endblock %}
+        <footer>{% block footer %}{% endblock %}</footer>
+    </body>
+</html>

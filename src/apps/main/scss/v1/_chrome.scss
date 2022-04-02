@@ -1,22 +1,22 @@
-::selection {
-    background: var(--selected);
-}
+// ::selection {
+//     background: var(--selected);
+// }
 
-::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-}
-::-webkit-scrollbar-button {
-    background: transparent;
-}
-::-webkit-scrollbar-track-piece {
-    background: transparent;
-}
-::-webkit-scrollbar-thumb {
-    background: var(--text-secondary);
-}
+// ::-webkit-scrollbar {
+//     width: 4px;
+//     height: 4px;
+// }
+// ::-webkit-scrollbar-button {
+//     background: transparent;
+// }
+// ::-webkit-scrollbar-track-piece {
+//     background: transparent;
+// }
+// ::-webkit-scrollbar-thumb {
+//     background: var(--text-secondary);
+// }
 
-* {
-    scrollbar-width: thin;
-    scrollbar-color: var(--text-secondary);
-}
+// * {
+//     scrollbar-width: thin;
+//     scrollbar-color: var(--text-secondary);
+// }

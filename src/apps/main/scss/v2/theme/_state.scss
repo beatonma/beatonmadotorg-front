@@ -13,3 +13,8 @@
         background-color: var(--hover);
     }
 }
+
+%clickable {
+    @extend %hover;
+    cursor: pointer;
+}

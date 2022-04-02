@@ -8,46 +8,46 @@
     --text-light: var(--text-light-primary);
     --text-dark: var(--text-dark-primary);
 
-    --text-primary: var(--text-dark-primary);
-    --text-secondary: var(--text-dark-secondary);
-    --text-tertiary: var(--text-dark-tertiary);
+    --text-primary: var(--text-light-primary);
+    --text-secondary: var(--text-light-secondary);
+    --text-tertiary: var(--text-light-tertiary);
 
-    --text-primary-invert: var(--text-light-primary);
-    --text-secondary-invert: var(--text-light-secondary);
-    --text-tertiary-invert: var(--text-light-tertiary);
+    --text-primary-invert: var(--text-dark-primary);
+    --text-secondary-invert: var(--text-dark-secondary);
+    --text-tertiary-invert: var(--text-dark-tertiary);
 
-    --primary: var(--text-primary);
-    --on-primary: var(var(--text-primary-invert));
-    --accent: #e13255;
-    --on-accent: var(--text-light-primary);
+    --primary: #4b495d;
+    --on-primary: var(--text-light);
+    --accent: #f18b8d;
+    --on-accent: var(--text-light);
 
     --local-primary: var(--primary);
-    --local-on-primary: var(--text-light-primary);
+    --local-on-primary: var(--text-light);
     --local-accent: var(--accent);
-    --local-on-accent: var(--text-light-primary);
+    --local-on-accent: var(--text-light);
 
-    --selected: #a4ddfb;
-    --hover: rgba(0, 0, 0, 0.08);
+    --selected: #888888;
+    --hover: rgba(255, 255, 255, 0.08);
 
-    --header-background-color: #eeeeee;
-    --header-background-color-hover: #e5e5e5;
-    --header-text-color: var(--text-dark-primary);
+    // --header-background-color: #070707;
+    // --header-background-color-hover: #111111;
+    // --header-text-color: var(--text-light-primary);
 
-    --table-background: #444444;
-    --table-text: var(--text-light-primary);
+    // --table-background: #272727;
+    // --table-text: var(--text-light-primary);
 
-    --code-background: #f9f9f9;
-    --code-text: var(--text-dark-primary);
+    // --code-background: #272727;
+    // --code-text: var(--text-light-primary);
 
     // Embedded things that could sort of be a card of their own but are already in a parent card
     // e.g. tables
-    --embedded-background: #444444;
+    --embedded-background: #272727;
     --embedded-background-highlight: #555555;
     --embedded-text-primary: var(--text-light-primary);
     --embedded-text-secondary: var(--text-light-secondary);
     --embedded-text-tertiary: var(--text-light-secondary);
 
-    --card-header-color: var(--primary_color);
+    // --card-header-color: var(--primary_color);
 
     --appname: var(--local-accent);
 
@@ -61,10 +61,12 @@
     --grey: #636363;
 
     // v2
-    --background: #2a1616;
+    --background: #252225;
     --on-background: var(--text-primary);
-    --surface: #222222;
+    --surface: #31303a;
     --on-surface: var(--text-primary);
     --warn: #f44336;
-    --on-warn: var(--text-light-primary);
+    --on-warn: var(--text-light);
+
+    --input-text-background: var(--hover);
 }

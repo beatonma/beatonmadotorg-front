@@ -1,5 +1,24 @@
-$animation-duration: 600ms;
+$animation-duration: 300ms;
+
+@mixin transition(
+    $props,
+    $duration: $animation-duration,
+    $easing: cubic-bezier(0.23, 0.88, 0.56, 0.99)
+) {
+    $result: ();
+
+    @each $prop in $props {
+        $result: join(
+            $result,
+            unquote("#{$prop} #{$duration} #{$easing}"),
+            $separator: comma
+        );
+    }
+
+    transition: $result;
+}
 
 %animate-all {
-    transition: all $animation-duration;
+    // transition: all $animation-duration;
+    @include transition((all));
 }

@@ -13,3 +13,14 @@
 %shape-large {
     border-radius: 12px;
 }
+
+@mixin shape($top, $bottom) {
+    @if $top {
+        border-top-left-radius: $top;
+        border-top-right-radius: $top;
+    }
+    @if $bottom {
+        border-bottom-left-radius: $bottom;
+        border-bottom-right-radius: $bottom;
+    }
+}

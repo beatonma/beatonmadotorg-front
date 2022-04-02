@@ -6,12 +6,14 @@ const MAX_MESSAGES_PER_REPO = 5;
 const MESSAGE_CHAR_LIMIT = 140;
 const URL = "/api/github_latest/";
 const CONTAINER_ID = "github_recent";
+const CONTAINER = "#github_recent";
 
-export function GithubLatestCommitsApp() {
-    ReactDOM.render(
-        <GithubLatestCommits />,
-        document.getElementById(CONTAINER_ID)
-    );
+export function GithubLatestCommitsApp(dom = document) {
+    const container = dom.querySelector(CONTAINER);
+
+    if (container) {
+        ReactDOM.render(<GithubLatestCommits />, container);
+    }
 }
 
 function GithubLatestCommits() {
@@ -36,7 +38,9 @@ function GithubLatestCommits() {
     if (commits != null) {
         return (
             <>
-                <h3>Recent activity:</h3>
+                <a rel="me" href="https://github.com/beatonma">
+                    <h3>github/beatonma</h3>
+                </a>
                 <div className="github-recent">
                     {commits.map(commit => (
                         <Commit key={commit.end} commit={commit} />

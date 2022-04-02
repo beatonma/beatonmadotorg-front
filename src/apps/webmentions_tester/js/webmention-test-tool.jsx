@@ -6,13 +6,15 @@ import { classNames } from "../../main/js/react/props";
 import { Row } from "../../main/js/react/row";
 import { loadJson, getCsrfToken, formatTimeDelta } from "../../main/js/util";
 
+const CONTAINER = "#webmentions_testing_tool";
 const endpoint = "active/";
 
-export function WebmentionTesterApp() {
-    ReactDOM.render(
-        <WebmentionsTester />,
-        document.getElementById("webmentions_testing_tool")
-    );
+export function WebmentionTesterApp(dom = document) {
+    const container = dom.querySelector(CONTAINER);
+
+    if (container) {
+        ReactDOM.render(<WebmentionsTester />, container);
+    }
 }
 
 function WebmentionsTester() {

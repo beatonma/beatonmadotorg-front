@@ -1,15 +1,20 @@
 import { loadPage, scrollToId } from "./util.js";
-import { WebmentionsApp } from "./get-webmentions.jsx";
-import { GithubLatestCommitsApp } from "./github-latest-commits.jsx";
-import { RelatedMediaApp } from "./load-media.jsx";
-import { WebmentionTesterApp } from "../../webmentions_tester/js/webmention-test-tool.jsx";
+import { APPS } from "./apps.js";
 
-const itemAnimationDuration = 200;
-const itemAnimationDelay = 60;
+const itemAnimationDuration = 120;
+const itemAnimationDelay = 40;
 const enterInterpolator = "ease";
 const pageAnimationDuration = 200;
 
-const contentWrapperID = "content_wrapper";
+/**
+ * Expected structure:
+ *
+ *   <main>
+ *     <div id="{contentID}">
+ *       <!-- Animated content here -->
+ *     </div>
+ *   </main>
+ */
 const contentID = "content"; // Hot-swappable page content.
 const localStyleID = "local_style"; // Hot-swappable inline CSS.
 const loadingID = "loading"; // globally available loading UI.
@@ -18,25 +23,19 @@ const noAnimationClass = "noanim"; // Links with this class opt out of hot-swapp
 const onPageChangeClass = ".onPageChange";
 const onPageUnloadClass = ".onPageUnload";
 
+const animatedElements = ".card, .feed-item-card";
+
 // Page transitions are enabled when travelling to URLs on these domains.
 const domainsRegex = /(beatonma.org|inverness.io|localhost)/;
 
 function onContentChanged(dom) {
-    if (dom.querySelector("#mentions")) {
-        WebmentionsApp();
-    }
-
-    if (dom.querySelector("#related_media")) {
-        RelatedMediaApp();
-    }
-
-    if (dom.querySelector("#github_recent")) {
-        GithubLatestCommitsApp();
-    }
-
-    if (dom.querySelector("#webmentions_testing_tool")) {
-        WebmentionTesterApp();
-    }
+    APPS.forEach(app => {
+        try {
+            app(dom);
+        } catch (e) {
+            console.error(`App ${app.name} failed: ${e}`);
+        }
+    });
 
     if (window.location.hash) {
         scrollToId(window.location.hash);
@@ -145,6 +144,7 @@ export function changePage(url, pushToHistory = true) {
 
             const oldContent = document.getElementById(contentID);
             const newContent = wrapper.querySelector(`#${contentID}`);
+
             animatePageChange(oldContent, newContent, onContentChanged);
         })
         .catch(err => {
@@ -154,16 +154,17 @@ export function changePage(url, pushToHistory = true) {
 }
 
 function animatePageChange(oldContent, newContent, callback) {
-    const container = document.getElementById(contentWrapperID);
+    const main = document.getElementsByTagName("main").item(0);
     const fadeOut = oldContent.animate(
         [{ opacity: 1 }, { opacity: 0 }],
         pageAnimationDuration
     );
 
     fadeOut.onfinish = () => {
-        oldContent.parentNode.removeChild(oldContent);
-        container.appendChild(newContent);
-        document.body.scrollIntoView(true);
+        main.removeChild(oldContent);
+        main.appendChild(newContent);
+
+        main.scrollIntoView(true);
 
         showLoading(false);
         animateCardsIn(newContent);
@@ -196,7 +197,7 @@ function animateCardsIn(parent) {
     let delay = 0;
 
     try {
-        parent.querySelectorAll(".card").forEach(el => {
+        parent.querySelectorAll(animatedElements).forEach(el => {
             elementIn(el, delay);
 
             delay += itemAnimationDelay;

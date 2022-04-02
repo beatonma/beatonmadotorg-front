@@ -1,0 +1,12 @@
+@use "../layout";
+
+%icon {
+}
+
+%icon-small {
+    @include layout.size(24px);
+}
+
+%icon-medium {
+    @include layout.size(32px);
+}

@@ -1,0 +1,9 @@
+{% include "./_feed-item.html"
+  with
+  image_url=blog.related_files.first.file
+  title=blog.title
+  description=blog.preview_text
+  url=blog.get_absolute_url
+  date=blog.created_at
+  themeable=blog
+%}

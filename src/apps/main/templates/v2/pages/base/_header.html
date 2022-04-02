@@ -1,0 +1,33 @@
+<div id="loading" class="progressbar"></div>
+<div class="header-row-primary">
+    <a href="/"><h1>beatonma.org</h1></a>
+    
+    <form action="/search/" method="get" id="search_form">
+        {% comment %} <div class="search-container flex-row collapsing-wrapper nowrap"> {% endcomment %}
+        {% comment %} <div class=""> {% endcomment %}
+        <label id="search_icon" class="icon" for="search" tabindex="0">
+            @@include('svg/search.svg', { "class": "search" })
+        </label>
+        <div class="search-wrapper">
+            <input
+                type="text"
+                id="search"
+                name="query"
+                placeholder="Search beatonma.org"
+                aria-label="Search beatonma.org">
+        </div>
+        {% comment %} </div> {% endcomment %}
+    </form>
+</div>
+
+<div class="header-row-secondary">
+    <div id="theme_icon" title="Toggle theme"></div>
+    <a href="/apps/">Apps</a>
+    <a href="/about/">About</a>
+    <a href="/contact/">Contact</a>
+    {% if user.is_superuser %}
+        <span>|</span>
+        <a class="noanim" href="{% url 'dashboard' %}">Dashboard</a>
+        <a class="noanim" href="{% url 'admin:index' %}">Admin</a>
+    {% endif %}
+</div>

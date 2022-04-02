@@ -1,0 +1,10 @@
+// %background-image {
+//     background-repeat: no-repeat;
+//     background-position: center;
+// }
+
+@mixin background($size: contain) {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: $size;
+}

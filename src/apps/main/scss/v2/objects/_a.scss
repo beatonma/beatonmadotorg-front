@@ -1,0 +1,21 @@
+a {
+    text-decoration: none;
+    color: var(--local-accent);
+    transition: color 220ms;
+
+    > * {
+        color: var(--text-primary);
+    }
+
+    &:hover {
+        color: var(--text-primary);
+    }
+
+    &:visited {
+        color: var(--local-accent);
+    }
+
+    &:hover:visited {
+        color: var(--text-primary);
+    }
+}

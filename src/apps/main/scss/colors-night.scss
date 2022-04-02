@@ -9,21 +9,13 @@
     --text-secondary-invert: var(--text-dark-secondary);
     --text-tertiary-invert: var(--text-dark-tertiary);
 
-    --accent: #60b4e3;
-    --on-accent: var(--text-dark-primary);
+    --primary: #4b495d;
+    --on-primary: var(--text-light);
+    --accent: #f18b8d;
+    --on-accent: var(--text-light);
 
     --selected: #888888;
     --hover: rgba(255, 255, 255, 0.08);
-
-    --header-background-color: #070707;
-    --header-background-color-hover: #111111;
-    --header-text-color: var(--text-light-primary);
-
-    --table-background: #272727;
-    --table-text: var(--text-light-primary);
-
-    --code-background: #272727;
-    --code-text: var(--text-light-primary);
 
     // Embedded things that could sort of be a card of their own but are already in a parent card
     // e.g. tables
@@ -34,8 +26,8 @@
     --embedded-text-tertiary: var(--text-light-secondary);
 
     // v2
-    --background: #111111;
-    --surface: #222222;
+    --background: #252225;
+    --surface: #31303a;
 }
 
 // Monokai

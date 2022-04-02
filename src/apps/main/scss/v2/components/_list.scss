@@ -1,0 +1,25 @@
+@use "../theme";
+
+%item {
+}
+
+%item-small {
+    @extend %item;
+}
+
+%list-vertical {
+    > %item-small {
+        @extend %margin-small-bottom;
+    }
+
+    > %item-medium {
+        @extend %margin-medium-bottom;
+    }
+}
+
+%list-vertical-scroll {
+    @extend %list-vertical;
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+}

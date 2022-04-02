@@ -1,15 +1,31 @@
-@use "../theme";
-@use "../layout";
-@use "./scaffold";
+@use "../../layout";
+@use "../../theme";
+@use "../scaffold";
+@use "../image";
+// @use "./feed-item";
 
 $list-item-max-width: 645px;
-$list-gap: 18px;
+$list-gap: 20px;
 
 $list-single-column-width: 1000px;
 $list-two-column-width: calc(($list-item-max-width * 2) + $list-gap);
 $list-three-column-width: calc(($list-item-max-width * 3) + ($list-gap * 2));
 
-%flow-list {
+$feed-card-height: 9rem;
+
+%feed-item {
+    width: 100%;
+    overflow: hidden;
+}
+
+%feed-item-list-container {
+    /** Used for Github and Notes content.
+     * At time of writinng there are only two of these containers.
+     * Other feed items may split across up to 3 columns.
+     */
+}
+
+.feed {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -17,16 +33,17 @@ $list-three-column-width: calc(($list-item-max-width * 3) + ($list-gap * 2));
     justify-content: flex-start;
     margin: auto;
     max-width: $list-single-column-width;
+    margin-bottom: $list-gap;
 }
 
 @include theme.display-min-width(
     calc($list-two-column-width + scaffold.$content-margins-horizontal-total)
 ) {
-    %flow-list {
+    .feed {
         max-width: $list-two-column-width;
     }
 
-    %list-item {
+    %feed-item {
         max-width: $list-item-max-width;
     }
 }
@@ -34,27 +51,82 @@ $list-three-column-width: calc(($list-item-max-width * 3) + ($list-gap * 2));
 @include theme.display-min-width(
     calc($list-three-column-width + scaffold.$content-margins-horizontal-total)
 ) {
-    %flow-list {
+    .feed {
         max-width: $list-three-column-width;
     }
 }
 
-%list-item {
-    $height: 3rem;
+/**
+ * Calculate the height of $n-rows rows of %feed-item-card.
+ */
+@function heightOfFeedRows($n-rows) {
+    $result: calc(($feed-card-height * $n-rows) + ($list-gap * ($n-rows - 1)));
+    @debug "#{$n-rows} -> #{$result}";
+    @return calc(($feed-card-height * $n-rows) + ($list-gap * ($n-rows - 1)));
+}
 
-    @include layout.row($wrap: nowrap);
-    @include layout.height($height);
-    @extend %shape-small;
+$feed-card-height: 9rem;
+
+.feed-item {
+    @extend %feed-item;
+}
+
+.feed-item-card {
+    @extend %elevated;
+    @extend %feed-item-card;
+
+    background-color: var(--surface);
+}
+
+%feed-item-card[data-type="changelog"],
+%feed-item-card[data-type="app"] {
+    .image {
+        background-size: contain;
+    }
+}
+
+%feed-item-card {
+    @extend %feed-item;
+    @extend %shape-medium;
     @extend %animate-all;
 
-    width: 100%;
+    @include layout.row($wrap: nowrap);
+    @include layout.height($feed-card-height);
 
-    overflow: hidden;
+    > .image {
+        @include layout.size($feed-card-height);
+        @include image.background(cover);
+        overflow: hidden;
+
+        > .text-as-image {
+            // No actual image available, use some artsy text.
+            @include layout.size($feed-card-height * 2);
+            position: relative;
+            top: -50%;
+            left: -50%;
+            letter-spacing: 1.2px;
+            font-family: monospace;
+            letter-spacing: 2px;
+            font-size: xx-large;
+            font-size: calc($feed-card-height / 5);
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            transform: rotate(45deg);
+            transform-origin: center;
+        }
+
+        > svg {
+            margin: 16px;
+            width: -webkit-fill-available;
+            height: -webkit-fill-available;
+        }
+    }
 
     > .text {
+        @extend %margin-medium;
         height: -webkit-fill-available;
         width: -webkit-fill-available;
-        margin: 16px;
 
         > .row {
             justify-content: space-between;
@@ -73,65 +145,12 @@ $list-three-column-width: calc(($list-item-max-width * 3) + ($list-gap * 2));
     }
 
     @include theme.display-width("small") {
-        border-radius: 0;
-    }
-}
-
-%list-item-with-image {
-    $height: 9rem;
-
-    @extend %list-item;
-    @include layout.height($height);
-    @extend %shape-medium;
-
-    > .image {
-        @include layout.size($height);
-
-        > .text-as-image {
-            // No actual image available, use some artsy text.
-            @include layout.size($height * 2);
-            font-size: calc($height / 5);
-        }
-    }
-
-    > .image {
-        @include layout.size($height);
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        overflow: hidden;
-
-        > .text-as-image {
-            // No actual image available, use some artsy text.
-            @include layout.size($height * 2);
-            position: relative;
-            top: -50%;
-            left: -50%;
-            letter-spacing: 1.2px;
-            font-family: monospace;
-            letter-spacing: 2px;
-            font-size: xx-large;
-            font-size: calc($height / 5);
-            font-weight: bold;
-            text-align: center;
-            text-transform: uppercase;
-            transform: rotate(45deg);
-            transform-origin: center;
-        }
-
-        > svg {
-            margin: 16px;
-            width: -webkit-fill-available;
-            height: -webkit-fill-available;
-        }
-    }
-
-    @include theme.display-width("small") {
         // Display as a card, image above text.
         flex-wrap: wrap;
         min-height: unset;
         max-height: unset;
         height: auto;
+        border-radius: 0;
 
         > .image {
             width: 100%;

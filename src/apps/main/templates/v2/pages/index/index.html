@@ -1,4 +1,4 @@
-{% extends 'base.template.html' %}
+{% extends 'v2/pages/base/scaffold.html' %}
 
 {% block title %}beatonma.org{% endblock %}
 
@@ -12,14 +12,18 @@
   
     {% if is_first_page %}
         <section id="lists">
-            <div class="flex-row card-container">
-                <div id="github_recent"></div>
-                {% include 'v1/fragments/notes.fragment.html' %}
+            <div class="feed">
+                <div id="github_recent" class="feed-item"></div>
+                <div id="notes" class="feed-item"></div>
+                <div id="quick_links" class="feed-item">
+                    <a href="https://github.com/beatonma">Github</a>
+                    etc..?
+                </div>
             </div>
         </section>
     {% endif %}
   
-    {% include 'v2/components/feed/feed.template.html' %}
+    {% include 'v2/components/feed/feed.html' %}
   
     {% if apps %}
         <section>
