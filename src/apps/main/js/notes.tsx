@@ -55,7 +55,7 @@ type NotesLayoutProps = {
 function NotesLayout(props: NotesLayoutProps) {
     return (
         <>
-            <h3>Notes HELLO THERE</h3>
+            <h3>Notes</h3>
             <div className="notes">{props.children}</div>
         </>
     );
