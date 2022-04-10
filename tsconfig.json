@@ -8,5 +8,6 @@
         "moduleResolution": "node",
         "noImplicitAny": true,
         "sourceMap": true
-    }
+    },
+    "exclude": ["build/", "dist/"]
 }
