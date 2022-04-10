@@ -4,32 +4,19 @@
 
 {% block content %}
 
-    {% if motd %}
-        <section>
-            {% include 'v1/index/motd.template.html' %}
-        </section>
-    {% endif %}
-  
-    {% if is_first_page %}
-        <section id="lists">
-            <div class="feed">
-                <div id="github_recent" class="feed-item"></div>
-                <div id="notes" class="feed-item"></div>
-                <div id="quick_links" class="feed-item">
-                    <a href="https://github.com/beatonma">Github</a>
-                    etc..?
-                </div>
-            </div>
-        </section>
-    {% endif %}
-  
+  {% if motd %}
+    <section>
+      {% include 'v1/index/motd.template.html' %}
+    </section>
+  {% endif %}
+    
     {% include 'v2/components/feed/feed.html' %}
   
     {% if apps %}
         <section>
-            {% for app in apps %}
-                <a class="tag" href="{% url 'app' app.app_id %}">{{ app.title }}</a>
-            {% endfor %}
+          {% for app in apps %}
+            <a class="tag" href="{% url 'app' app.app_id %}">{{ app.title }}</a>
+          {% endfor %}
         </section>
     {% endif %}
   
