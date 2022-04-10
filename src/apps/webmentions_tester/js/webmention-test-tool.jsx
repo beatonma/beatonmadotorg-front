@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { Dropdown } from "../../main/js/react/dropdown";
-import { Label } from "../../main/js/react/label";
-import { classNames } from "../../main/js/react/props";
-import { Row } from "../../main/js/react/row";
+import { Dropdown, Label, Row } from "../../main/js/components";
+import { classNames } from "../../main/js/components/props";
 import { loadJson, getCsrfToken, formatTimeDelta } from "../../main/js/util";
 
 const CONTAINER = "#webmentions_testing_tool";
@@ -190,7 +188,7 @@ function MentionStatus(props) {
     );
 
     return (
-        <Dropdown title={successMessage} expanded={props.expanded}>
+        <Dropdown title={successMessage} expandedDefault={props.expanded}>
             <table className="webmention-tester-status">
                 <tbody>
                     <StatusTableRow label="Code" content={status_code} />

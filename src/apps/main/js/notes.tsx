@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { microformats } from "./microformats";
+import { LoadingSpinner } from "./components/loading";
 import { formatDate, loadJson } from "./util";
 
 const URL = "/api/notes/";
@@ -79,7 +80,7 @@ function NotesContent(props: NotesContentProps) {
             </>
         );
     } else {
-        return <div className="loading-spinner"></div>;
+        return <LoadingSpinner />;
     }
 }
 
