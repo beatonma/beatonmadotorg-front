@@ -5,9 +5,9 @@
     {% include 'v1/fragments/head/browser.fragment.html' %}
     <title>{% block title %}{% endblock %}</title>
     <meta name="robots" content="noindex">
-    <link rel="stylesheet" href="/css/dashboard.min.css" />
+    <link rel="stylesheet" href="{% static '/css/dashboard.min.css' %}" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="application/javascript" src="/js/dashboard.min.js" defer ></script>
+    <script type="application/javascript" src="{% static '/js/dashboard.min.js' %}" defer ></script>
   </head>
   <body>
     {% block body %}

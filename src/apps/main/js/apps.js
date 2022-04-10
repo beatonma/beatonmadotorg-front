@@ -1,11 +1,11 @@
-import { NotesApp } from "./notes.tsx";
-import { WebmentionsApp } from "./get-webmentions.jsx";
-import { RelatedMediaApp } from "./load-media.jsx";
-import { GithubLatestCommitsApp } from "./github-latest-commits.jsx";
-import { WebmentionTesterApp } from "../../webmentions_tester/js/webmention-test-tool.jsx";
+import { NotesApp } from "./notes";
+import { WebmentionsApp } from "./get-webmentions";
+import { RelatedMediaApp } from "./load-media";
+import { GithubEventsApp } from "./github-events";
+import { WebmentionTesterApp } from "../../webmentions_tester/js/webmention-test-tool";
 
 export const APPS = [
-    GithubLatestCommitsApp,
+    GithubEventsApp,
     NotesApp,
     RelatedMediaApp,
     WebmentionsApp,

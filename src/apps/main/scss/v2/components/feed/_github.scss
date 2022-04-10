@@ -1,0 +1,38 @@
+@use "../../theme";
+@use "../list";
+@use "./feed";
+@use "../../layout";
+
+#github_recent {
+    @extend %embedded-scrollable-list-container;
+}
+
+.github-events {
+    @extend %embedded-scrollable-list;
+}
+
+.github-group {
+    @extend %item-small;
+    @extend %padding-small-horizontal;
+
+    &::after {
+        content: "";
+        display: block;
+        width: 4px;
+        background-color: var(--text-tertiary);
+        height: 0.5rem;
+        margin-top: 2px;
+        margin-left: 4px;
+    }
+}
+
+.github-commit {
+    @include layout.row($vertical: flex-start, $wrap: nowrap);
+    @extend %font-monospace;
+
+    .material-icons {
+        @extend %icon-small;
+        @extend %padding-small-horizontal;
+        display: block;
+    }
+}

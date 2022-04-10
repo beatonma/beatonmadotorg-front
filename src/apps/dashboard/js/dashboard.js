@@ -42,11 +42,6 @@ const Github = props => {
                 <TimeStamp
                     label="Github cached at"
                     timestamp={props.github.cached_at}
-                />{" "}
-                |{" "}
-                <TimeStamp
-                    label="Valid until"
-                    timestamp={props.github.valid_until}
                 />
             </span>
         </div>

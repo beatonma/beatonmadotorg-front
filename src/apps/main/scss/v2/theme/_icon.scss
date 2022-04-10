@@ -10,3 +10,7 @@
 %icon-medium {
     @include layout.size(32px);
 }
+
+.material-icons {
+    user-select: none;
+}
