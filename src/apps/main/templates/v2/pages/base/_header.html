@@ -3,8 +3,6 @@
     <a href="/"><h1>beatonma.org</h1></a>
     
     <form action="/search/" method="get" id="search_form">
-        {% comment %} <div class="search-container flex-row collapsing-wrapper nowrap"> {% endcomment %}
-        {% comment %} <div class=""> {% endcomment %}
         <label id="search_icon" class="icon" for="search" tabindex="0">
             @@include('svg/search.svg', { "class": "search" })
         </label>
@@ -14,9 +12,9 @@
                 id="search"
                 name="query"
                 placeholder="Search beatonma.org"
-                aria-label="Search beatonma.org">
+                aria-label="Search beatonma.org"
+                enterkeyhint="search">
         </div>
-        {% comment %} </div> {% endcomment %}
     </form>
 </div>
 
