@@ -8,20 +8,7 @@ export const SampleEvents = [
             url: "https://github.com/beatonma/snommoc",
             description: "Data server for Commons app",
             license: null,
-            languages: [
-                {
-                    name: "Python",
-                    bytes: 2026336,
-                },
-                {
-                    name: "CSS",
-                    bytes: 14645,
-                },
-                {
-                    name: "HTML",
-                    bytes: 7399,
-                },
-            ],
+            languages: [],
         },
         payload: [
             {
@@ -40,20 +27,7 @@ export const SampleEvents = [
             url: "https://github.com/beatonma/snommoc",
             description: "Data server for Commons app",
             license: null,
-            languages: [
-                {
-                    name: "Python",
-                    bytes: 2026336,
-                },
-                {
-                    name: "CSS",
-                    bytes: 14645,
-                },
-                {
-                    name: "HTML",
-                    bytes: 7399,
-                },
-            ],
+            languages: [],
         },
         payload: [
             {
@@ -90,16 +64,7 @@ export const SampleEvents = [
             url: "https://github.com/beatonma/django-wm",
             description: "Automatic Webmention functionality for Django models",
             license: "gpl-3.0",
-            languages: [
-                {
-                    name: "Python",
-                    bytes: 121102,
-                },
-                {
-                    name: "HTML",
-                    bytes: 702,
-                },
-            ],
+            languages: [],
         },
         payload: {
             type: "tag",
@@ -115,16 +80,7 @@ export const SampleEvents = [
             url: "https://github.com/beatonma/django-wm",
             description: "Automatic Webmention functionality for Django models",
             license: "gpl-3.0",
-            languages: [
-                {
-                    name: "Python",
-                    bytes: 121102,
-                },
-                {
-                    name: "HTML",
-                    bytes: 702,
-                },
-            ],
+            languages: [],
         },
         payload: [
             {
@@ -144,16 +100,7 @@ export const SampleEvents = [
             url: "https://github.com/beatonma/django-wm",
             description: "Automatic Webmention functionality for Django models",
             license: "gpl-3.0",
-            languages: [
-                {
-                    name: "Python",
-                    bytes: 121102,
-                },
-                {
-                    name: "HTML",
-                    bytes: 702,
-                },
-            ],
+            languages: [],
         },
         payload: {
             number: 29,
@@ -173,16 +120,7 @@ export const SampleEvents = [
             url: "https://github.com/beatonma/django-wm",
             description: "Automatic Webmention functionality for Django models",
             license: "gpl-3.0",
-            languages: [
-                {
-                    name: "Python",
-                    bytes: 121102,
-                },
-                {
-                    name: "HTML",
-                    bytes: 702,
-                },
-            ],
+            languages: [],
         },
         payload: {
             number: 28,
@@ -199,16 +137,7 @@ export const SampleEvents = [
             url: "https://github.com/beatonma/django-wm",
             description: "Automatic Webmention functionality for Django models",
             license: "gpl-3.0",
-            languages: [
-                {
-                    name: "Python",
-                    bytes: 121102,
-                },
-                {
-                    name: "HTML",
-                    bytes: 702,
-                },
-            ],
+            languages: [],
         },
         payload: {
             type: "branch",
@@ -225,12 +154,7 @@ export const SampleEvents = [
             description:
                 "Rewrite of Commons for Android. Still in the early stages but under active development!",
             license: null,
-            languages: [
-                {
-                    name: "Kotlin",
-                    bytes: 1631928,
-                },
-            ],
+            languages: [],
         },
         payload: [
             {
@@ -250,16 +174,7 @@ export const SampleEvents = [
             url: "https://github.com/beatonma/django-wm",
             description: "Automatic Webmention functionality for Django models",
             license: "gpl-3.0",
-            languages: [
-                {
-                    name: "Python",
-                    bytes: 121102,
-                },
-                {
-                    name: "HTML",
-                    bytes: 702,
-                },
-            ],
+            languages: [],
         },
         payload: {
             type: "tag",
@@ -275,12 +190,7 @@ export const SampleEvents = [
             url: "https://github.com/beatonma/django-wm",
             description: "Automatic Webmention functionality for Django models",
             license: "gpl-3.0",
-            languages: [
-                {
-                    name: "Python",
-                    bytes: 121102,
-                },
-            ],
+            languages: [],
         },
         payload: {
             number: 24,
@@ -300,16 +210,7 @@ export const SampleEvents = [
             url: "https://github.com/beatonma/django-wm",
             description: "Automatic Webmention functionality for Django models",
             license: "gpl-3.0",
-            languages: [
-                {
-                    name: "Python",
-                    bytes: 121102,
-                },
-                {
-                    name: "HTML",
-                    bytes: 702,
-                },
-            ],
+            languages: [],
         },
         payload: [
             {

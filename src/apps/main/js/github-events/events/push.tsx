@@ -2,16 +2,18 @@ import React from "react";
 import { pluralize } from "../../plurals";
 import { Commit } from "../types";
 import { Dropdown } from "../../components";
-import { MaterialIcon } from "../../components/icons";
 
 interface CommitProps {
     commits: Commit[];
 }
 export function Commits(props: CommitProps) {
     const commits = props.commits;
+
     if (commits.length > 0) {
         return (
             <Dropdown
+                className="github-event"
+                data-type="commits"
                 title={`${commits.length} ${pluralize(
                     "commit",
                     commits.length
@@ -19,7 +21,7 @@ export function Commits(props: CommitProps) {
                 expandedDefault={false}
             >
                 {commits.map(commit => (
-                    <Commit key={commit.sha} {...commit} />
+                    <CommitEvent key={commit.sha} {...commit} />
                 ))}
             </Dropdown>
         );
@@ -28,7 +30,7 @@ export function Commits(props: CommitProps) {
     }
 }
 
-function Commit(commit: Commit) {
+function CommitEvent(commit: Commit) {
     return (
         <div className="github-commit">
             <a

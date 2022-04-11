@@ -7,14 +7,14 @@ export const Events = {
     Release: "ReleaseEvent",
 };
 
-export type Url = string;
+type Url = string;
 
-export type Language = {
+type Language = {
     name: string;
     bytes: number;
 };
 
-export type Repository = {
+type Repository = {
     id: number;
     name: string;
     description: string;
@@ -24,9 +24,10 @@ export type Repository = {
     payload: any;
 };
 
-export type Event = {
+export interface Event {
     type: string;
-};
+    created_at: string;
+}
 
 export type PrivateEvent = Event;
 
@@ -44,28 +45,24 @@ export function isPrivateEvent(event: Event): event is PrivateEvent {
     return !isPublicEvent(event);
 }
 
-export type Group = {};
+export interface Group {}
 
 export type PrivateGroup = Group & {
     events: PrivateEvent[];
 };
 
-export type PublicGroup = Group & {
-    name: string;
-    url: Url;
-    events: PublicEvent[];
-    commits: Commit[];
+export type SimpleEvent = {
+    type: string;
+    payload: EventPayload | Commit[] | WikiEdit[];
 };
 
-export function getCommits(event: PublicEvent): Commit[] {
-    if (event.type == Events.Push) {
-        return event.payload as Commit[];
-    }
-    return [];
-}
+export type PublicGroup = Group & {
+    repository: Repository;
+    events: SimpleEvent[];
+};
 
 export function isPublicGroup(group: Group): group is PublicGroup {
-    return (group as PublicGroup).name !== undefined;
+    return (group as PublicGroup).repository !== undefined;
 }
 
 type EventPayload = {};
@@ -96,8 +93,15 @@ export type Commit = {
     url: Url;
 };
 
-type WikiEdit = {
+export type WikiEdit = {
     name: string;
     url: Url;
     action: string;
+};
+
+export type ReleasePayload = EventPayload & {
+    name: string;
+    url: Url;
+    description: string;
+    published_at: string;
 };

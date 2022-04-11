@@ -1,7 +1,7 @@
-@use "../../theme";
+@use "v2/layout";
+@use "v2/theme";
 @use "../list";
 @use "./feed";
-@use "../../layout";
 
 #github_recent {
     @extend %embedded-scrollable-list-container;
@@ -13,16 +13,49 @@
 
 .github-group {
     @extend %item-small;
-    @extend %padding-small-horizontal;
+    @extend %margin-medium-horizontal;
+
+    time {
+        @extend %text-small;
+        color: var(--text-secondary);
+    }
+
+    > .github-group-header {
+        @include layout.row($vertical: baseline, $gap: 0.5rem);
+    }
+
+    > .private {
+        @extend %text-small;
+        width: fit-content;
+        color: var(--text-secondary);
+    }
+
+    span.github-event {
+        @extend %margin-small-right;
+        @extend %padding-small-horizontal;
+        @extend %shape-small;
+        @extend %text-small;
+        color: var(--text-light);
+        background-color: var(--accent-100);
+
+    }
+
+    code {
+        @extend %text-small;
+    }
 
     &::after {
         content: "";
         display: block;
-        width: 4px;
+        width: 2px;
         background-color: var(--text-tertiary);
         height: 0.5rem;
         margin-top: 2px;
         margin-left: 4px;
+    }
+
+    .material-icons {
+        @extend %icon-small;
     }
 }
 
@@ -32,7 +65,7 @@
 
     .material-icons {
         @extend %icon-small;
-        @extend %padding-small-horizontal;
+        @extend %padding-small-right;
         display: block;
     }
 }
