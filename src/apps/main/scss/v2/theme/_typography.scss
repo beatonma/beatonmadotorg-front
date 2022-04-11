@@ -26,21 +26,34 @@
 //         U+2215, U+FEFF, U+FFFD;
 // }
 
+:root {
+    --fs-700: 24px;
+    --fs-600: 22px;
+    --fs-500: 20px;
+    --fs-400: 18px;
+    --fs-300: 16px;
+}
+
 %text-default {
     @extend %text-normal;
+}
+
+%text-normal {
+    @extend %font-default;
+    font-size: var(--fs-400);
     color: var(--text-primary);
     line-height: 1.3;
     transition: font-size animation.$animation-duration;
 }
 
-%text-normal {
-    @extend %font-default;
-    font-size: 20px;
-}
-
 %text-small {
     @extend %font-default;
-    font-size: 17px;
+    font-size: var(--fs-300);
+    line-height: 1em;
+}
+
+%readable-text {
+    max-width: 800px;
 }
 
 %font-default {

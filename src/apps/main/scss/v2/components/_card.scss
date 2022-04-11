@@ -1,0 +1,20 @@
+@use "../theme";
+
+%card {
+    @extend %shape-medium;
+    @extend %elevated;
+
+    background-color: var(--surface);
+}
+
+%card-content {
+    @extend %padding-medium;
+}
+
+.card {
+    @extend %card;
+}
+
+.card-content {
+    @extend %card-content;
+}

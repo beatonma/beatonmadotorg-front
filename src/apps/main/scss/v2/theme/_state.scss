@@ -1,13 +1,13 @@
-@use "shape";
+@use "./border";
+@use "./animation";
 
 /**
  * Hover, select, focus, etc.
  */
 
 %hover {
-    $animation-duration: 220ms;
     @extend %shape-small;
-    transition: background-color $animation-duration;
+    @include animation.transition([background-color]);
 
     &:hover {
         background-color: var(--hover);

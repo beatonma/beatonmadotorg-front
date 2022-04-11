@@ -4,8 +4,9 @@
 .tooltip {
     $animation-duration: 120ms;
     $max-width: 180px;
-    @extend %hover;
 
+    @extend %hover;
+    cursor: default;
     position: relative;
     display: inline-block;
 

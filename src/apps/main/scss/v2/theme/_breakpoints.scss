@@ -25,3 +25,9 @@ $breakpoints: (
         @content;
     }
 }
+
+@mixin display-max-width($breakpoint) {
+    @media screen and (max-width: $breakpoint) {
+        @content;
+    }
+}

@@ -6,7 +6,6 @@
 
     &[data-expanded="true"] {
         @extend %padding-small;
-        background-color: var(--hover);
     }
 }
 

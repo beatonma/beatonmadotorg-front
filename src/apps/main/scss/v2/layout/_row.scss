@@ -8,7 +8,7 @@
 @mixin row($horizontal: flex-start, $vertical: center, $wrap: wrap, $gap: 0) {
     @extend %row;
     justify-content: $horizontal;
-    align-content: $vertical;
+    align-items: $vertical;
     flex-wrap: $wrap;
     gap: $gap;
 }

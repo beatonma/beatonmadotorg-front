@@ -9,12 +9,18 @@
     --text-secondary-invert: var(--text-dark-secondary);
     --text-tertiary-invert: var(--text-dark-tertiary);
 
-    --primary: #4b495d;
+    --primary-100: #8783a8;
+    --primary-400: #4b495d;
+    --primary-900: #353442;
+    --primary: var(--primary-400);
     --on-primary: var(--text-light);
-    --accent: #f18b8d;
+
+    --accent-100: #f0d4d5;
+    --accent-400: #f18b8d;
+    --accent-900: #734343;
+    --accent: var(--accent-400);
     --on-accent: var(--text-light);
 
-    --selected: #888888;
     --hover: rgba(255, 255, 255, 0.08);
 
     // Embedded things that could sort of be a card of their own but are already in a parent card

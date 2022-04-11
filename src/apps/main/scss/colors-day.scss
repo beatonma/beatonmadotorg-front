@@ -9,23 +9,19 @@
     --text-secondary-invert: var(--text-light-secondary);
     --text-tertiary-invert: var(--text-light-tertiary);
 
-    --primary: var(#4b495d);
+    --primary-100: #93b1c2;
+    --primary-400: #3c8b8f;
+    --primary-900: #154042;
+    --primary: var(--primary-400);
     --on-primary: var(--text-light);
-    --accent: inherit;
-    --on-accent: inherit;
 
-    --selected: #a4ddfb;
+    --accent-100: #dd547d;
+    --accent-400: #d6114b;
+    --accent-900: #57071f;
+    --accent: var(--accent-400);
+    --on-accent: var(--text-light);
+
     --hover: rgba(0, 0, 0, 0.08);
-
-    // --header-background-color: #eeeeee;
-    // --header-background-color-hover: #e5e5e5;
-    // --header-text-color: var(--text-dark-primary);
-
-    // --table-background: #444444;
-    // --table-text: var(--text-light-primary);
-
-    // --code-background: #f9f9f9;
-    // --code-text: var(--text-dark-primary);
 
     // Embedded things that could sort of be a card of their own but are already in a parent card
     // e.g. tables

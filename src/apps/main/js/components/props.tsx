@@ -11,13 +11,15 @@ export interface LayoutProps extends ClassNameProps {
 export function classNames(props: ClassNameProps, additionalClasses: string) {
     const { className } = props;
 
-    return className ? `${additionalClasses} ${className}` : additionalClasses;
+    return joinClassNames(className, additionalClasses);
 }
 
 export function joinClassNames(existing: string, additionalClasses: string) {
-    if (additionalClasses) {
+    if (existing && additionalClasses) {
         return `${additionalClasses} ${existing}`;
+    } else if (existing) {
+        return `${existing}`;
     } else {
-        return existing;
+        return `${additionalClasses}`;
     }
 }

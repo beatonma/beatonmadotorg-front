@@ -22,18 +22,27 @@ main {
     }
 }
 
+@function contentWidth($width) {
+    @return calc($width + $content-margins-horizontal-total);
+}
+
 #theme_icon {
     @extend %hover;
     @include layout.size(2rem);
 }
 
 %main-header-row {
+    padding: $content-margin-vertical $content-margin-horizontal;
     color: var(--text-primary);
     fill: var(--text-primary);
 
     > a,
     a:visited {
         color: var(--text-primary);
+    }
+
+    @include theme.display-width("small") {
+        padding: $content-margin-vertical 0;
     }
 }
 
@@ -95,7 +104,8 @@ footer {
 }
 
 ::selection {
-    background: var(--selected);
+    color: var(--primary-900);
+    background-color: var(--primary-100);
 }
 
 ::-webkit-scrollbar {

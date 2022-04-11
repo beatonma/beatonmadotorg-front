@@ -24,8 +24,9 @@
         .media {
             @extend %shape-medium;
             background-color: var(--hover);
-            width: 100%;
-            height: 200px;
+            width: auto;
+            max-width: 400px;
+            aspect-ratio: 1;
             object-fit: cover;
         }
     }

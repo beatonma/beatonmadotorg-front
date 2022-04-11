@@ -24,3 +24,12 @@
         border-bottom-right-radius: $bottom;
     }
 }
+
+%outlined {
+    border: 2px solid var(--primary-100);
+}
+
+.outlined {
+    @extend %shape-medium;
+    @extend %outlined;
+}
