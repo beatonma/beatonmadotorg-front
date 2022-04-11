@@ -1,0 +1,33 @@
+<div id="theme_preview_components">
+  <div>
+  @@include("v2/includes/tooltip.include.html", {
+    item: '<div title="Tooltip">Tooltip</div>',
+    popup: "Tooltip popup"
+  })
+  </div>
+
+  <div class="row">
+    <div class="card card-content" style="background-color: var(--primary-100); color: var(--on-primary-100);">primary-100</div>
+    <div class="card card-content" style="background-color: var(--primary-400); color: var(--on-primary-400);">primary-400</div>
+    <div class="card card-content" style="background-color: var(--primary-900); color: var(--on-primary-900);">primary-900</div>
+
+    <div class="card card-content" style="background-color: var(--accent-100); color: var(--on-accent-100);">accent-100</div>
+    <div class="card card-content" style="background-color: var(--accent-400); color: var(--on-accent-400);">accent-400</div>
+    <div class="card card-content" style="background-color: var(--accent-900); color: var(--on-accent-900);">accent-900</div>
+  </div>
+
+  <div class="outlined card-content">
+    Look here's some <code>code</code>
+
+
+    <pre>
+  &nbsp;&nbsp;&nbsp;&nbsp;class DevThemePreview(LoggedView):
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;def get(self, request):
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return render(
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request,
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"v2/pages/debug/theme-preview.html",
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+    </pre>
+  </div>
+
+</div>
