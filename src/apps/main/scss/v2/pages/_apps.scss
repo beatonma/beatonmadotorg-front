@@ -1,0 +1,7 @@
+@use "../layout";
+@use "../theme";
+
+.app-filters {
+    @include layout.row($gap: 1rem);
+    @extend %padding-large-bottom;
+}

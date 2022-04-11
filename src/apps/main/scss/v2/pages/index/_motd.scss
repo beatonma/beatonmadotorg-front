@@ -1,0 +1,16 @@
+@use "v2/components/card";
+@use "v2/theme";
+
+#motd {
+    @extend %outlined;
+    @extend %shape-medium;
+
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 1rem;
+
+    .motd-content {
+        @extend %card-content;
+        @extend %readable-text;
+    }
+}

@@ -1,0 +1,13 @@
+{% extends 'v2/pages/base/scaffold.html' %}
+
+{% block title %}beatonma.org: Apps{% endblock %}
+
+{% block content %}
+  <h2>Apps</h2>
+  <div class="app-filters">
+    {% for app_type in filters %}
+      <a href="{% url 'apps-by-type' app_type=app_type %}">{{ app_type }}</a>
+    {% endfor %}
+  </div>
+  {% include 'v2/components/feed/feed.html' %}
+{% endblock %}
