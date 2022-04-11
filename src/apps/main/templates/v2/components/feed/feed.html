@@ -2,10 +2,7 @@
 <section id="feed">
   <div class="feed h-feed">
 
-    {% if is_first_page %}
-      <div id="github_recent" class="feed-item-large"></div>
-      <div id="notes" class="feed-item-large"></div>
-    {% endif %}
+    {% block first_feed_items %}{% endblock %}
 
     {% for item in feed %}
       {% with cls=item|get_class %}

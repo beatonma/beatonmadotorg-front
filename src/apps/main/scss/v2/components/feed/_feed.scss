@@ -2,57 +2,23 @@
 @use "../../theme";
 @use "../scaffold";
 @use "../image";
-// @use "./feed-item";
+@use "../list";
+@use "../card";
 
-$list-item-max-width: 645px;
-$list-gap: 20px;
-
-$list-single-column-width: 1000px;
-$list-two-column-width: calc(($list-item-max-width * 2) + $list-gap);
-$list-three-column-width: calc(($list-item-max-width * 3) + ($list-gap * 2));
-
+$feed-item-preferred-width: 645px;
 $feed-card-height: 9rem;
+$feed-gap: 1rem;
+$feed-single-column-width: 1000px;
+$feed-scrollable-span: 3;
 
-%feed-item {
-    width: 100%;
-    overflow: hidden;
-}
-
-%feed-item-list-container {
-    /** Used for Github and Notes content.
-     * At time of writinng there are only two of these containers.
-     * Other feed items may split across up to 3 columns.
-     */
-}
-
-.feed {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: $list-gap;
-    justify-content: flex-start;
-    margin: auto;
-    max-width: $list-single-column-width;
-    margin-bottom: $list-gap;
-}
-
-@include theme.display-min-width(
-    calc($list-two-column-width + scaffold.$content-margins-horizontal-total)
-) {
-    .feed {
-        max-width: $list-two-column-width;
-    }
-
-    %feed-item {
-        max-width: $list-item-max-width;
-    }
-}
-
-@include theme.display-min-width(
-    calc($list-three-column-width + scaffold.$content-margins-horizontal-total)
-) {
-    .feed {
-        max-width: $list-three-column-width;
+@function widthOfFeedColumns($n-columns) {
+    @if $n-columns == 1 {
+        @return $feed-single-column-width;
+    } @else {
+        @return calc(
+            ($feed-item-preferred-width * $n-columns) +
+                ($feed-gap * ($n-columns - 1))
+        );
     }
 }
 
@@ -60,19 +26,49 @@ $feed-card-height: 9rem;
  * Calculate the height of $n-rows rows of %feed-item-card.
  */
 @function heightOfFeedRows($n-rows) {
-    $result: calc(($feed-card-height * $n-rows) + ($list-gap * ($n-rows - 1)));
-    @debug "#{$n-rows} -> #{$result}";
-    @return calc(($feed-card-height * $n-rows) + ($list-gap * ($n-rows - 1)));
+    @return calc(($feed-card-height * $n-rows) + ($feed-gap * ($n-rows - 1)));
 }
 
+$feed-two-column-width: widthOfFeedColumns(2);
+$feed-three-column-width: widthOfFeedColumns(3);
+
 $feed-card-height: 9rem;
+
+.feed {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax($feed-item-preferred-width, 0.5fr)
+    );
+    grid-gap: $feed-gap;
+    grid-auto-flow: row dense;
+    justify-content: center;
+
+    @include theme.display-max-width(
+        scaffold.contentWidth($feed-item-preferred-width)
+    ) {
+        display: flex;
+        flex-direction: column;
+        row-gap: $feed-gap;
+    }
+}
+
+%feed-item {
+    width: 100%;
+    overflow: hidden;
+}
 
 .feed-item {
     @extend %feed-item;
 }
 
+.feed-item-scrollable {
+    @extend %feed-item;
+    max-height: heightOfFeedRows($feed-scrollable-span);
+    grid-row: auto / span $feed-scrollable-span;
+}
+
 .feed-item-card {
-    @extend %elevated;
     @extend %feed-item-card;
 
     background-color: var(--surface);
@@ -87,9 +83,9 @@ $feed-card-height: 9rem;
 
 %feed-item-card {
     @extend %feed-item;
-    @extend %shape-medium;
-    @extend %animate-all;
+    @extend %card;
 
+    @include theme.transition([ border-radius ]);
     @include layout.row($wrap: nowrap);
     @include layout.height($feed-card-height);
 
@@ -144,7 +140,7 @@ $feed-card-height: 9rem;
         }
     }
 
-    @include theme.display-width("small") {
+    @include theme.display-max-width(650px) {
         // Display as a card, image above text.
         flex-wrap: wrap;
         min-height: unset;
@@ -170,4 +166,22 @@ $feed-card-height: 9rem;
             height: auto;
         }
     }
+}
+
+%embedded-scrollable-list-container {
+    @extend %shape-small;
+    background: var(--surface);
+    border: 2px solid var(--primary-100);
+    height: heightOfFeedRows($feed-scrollable-span);
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+        @extend %padding-medium;
+    }
+}
+
+%embedded-scrollable-list {
+    @extend %list-vertical-scroll;
+    max-height: 100%;
 }
