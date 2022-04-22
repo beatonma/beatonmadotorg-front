@@ -1,7 +1,13 @@
-import { groupEvents } from "./github-events";
+import { filterEvents } from "./github-events";
 import { SampleEvents } from "./github-events.testdata";
 
-test("Groups events by private/public and by repository", () => {
-    const grouped = groupEvents(SampleEvents);
+test("Events are grouped by private/public and by repository.", () => {
+    const grouped = filterEvents(SampleEvents);
+
     expect(grouped.length).toBe(5);
+
+    const first = grouped[0];
+    expect(first.wikiEditEvents.length).toBe(2);
+    expect(first.wikiEditEvents[0].action).toBe("edited");
+    expect(first.wikiEditEvents[1].action).toBe("created");
 });

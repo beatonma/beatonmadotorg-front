@@ -4,7 +4,7 @@ import { classNames, LayoutProps } from "./props";
 
 interface DropdownProps extends LayoutProps {
     expandedDefault?: boolean;
-    title: string;
+    title: string | React.ReactNode;
 }
 export function Dropdown(props: DropdownProps) {
     const [expanded, setExpanded] = useState(props.expandedDefault || false);

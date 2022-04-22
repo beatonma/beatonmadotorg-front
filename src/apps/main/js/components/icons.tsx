@@ -5,8 +5,8 @@ export function MaterialIcon(props: LayoutProps) {
     const { className, children, ...rest } = props;
 
     return (
-        <div className={joinClassNames(className, "material-icons")} {...rest}>
+        <span className={joinClassNames(className, "material-icons")} {...rest}>
             {children}
-        </div>
+        </span>
     );
 }

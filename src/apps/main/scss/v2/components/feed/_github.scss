@@ -25,9 +25,13 @@
     }
 
     > .private {
+        @include layout.row($wrap: nowrap);
         @extend %text-small;
-        width: fit-content;
         color: var(--text-secondary);
+
+        .material-icons {
+            color: var(--text-tertiary);
+        }
     }
 
     span.github-event {
@@ -37,7 +41,6 @@
         @extend %text-small;
         color: var(--text-light);
         background-color: var(--accent-100);
-
     }
 
     code {
@@ -53,19 +56,27 @@
         margin-top: 2px;
         margin-left: 4px;
     }
+}
 
-    .material-icons {
-        @extend %icon-small;
-    }
+.github-event-badges {
+    display: flex;
+    flex-direction: row;
 }
 
 .github-commit {
-    @include layout.row($vertical: flex-start, $wrap: nowrap);
+    @include layout.row($wrap: nowrap);
     @extend %font-monospace;
+    @extend %text-small;
+}
 
-    .material-icons {
-        @extend %icon-small;
-        @extend %padding-small-right;
-        display: block;
-    }
+.badge {
+    @extend %text-small;
+    @extend %margin-small-right;
+    @extend %hover;
+
+    display: inline-block;
+    border: 1px solid var(--primary-100);
+    padding: 2px 8px;
+    color: var(--primary);
+    font-weight: 600;
 }

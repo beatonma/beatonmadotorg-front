@@ -5,23 +5,24 @@
     $animation-duration: 120ms;
     $max-width: 180px;
 
-    @extend %hover;
+    //@extend %hover;
     cursor: default;
     position: relative;
     display: inline-block;
 
     &:hover {
-        > .tooltip-popup {
+        .tooltip-popup {
             animation-name: tooltip;
         }
     }
 
-    > .tooltip-popup {
+    .tooltip-popup {
         @extend %shape-small;
         @extend %elevated;
         @extend %local-theme-primary;
         @extend %text-one-line;
         @extend %padding-small;
+
         position: absolute;
         z-index: 1000;
         left: 50%;
@@ -40,6 +41,10 @@
             transform: scale(0) translateX(-50%);
             opacity: 0;
             left: 0;
+            color: var(--local-primary);
+        }
+        40% {
+            color: var(--local-primary);
         }
         100% {
             left: 50%;

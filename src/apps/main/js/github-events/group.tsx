@@ -1,39 +1,34 @@
 import React from "react";
 import { pluralize } from "../plurals";
-import { formatDate } from "../util";
-import { Commits } from "./events";
-import { CreateEvent } from "./events/create";
-import { IssueEvent } from "./events/issue";
-import { MergedPullRequest } from "./events/pull-request";
-import { WikiEvents } from "./events/wiki";
 import {
     Group,
     PrivateGroup,
     PublicGroup,
     isPublicGroup,
-    PublicEvent,
-    Events,
-    Commit,
-    SimpleEvent,
-    CreateEventPayload,
-    IssueEventPayload,
-    WikiEdit,
-    PullRequestPayload,
-    ReleasePayload,
+    isPrivateGroup,
 } from "./types";
-import { ReleaseEvent } from "./events/release";
+import {
+    Commits,
+    CreateEvents,
+    IssueEvents,
+    MergedPullRequests,
+} from "./events";
+import { WikiEvents } from "./events/wiki";
+import { formatDate } from "../util";
+import { TextWithIcon } from "../components/text-with-icon";
 
 export function EventGroup(group: Group) {
     if (isPublicGroup(group)) {
         return <PublicEventGroup {...group} />;
+    } else if (isPrivateGroup(group)) {
+        return <PrivateEventGroup {...group} />;
     } else {
-        return <PrivateEventGroup {...(group as PrivateGroup)} />;
+        throw `Unexpected group type: ${group}`;
     }
 }
 
 function PublicEventGroup(group: PublicGroup) {
-    const latestUpdate: string = ""; // getLatestUpdate(group);
-    const formattedDate = ""; //formatDate(latestUpdate);
+    const formattedDate = formatDate(group.timestamp);
     const repo = group.repository;
 
     return (
@@ -42,10 +37,19 @@ function PublicEventGroup(group: PublicGroup) {
                 <div className="github-repository-name">
                     <a href={repo.url}>{repo.name}</a>
                 </div>
-                <time dateTime={latestUpdate}>{formattedDate}</time>
+                <time dateTime={group.timestamp.toISOString()}>
+                    {formattedDate}
+                </time>
             </div>
-            <EventsList events={group.events} />
-            {/* <Commits commits={group.commits} /> */}
+
+            <div className="github-event-badges">
+                <IssueEvents events={group.issueEvents} />
+                <MergedPullRequests events={group.pullEvents} />
+            </div>
+
+            <CreateEvents events={group.createEvents} />
+            <WikiEvents edits={group.wikiEditEvents} />
+            <Commits commits={group.pushEvents} />
         </div>
     );
 }
@@ -55,77 +59,14 @@ function PrivateEventGroup(group: PrivateGroup) {
     return (
         <div className="github-group">
             <div className="private">
-                {count} {pluralize("event", count)} in private repositories.
+                <TextWithIcon
+                    icon="lock"
+                    text={`${count} ${pluralize(
+                        "event",
+                        count
+                    )} in private repositories.`}
+                />
             </div>
         </div>
-    );
-}
-
-// function getLatestUpdate(group: PrivateGroup | PublicGroup): string {
-//     const dates = group.events.map(event => event.created_at);
-//     dates.sort((a: any, b: any) => a - b);
-
-//     return dates[0];
-// }
-
-interface EventsListProps {
-    events: SimpleEvent[];
-}
-function EventsList(props: EventsListProps) {
-    const events = props.events;
-
-    return (
-        <>
-            {events.map((event, index) => {
-                switch (event.type) {
-                    case Events.Push:
-                        return (
-                            <Commits
-                                key={index}
-                                commits={event.payload as Commit[]}
-                            />
-                        );
-                    case Events.Create:
-                        return (
-                            <CreateEvent
-                                key={index}
-                                event={event.payload as CreateEventPayload}
-                            />
-                        );
-                    case Events.Issue:
-                        return (
-                            <IssueEvent
-                                key={index}
-                                event={event.payload as IssueEventPayload}
-                            />
-                        );
-                    case Events.PullRequest:
-                        return (
-                            <MergedPullRequest
-                                key={index}
-                                request={event.payload as PullRequestPayload}
-                            />
-                        );
-
-                    case Events.Release:
-                        return (
-                            <ReleaseEvent
-                                key={index}
-                                release={event.payload as ReleasePayload}
-                            />
-                        );
-
-                    case Events.Wiki:
-                        return (
-                            <WikiEvents
-                                key={index}
-                                edits={event.payload as WikiEdit[]}
-                            />
-                        );
-                    default:
-                        throw `Unexpected event.type: ${event.type}`;
-                }
-            })}
-        </>
     );
 }

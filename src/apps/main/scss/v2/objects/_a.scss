@@ -2,6 +2,7 @@ a {
     text-decoration: none;
     color: var(--local-accent);
     transition: color 220ms;
+    width: fit-content;
 
     > * {
         color: var(--text-primary);

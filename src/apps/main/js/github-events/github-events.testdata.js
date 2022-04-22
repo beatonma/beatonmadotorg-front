@@ -1,15 +1,24 @@
+const DjangoWM = {
+    id: 179150364,
+    name: "beatonma/django-wm",
+    url: "https://github.com/beatonma/django-wm",
+    description: "Automatic Webmention functionality for Django models",
+    license: "gpl-3.0",
+};
+
+const Snommoc = {
+    id: 188595195,
+    name: "beatonma/snommoc",
+    url: "https://github.com/beatonma/snommoc",
+    description: "Data server for Commons app",
+    license: null,
+};
+
 export const SampleEvents = [
     {
         id: "21143687162",
         type: "GollumEvent",
-        repository: {
-            id: 188595195,
-            name: "beatonma/snommoc",
-            url: "https://github.com/beatonma/snommoc",
-            description: "Data server for Commons app",
-            license: null,
-            languages: [],
-        },
+        repository: Snommoc,
         payload: [
             {
                 name: "Home",
@@ -21,19 +30,12 @@ export const SampleEvents = [
     {
         id: "21143616015",
         type: "GollumEvent",
-        repository: {
-            id: 188595195,
-            name: "beatonma/snommoc",
-            url: "https://github.com/beatonma/snommoc",
-            description: "Data server for Commons app",
-            license: null,
-            languages: [],
-        },
+        repository: Snommoc,
         payload: [
             {
                 name: "Home",
                 url: "https://github.com/beatonma/snommoc/wiki/Home",
-                action: "edited",
+                action: "created",
             },
         ],
     },
@@ -58,14 +60,7 @@ export const SampleEvents = [
     {
         id: "20979984751",
         type: "CreateEvent",
-        repository: {
-            id: 179150364,
-            name: "beatonma/django-wm",
-            url: "https://github.com/beatonma/django-wm",
-            description: "Automatic Webmention functionality for Django models",
-            license: "gpl-3.0",
-            languages: [],
-        },
+        repository: DjangoWM,
         payload: {
             type: "tag",
             ref: "2.3.0",
@@ -74,14 +69,7 @@ export const SampleEvents = [
     {
         id: "20975676236",
         type: "PushEvent",
-        repository: {
-            id: 179150364,
-            name: "beatonma/django-wm",
-            url: "https://github.com/beatonma/django-wm",
-            description: "Automatic Webmention functionality for Django models",
-            license: "gpl-3.0",
-            languages: [],
-        },
+        repository: DjangoWM,
         payload: [
             {
                 sha: "56a069f54d5ce31852d17e9b060ff5217d91009d",
@@ -94,14 +82,7 @@ export const SampleEvents = [
     {
         id: "20975675821",
         type: "PullRequestEvent",
-        repository: {
-            id: 179150364,
-            name: "beatonma/django-wm",
-            url: "https://github.com/beatonma/django-wm",
-            description: "Automatic Webmention functionality for Django models",
-            license: "gpl-3.0",
-            languages: [],
-        },
+        repository: DjangoWM,
         payload: {
             number: 29,
             url: "https://github.com/beatonma/django-wm/pull/29",
@@ -114,14 +95,7 @@ export const SampleEvents = [
     {
         id: "20975675709",
         type: "IssuesEvent",
-        repository: {
-            id: 179150364,
-            name: "beatonma/django-wm",
-            url: "https://github.com/beatonma/django-wm",
-            description: "Automatic Webmention functionality for Django models",
-            license: "gpl-3.0",
-            languages: [],
-        },
+        repository: DjangoWM,
         payload: {
             number: 28,
             url: "https://github.com/beatonma/django-wm/issues/28",
@@ -131,14 +105,7 @@ export const SampleEvents = [
     {
         id: "20975491109",
         type: "CreateEvent",
-        repository: {
-            id: 179150364,
-            name: "beatonma/django-wm",
-            url: "https://github.com/beatonma/django-wm",
-            description: "Automatic Webmention functionality for Django models",
-            license: "gpl-3.0",
-            languages: [],
-        },
+        repository: DjangoWM,
         payload: {
             type: "branch",
             ref: "2.3.0",
@@ -154,7 +121,6 @@ export const SampleEvents = [
             description:
                 "Rewrite of Commons for Android. Still in the early stages but under active development!",
             license: null,
-            languages: [],
         },
         payload: [
             {
@@ -168,14 +134,7 @@ export const SampleEvents = [
     {
         id: "20950717828",
         type: "CreateEvent",
-        repository: {
-            id: 179150364,
-            name: "beatonma/django-wm",
-            url: "https://github.com/beatonma/django-wm",
-            description: "Automatic Webmention functionality for Django models",
-            license: "gpl-3.0",
-            languages: [],
-        },
+        repository: DjangoWM,
         payload: {
             type: "tag",
             ref: "2.2.0",
@@ -184,14 +143,7 @@ export const SampleEvents = [
     {
         id: "20950698922",
         type: "PullRequestEvent",
-        repository: {
-            id: 179150364,
-            name: "beatonma/django-wm",
-            url: "https://github.com/beatonma/django-wm",
-            description: "Automatic Webmention functionality for Django models",
-            license: "gpl-3.0",
-            languages: [],
-        },
+        repository: DjangoWM,
         payload: {
             number: 24,
             url: "https://github.com/beatonma/django-wm/pull/24",
@@ -204,14 +156,7 @@ export const SampleEvents = [
     {
         id: "20950698893",
         type: "PushEvent",
-        repository: {
-            id: 179150364,
-            name: "beatonma/django-wm",
-            url: "https://github.com/beatonma/django-wm",
-            description: "Automatic Webmention functionality for Django models",
-            license: "gpl-3.0",
-            languages: [],
-        },
+        repository: DjangoWM,
         payload: [
             {
                 sha: "ecc4030adff0646a6d8a969a49cfb925989dcf0d",

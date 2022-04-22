@@ -1,7 +1,7 @@
 @use "../theme";
 
 %card {
-    @extend %shape-medium;
+    @extend %shape-small;
     @extend %elevated;
 
     background-color: var(--surface);

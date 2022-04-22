@@ -2,6 +2,7 @@ import React from "react";
 import { pluralize } from "../../plurals";
 import { Commit } from "../types";
 import { Dropdown } from "../../components";
+import { TextWithIcon } from "../../components/text-with-icon";
 
 interface CommitProps {
     commits: Commit[];
@@ -32,18 +33,29 @@ export function Commits(props: CommitProps) {
 
 function CommitEvent(commit: Commit) {
     return (
-        <div className="github-commit">
-            <a
-                key={commit.sha}
-                href={commit.url}
-                title={commit.url}
-                className="material-icons"
-            >
-                link
-            </a>
-            <span>{getCommitMessage(commit)}</span>
-        </div>
+        <TextWithIcon
+            icon={
+                <a href={commit.url} title={commit.url}>
+                    link
+                </a>
+            }
+            text={getCommitMessage(commit)}
+        />
     );
+    // return (
+    //     <div className="github-commit">
+    //         <a
+    //             key={commit.sha}
+    //             href={commit.url}
+    //             title={commit.url}
+    //             className="material-icons"
+    //         >
+    //             link
+    //         </a>
+    //         <span>&nbsp;</span>
+    //         <div>{getCommitMessage(commit)}</div>
+    //     </div>
+    // );
 }
 
 function getCommitMessage(commit: Commit): string {

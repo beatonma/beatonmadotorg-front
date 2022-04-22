@@ -15,9 +15,9 @@
         </div>
     {% else %}
         <div class="image" style="{% include './_themeable-style.html' %}">
-            <div class="text-as-image">
-                {% for n in 10|range %}
-                <span>{{ title }}</span>
+            <div class="image-text">
+                {% for n in 20|range %}
+                {{ title }}{{" "}}
                 {% endfor %}
             </div>
         </div>
@@ -25,7 +25,7 @@
 
     <div class="text">
         <div class="row">
-            <h3 class="title p-name">{{ title }}</h3>
+            <h5 class="title p-name">{{ title }}</h5>
             <div class="date" datetime="{{ date }}">{{ date|minimaldate }}</div>
         </div>
         <div class="description p-summary">{{ description|default:"" }}</div>

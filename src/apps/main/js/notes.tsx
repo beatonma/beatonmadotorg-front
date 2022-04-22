@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { microformats } from "./microformats";
 import { LoadingSpinner } from "./components/loading";
 import { formatDate, loadJson } from "./util";
+import { LargeFeedItem } from "./components/feed-item";
 
 const URL = "/api/notes/";
 const CONTAINER = "#notes";
@@ -44,21 +45,11 @@ function Notes() {
     }, []);
 
     return (
-        <NotesLayout>
-            <NotesContent items={items} />
-        </NotesLayout>
-    );
-}
-
-type NotesLayoutProps = {
-    children?: React.ReactNode;
-};
-function NotesLayout(props: NotesLayoutProps) {
-    return (
-        <>
-            <h3>Notes</h3>
-            <div className="notes">{props.children}</div>
-        </>
+        <LargeFeedItem title="Notes" parentID={CONTAINER}>
+            <div className="notes">
+                <NotesContent items={items} />
+            </div>
+        </LargeFeedItem>
     );
 }
 

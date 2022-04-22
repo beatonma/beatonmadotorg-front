@@ -3,7 +3,7 @@
 }
 
 %shape-small {
-    border-radius: 8px;
+    border-radius: 6px;
 }
 
 %shape-medium {
@@ -11,7 +11,7 @@
 }
 
 %shape-large {
-    border-radius: 12px;
+    border-radius: 16px;
 }
 
 @mixin shape($top, $bottom) {

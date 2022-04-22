@@ -5,22 +5,10 @@
 @use "../list";
 @use "../card";
 
-$feed-item-preferred-width: 645px;
+$feed-item-preferred-width: 550px;
 $feed-card-height: 9rem;
 $feed-gap: 1rem;
-$feed-single-column-width: 1000px;
 $feed-scrollable-span: 3;
-
-@function widthOfFeedColumns($n-columns) {
-    @if $n-columns == 1 {
-        @return $feed-single-column-width;
-    } @else {
-        @return calc(
-            ($feed-item-preferred-width * $n-columns) +
-                ($feed-gap * ($n-columns - 1))
-        );
-    }
-}
 
 /**
  * Calculate the height of $n-rows rows of %feed-item-card.
@@ -28,10 +16,7 @@ $feed-scrollable-span: 3;
 @function heightOfFeedRows($n-rows) {
     @return calc(($feed-card-height * $n-rows) + ($feed-gap * ($n-rows - 1)));
 }
-
-$feed-two-column-width: widthOfFeedColumns(2);
-$feed-three-column-width: widthOfFeedColumns(3);
-
+$feed-scrollable-height: heightOfFeedRows($feed-scrollable-span);
 $feed-card-height: 9rem;
 
 .feed {
@@ -64,8 +49,14 @@ $feed-card-height: 9rem;
 
 .feed-item-scrollable {
     @extend %feed-item;
-    max-height: heightOfFeedRows($feed-scrollable-span);
-    grid-row: auto / span $feed-scrollable-span;
+
+    &[data-expanded="true"] {
+        grid-row: auto / span $feed-scrollable-span;
+    }
+
+    &[data-expanded="false"] {
+        grid-row: auto / span 1;
+    }
 }
 
 .feed-item-card {
@@ -94,22 +85,21 @@ $feed-card-height: 9rem;
         @include image.background(cover);
         overflow: hidden;
 
-        > .text-as-image {
+        > .image-text {
             // No actual image available, use some artsy text.
             @include layout.size($feed-card-height * 2);
             position: relative;
             top: -50%;
             left: -50%;
-            letter-spacing: 1.2px;
             font-family: monospace;
             letter-spacing: 2px;
-            font-size: xx-large;
             font-size: calc($feed-card-height / 5);
             font-weight: bold;
             text-align: center;
             text-transform: uppercase;
             transform: rotate(45deg);
             transform-origin: center;
+            line-height: 1.3;
         }
 
         > svg {
@@ -123,6 +113,8 @@ $feed-card-height: 9rem;
         @extend %margin-medium;
         height: -webkit-fill-available;
         width: -webkit-fill-available;
+
+        line-height: 1.4;
 
         > .row {
             justify-content: space-between;
@@ -155,7 +147,7 @@ $feed-card-height: 9rem;
             height: auto;
             aspect-ratio: 4/3;
 
-            > .text-as-image {
+            > .image-text {
                 // No actual image available, use some artsy text.
                 @include layout.size(200%);
                 font-size: 10vw;
@@ -172,16 +164,64 @@ $feed-card-height: 9rem;
     @extend %shape-small;
     background: var(--surface);
     border: 2px solid var(--primary-100);
-    height: heightOfFeedRows($feed-scrollable-span);
+    max-height: heightOfFeedRows($feed-scrollable-span);
     display: flex;
     flex-direction: column;
-
-    h3 {
-        @extend %padding-medium;
-    }
 }
 
 %embedded-scrollable-list {
     @extend %list-vertical-scroll;
     max-height: 100%;
+}
+
+.feed-item-dropdown {
+    display: flex;
+    flex-direction: column;
+    max-height: $feed-scrollable-height;
+
+    > .feed-item-dropdown-header {
+        @include layout.row($horizontal: space-between, $wrap: nowrap);
+        @extend %padding-medium;
+
+        > .feed-item-dropdown-icon {
+            @extend %margin-small-horizontal;
+            @extend %hover;
+            transition: transform 220ms;
+
+            &[data-expanded="true"] {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    > .feed-item-dropdown-content {
+        animation-name: dropdown;
+        animation-duration: 300ms;
+        animation-fill-mode: forwards;
+
+        @extend %list-vertical-scroll;
+        max-height: 100%;
+
+        &[data-expanded="false"] {
+            display: none;
+            height: 0;
+        }
+
+        @keyframes dropdown {
+            0% {
+                display: none;
+                opacity: 0;
+                height: 0;
+            }
+            1% {
+                display: block;
+                opacity: 0;
+                height: 0;
+            }
+            100% {
+                opacity: 1;
+                height: auto;
+            }
+        }
+    }
 }

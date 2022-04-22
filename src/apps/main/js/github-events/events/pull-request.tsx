@@ -1,22 +1,33 @@
 import React from "react";
 import { PullRequestPayload } from "../types";
+import { Badge } from "./badge";
 
-interface PullRequestProps {
-    request: PullRequestPayload;
+interface PullRequestsProps {
+    events: PullRequestPayload[];
+}
+export function MergedPullRequests(props: PullRequestsProps) {
+    return (
+        <>
+            {props.events.map((event, index) => (
+                <MergedPullRequest key={index} request={event} />
+            ))}
+        </>
+    );
 }
 
-export function MergedPullRequest(props: PullRequestProps) {
+interface PullProps {
+    request: PullRequestPayload;
+}
+function MergedPullRequest(props: PullProps) {
     const request = props.request;
 
     return (
-        <a href={request.url}>
-            <span
-                className="github-event"
-                data-type="pullrequest"
-                title={`${request.changed_files_count} files changed`}
-            >
-                Merged #{request.number}
-            </span>
-        </a>
+        <Badge
+            className="merge"
+            url={request.url}
+            icon="merge"
+            issue={request.number}
+            title={`Merged #${request.number}`}
+        />
     );
 }

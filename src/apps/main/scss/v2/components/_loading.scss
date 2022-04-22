@@ -28,7 +28,7 @@
 }
 
 .loading-spinner {
-    @extend %icon-medium;
+    @extend %icon-large;
     @extend %padding-medium;
     @include image.background(contain);
     @include theme.margin("large", "auto");

@@ -1,1 +1,1 @@
-export * from "./github-events";
+export { GithubEventsApp } from "./github-events";

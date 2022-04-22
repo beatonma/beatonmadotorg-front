@@ -3,6 +3,7 @@
 
 .pagination {
     @include layout.row(space-between);
+
     margin: 16px 0;
 
     > .pagination-group {
@@ -14,8 +15,9 @@
     }
 
     a {
-        display: inline-block;
+        @extend %hover;
         @include layout.size(2rem);
+        display: inline-block;
         line-height: 2rem;
         text-align: center;
         font-weight: bold;

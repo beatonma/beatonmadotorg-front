@@ -1,16 +1,34 @@
 import React from "react";
 import { IssueEventPayload } from "../types";
+import { Badge } from "./badge";
 
-interface IssueEventProps {
-    event: IssueEventPayload;
+interface IssueEventsProps {
+    events: IssueEventPayload[];
+}
+export function IssueEvents(props: IssueEventsProps) {
+    return (
+        <>
+            {props.events.map((event, index) => (
+                <IssueEvent key={index} event={event} />
+            ))}
+        </>
+    );
 }
 
-export function IssueEvent(props: IssueEventProps) {
-    const event = props.event;
+interface IssueProps {
+    event: IssueEventPayload;
+}
+function IssueEvent(props: IssueProps) {
+    const { url, number, ...rest } = props.event;
 
     return (
-        <span className="github-event" data-type="issues">
-            Closed <a href={event.url}>#{event.number}</a>
-        </span>
+        <Badge
+            className="issue"
+            url={url}
+            icon="done"
+            issue={number}
+            title={`Closed #${number}`}
+            {...rest}
+        />
     );
 }

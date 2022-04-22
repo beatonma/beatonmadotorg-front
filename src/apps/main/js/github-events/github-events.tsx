@@ -8,16 +8,17 @@ import {
     PublicEvent,
     Group,
     isPrivateEvent,
-    PublicGroup,
-    Commit,
     Events,
     IssueEventPayload,
     PullRequestPayload,
     ReleasePayload,
-    SimpleEvent,
     CreateEventPayload,
-    WikiEdit,
+    PrivateEvent,
+    isPublicEvent,
 } from "./types";
+import { Repository } from "./types/common";
+import { PushPayload, WikiPayload } from "./types/payload";
+import { LargeFeedItem } from "../components/feed-item";
 
 const URL = "/api/github-events/";
 const CONTAINER = "#github_recent";
@@ -36,7 +37,7 @@ function GithubEvents() {
     useEffect(() => {
         loadJson(URL)
             .then(data => data.events)
-            .then(groupEvents)
+            .then(filterEvents)
             .then(setGroups);
     }, []);
 
@@ -44,129 +45,139 @@ function GithubEvents() {
         return <LoadingSpinner />;
     } else {
         return (
-            <>
-                <a href="https://github.com/beatonma">
-                    <h3>github/beatonma</h3>
-                </a>
+            <LargeFeedItem
+                title={
+                    <a href="https://github.com/beatonma">github/beatonma</a>
+                }
+                parentID={CONTAINER}
+            >
                 <div className="github-events">
                     {groups.map((group: Group, index: number) => (
                         <EventGroup key={index} {...group} />
                     ))}
                 </div>
-            </>
+            </LargeFeedItem>
         );
     }
 }
 
-export function groupEvents(events: Event[]): Group[] {
+export function filterEvents(events: Event[]): Group[] {
     const groups: Group[] = [];
-    let currentGroup: Event[] = [];
-    let isPrivate: boolean = null;
-    let previousRepoName: string = null;
 
-    function saveGroup() {
-        if (currentGroup.length > 0) {
-            if (isPrivate) {
-                groups.push({ events: currentGroup });
-            } else {
-                const compressed = createPublicGroup(
-                    currentGroup as PublicEvent[]
-                );
-                if (compressed) {
-                    groups.push(compressed);
-                }
-            }
-        }
-        currentGroup = [];
-        previousRepoName = null;
+    let previousEvent: Event = null;
+    let previousTimestamp: Date = null;
+
+    // Private events only
+    let privateEvents: PrivateEvent[] = [];
+
+    // Public events only
+    let previousRepo: Repository = null;
+    let createEvents: CreateEventPayload[] = [];
+    let issueEvents: IssueEventPayload[] = [];
+    let releaseEvents: ReleasePayload[] = [];
+    let pullEvents: PullRequestPayload[] = [];
+    let pushEvents: PushPayload = [];
+    let wikiEditEvents: WikiPayload = [];
+
+    function savePublicGroup() {
+        groups.push({
+            repository: previousRepo,
+            timestamp: previousTimestamp,
+            createEvents: createEvents,
+            issueEvents: issueEvents,
+            releaseEvents: releaseEvents,
+            pullEvents: pullEvents,
+            pushEvents: pushEvents,
+            wikiEditEvents: wikiEditEvents,
+        });
+
+        createEvents = [];
+        issueEvents = [];
+        releaseEvents = [];
+        pullEvents = [];
+        pushEvents = [];
+        wikiEditEvents = [];
+        previousTimestamp = null;
     }
 
-    events.forEach((event: Event) => {
-        if (isPrivateEvent(event)) {
-            if (isPrivate === false) {
-                // Previous event was public, this one is private.
-                saveGroup();
-            }
-            isPrivate = true;
-            currentGroup.push(event);
-        } else {
-            const repoName = (event as PublicEvent).repository.name;
-            if (isPrivate === true) {
-                // Previous event was private, this one is public.
-                saveGroup();
-            }
-            if (previousRepoName != null && previousRepoName != repoName) {
-                // This event belongs to a different repository from the previous one.
-                saveGroup();
-            }
-            previousRepoName = repoName;
-            isPrivate = false;
-            currentGroup.push(event);
+    function savePrivateGroup() {
+        groups.push({
+            timestamp: previousTimestamp,
+            events: privateEvents,
+        });
+        privateEvents = [];
+        previousTimestamp = null;
+    }
+
+    function handlePublicEvent(event: PublicEvent) {
+        if (isPrivateEvent(previousEvent)) {
+            // Save previous, start new group.
+            savePrivateGroup();
+        } else if (
+            isPublicEvent(previousEvent) &&
+            previousRepo?.id != event.repository?.id
+        ) {
+            savePublicGroup();
         }
-    });
-    saveGroup();
 
-    return groups;
-}
+        switch (event.type) {
+            case Events.Create:
+                createEvents.push(event.payload as CreateEventPayload);
+                break;
+            case Events.Issue:
+                issueEvents.push(event.payload as IssueEventPayload);
+                break;
+            case Events.PullRequest:
+                pullEvents.push(event.payload as PullRequestPayload);
+                break;
+            case Events.Release:
+                releaseEvents.push(event.payload as ReleasePayload);
+                break;
 
-function createPublicGroup(events: PublicEvent[]): PublicGroup {
-    const repo = events[0].repository;
-    let compressedEvents: SimpleEvent[] = [];
+            case Events.Push:
+                pushEvents = pushEvents.concat(event.payload as PushPayload);
+                break;
+            case Events.Wiki:
+                wikiEditEvents = wikiEditEvents.concat(
+                    event.payload as WikiPayload
+                );
+                break;
+        }
+
+        previousRepo = event.repository;
+    }
+
+    function handlePrivateEvent(event: PrivateEvent) {
+        if (isPublicEvent(previousEvent)) {
+            savePublicGroup();
+        }
+
+        privateEvents.push(event);
+        previousRepo = null;
+    }
 
     events.forEach(event => {
-        switch (event.type) {
-            case Events.Push:
-                compressedEvents.push({
-                    type: event.type,
-                    payload: event.payload as Commit[],
-                });
-                break;
-
-            case Events.Create:
-                compressedEvents.push({
-                    type: event.type,
-                    payload: event.payload as CreateEventPayload,
-                });
-                break;
-
-            case Events.Issue:
-                compressedEvents.push({
-                    type: event.type,
-                    payload: event.payload as IssueEventPayload,
-                });
-                break;
-
-            case Events.PullRequest:
-                compressedEvents.push({
-                    type: event.type,
-                    payload: event.payload as PullRequestPayload,
-                });
-                break;
-
-            case Events.Release:
-                compressedEvents.push({
-                    type: event.type,
-                    payload: event.payload as ReleasePayload,
-                });
-                break;
-
-            case Events.Wiki:
-                compressedEvents.push({
-                    type: event.type,
-                    payload: event.payload as WikiEdit[],
-                });
-                break;
-
-            default:
-                throw `Unexpected event.type: ${event.type}`;
+        if (isPublicEvent(event)) {
+            handlePublicEvent(event);
+        } else if (isPrivateEvent(event)) {
+            handlePrivateEvent(event);
+        } else {
+            throw "Unexpected event appears to be neither PublicEvent nor PrivateEvent";
         }
+
+        const timestamp = new Date(event.created_at);
+        if (previousTimestamp == null || timestamp > previousTimestamp) {
+            previousTimestamp = timestamp;
+        }
+
+        previousEvent = event;
     });
 
-    if (compressedEvents.length == 0) return null;
-    else {
-        return {
-            repository: repo,
-            events: compressedEvents,
-        };
+    if (isPublicEvent(previousEvent)) {
+        savePublicGroup();
+    } else {
+        savePrivateGroup();
     }
+
+    return groups;
 }
