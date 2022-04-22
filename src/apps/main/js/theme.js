@@ -34,22 +34,22 @@ export function setDayNightAutoTheme(forceAuto) {
 
 function setTheme(newtheme, args) {
     const stylesheet = document.getElementById(ID_STYLESHEET);
-    console.log(`Theme: ${newtheme}; Stylesheet: ${stylesheet}`);
+    console.log(`Theme: ${newtheme}`);
 
-    if (newtheme == DAY) {
+    if (newtheme === DAY) {
         stylesheet.setAttribute("href", DAY_HREF);
         themeName = newtheme;
-    } else if (newtheme == NIGHT) {
+    } else if (newtheme === NIGHT) {
         stylesheet.setAttribute("href", NIGHT_HREF);
         themeName = newtheme;
-    } else if (newtheme == "") {
-        if (themeName == "") {
+    } else if (newtheme === "") {
+        if (themeName === "") {
             // This should never happen, but better include it just in case to avoid apocalypse
             themeName = DAY;
         }
         setTheme(themeName);
     } else {
-        if (themeName == DAY && newtheme != "") {
+        if (themeName === DAY && newtheme !== "") {
             document
                 .querySelector("meta[name=theme-color]")
                 .setAttribute("content", newtheme);
@@ -58,7 +58,7 @@ function setTheme(newtheme, args) {
 }
 
 export function toggleTheme() {
-    if (themeName == DAY) {
+    if (themeName === DAY) {
         themeName = NIGHT;
     } else {
         themeName = DAY;

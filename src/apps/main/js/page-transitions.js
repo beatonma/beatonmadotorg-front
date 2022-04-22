@@ -93,16 +93,15 @@ function init() {
             }
 
             if (
-                el.pathname == window.location.pathname &&
-                el.search == window.location.search &&
-                el.hash != window.location.hash
+                el.pathname === window.location.pathname &&
+                el.search === window.location.search &&
+                el.hash !== window.location.hash
             ) {
                 // Handle links to element #id
                 console.log(`navigate to ${el.hash}`);
                 e.preventDefault();
                 history.pushState(null, null, url);
                 scrollToId(el.hash);
-                return;
             } else {
                 // Otherwise fetch content from the target and insert it
                 // into the current page

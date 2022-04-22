@@ -21,7 +21,6 @@ function initSearch() {
         const search = document.getElementById(searchInputID);
         search.value = "";
         search.focus();
-        console.log("Search.focus()");
     });
 }
 

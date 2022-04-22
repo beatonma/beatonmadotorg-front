@@ -12,7 +12,7 @@ export const loadJson = (url: string) =>
 export function setCookie(cname: string, cvalue: string, expiry: number) {
     const d = new Date();
     d.setTime(d.getTime() + expiry);
-    document.cookie = `${cname}=${cvalue};expires=${d.toUTCString()};path=/`;
+    document.cookie = `${cname}=${cvalue};expires=${d.toUTCString()};path=/;samesite=strict;`;
 }
 
 export function clearCookie(cname: string) {
@@ -62,7 +62,7 @@ const isSameYear = (first: Date, second: Date): boolean =>
     first.getFullYear() == second.getFullYear();
 
 export function formatDate(
-    date: string,
+    date: string | Date,
     options: Intl.DateTimeFormatOptions = {
         day: "2-digit",
         month: "long",
