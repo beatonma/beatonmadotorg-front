@@ -5,5 +5,6 @@ module.exports = async () => ({
         "env/",
         "node_modules/",
         "tools/",
+        "cypress/",
     ],
 });
