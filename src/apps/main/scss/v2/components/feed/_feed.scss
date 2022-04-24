@@ -111,10 +111,9 @@ $feed-card-height: 9rem;
 
     > .text {
         @extend %margin-medium;
+        @extend %readable-text;
         height: -webkit-fill-available;
         width: -webkit-fill-available;
-
-        line-height: 1.4;
 
         > .row {
             justify-content: space-between;

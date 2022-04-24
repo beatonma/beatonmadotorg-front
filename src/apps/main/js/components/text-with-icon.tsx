@@ -4,17 +4,22 @@ import { joinClassNames, LayoutProps } from "./props";
 
 interface TextWithIconProps extends LayoutProps {
     icon: string | React.ReactNode;
-    text: string | React.ReactNode;
+    text?: string | React.ReactNode;
+    dangerousHtml?: string;
 }
 
 export function TextWithIcon(props: TextWithIconProps) {
-    const { icon, text, className, ...rest } = props;
+    const { icon, text, dangerousHtml, className, ...rest } = props;
 
     return (
         <div className={joinClassNames(className, "text-with-icon")} {...rest}>
             <MaterialIcon>{icon}</MaterialIcon>
             <span className="spacer" />
-            <span>{text}</span>
+            {dangerousHtml ? (
+                <span dangerouslySetInnerHTML={{ __html: dangerousHtml }} />
+            ) : (
+                <span>{text}</span>
+            )}
         </div>
     );
 }

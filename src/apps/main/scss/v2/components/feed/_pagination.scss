@@ -1,8 +1,11 @@
 @use "../../layout";
 @use "../../theme";
 
+$pagination-button-size: 3rem;
+
 .pagination {
     @include layout.row(space-between);
+    font-size: var(--fs-h4);
 
     margin: 16px 0;
 
@@ -16,9 +19,9 @@
 
     a {
         @extend %hover;
-        @include layout.size(2rem);
+        @include layout.size($pagination-button-size);
         display: inline-block;
-        line-height: 2rem;
+        line-height: $pagination-button-size;
         text-align: center;
         font-weight: bold;
     }

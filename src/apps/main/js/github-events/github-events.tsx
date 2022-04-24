@@ -135,7 +135,33 @@ export function filterEvents(events: Event[]): Group[] {
                 break;
 
             case Events.Push:
-                pushEvents = pushEvents.concat(event.payload as PushPayload);
+                // pushEvents = pushEvents.concat(event.payload as PushPayload);
+                pushEvents = pushEvents.concat(
+                    (event.payload as PushPayload).map(push => {
+                        let msg = push.message
+                            .replace(
+                                /(https:\/\/[^\s]+\.[^\s]+)/g,
+                                `<a href="$1">$1</a>`
+                            ) // Linkify links
+                            .replace(
+                                /#(\d+)/g,
+                                `<a href="${event.repository.url}/issues/$1/">#$1</a>`
+                            ) // Linkify references to Github issues
+                            .replace(/`([^\s]+)`/g, `<code>$1</code>`); // wrap text in `quotes` with code tags
+
+                        if (msg.indexOf("\n\n") >= 0) {
+                            // If msg has a title line, just use that.
+                            msg = msg.split("\n\n")[0];
+                        }
+
+                        return {
+                            sha: push.sha,
+                            message: msg,
+                            url: push.url,
+                        };
+                    })
+                );
+
                 break;
             case Events.Wiki:
                 wikiEditEvents = wikiEditEvents.concat(

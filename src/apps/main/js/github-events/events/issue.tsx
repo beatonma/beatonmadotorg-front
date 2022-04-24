@@ -27,7 +27,7 @@ function IssueEvent(props: IssueProps) {
             url={url}
             icon="done"
             issue={number}
-            title={`Closed #${number}`}
+            title={`Closed issue #${number}`}
             {...rest}
         />
     );

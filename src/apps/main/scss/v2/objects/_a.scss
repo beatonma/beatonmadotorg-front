@@ -9,7 +9,7 @@ a {
     }
 
     &:hover {
-        color: var(--text-primary);
+        color: var(--accent-900);
     }
 
     &:visited {
@@ -17,6 +17,6 @@ a {
     }
 
     &:hover:visited {
-        color: var(--text-primary);
+        color: var(--accent-900);
     }
 }

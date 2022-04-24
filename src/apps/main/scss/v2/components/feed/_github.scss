@@ -14,6 +14,7 @@
 .github-group {
     @extend %item-small;
     @extend %margin-medium-horizontal;
+    @extend %readable-text;
 
     time {
         @extend %text-small;
@@ -51,7 +52,7 @@
         content: "";
         display: block;
         width: 2px;
-        background-color: var(--text-tertiary);
+        //background-color: var(--text-tertiary);
         height: 0.5rem;
         margin-top: 2px;
         margin-left: 4px;
@@ -59,24 +60,41 @@
 }
 
 .github-event-badges {
+    @extend %text-small;
+    //@extend %readable-text;
     display: flex;
     flex-direction: row;
+}
+
+.github-event {
+    @extend %text-small;
+    //@extend %readable-text;
 }
 
 .github-commit {
     @include layout.row($wrap: nowrap);
     @extend %font-monospace;
-    @extend %text-small;
+
+    span {
+        @include layout.clipped-text(2);
+    }
 }
 
 .badge {
-    @extend %text-small;
     @extend %margin-small-right;
     @extend %hover;
+    //@extend %elevated;
 
     display: inline-block;
-    border: 1px solid var(--primary-100);
-    padding: 2px 8px;
-    color: var(--primary);
-    font-weight: 600;
+    //border: 1px solid var(--accent-400);
+    //padding: 2px 8px;
+    color: var(--accent-900);
+
+    &:hover {
+        font-weight: 600;
+    }
+
+    .spacer {
+        width: 0.25ch !important;
+    }
 }

@@ -13,6 +13,7 @@
 .note {
     @extend %item-medium;
     @extend %padding-medium-horizontal;
+    @extend %readable-text;
 
     time {
         @extend %text-small;

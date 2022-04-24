@@ -27,7 +27,7 @@ function MergedPullRequest(props: PullProps) {
             url={request.url}
             icon="merge"
             issue={request.number}
-            title={`Merged #${request.number}`}
+            title={`Merged PR #${request.number}`}
         />
     );
 }

@@ -1,17 +1,20 @@
 .text-with-icon {
     vertical-align: middle;
-    line-height: 1;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     width: fit-content;
 
+    > .material-icons {
+        flex-shrink: 0;
+    }
+
     > * {
         vertical-align: middle;
-        line-height: 1;
     }
 
     > .spacer {
-        width: 0.5ch;
+        width: 0.66ch;
+        flex-shrink: 0;
     }
 }

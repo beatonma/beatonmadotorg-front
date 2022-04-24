@@ -1,20 +1,25 @@
 import React, { useState } from "react";
 import { MaterialIcon } from "./icons";
-import { classNames, LayoutProps } from "./props";
+import { joinClassNames, LayoutProps } from "./props";
 
 interface DropdownProps extends LayoutProps {
     expandedDefault?: boolean;
     title: string | React.ReactNode;
 }
 export function Dropdown(props: DropdownProps) {
-    const [expanded, setExpanded] = useState(props.expandedDefault || false);
+    const { expandedDefault, title, className, children, ...rest } = props;
 
+    const [expanded, setExpanded] = useState(expandedDefault || false);
     const toggle = () => setExpanded(!expanded);
 
     return (
-        <div className={classNames(props, "dropdown")} data-expanded={expanded}>
+        <div
+            className={joinClassNames(className, "dropdown")}
+            data-expanded={expanded}
+            {...rest}
+        >
             <div className="row dropdown-header" onClick={toggle}>
-                <div className="dropdown-title">{props.title}</div>
+                <div className="dropdown-title">{title}</div>
                 <MaterialIcon
                     className="dropdown-icon"
                     data-expanded={expanded}
@@ -24,7 +29,7 @@ export function Dropdown(props: DropdownProps) {
             </div>
 
             <div className="dropdown-content" data-expanded={expanded}>
-                {props.children}
+                {children}
             </div>
         </div>
     );

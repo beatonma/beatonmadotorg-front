@@ -1,6 +1,6 @@
 import React from "react";
-import { pluralize } from "../../plurals";
 import { Commit } from "../types";
+import { pluralize } from "../../plurals";
 import { Dropdown } from "../../components";
 import { TextWithIcon } from "../../components/text-with-icon";
 
@@ -34,37 +34,13 @@ export function Commits(props: CommitProps) {
 function CommitEvent(commit: Commit) {
     return (
         <TextWithIcon
+            className="github-commit"
             icon={
                 <a href={commit.url} title={commit.url}>
                     link
                 </a>
             }
-            text={getCommitMessage(commit)}
+            dangerousHtml={commit.message}
         />
     );
-    // return (
-    //     <div className="github-commit">
-    //         <a
-    //             key={commit.sha}
-    //             href={commit.url}
-    //             title={commit.url}
-    //             className="material-icons"
-    //         >
-    //             link
-    //         </a>
-    //         <span>&nbsp;</span>
-    //         <div>{getCommitMessage(commit)}</div>
-    //     </div>
-    // );
-}
-
-function getCommitMessage(commit: Commit): string {
-    const msg = commit.message;
-    if (msg.length < 64) {
-        return msg;
-    }
-    if (msg.indexOf("\n\n") >= 0) {
-        return msg.split("\n\n")[0];
-    }
-    return `${msg.slice(0, 64)}…`;
 }
