@@ -31,8 +31,12 @@
     font-size: var(--fs-300);
 }
 
-%readable-text {
+%text-container {
     max-width: 80ch;
+}
+
+%readable-text {
+    @extend %text-container;
     line-height: 1.5;
 }
 

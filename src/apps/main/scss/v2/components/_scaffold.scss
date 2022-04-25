@@ -7,18 +7,23 @@
 
 $content-margin-horizontal: 32px;
 $content-margin-vertical: 16px;
+$content-margin-horizontal-min: 8px;
 
 $content-margins-horizontal-total: calc($content-margin-horizontal * 2);
 
-main {
+$content-max-width: 1686px;
+
+main,
+footer {
+    @extend %center;
     padding: $content-margin-vertical $content-margin-horizontal;
-    margin: auto;
     transition: padding theme.$animation-duration;
 }
 
 @include theme.display-width("small") {
-    main {
-        padding: $content-margin-vertical 0;
+    main,
+    footer {
+        padding: $content-margin-vertical $content-margin-horizontal-min;
     }
 }
 
@@ -42,7 +47,7 @@ main {
     }
 
     @include theme.display-width("small") {
-        padding: $content-margin-vertical 0;
+        padding: $content-margin-vertical $content-margin-horizontal-min;
     }
 }
 
@@ -100,13 +105,15 @@ main {
 }
 
 #content {
-    max-width: 1686px;
-    margin-left: auto;
-    margin-right: auto;
+    @extend %center;
+    max-width: $content-max-width;
 }
 
 footer {
-    min-height: 110px;
+    @extend %text-container;
+    @extend %center;
+    max-width: $content-max-width;
+    margin-bottom: 110px;
 }
 
 ::selection {

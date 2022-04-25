@@ -1,0 +1,24 @@
+@use "v2/theme";
+@use "v2/layout";
+
+.staff {
+    @extend %text-container;
+    @extend %text-small;
+    @extend %center;
+    @include layout.row($horizontal: flex-end);
+    @extend %margin-medium-vertical;
+
+    .staff-links {
+        @extend %shape-small;
+        @extend %padding-small-vertical;
+
+        background-color: var(--primary-100);
+
+        a,
+        a:visited {
+            @extend %hover;
+            @extend %padding-small;
+            color: var(--text-primary);
+        }
+    }
+}

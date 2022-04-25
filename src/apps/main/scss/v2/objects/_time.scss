@@ -1,0 +1,5 @@
+@use "v2/theme";
+
+time {
+    @extend %text-small;
+}

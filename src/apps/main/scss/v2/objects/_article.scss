@@ -1,0 +1,16 @@
+@use "v2/theme";
+@use "v2/layout";
+
+article {
+    @extend %readable-text;
+    @extend %center;
+    line-height: 1.75;
+
+    .title-bar {
+        @include layout.row($horizontal: space-between, $vertical: baseline);
+    }
+
+    .tagline {
+        @extend %margin-large-bottom;
+    }
+}

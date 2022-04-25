@@ -21,6 +21,7 @@
 {% block style %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="{% static 'css/base.min.css' %}" />
+{% if user.is_staff %}<link rel="stylesheet" href="{% static 'css/staff.min.css' %}" />{% endif %}
 <link id="theme" rel="stylesheet" href="" />
 <style id="local_style">
     {% if local_style %}

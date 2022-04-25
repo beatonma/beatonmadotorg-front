@@ -1,17 +1,33 @@
+$corners: (
+    "small": 6px,
+    "medium": 12px,
+    "large": 16px,
+);
+
+@mixin corners() {
+    @each $name, $size in $corners {
+        &-#{$name} {
+            border-radius: $size;
+        }
+
+        &-#{$name}-top {
+            border-top-left-radius: $size;
+            border-top-right-radius: $size;
+        }
+
+        &-#{$name}-bottom {
+            border-bottom-left-radius: $size;
+            border-bottom-right-radius: $size;
+        }
+    }
+}
+
 %round {
     border-radius: 50%;
 }
 
-%shape-small {
-    border-radius: 6px;
-}
-
-%shape-medium {
-    border-radius: 12px;
-}
-
-%shape-large {
-    border-radius: 16px;
+%shape {
+    @include corners();
 }
 
 @mixin shape($top, $bottom) {
