@@ -5,6 +5,19 @@ import { loadJson } from "./util";
 const CONTAINER = "#mentions";
 const getContainerElement = () => document.getElementById("mentions");
 
+interface HCard {
+    name: string;
+    avatar?: string;
+    homepage: string;
+}
+interface Mention {
+    hcard: HCard;
+    quote?: string;
+    source_url: string;
+    published: string;
+    type: string;
+}
+
 export function WebmentionsApp(dom = document) {
     const container = dom.querySelector(CONTAINER);
 
@@ -32,10 +45,10 @@ function Webmentions() {
         );
         url.searchParams.append("url", window.location.pathname);
 
-        loadJson(url)
+        loadJson(url.href)
             .then(data => data.mentions)
-            .then(mentions => {
-                let keys = [];
+            .then((mentions: Mention[]) => {
+                let keys: string[] = [];
                 let unique = mentions.filter(x => {
                     if (keys.includes(x.source_url)) return false;
                     else {
@@ -60,16 +73,19 @@ function Webmentions() {
     return null;
 }
 
-function MentionsContainer(props) {
-    const mentions = props.mentions;
-    const showWhenEmpty = props.showWhenEmpty;
+interface MentionsContainerProps {
+    mentions: Mention[];
+    showWhenEmpty: boolean;
+}
+function MentionsContainer(props: MentionsContainerProps) {
+    const { mentions, showWhenEmpty } = props;
     const isEmpty = mentions.length == 0;
 
     if (isEmpty && !showWhenEmpty) {
         return null;
     }
 
-    const [title, setTitle] = useState("This page has been mentioned by:");
+    const [title, setTitle] = useState("Mentions");
     const [emptyMessage, setEmptyMessage] = useState("Nobody :(");
     const cardExists = document.getElementById("related_content");
 
@@ -86,70 +102,73 @@ function MentionsContainer(props) {
         }
     }, []);
 
-    useEffect(() => {
-        // Insert into existing card if available, or create new card if none
-        // if (!cardExists) {
-        //     getContainerElement().classList.add("card");
-        // }
-    }, []);
-
     const content = isEmpty ? (
         <div className="mentions-empty">{emptyMessage}</div>
     ) : (
-        mentions.map(m => <Webmention key={m.published} webmention={m} />)
+        mentions.map(m => <Webmention key={m.published} mention={m} />)
     );
 
     return (
-        <div className={"overflow" + (cardExists ? "" : "")}>
+        <>
             <h3>{title}</h3>
-            <div className="row mentions">{content}</div>
+            <div className="mentions">{content}</div>
+        </>
+    );
+}
+
+interface MentionProps {
+    mention: Mention;
+}
+function Webmention(props: MentionProps) {
+    const { mention } = props;
+    const hasQuote = mention.quote !== null;
+
+    return (
+        <a
+            className="mention"
+            title={mention.source_url}
+            href={mention.source_url}
+            data-quoted={hasQuote}
+        >
+            <HCardInfo hcard={mention.hcard} />
+            <Quote quote={mention.quote} />
+        </a>
+    );
+}
+
+interface HCardProps {
+    hcard?: HCard;
+}
+function HCardInfo(props: HCardProps) {
+    const { hcard } = props;
+    const { name, avatar, homepage } = hcard;
+
+    return (
+        <div className="mention-hcard">
+            <Avatar name={name} url={avatar} />
+            {name}
         </div>
     );
 }
 
-function Webmention(props) {
-    const mention = props.webmention;
-    const avatarStyle = {
-        backgroundImage: `url(${
-            mention.hcard?.avatar || "/static/images/icon/ic_no-avatar.svg"
-        })`,
-    };
-    return (
-        <div className="mention-mini" title={mention?.quote}>
-            <div className="tooltip">
-                <a
-                    className="mention-source"
-                    aria-label="Mention source"
-                    href={mention.source_url || ""}
-                >
-                    <div
-                        className="avatar mention-avatar"
-                        style={avatarStyle}
-                    ></div>
-                </a>
-                <HCardTooltip hcard={mention.hcard} />
-            </div>
-        </div>
-    );
+interface AvatarProps {
+    name: string;
+    url?: string;
+}
+function Avatar(props: AvatarProps) {
+    const { name, url } = props;
+
+    if (!url) return null;
+
+    return <img src={url} className="mention-avatar" alt={name} />;
 }
 
-function HCardTooltip(props) {
-    const hcard = props.hcard;
-    return (
-        <div className="tooltip-popup hcard-popup">
-            <div className="hcard-popup flex-row-start">
-                <a
-                    className="hcard-homepage"
-                    aria-label="Mention author homepage"
-                    href={hcard?.homepage || ""}
-                >
-                    <div className="hcard-content">
-                        <div className="hcard-name">
-                            {hcard?.name || hcard?.homepage || "Somebody?"}
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    );
+interface QuoteProps {
+    quote?: string;
+}
+function Quote(props: QuoteProps) {
+    const { quote } = props;
+    if (!quote) return null;
+
+    return <div className="mention-quote">{quote}</div>;
 }

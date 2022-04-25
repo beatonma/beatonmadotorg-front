@@ -2,6 +2,9 @@
 @use "v2/theme";
 
 #related_media {
+    @extend %text-container;
+    @extend %center;
+
     h3 {
         @extend %margin-medium-bottom;
     }
@@ -34,6 +37,7 @@
 
     .media-viewer-item {
         @extend %shape-small-bottom;
+        @extend %margin-large-bottom;
 
         img,
         video {
@@ -43,9 +47,14 @@
         &[data-fullscreen="false"] {
             img,
             video {
-                max-height: 20rem;
+                max-height: 15rem;
                 aspect-ratio: 1;
                 @extend %shape-small;
+            }
+
+            .related-media-description {
+                @extend %padding-small-vertical;
+                @extend %text-small;
             }
         }
 

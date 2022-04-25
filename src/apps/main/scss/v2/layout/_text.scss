@@ -3,11 +3,11 @@
     -webkit-line-clamp: $max-lines;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
-    overflow: hidden;
+    overflow: clip;
 }
 
 %text-one-line {
     white-space: nowrap;
     text-overflow: ellipsis;
-    overflow: hidden;
+    overflow: clip;
 }

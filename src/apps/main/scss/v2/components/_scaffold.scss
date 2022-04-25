@@ -109,11 +109,19 @@ footer {
     max-width: $content-max-width;
 }
 
+#related {
+    > * {
+        @extend %margin-large-bottom;
+    }
+}
+
 footer {
-    @extend %text-container;
-    @extend %center;
-    max-width: $content-max-width;
     margin-bottom: 110px;
+
+    > * {
+        @extend %center;
+        max-width: $content-max-width;
+    }
 }
 
 ::selection {
