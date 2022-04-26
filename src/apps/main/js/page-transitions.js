@@ -135,6 +135,8 @@ export function changePage(url, pushToHistory = true) {
             wrapper.innerHTML = responseText;
 
             document.title = wrapper.querySelector("title").textContent;
+            document.querySelector("meta[name=description]").content =
+                wrapper.querySelector("meta[name=description]").content;
 
             const newLocalStyle = wrapper.querySelector(
                 `#${localStyleID}`
