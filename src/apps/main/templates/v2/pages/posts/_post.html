@@ -4,12 +4,9 @@
 {% block title %}{{ post.title }} - beatonma.org{% endblock %}
 {% block description %}{{ post.tagline }}{% endblock %}
 
-{% block staff %}
-    {% include 'v2/staff/edit-links.html' with target=post %}
-{% endblock %}
-
 {% block content %}
 <article class="h-entry">
+    {% include 'v2/staff/edit-links.html' with target=post %}
     {% block post_header %}{% endblock %}
     <div class="header">
         <div class="title-bar">
@@ -30,8 +27,5 @@
 {% endblock %}
 
 {% block after %}
-<div id="related">
-    <div id="related_media"></div>
-    <div id="mentions"></div>
-</div>
+    {% include "v2/components/related.html" %}
 {% endblock %}}

@@ -1,0 +1,27 @@
+{% load repeat_tag %}
+{% if image_url %}
+    <div
+        class="image {{ imageclass }}"
+        style="{% include 'v2/components/feed/item/_themeable-style.html' %}
+        background-image: url('/media/{{ image_url }}')"
+    >
+    </div>
+{% elif image_svg %}
+    <div
+        class="image {{ imageclass }}"
+        style="{% include 'v2/components/feed/item/_themeable-style.html' %}"
+    >
+        {{ image_svg|safe }}
+    </div>
+{% else %}
+    <div
+        class="image {{ imageclass }}"
+        style="{% include 'v2/components/feed/item/_themeable-style.html' %}"
+    >
+        <div class="image-text">
+            {% for n in 20|range %}
+            {{ title }}{{" "}}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

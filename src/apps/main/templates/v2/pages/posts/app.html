@@ -1,0 +1,48 @@
+{% extends 'v2/pages/base/scaffold.html' %}
+{% load date_tag %}
+
+
+{% block title %}{{ app.title }} - beatonma.org{% endblock %}
+{% block description %}{{ app.tagline }}{% endblock %}
+
+{% block staff %}
+    {% include 'v2/staff/edit-links.html' with target=app %}
+{% endblock %}
+
+{% block content %}
+<section id="app">
+    <article class="app h-entry">
+        {% include "v2/components/image.html" with image_url=app.icon image_svg=app.resolve_icon_svg title=app.title imageclass="contain" themeable=app %}
+
+        <div class="text">
+            <div class="row">
+                <h5 class="title p-name">{{ app.title }}</h5>
+                <time class="date" datetime="{{ app.date_published }}">
+                    {{ app.date_published|minimaldate }}
+                </time>
+            </div>
+
+            {% include "v2/components/links.html" with links=app.links.all %}
+
+            <div class="description e-content">{{ app.description|default:"" }}</div>
+        </div>
+    </article>
+</section>
+
+<section id="related_media"></section>
+
+{% if changelogs %}
+<section id="changelog">
+    <h3 >Changelog</h3>
+
+    {% for changelog in changelogs %}
+        {% include "./_changelog.html" %}
+    {% endfor %}
+</section>
+{% endif %}
+
+{% endblock %}
+
+{% block after %}
+    <div id="mentions"></div>
+{% endblock %}}

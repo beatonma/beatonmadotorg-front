@@ -93,7 +93,7 @@ $feed-card-height: 9rem;
             left: -50%;
             font-family: monospace;
             letter-spacing: 2px;
-            font-size: calc($feed-card-height / 5);
+            font-size: calc(#{$feed-card-height} / 5);
             font-weight: bold;
             text-align: center;
             text-transform: uppercase;
@@ -126,7 +126,7 @@ $feed-card-height: 9rem;
             }
         }
 
-        > .description {
+        > .summary {
             @include layout.clipped-text(2);
         }
     }
@@ -144,7 +144,8 @@ $feed-card-height: 9rem;
             max-width: 100%;
             max-height: unset;
             height: auto;
-            aspect-ratio: 4/3;
+            aspect-ratio: 2;
+            margin: 0;
 
             > .image-text {
                 // No actual image available, use some artsy text.

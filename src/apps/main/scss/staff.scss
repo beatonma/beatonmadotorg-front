@@ -2,23 +2,24 @@
 @use "v2/layout";
 
 .staff {
-    @extend %text-container;
     @extend %text-small;
-    @extend %center;
     @include layout.row($horizontal: flex-end);
-    @extend %margin-medium-vertical;
 
     .staff-links {
         @extend %shape-small;
-        @extend %padding-small-vertical;
-
         background-color: var(--primary-100);
 
-        a,
-        a:visited {
+        a {
+            @extend %nolink;
+            @extend %padding-link;
             @extend %hover;
-            @extend %padding-small;
-            color: var(--text-primary);
+            font-variant: all-small-caps;
+        }
+
+        .material-icons {
+            cursor: pointer;
+            @extend %padding-link;
+            @extend %hover;
         }
     }
 }

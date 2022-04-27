@@ -11,3 +11,8 @@
     text-overflow: ellipsis;
     overflow: clip;
 }
+
+%text-noclip {
+    white-space: normal;
+    overflow: auto;
+}

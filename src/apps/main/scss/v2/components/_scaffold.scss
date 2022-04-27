@@ -9,26 +9,39 @@ $content-margin-horizontal: 32px;
 $content-margin-vertical: 16px;
 $content-margin-horizontal-min: 8px;
 
-$content-margins-horizontal-total: calc($content-margin-horizontal * 2);
+$content-margins-horizontal-total: calc(#{$content-margin-horizontal} * 2);
 
 $content-max-width: 1686px;
 
-main,
-footer {
-    @extend %center;
-    padding: $content-margin-vertical $content-margin-horizontal;
+%screen-margins {
+    padding-left: $content-margin-horizontal;
+    padding-right: $content-margin-horizontal;
     transition: padding theme.$animation-duration;
-}
 
-@include theme.display-width("small") {
-    main,
-    footer {
-        padding: $content-margin-vertical $content-margin-horizontal-min;
+    @include theme.display-width("small") {
+        padding-left: $content-margin-horizontal-min;
+        padding-right: $content-margin-horizontal-min;
     }
 }
 
+body {
+    margin-top: $content-margin-vertical;
+    margin-bottom: $content-margin-vertical;
+}
+
+main {
+    margin-top: $content-margin-vertical;
+    margin-bottom: $content-margin-vertical;
+}
+
+main,
+footer {
+    @extend %screen-margins;
+    @extend %center;
+}
+
 @function contentWidth($width) {
-    @return calc($width + $content-margins-horizontal-total);
+    @return calc(#{$width} + #{$content-margins-horizontal-total});
 }
 
 #theme_icon {
@@ -37,13 +50,10 @@ footer {
 }
 
 %main-header-row {
+    @extend %screen-margins;
     @extend %nolinks;
-    padding: $content-margin-vertical $content-margin-horizontal;
-    color: var(--text-primary);
 
-    @include theme.display-width("small") {
-        padding: $content-margin-vertical $content-margin-horizontal-min;
-    }
+    color: var(--text-primary);
 }
 
 .header-row-primary {
@@ -105,9 +115,16 @@ footer {
 }
 
 #related {
-    > * {
+    #related_media,
+    #mentions {
+        @extend %screen-margins;
         @extend %margin-large-bottom;
     }
+}
+
+#related_media,
+#mentions {
+    @extend %screen-margins;
 }
 
 footer {

@@ -7,6 +7,13 @@
             <a href="/webmention/get?url={{ request.path }}">Mentions API</a>
             <a href="/api/related_media/?url={{ request.path }}">Media API</a>
             <a href="{{ target|admin_edit_url }}" title="ID: {{ target.pk }}">Edit</a>
+            <span
+                class="material-icons"
+                title="Remove staff UI"
+                onclick="(e => e.parentNode.parentNode.remove())(this)"
+            >
+                close
+            </span>
         </div>
     </div>
     {% endif %}

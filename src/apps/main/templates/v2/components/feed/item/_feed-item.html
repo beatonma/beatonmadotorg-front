@@ -7,27 +7,13 @@
     data-type="{{ type|lower }}"
     >
 
-    {% if image_url %}
-        <div class="image" style="{% include './_themeable-style.html' %} background-image: url('https://beatonma.org/media/{{ image_url }}')"></div>
-    {% elif image_svg %}
-        <div class="image" style="{% include './_themeable-style.html' %}">
-            {{ image_svg|safe }}
-        </div>
-    {% else %}
-        <div class="image" style="{% include './_themeable-style.html' %}">
-            <div class="image-text">
-                {% for n in 20|range %}
-                {{ title }}{{" "}}
-                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
+    {% include "v2/components/image.html" %}
 
     <div class="text">
         <div class="row">
-            <h5 class="title p-name">{{ title }}</h5>
-            <div class="date" datetime="{{ date }}">{{ date|minimaldate }}</div>
+            <h3 class="title p-name">{{ title }}</h3>
+            <time class="date" datetime="{{ date }}">{{ date|minimaldate }}</time>
         </div>
-        <div class="description p-summary">{{ description|default:"" }}</div>
+        <div class="summary p-summary">{{ description|default:"" }}</div>
     </div>
 </a>
