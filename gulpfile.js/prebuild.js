@@ -23,7 +23,6 @@ const gulpUseref = require("gulp-useref");
 /**
  * Inline any @@included files with gulpInclude.
  */
-// RENAMED from buildInclude
 const prepInclude = () =>
     src([srcPath(ANY_JS_OR_TS), srcPath(ANY_HTML)])
         .pipe(gulpUseref())
@@ -31,7 +30,6 @@ const prepInclude = () =>
         .pipe(dest(PREPROCESSING_PATH));
 
 const prepJsx = () =>
-    // src([prepPath(ANY_JS), prepPath(ANY_JSX)])
     src(prepPath(ANY_JS_OR_TS))
         .pipe(gulpReplace("class=", "className="))
         .pipe(gulpReplace("@@id", ""))

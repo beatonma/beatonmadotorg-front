@@ -7,10 +7,7 @@ const {
     ANY_CSS,
     ANY_SCSS,
     ANY_JS,
-    ANY_JSX,
     ANY_HTML,
-    ANY_TS,
-    ANY_TSX,
     ANY_FILE,
     LOCAL_PATH,
     distPath,
@@ -56,10 +53,7 @@ const localBuild = series(
 const watch = () => {
     gulp.watch(srcPath(ANY_SCSS), localBuild);
     gulp.watch(srcPath(ANY_JS_OR_TS), localBuild);
-    // gulp.watch(srcPath(ANY_JSX), localBuild);
     gulp.watch(srcPath(ANY_HTML), localBuild);
-    // gulp.watch(srcPath(ANY_TS), localBuild);
-    // gulp.watch(srcPath(ANY_TSX), localBuild);
 };
 
 exports.watch = series(initBrowser, localBuild, watch);
