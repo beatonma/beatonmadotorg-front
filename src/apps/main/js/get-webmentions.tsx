@@ -87,7 +87,6 @@ function MentionsContainer(props: MentionsContainerProps) {
 
     const [title, setTitle] = useState("Mentions");
     const [emptyMessage, setEmptyMessage] = useState("Nobody :(");
-    const cardExists = document.getElementById("related_content");
 
     useEffect(() => {
         const dataset = getContainerElement().dataset;

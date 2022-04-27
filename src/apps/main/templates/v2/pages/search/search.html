@@ -1,0 +1,9 @@
+{% extends 'v2/pages/base/scaffold.html' %}
+
+{% block title %}beatonma.org: Apps{% endblock %}
+{% block description %}Search beatonma.org{% endblock %}
+
+{% block content %}
+  <h2>Search '{{ query }}'</h2>
+  {% include 'v2/components/feed/feed.html' %}
+{% endblock %}

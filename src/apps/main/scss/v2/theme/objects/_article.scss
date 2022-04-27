@@ -1,0 +1,9 @@
+@use "v2/layout";
+@use "../space";
+@use "../typography";
+
+article {
+    @extend %readable-text;
+    @extend %center;
+    line-height: 1.75;
+}

@@ -12,5 +12,5 @@
 
 @mixin size($width, $height: $width) {
     @include width($width);
-    @include height($height);
+    aspect-ratio: 1;
 }

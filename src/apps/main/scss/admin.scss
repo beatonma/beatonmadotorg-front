@@ -1,52 +1,43 @@
+:root {
+    --secondary: var(--primary-100);
+    --header-bg: var(--primary-900);
+    --border-color: var(--accent-100);
+    --link-fg: var(--accent);
+    --link-hover-color: var(--accent-900);
+    --default-button-bg: var(--primary);
+    --button-hover-bg: var(--primary-900);
+    --selected-row: var(--accent-100);
+    --header-color: var(--text-light-primary);
+    --delete-button-bg: var(--red);
+    --error-fg: var(--red);
+}
+
 ::-webkit-scrollbar {
     width: 16px !important;
     height: 16px !important;
 }
 
-body {
-    overflow: scroll !important;
-}
-
-.admin-indented {
-    padding: 12px;
-    width: auto;
-    max-width: 800px;
-    margin: 4px 0;
-}
-
-.html-preview {
-    @extend .admin-indented;
-    border: solid 1px var(--text-tertiary);
-    border-radius: 6px;
-    margin: 16px 0;
-}
-.html-preview:before {
-    content: 'Render preview:';
-    color: var(--accent);
-    font-variant: all-small-caps;
-    font-weight: 600;
-}
-
-.html-preview p {
-    margin-left: 0 !important;
-}
-
-input[type='text'] {
-    resize: both !important;
-    border: solid 1px var(--text-tertiary);
-}
+input[type="text"],
 textarea {
-    min-width: 300px;
-    resize: both !important;
-    border: solid 1px var(--text-tertiary);
+    min-width: 30ch;
+    max-width: 80ch;
+    resize: both;
 }
 
-@media screen and (min-width: 768px) {
-    .admin-indented {
-        margin-left: 210px;
+#header {
+    color: var(--text-light-primary);
+
+    #branding {
+        h1 {
+            a,
+            a:visited {
+                color: var(--text-light-primary);
+                font-size: var(--fs-h1);
+            }
+        }
     }
 
-    textarea {
-        min-width: 600px;
+    #user-tools {
+        font-size: var(--fs-500);
     }
 }

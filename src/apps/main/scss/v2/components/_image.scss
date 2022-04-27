@@ -3,3 +3,11 @@
     background-position: center;
     background-size: $size;
 }
+
+img.contain {
+    object-fit: contain;
+}
+
+img.cover {
+    object-fit: cover;
+}

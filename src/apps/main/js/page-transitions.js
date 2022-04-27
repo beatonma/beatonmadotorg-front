@@ -9,13 +9,14 @@ const pageAnimationDuration = 200;
 /**
  * Expected structure:
  *
- *   <main>
+ *   <div id="{contentWrapperID}>
  *     <div id="{contentID}">
  *       <!-- Animated content here -->
  *     </div>
- *   </main>
+ *   </div>
  */
 const contentID = "content"; // Hot-swappable page content.
+const contentWrapperID = "content_wrapper"; // Placeholder parent of contentID.
 const localStyleID = "local_style"; // Hot-swappable inline CSS.
 const loadingID = "loading"; // globally available loading UI.
 const noAnimationClass = "noanim"; // Links with this class opt out of hot-swapping content.
@@ -155,17 +156,17 @@ export function changePage(url, pushToHistory = true) {
 }
 
 function animatePageChange(oldContent, newContent, callback) {
-    const main = document.getElementsByTagName("main").item(0);
+    const contentWrapper = document.getElementById(contentWrapperID);
     const fadeOut = oldContent.animate(
         [{ opacity: 1 }, { opacity: 0 }],
         pageAnimationDuration
     );
 
     fadeOut.onfinish = () => {
-        main.removeChild(oldContent);
-        main.appendChild(newContent);
+        contentWrapper.removeChild(oldContent);
+        contentWrapper.appendChild(newContent);
 
-        main.scrollIntoView(true);
+        contentWrapper.scrollIntoView(true);
 
         showLoading(false);
         animateCardsIn(newContent);

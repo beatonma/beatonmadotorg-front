@@ -27,7 +27,6 @@
 
 #media_viewer {
     @include layout.row($wrap: nowrap, $gap: 1rem);
-    @extend %padding-large-bottom;
     overflow-x: scroll;
     overflow-y: hidden;
 
@@ -37,7 +36,7 @@
 
     .media-viewer-item {
         @extend %shape-small-bottom;
-        @extend %margin-large-bottom;
+        @extend %margin-small-bottom;
 
         img,
         video {
@@ -54,6 +53,7 @@
 
             .related-media-description {
                 @extend %padding-small-vertical;
+                @extend %margin-medium-bottom;
                 @extend %text-small;
             }
         }

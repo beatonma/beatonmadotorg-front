@@ -6,7 +6,7 @@
         <div class="staff-links">
             <a href="/webmention/get?url={{ request.path }}">Mentions API</a>
             <a href="/api/related_media/?url={{ request.path }}">Media API</a>
-            <a href="{{ target|admin_edit_url }}">Edit</a>
+            <a href="{{ target|admin_edit_url }}" title="ID: {{ target.pk }}">Edit</a>
         </div>
     </div>
     {% endif %}

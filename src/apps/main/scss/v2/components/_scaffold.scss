@@ -37,14 +37,9 @@ footer {
 }
 
 %main-header-row {
+    @extend %nolinks;
     padding: $content-margin-vertical $content-margin-horizontal;
     color: var(--text-primary);
-    fill: var(--text-primary);
-
-    > a,
-    a:visited {
-        color: var(--text-primary);
-    }
 
     @include theme.display-width("small") {
         padding: $content-margin-vertical $content-margin-horizontal-min;

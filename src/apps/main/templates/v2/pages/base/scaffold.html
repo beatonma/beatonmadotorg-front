@@ -11,14 +11,16 @@
     </head>
     <body>
         <header>{% block header %}{% include "./_header.html" %}{% endblock %}</header>
-        {% block main %}
-        <main>
+        <div id="content_wrapper">
             <div id="content">
                 {% block staff %}{% endblock %}
-                {% block content %}{% endblock %}
+                {% block before %}{% endblock %}
+                <main>
+                    {% block content %}{% endblock %}
+                </main>
+                {% block after %}{% endblock %}
             </div>
-        </main>
-        {% endblock %}
+        </div>
         <footer>{% block footer %}{% endblock %}</footer>
     </body>
 </html>

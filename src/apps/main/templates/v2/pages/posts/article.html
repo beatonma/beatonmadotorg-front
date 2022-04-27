@@ -1,0 +1,36 @@
+{% extends 'v2/pages/posts/_post.html' %}
+
+{% block post_header %}
+    {% if post.hero_html %}
+        <div class="hero-wrapper">
+            {{ post.hero_html|safe }}
+        </div>
+    {% elif post.hero_image %}
+        <div class="hero-wrapper">
+            <img class="hero {{ post.hero_css|default:'' }}" src="{{ post.hero_image.url }}" alt="Image for article "/>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block links %}
+    {% if links or apps %}
+        <div class="post-links">
+            <span class="links-title">Links:</span>
+            {% for app in apps %}
+                <a class="post-app" href="{% url 'app' app.app_id %}">
+                    <span class="description">App</span>: {{ app.title }}
+                </a>
+            {% endfor %}
+
+            {% for link in links %}
+                <a class="post-link" href="{{ link.url }}">
+                    {% if link.description %}
+                        <span class="description">{{ link.description|capfirst }}</span>: {{ link.host.name }}
+                    {% else %}
+                        {{ link.url|cut:"https://"|cut:"www." }}
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

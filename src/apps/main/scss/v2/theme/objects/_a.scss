@@ -1,0 +1,46 @@
+a {
+    text-decoration: none;
+    color: var(--local-accent);
+    transition: color 220ms;
+    width: fit-content;
+
+    > * {
+        color: var(--text-primary);
+    }
+
+    &:hover {
+        color: var(--text-secondary);
+    }
+}
+
+@mixin link-color($default, $hover: $default) {
+    color: $default;
+
+    &:hover {
+        color: $hover;
+    }
+}
+
+%nolink {
+    // Render links as normal text.
+
+    color: var(--text-primary);
+
+    &:link,
+    &:hover,
+    &:visited,
+    &:visited:hover,
+    &:active {
+        color: var(--text-primary);
+    }
+}
+
+%nolinks {
+    a {
+        @extend %nolink;
+    }
+}
+
+%padding-link {
+    padding: 4px 8px;
+}

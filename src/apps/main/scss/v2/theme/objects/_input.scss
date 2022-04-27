@@ -1,0 +1,33 @@
+@use "../border";
+@use "../space";
+@use "../typography";
+
+form {
+    max-width: 100%;
+}
+
+%input-text {
+    @extend %shape-small;
+    @extend %padding-small;
+    @include border.shape($top: null, $bottom: 0);
+    color: var(--text-primary);
+    background: var(--input-text-background);
+    background: transparent;
+    min-width: 300px;
+    max-width: 100%;
+    outline: none;
+    border: none;
+
+    &:focus {
+        border-bottom: solid 2px var(--local-accent);
+    }
+}
+
+input[type="text"] {
+    @extend %input-text;
+}
+
+textarea {
+    @extend %input-text;
+    resize: both;
+}

@@ -27,6 +27,7 @@
     @extend %shape-small;
     @extend %readable-text;
     @extend %hover;
+
     width: -webkit-fill-available;
     background-color: var(--primary-100);
     grid-row: auto / span 1;
@@ -50,10 +51,5 @@
         @include layout.clipped-text(2);
         @extend %text-small;
         @extend %padding-small-top;
-    }
-
-    a,
-    a:visited {
-        color: var(--on-primary);
     }
 }

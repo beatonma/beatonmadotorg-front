@@ -1,0 +1,60 @@
+@use "v2/layout";
+@use "v2/theme";
+
+.hero-wrapper {
+    @extend %shape-medium-top;
+    background-color: var(--local-primary);
+    aspect-ratio: 2;
+    width: 100%;
+    display: flex;
+}
+
+img.hero {
+    @extend %center;
+    height: 100%;
+
+    &.cover {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.post-links {
+    @extend %nolinks;
+    @extend %margin-small-vertical;
+    @include layout.row($gap: 0.5em);
+
+    font-variant: all-small-caps;
+    line-height: 1.2;
+
+    .links-title {
+        font-weight: bold;
+    }
+
+    a {
+        @extend %hover;
+        @extend %shape-small;
+        @extend %padding-link;
+        @extend %outlined;
+        @extend %text-one-line;
+
+        .description {
+            color: var(--local-accent);
+        }
+    }
+}
+
+article {
+    .header {
+        @extend %margin-medium-top;
+        @extend %margin-large-bottom;
+    }
+
+    .title-bar {
+        @include layout.row(
+            $horizontal: space-between,
+            $vertical: baseline,
+            $gap: 1rem
+        );
+    }
+}
