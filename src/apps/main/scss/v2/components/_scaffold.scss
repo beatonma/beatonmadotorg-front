@@ -2,8 +2,9 @@
  * Styles for the main scaffold header, main, footer, and window chrome.
  */
 
-@use "../theme";
-@use "../layout";
+@use "v2/theme";
+@use "v2/layout";
+@use "./toolbar";
 
 $content-margin-horizontal: 32px;
 $content-margin-vertical: 16px;
@@ -12,6 +13,7 @@ $content-margin-horizontal-min: 8px;
 $content-margins-horizontal-total: calc(#{$content-margin-horizontal} * 2);
 
 $content-max-width: 1686px;
+$show-search-max-width: 700px;
 
 %screen-margins {
     padding-left: $content-margin-horizontal;
@@ -57,11 +59,20 @@ footer {
 }
 
 .header-row-primary {
+    @extend %toolbar;
     @extend %main-header-row;
-    @include layout.row(space-between, $wrap: nowrap);
+    @extend %margin-medium-bottom;
 
     h1 {
         margin-top: 8px;
+    }
+
+    @include theme.display-max-width($show-search-max-width) {
+        flex-direction: column;
+
+        .right {
+            width: stretch;
+        }
     }
 
     #search_form {
@@ -90,11 +101,38 @@ footer {
             opacity: 1;
         }
 
-        input[type="text"] {
+        #search {
             @extend %text-normal;
             margin: 0;
             margin-left: 4px;
             background: var(--input-text-background);
+        }
+
+        @include theme.display-max-width(580px) {
+            width: stretch;
+
+            .search-wrapper,
+            input[type="text"] {
+                width: stretch;
+            }
+        }
+
+        @include theme.display-max-width($show-search-max-width) {
+            #search_icon {
+                opacity: 0;
+                @include layout.size(0);
+                overflow: clip;
+                padding: 0;
+            }
+
+            #search {
+                margin-left: 0;
+            }
+
+            .search-wrapper {
+                max-width: 100%;
+                opacity: 1;
+            }
         }
     }
 }
@@ -122,11 +160,6 @@ footer {
     }
 }
 
-#related_media,
-#mentions {
-    @extend %screen-margins;
-}
-
 footer {
     margin-bottom: 110px;
 
@@ -151,6 +184,6 @@ footer {
 }
 
 * {
-    scrollbar-width: thin;
+    scrollbar-width: auto;
     scrollbar-color: var(--text-secondary);
 }
