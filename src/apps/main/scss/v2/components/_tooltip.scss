@@ -19,7 +19,7 @@
     .tooltip-popup {
         @extend %shape-small;
         @extend %elevated;
-        @extend %local-theme-primary;
+        @extend %local-primary;
         @extend %text-one-line;
         @extend %padding-small;
 

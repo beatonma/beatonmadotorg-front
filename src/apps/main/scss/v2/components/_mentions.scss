@@ -28,8 +28,8 @@
     @extend %readable-text;
     @extend %hover;
 
-    width: -webkit-fill-available;
-    background-color: var(--primary-100);
+    width: stretch;
+    background-color: var(--local-primary-100);
     grid-row: auto / span 1;
 
     &[data-quoted="true"] {

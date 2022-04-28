@@ -7,10 +7,10 @@
 
     .staff-links {
         @extend %shape-small;
-        background-color: var(--primary-100);
+        @extend %local-primary-100;
 
         a {
-            @extend %nolink;
+            @include theme.link-color(var(--local-on-primary-100));
             @extend %padding-link;
             @extend %hover;
             font-variant: all-small-caps;

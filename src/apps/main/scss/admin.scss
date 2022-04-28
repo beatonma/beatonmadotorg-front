@@ -1,12 +1,12 @@
 :root {
-    --secondary: var(--primary-100);
-    --header-bg: var(--primary-900);
-    --border-color: var(--accent-100);
-    --link-fg: var(--accent);
-    --link-hover-color: var(--accent-900);
-    --default-button-bg: var(--primary);
-    --button-hover-bg: var(--primary-900);
-    --selected-row: var(--accent-100);
+    --secondary: var(--local-primary-100);
+    --header-bg: var(--local-primary-900);
+    --border-color: var(--local-accent-100);
+    --link-fg: var(--local-accent);
+    --link-hover-color: var(--local-accent-900);
+    --default-button-bg: var(--local-primary);
+    --button-hover-bg: var(--local-primary-900);
+    --selected-row: var(--local-accent-100);
     --header-color: var(--text-light-primary);
     --delete-button-bg: var(--red);
     --error-fg: var(--red);

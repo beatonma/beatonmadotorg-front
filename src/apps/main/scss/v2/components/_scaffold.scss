@@ -137,8 +137,8 @@ footer {
 }
 
 ::selection {
-    color: var(--primary-900);
-    background-color: var(--primary-100);
+    color: var(--local-on-primary-100);
+    background-color: var(--local-primary-100);
 }
 
 ::-webkit-scrollbar {

@@ -1,9 +1,22 @@
-%local-theme-primary {
-    background: var(--local-primary);
-    color: var(--local-on-primary);
+$variants: [ "100", "400", "900" ];
+
+@mixin variants() {
+    @each $variant in $variants {
+        &-#{$variant} {
+            background-color: var(--local-primary-#{$variant});
+            color: var(--local-on-primary-#{$variant});
+        }
+    }
 }
 
-%local-theme-accent {
-    background: var(--local-accent);
+%local-primary {
+    background-color: var(--local-primary);
+    color: var(--local-on-primary);
+    @include variants();
+}
+
+%local-accent {
+    background-color: var(--local-accent);
     color: var(--local-on-accent);
+    @include variants();
 }

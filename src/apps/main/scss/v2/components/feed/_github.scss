@@ -41,7 +41,7 @@
         @extend %shape-small;
         @extend %text-small;
         color: var(--text-light);
-        background-color: var(--accent-100);
+        background-color: var(--local-accent-100);
     }
 
     code {
