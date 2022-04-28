@@ -1,5 +1,5 @@
 @forward "../space";
 
-section {
+section:not(:empty) {
     @extend %margin-section-bottom;
 }

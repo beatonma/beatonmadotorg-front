@@ -20,14 +20,14 @@ $breakpoints: (
     }
 }
 
-@mixin display-min-width($breakpoint) {
-    @media screen and (min-width: $breakpoint) {
+@mixin display-min-width($width) {
+    @media screen and (min-width: $width) {
         @content;
     }
 }
 
-@mixin display-max-width($breakpoint) {
-    @media screen and (max-width: $breakpoint) {
+@mixin display-max-width($width) {
+    @media screen and (max-width: $width) {
         @content;
     }
 }

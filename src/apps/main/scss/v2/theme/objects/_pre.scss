@@ -1,0 +1,15 @@
+@use "../border";
+@use "../space";
+
+pre {
+    overflow-x: scroll;
+}
+
+.codehilite {
+    @extend %shape-small;
+    @extend %padding-small;
+}
+
+code {
+    overflow-x: clip;
+}
