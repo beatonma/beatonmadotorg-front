@@ -24,7 +24,7 @@ const noAnimationClass = "noanim"; // Links with this class opt out of hot-swapp
 const onPageChangeClass = ".onPageChange";
 const onPageUnloadClass = ".onPageUnload";
 
-const animatedElements = ".card, .feed-item-card";
+const animatedElements = ".card, .feed-item-card, article";
 
 // Page transitions are enabled when travelling to URLs on these domains.
 const domainsRegex = /(beatonma.org|inverness.io|localhost)/;
