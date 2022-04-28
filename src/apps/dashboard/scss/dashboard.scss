@@ -97,7 +97,7 @@ a:visited {
 }
 
 .group-content {
-    width: -webkit-fill-available;
+    width: stretch;
     max-height: 400px;
     overflow-x: hidden;
     overflow-y: auto;

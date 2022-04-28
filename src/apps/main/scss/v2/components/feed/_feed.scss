@@ -104,16 +104,16 @@ $feed-card-height: 9rem;
 
         > svg {
             margin: 16px;
-            width: -webkit-fill-available;
-            height: -webkit-fill-available;
+            width: stretch;
+            height: stretch;
         }
     }
 
     > .text {
         @extend %margin-medium;
         @extend %readable-text;
-        height: -webkit-fill-available;
-        width: -webkit-fill-available;
+        height: stretch;
+        width: stretch;
 
         > .row {
             justify-content: space-between;
