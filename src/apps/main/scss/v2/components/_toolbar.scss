@@ -16,3 +16,7 @@
         @include layout.row($horizontal: flex-end);
     }
 }
+
+.toolbar {
+    @extend %toolbar;
+}
