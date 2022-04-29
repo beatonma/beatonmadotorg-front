@@ -13,14 +13,13 @@ $content-margin-horizontal-min: 8px;
 $content-margins-horizontal-total: calc(#{$content-margin-horizontal} * 2);
 
 $content-max-width: 1686px;
-$show-search-max-width: 700px;
 
 %screen-margins {
     padding-left: $content-margin-horizontal;
     padding-right: $content-margin-horizontal;
     transition: padding theme.$animation-duration;
 
-    @include theme.display-width("small") {
+    @include theme.display-width("medium") {
         padding-left: $content-margin-horizontal-min;
         padding-right: $content-margin-horizontal-min;
     }
@@ -59,6 +58,9 @@ footer {
 }
 
 .header-row-primary {
+    $show-search-max-width: 700px; // On narrow devices, hide the search icon and always show search input.
+    $search-full-width: 580px; // On narrow devices, make the search input fill the available width.
+
     @extend %toolbar;
     @extend %main-header-row;
     @extend %margin-medium-bottom;
@@ -108,7 +110,7 @@ footer {
             background: var(--input-text-background);
         }
 
-        @include theme.display-max-width(580px) {
+        @include theme.display-max-width($search-full-width) {
             width: stretch;
 
             .search-wrapper,
@@ -119,8 +121,8 @@ footer {
 
         @include theme.display-max-width($show-search-max-width) {
             #search_icon {
-                opacity: 0;
                 @include layout.size(0);
+                opacity: 0;
                 overflow: clip;
                 padding: 0;
             }
