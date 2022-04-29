@@ -91,30 +91,36 @@ $feed-card-height: 9rem;
     > .image {
         @include layout.size($feed-card-height);
         @include image.background(cover);
-        overflow: hidden;
+        overflow: clip;
+
+        > svg {
+            @extend %margin-medium;
+            width: stretch;
+            height: stretch;
+        }
+    }
+
+    > .image-text-wrapper {
+        @include layout.size($feed-card-height);
+        overflow: clip;
 
         > .image-text {
             // No actual image available, use some artsy text.
-            @include layout.size($feed-card-height * 2);
+            @include layout.size($feed-card-height * 1.414);
             position: relative;
-            top: -50%;
-            left: -50%;
+            top: -25%;
+            left: -25%;
             font-family: monospace;
             letter-spacing: 2px;
             font-size: calc(#{$feed-card-height} / 5);
             font-weight: bold;
-            text-align: center;
+            text-align: start;
             text-transform: uppercase;
             transform: rotate(45deg);
             transform-origin: center;
             line-height: 1.3;
             word-wrap: break-word;
-        }
-
-        > svg {
-            margin: 16px;
-            width: stretch;
-            height: stretch;
+            overflow: clip;
         }
     }
 
@@ -140,7 +146,8 @@ $feed-card-height: 9rem;
         }
     }
 
-    @include theme.display-max-width(650px) {
+    //@include theme.display-max-width(650px) {
+    @include theme.display-width("small") {
         // Display as a card, image above text.
         flex-wrap: wrap;
         min-height: unset;
@@ -155,11 +162,13 @@ $feed-card-height: 9rem;
             height: auto;
             aspect-ratio: 2;
             margin: 0;
+        }
+
+        > .image-text-wrapper {
+            display: none;
 
             > .image-text {
                 // No actual image available, use some artsy text.
-                @include layout.size(200%);
-                font-size: 10vw;
             }
         }
 

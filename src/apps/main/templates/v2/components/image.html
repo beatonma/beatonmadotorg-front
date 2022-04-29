@@ -15,14 +15,14 @@
     </div>
 {% else %}
     <div
-        class="image {{ imageclass }}"
+        class="image-text-wrapper {{ imageclass }}"
         style="{% include 'v2/components/feed/item/_themeable-style.html' %}"
     >
         <div class="image-text">
             {% if title %}
-                {{ title|repeat_until_length:90 }}
+                {{ title|repeat_until_length:120|safe }}
             {% elif description %}
-                {{ description|repeat_until_length:90 }}
+                {{ description|repeat_until_length:120|safe }}
             {% endif %}
         </div>
     </div>
