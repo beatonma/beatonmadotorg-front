@@ -62,7 +62,7 @@ function NotesContent(props: NotesContentProps) {
         return (
             <>
                 {items.map(item => (
-                    <Note
+                    <NoteUI
                         note={item.note}
                         media={item.media}
                         key={item.note.url}
@@ -80,7 +80,7 @@ type NoteProps = {
     media?: Media;
     key: any;
 };
-function Note(props: NoteProps) {
+function NoteUI(props: NoteProps) {
     const note = props.note;
     const formattedDate = formatDate(note.timestamp);
 
@@ -99,7 +99,7 @@ function Note(props: NoteProps) {
                 {formattedDate}
             </time>
 
-            <Media media={props.media} />
+            <MediaUI media={props.media} />
         </div>
     );
 }
@@ -107,7 +107,7 @@ function Note(props: NoteProps) {
 type MediaProps = {
     media?: Media;
 };
-function Media(props: MediaProps) {
+function MediaUI(props: MediaProps) {
     const media = props.media;
     if (!media) return null;
 

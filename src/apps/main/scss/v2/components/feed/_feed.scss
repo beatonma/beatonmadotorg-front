@@ -72,6 +72,14 @@ $feed-card-height: 9rem;
     }
 }
 
+%feed-item-card[data-type="note"] {
+    display: block;
+
+    > article {
+        @extend %margin-medium;
+    }
+}
+
 %feed-item-card {
     @extend %feed-item;
     @extend %card;
@@ -100,6 +108,7 @@ $feed-card-height: 9rem;
             transform: rotate(45deg);
             transform-origin: center;
             line-height: 1.3;
+            word-wrap: break-word;
         }
 
         > svg {

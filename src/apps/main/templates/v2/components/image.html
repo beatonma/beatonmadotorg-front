@@ -1,4 +1,4 @@
-{% load repeat_tag %}
+{% load repetition %}
 {% if image_url %}
     <div
         class="image {{ imageclass }}"
@@ -19,9 +19,11 @@
         style="{% include 'v2/components/feed/item/_themeable-style.html' %}"
     >
         <div class="image-text">
-            {% for n in 20|range %}
-            {{ title }}{{" "}}
-            {% endfor %}
+            {% if title %}
+                {{ title|repeat_until_length:90 }}
+            {% elif description %}
+                {{ description|repeat_until_length:90 }}
+            {% endif %}
         </div>
     </div>
 {% endif %}

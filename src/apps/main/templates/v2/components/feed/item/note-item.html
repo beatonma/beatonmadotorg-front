@@ -1,0 +1,14 @@
+{% load date_tag %}
+{% load html %}
+<a
+    href="{{ note.get_absolute_url }}"
+    class="feed-item-card h-entry"
+    data-type="note"
+    >
+    <article>
+        <div class="e-content">
+            {{ note.content_html|plaintext }}
+        </div>
+        <time class="date" datetime="{{ note.created_at }}">{{ note.created_at|minimaldate }}</time>
+    </article>
+</a>

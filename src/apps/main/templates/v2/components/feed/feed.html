@@ -19,6 +19,9 @@
         {% elif cls == "App" %}
           {% include "./item/app-item.html" with app=item type=cls %}
 
+        {% elif cls == "Note" %}
+          {% include "./item/note-item.html" with note=item type=cls %}
+
         {% else %}
           <div>TODO {{ cls }} {{ item.title }}</div>
 
