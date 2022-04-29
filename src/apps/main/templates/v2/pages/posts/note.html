@@ -7,9 +7,9 @@
 
 {% block content %}
 <article>
-    <div class="e-content">
-        {{ note.content_html|safe }}
-    </div>
-    <time class="date dt-published" datetime="{{ note.created_at }}">{{ note.created_at|minimaldate }}</time>
+  <div class="e-content">
+    {{ note.content_html|safe }}
+  </div>
+  <time class="date dt-published" datetime="{{ note.created_at }}">{{ note.created_at|minimaldate }}</time>
 </article>
 {% endblock %}

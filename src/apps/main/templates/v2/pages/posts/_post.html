@@ -6,26 +6,26 @@
 
 {% block content %}
 <article class="h-entry">
-    {% include 'v2/staff/edit-links.html' with target=post %}
-    {% block post_header %}{% endblock %}
-    <div class="header">
-        <div class="title-bar">
-            <h3 class="p-name">{{ post.title }}</h3>
-            <time class="dt-published" datetime="{{ post.created_at }}">{{ post.created_at|minimaldate }}</time>
-        </div>
-
-        {% if post.tagline %}
-        <div class="tagline p-summary">{{ post.tagline }}</div>
-        {% endif %}
-        {% block links %}{% endblock %}
+  {% include 'v2/staff/edit-links.html' with target=post %}
+  {% block post_header %}{% endblock %}
+  <div class="header">
+    <div class="title-bar">
+      <h3 class="p-name">{{ post.title }}</h3>
+      <time class="dt-published" datetime="{{ post.created_at }}">{{ post.created_at|minimaldate }}</time>
     </div>
 
-    <div class="e-content">
-        {{ post.content_html|safe }}
-    </div>
+    {% if post.tagline %}
+    <div class="tagline p-summary">{{ post.tagline }}</div>
+    {% endif %}
+    {% block links %}{% endblock %}
+  </div>
+
+  <div class="e-content">
+    {{ post.content_html|safe }}
+  </div>
 </article>
 {% endblock %}
 
 {% block after %}
-    {% include "v2/components/related.html" %}
+{% include "v2/components/related.html" %}
 {% endblock %}}
