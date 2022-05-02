@@ -9,21 +9,15 @@
     --text-secondary-invert: var(--text-light-secondary);
     --text-tertiary-invert: var(--text-light-tertiary);
 
-    //--primary-100: #93b1c2;
-    //--primary-400: #3c8b8f;
-    //--primary-900: #154042;
-    --primary-100: #b8d1d9;
-    --primary-400: #207080;
-    --primary-900: #004351;
+    --primary-100: #dcdcdc;
+    --primary-400: #848484;
+    --primary-900: #272727;
     --primary: var(--primary-400);
     --on-primary: var(--text-light);
 
-    //--accent-100: #d5badb;
-    //--accent-400: #4e106a;
-    //--accent-900: #3f2745;
-    --accent-100: var(--primary-100);
-    --accent-400: var(--primary-400);
-    --accent-900: var(--primary-900);
+    --accent-100: #b8d1d9;
+    --accent-400: #207080;
+    --accent-900: #004351;
     --accent: var(--accent-400);
     --on-accent: var(--text-light);
 
