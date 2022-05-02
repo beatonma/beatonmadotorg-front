@@ -33,7 +33,7 @@
     @include image.background(contain);
     @include theme.margin("large", "auto");
     background-color: var(--text-tertiary); // Icon mask color
-    mask-image: url("apps/main/images/icon/ic_loading.svg");
+    mask-image: url("apps/main/images/icon/loading-spinner.svg");
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
     animation-name: spin;
@@ -41,7 +41,7 @@
     animation-duration: 1200ms;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
-    overflow: hidden;
+    overflow: clip;
 
     @keyframes spin {
         from {
