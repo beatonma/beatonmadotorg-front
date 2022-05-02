@@ -69,6 +69,10 @@ $feed-card-height: 9rem;
 %feed-item-card[data-type="app"] {
     .image {
         background-size: contain;
+
+        > svg {
+            @extend %padding-medium;
+        }
     }
 }
 
