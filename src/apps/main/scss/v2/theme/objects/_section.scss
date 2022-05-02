@@ -1,5 +1,5 @@
-@forward "../space";
+@use "../space";
 
 section:not(:empty) {
-    @extend %margin-section-bottom;
+    margin-bottom: 4rem;
 }

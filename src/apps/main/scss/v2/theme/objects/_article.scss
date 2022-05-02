@@ -6,4 +6,8 @@ article {
     @extend %readable-text;
     @extend %center;
     line-height: 1.75;
+
+    section {
+        margin-bottom: 3rem;
+    }
 }
