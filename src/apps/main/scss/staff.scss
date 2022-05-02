@@ -7,7 +7,7 @@
 
     .staff-links {
         @extend %shape-small;
-        @extend %local-primary-100;
+        @extend %surface-primary-100;
 
         a {
             @include theme.link-color(var(--local-on-primary-100));

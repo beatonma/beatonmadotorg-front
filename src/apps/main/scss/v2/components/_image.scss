@@ -1,3 +1,5 @@
+@use "v2/theme";
+
 @mixin background($size: contain) {
     background-repeat: no-repeat;
     background-position: center;
@@ -5,6 +7,8 @@
 }
 
 .image {
+    @extend %foreground-accent;
+
     &.cover {
         background-size: cover;
     }
