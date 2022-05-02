@@ -18,17 +18,18 @@ article.app {
     .description {
         @extend %readable-text;
     }
+}
 
-    .app-type {
+.app-type {
+    @include layout.size(1em);
+    @extend %margin-small;
+    display: flex;
+    font-size: var(--fs-h5);
+    fill: var(--local-accent);
+    stroke: var(--local-accent);
+
+    > svg {
         @include layout.size(1em);
-        display: flex;
-        font-size: var(--fs-h5);
-        fill: var(--local-accent);
-        @extend %padding-small;
-
-        > svg {
-            @include layout.size(1em);
-        }
     }
 }
 

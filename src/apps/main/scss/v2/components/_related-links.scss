@@ -1,27 +1,23 @@
 @use "v2/layout";
 @use "v2/theme";
+@use "./button";
 
-.related-links {
-    @extend %nolinks;
-    @extend %margin-small-vertical;
-    @include layout.row($gap: 0.5em);
+%links {
+    @extend %buttons-row;
 
-    font-variant: all-small-caps;
-    line-height: 1.2;
-
-    .related-links-title {
+    .links-title {
         font-weight: bold;
     }
 
-    a {
-        @extend %hover;
-        @extend %shape-small;
-        @extend %padding-link;
-        @extend %outlined;
-        @extend %text-one-line;
-
-        .description {
-            color: var(--local-accent);
-        }
+    .description {
+        color: var(--local-accent);
     }
+}
+
+.links {
+    @extend %links;
+}
+
+.related-links {
+    @extend %links;
 }

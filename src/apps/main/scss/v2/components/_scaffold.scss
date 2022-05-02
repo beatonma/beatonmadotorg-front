@@ -132,6 +132,7 @@ footer {
             }
 
             .search-wrapper {
+                @include theme.margin($vertical: "medium", $horizontal: "zero");
                 max-width: 100%;
                 opacity: 1;
             }

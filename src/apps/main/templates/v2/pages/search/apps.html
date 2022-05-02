@@ -1,14 +1,24 @@
 {% extends 'v2/pages/base/scaffold.html' %}
+{% load equal %}
 
 {% block title %}beatonma.org: Apps{% endblock %}
 {% block description %}Apps by Michael Beaton{% endblock %}
 
 {% block content %}
+<div class="search-results">
   <h2>Apps</h2>
-  <div class="app-filters">
+
+  <div class="filters">
+    <span class="links-title">Filters:</span>
     {% for app_type in filters %}
-      <a href="{% url 'apps-by-type' app_type=app_type %}">{{ app_type }}</a>
+      <a
+        href="{% url 'apps-by-type' app_type=app_type %}"
+        data-selected={% equal app_type filter %}
+      >
+        {{ app_type }}
+      </a>
     {% endfor %}
   </div>
   {% include 'v2/components/feed/feed.html' %}
+</div>
 {% endblock %}

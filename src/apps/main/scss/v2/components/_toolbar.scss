@@ -5,7 +5,7 @@
     @include layout.row(
         $horizontal: space-between,
         $vertical: baseline,
-        $gap: theme.$defaultGap
+        $column-gap: theme.$defaultGap
     );
 
     .left {

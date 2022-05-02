@@ -1,10 +1,10 @@
 $defaultGap: 1rem;
 
 $spacing: (
+    "zero": 0,
     "small": 8px,
     "medium": 16px,
     "large": 24px,
-    "section": 4rem,
     "auto": auto,
 );
 
@@ -47,7 +47,7 @@ $spacing: (
 }
 
 @mixin padding(
-    $vertical,
+    $vertical: 0,
     $horizontal: $vertical,
     $top: $vertical,
     $bottom: $vertical,
@@ -58,7 +58,7 @@ $spacing: (
 }
 
 @mixin margin(
-    $vertical,
+    $vertical: 0,
     $horizontal: $vertical,
     $top: $vertical,
     $bottom: $vertical,
