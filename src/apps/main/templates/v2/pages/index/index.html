@@ -3,7 +3,6 @@
 {% block title %}beatonma.org{% endblock %}
 
 {% block content %}
-
   {% include "./_quick-links.html" %}
 
   {% if motd %}
@@ -36,4 +35,8 @@
         </div>
     </section>
   {% endif %}
+{% endblock %}
+
+{% block footer %}
+  {% include "v2/components/hcard/hcard.html" %}
 {% endblock %}

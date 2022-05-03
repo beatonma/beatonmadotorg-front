@@ -20,6 +20,11 @@
                 {% block after %}{% endblock %}
             </div>
         </div>
-        <footer>{% block footer %}{% endblock %}</footer>
+
+        <footer>
+            {% block footer %}
+            {% include "v2/components/hcard/hcard-basic.html" %}
+            {% endblock %}
+        </footer>
     </body>
 </html>
