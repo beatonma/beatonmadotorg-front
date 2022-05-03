@@ -2,10 +2,10 @@
 @use "v2/layout";
 
 .staff {
-    @extend %text-small;
     @include layout.row($horizontal: flex-end);
 
     .staff-links {
+        @extend %text-small;
         @extend %shape-small;
         @extend %surface-primary-100;
 
@@ -20,6 +20,39 @@
             cursor: pointer;
             @extend %padding-link;
             @extend %hover;
+        }
+    }
+
+    .menu {
+        position: relative;
+        z-index: 1000;
+
+        .menu-title {
+            @extend %hover;
+            @extend %padding-small;
+        }
+
+        .menu-content {
+            @extend %surface-primary;
+            position: absolute;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: scale(0);
+            align-items: flex-end;
+            text-align: end;
+
+            a {
+                width: stretch;
+            }
+        }
+
+        &:hover {
+            .menu-content {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
     }
 }

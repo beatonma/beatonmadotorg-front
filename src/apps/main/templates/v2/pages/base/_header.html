@@ -31,8 +31,20 @@
     <a href="/about/">About</a>
     <a href="/contact/">Contact</a>
     {% if user.is_superuser %}
-        <span>|</span>
+    <div class="staff">
+        |
         <a class="noanim" href="{% url 'dashboard' %}">Dashboard</a>
         <a class="noanim" href="{% url 'admin:index' %}">Admin</a>
+        <div class="menu">
+            <div class="menu-title material-icons">add</div>
+            <div class="menu-content">
+                <a href="{% url 'admin:main_app_add' %}">App</a>
+                <a href="{% url 'admin:main_article_add' %}">Article</a>
+                <a href="{% url 'admin:main_blog_add' %}">Blog</a>
+                <a href="{% url 'admin:main_changelog_add' %}">Changelog</a>
+                <a href="{% url 'admin:main_note_add' %}">Note</a>
+            </div>
+        </div>
+             </div>
     {% endif %}
 </div>

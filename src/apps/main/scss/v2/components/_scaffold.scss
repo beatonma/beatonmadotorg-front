@@ -144,7 +144,7 @@ footer {
     @extend %main-header-row;
     @include layout.row(flex-end);
 
-    > a {
+    a {
         @extend %hover;
         @extend %padding-small;
     }
