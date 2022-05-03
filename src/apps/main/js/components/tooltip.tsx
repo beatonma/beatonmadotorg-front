@@ -9,9 +9,8 @@ export function Tooltip(props: TooltipProps) {
     const { children, popupText, ...rest } = props;
 
     return (
-        <div className="tooltip" {...rest}>
+        <div className="tooltip" {...rest} data-tooltip={popupText}>
             {children}
-            <div className="tooltip-popup">{popupText}</div>
         </div>
     );
 }

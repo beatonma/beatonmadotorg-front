@@ -8,32 +8,30 @@
     cursor: default;
     position: relative;
     display: inline-block;
+    width: fit-content;
 
-    &:hover {
-        .tooltip-popup {
-            animation-name: tooltip;
-        }
-    }
-
-    .tooltip-popup {
+    &:hover:after {
         @extend %shape-small;
-        @extend %elevated;
-        @extend %surface-primary;
+        @extend %text-small;
         @extend %text-one-line;
+        @extend %surface-primary;
+        @extend %elevated;
         @extend %padding-small;
 
-        font-size: 1rem;
+        content: attr(data-tooltip);
+
+        animation-name: tooltip;
         position: absolute;
         z-index: 1000;
-        left: 50%;
         max-width: $max-width;
-        transform: scale(0);
         transform-origin: top center;
-        opacity: 0;
         text-align: center;
         animation-duration: $animation-duration;
         animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
         animation-fill-mode: both;
+        left: 50%;
+        top: 100%;
+        transform: translate(-50%);
     }
 
     @keyframes tooltip {
