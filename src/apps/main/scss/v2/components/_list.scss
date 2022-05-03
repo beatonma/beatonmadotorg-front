@@ -20,6 +20,5 @@
 %list-vertical-scroll {
     @extend %list-vertical;
     display: block;
-    overflow-x: hidden;
     overflow-y: auto;
 }

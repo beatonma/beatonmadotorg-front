@@ -40,7 +40,6 @@ $feed-card-height: 9rem;
 
 %feed-item {
     width: 100%;
-    overflow: hidden;
 }
 
 .feed-item {
@@ -184,7 +183,7 @@ $feed-card-height: 9rem;
 
 %embedded-scrollable-list-container {
     @extend %shape-small;
-    background: var(--surface);
+    background-color: var(--surface);
     border: 2px solid var(--local-primary-100);
     max-height: heightOfFeedRows($feed-scrollable-span);
     display: flex;
