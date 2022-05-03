@@ -11,8 +11,7 @@ form {
     @extend %padding-small;
     @include border.shape($top: null, $bottom: 0);
     color: var(--text-primary);
-    background: var(--input-text-background);
-    background: transparent;
+    background-color: transparent;
     min-width: 32ch;
     max-width: 100%;
     outline: none;

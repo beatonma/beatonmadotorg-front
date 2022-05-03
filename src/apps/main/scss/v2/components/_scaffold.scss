@@ -107,7 +107,7 @@ footer {
             @extend %text-normal;
             margin: 0;
             margin-left: 4px;
-            background: var(--input-text-background);
+            background-color: var(--input-text-background);
         }
 
         @include theme.display-max-width($search-full-width) {
@@ -183,7 +183,7 @@ footer {
     height: $scrollbar-thickness;
 }
 ::-webkit-scrollbar-thumb {
-    background: var(--text-secondary);
+    background-color: var(--text-secondary);
 }
 
 * {
