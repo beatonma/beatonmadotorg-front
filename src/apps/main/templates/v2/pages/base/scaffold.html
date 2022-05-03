@@ -18,6 +18,7 @@
                     {% block content %}{% endblock %}
                 </main>
                 {% block after %}{% endblock %}
+                {% block post_scripts %}{% endblock %}
             </div>
         </div>
 
@@ -26,5 +27,6 @@
             {% include "v2/components/hcard/hcard-basic.html" %}
             {% endblock %}
         </footer>
+
     </body>
 </html>

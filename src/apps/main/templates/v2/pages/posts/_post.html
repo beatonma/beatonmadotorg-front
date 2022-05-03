@@ -29,3 +29,5 @@
 {% block after %}
 {% include "v2/components/related.html" %}
 {% endblock %}}
+
+{% block post_scripts %}{{ post.content_script|safe }}{% endblock %}
