@@ -1,0 +1,103 @@
+@use "v2/layout";
+@use "v2/theme";
+@use "../card";
+@use "../links";
+
+$show-search-max-width: 700px; // On narrow devices, hide the search icon and always show search input.
+$search-full-width: 580px; // On narrow devices, make the search input fill the available width.
+$search-input-width: 32ch;
+
+#search_form {
+    position: relative;
+
+    #search_bar {
+        @include layout.row(flex-end, $wrap: nowrap);
+    }
+
+    #search_icon {
+        @extend %clickable;
+        @extend %icon-medium;
+        @extend %padding-small;
+        display: inline-block;
+    }
+
+    #search_wrapper {
+        max-width: 0;
+        overflow-x: hidden;
+        opacity: 0;
+
+        @include theme.transition(
+            (opacity, max-width),
+            theme.$animation-duration
+        );
+    }
+
+    &:focus-within {
+        #search_wrapper {
+            max-width: 100%;
+            opacity: 1;
+        }
+
+        #search_suggestions {
+            max-width: min(100%, #{$search-input-width});
+            max-height: unset;
+            opacity: 1;
+        }
+    }
+
+    #search_suggestions {
+        @extend %card;
+        @extend %links;
+        @extend %padding-small;
+        @include layout.row(
+            $horizontal: flex-end,
+            $vertical: baseline,
+            $wrap: wrap,
+            $gap: 0.5rem
+        );
+
+        position: absolute;
+        right: 0;
+        z-index: 10000;
+
+        max-width: 0;
+        max-height: 0;
+        opacity: 0;
+    }
+
+    #search {
+        @extend %text-normal;
+        max-width: $search-input-width;
+        margin: 0;
+        margin-left: 4px;
+        background-color: var(--input-text-background);
+    }
+
+    @include theme.display-max-width($search-full-width) {
+        width: stretch;
+
+        #search_wrapper,
+        input[type="text"] {
+            width: stretch;
+        }
+    }
+
+    @include theme.display-max-width($show-search-max-width) {
+        #search_icon {
+            @include layout.size(0);
+            opacity: 0;
+            overflow: clip;
+            padding: 0;
+        }
+
+        #search {
+            margin-left: 0;
+        }
+
+        #search_wrapper {
+            @include theme.margin($vertical: "medium", $horizontal: "zero");
+            max-width: 100%;
+            opacity: 1;
+        }
+    }
+}

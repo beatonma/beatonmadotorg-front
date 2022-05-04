@@ -23,7 +23,7 @@ import { LargeFeedItem } from "../components/feed-item";
 const URL = "/api/github-events/";
 const CONTAINER = "#github_recent";
 
-export function GithubEventsApp(dom = document) {
+export function GithubEventsApp(dom: Document | Element) {
     const container = dom.querySelector(CONTAINER);
 
     if (container) {

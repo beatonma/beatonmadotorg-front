@@ -6,21 +6,29 @@
 
     <div class="right">
         <form action="/search/" method="get" id="search_form">
-            <label
-                id="search_icon"
-                class="icon material-icons search"
-                for="search"
-                tabindex="0"
-            >search</label>
-            <div class="search-wrapper">
-                <input
-                    type="text"
-                    id="search"
-                    name="query"
-                    placeholder="Search beatonma.org"
-                    aria-label="Search beatonma.org"
-                    enterkeyhint="search">
+            <div id="search_bar">
+                <label
+                    id="search_icon"
+                    class="icon material-icons search"
+                    for="search"
+                    tabindex="0"
+                >
+                    search
+                </label>
+                <div id="search_wrapper">
+                    <input
+                        type="text"
+                        id="search"
+                        name="query"
+                        placeholder="Search beatonma.org"
+                        aria-label="Search beatonma.org"
+                        enterkeyhint="search"
+                        autocomplete="off"
+                    >
+                </div>
             </div>
+
+            <div id="search_suggestions"></div>
         </form>
     </div>
 </div>

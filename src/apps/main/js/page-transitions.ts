@@ -1,5 +1,6 @@
 import { loadPage, scrollToId } from "./util";
 import { APPS } from "./apps";
+import { createElement } from "react";
 
 const itemAnimationDuration = 120;
 const itemAnimationDelay = 40;
@@ -29,7 +30,7 @@ const animatedElements = ".card, .feed-item-card, article";
 // Page transitions are enabled when travelling to URLs on these domains.
 const domainsRegex = /(beatonma.org|inverness.io|localhost)/;
 
-function onContentChanged(dom) {
+function onContentChanged(dom: Document | Element) {
     APPS.forEach(app => {
         try {
             app(dom);
@@ -43,66 +44,106 @@ function onContentChanged(dom) {
     }
 }
 
-export function showLoading(show) {
-    document.getElementById(loadingID).dataset.active = show;
+export function showLoading(show: boolean) {
+    document.getElementById(loadingID).dataset.active = `${show}`;
 }
 
-function getScript(element, callback) {
-    const src = element.src;
-    element.parentElement.removeChild(element);
+const getScript = (element: HTMLScriptElement) =>
+    new Promise((resolve, reject) => {
+        const src = element.src;
+        element.parentElement.removeChild(element);
 
-    let script = document.createElement("script");
-    script.async = 1;
+        const script: HTMLScriptElement = document.createElement("script");
+        script.async = true;
+        script.src = src;
 
-    script.onload = script.onreadystatechange = (_, isAbort) => {
-        if (
-            isAbort ||
-            !script.readyState ||
-            /loaded|complete/.test(script.readyState)
-        ) {
+        // @ts-ignore
+        script.onload = script.onreadystatechange = function () {
+            const loadState = this.readyState;
+
+            if (loadState && loadState !== "loaded" && loadState !== "complete")
+                return;
+
+            // @ts-ignore
             script.onload = script.onreadystatechange = null;
-            script = undefined;
 
-            if (!isAbort && callback) {
-                callback();
-            }
-        }
-    };
+            resolve(null);
+        };
 
-    script.src = src;
-    document.body.appendChild(script);
-}
+        document.body.appendChild(script);
+    });
+
+// function getScript(element: HTMLScriptElement, callback: () => void) {
+//     const src = element.src;
+//     element.parentElement.removeChild(element);
+//
+//     let script: HTMLScriptElement = document.createElement("script");
+//     script.async = true;
+//
+//     script.onload = (_: GlobalEventHandlers, isAbort: Event): any => {
+//         if (
+//             isAbort ||
+//             !script.readyState ||
+//             /loaded|complete/.test(script.readyState)
+//         ) {
+//         }
+//     };
+//
+//     // script.onload = script.onreadystatechange = (_, isAbort) => {
+//     //     if (
+//     //         isAbort ||
+//     //         !script.readyState ||
+//     //         /loaded|complete/.test(script.readyState)
+//     //     ) {
+//     //         script.onload = script.onreadystatechange = null;
+//     //         script = undefined;
+//     //
+//     //         if (!isAbort && callback) {
+//     //             callback();
+//     //         }
+//     //     }
+//     // };
+//
+//     script.src = src;
+//     document.body.appendChild(script);
+// }
 
 function init() {
     // Intercept all click events
     document.addEventListener("click", e => {
-        let el = e.target;
+        let el: HTMLElement | ParentNode = e.target as HTMLElement;
         // Go up in the nodelist until we find a node with .href (HTMLAnchorElement)
-        while (el && !el.href) {
+        // while (el && !el.href) {
+        //     el = el.parentNode;
+        // }
+
+        while (el && !(el instanceof HTMLAnchorElement)) {
             el = el.parentNode;
         }
+
         if (el) {
-            const url = el.href;
+            const anchor = el as HTMLAnchorElement;
+            const url = anchor.href;
             if (!domainsRegex.test(url)) {
                 // If target is on a different domain then handle it the normal way
                 return;
             }
 
             // Links annotated with 'noanim' class should be treated as external (no content transition animations)
-            if (el.className.includes(noAnimationClass)) {
+            if (anchor.className.includes(noAnimationClass)) {
                 return;
             }
 
             if (
-                el.pathname === window.location.pathname &&
-                el.search === window.location.search &&
-                el.hash !== window.location.hash
+                anchor.pathname === window.location.pathname &&
+                anchor.search === window.location.search &&
+                anchor.hash !== window.location.hash
             ) {
                 // Handle links to element #id
-                console.log(`navigate to ${el.hash}`);
+                console.log(`navigate to ${anchor.hash}`);
                 e.preventDefault();
                 history.pushState(null, null, url);
-                scrollToId(el.hash);
+                scrollToId(anchor.hash);
             } else {
                 // Otherwise fetch content from the target and insert it
                 // into the current page
@@ -123,7 +164,7 @@ function init() {
     });
 }
 
-export function changePage(url, pushToHistory = true) {
+export function changePage(url: string, pushToHistory: boolean = true) {
     if (pushToHistory) {
         history.pushState(null, null, url);
     }
@@ -136,8 +177,15 @@ export function changePage(url, pushToHistory = true) {
             wrapper.innerHTML = responseText;
 
             document.title = wrapper.querySelector("title").textContent;
-            document.querySelector("meta[name=description]").content =
-                wrapper.querySelector("meta[name=description]").content;
+            (
+                document.querySelector(
+                    "meta[name=description]"
+                ) as HTMLMetaElement
+            ).content = (
+                wrapper.querySelector(
+                    "meta[name=description]"
+                ) as HTMLMetaElement
+            ).content;
 
             const newLocalStyle = wrapper.querySelector(
                 `#${localStyleID}`
@@ -145,7 +193,9 @@ export function changePage(url, pushToHistory = true) {
             document.getElementById(localStyleID).innerHTML = newLocalStyle;
 
             const oldContent = document.getElementById(contentID);
-            const newContent = wrapper.querySelector(`#${contentID}`);
+            const newContent = wrapper.querySelector(
+                `#${contentID}`
+            ) as HTMLElement;
 
             animatePageChange(oldContent, newContent, onContentChanged);
         })
@@ -155,7 +205,11 @@ export function changePage(url, pushToHistory = true) {
         });
 }
 
-function animatePageChange(oldContent, newContent, callback) {
+function animatePageChange(
+    oldContent: HTMLElement,
+    newContent: HTMLElement,
+    callback: (content: HTMLElement) => void
+) {
     const contentWrapper = document.getElementById(contentWrapperID);
     const fadeOut = oldContent.animate(
         [{ opacity: 1 }, { opacity: 0 }],
@@ -169,24 +223,26 @@ function animatePageChange(oldContent, newContent, callback) {
         contentWrapper.scrollIntoView(true);
 
         showLoading(false);
-        animateCardsIn(newContent);
+        animateContentEnter(newContent);
 
         newContent.querySelectorAll(onPageChangeClass).forEach(el => {
-            if (el.src) {
-                getScript(el);
+            const script = el as HTMLScriptElement;
+            if (script.src) {
+                getScript(script);
             } else {
                 try {
-                    eval(el.innerHTML);
+                    eval(script.innerHTML);
                 } catch (err) {}
             }
         });
 
         oldContent.querySelectorAll(onPageUnloadClass).forEach(el => {
-            if (el.src) {
-                getScript(el);
+            const script = el as HTMLScriptElement;
+            if (script.src) {
+                getScript(script);
             } else {
                 try {
-                    eval(el.innerHTML);
+                    eval(script.innerHTML);
                 } catch (err) {}
             }
         });
@@ -195,7 +251,7 @@ function animatePageChange(oldContent, newContent, callback) {
     };
 }
 
-function animateCardsIn(parent) {
+function animateContentEnter(parent: Element) {
     let delay = 0;
 
     try {
@@ -207,7 +263,7 @@ function animateCardsIn(parent) {
     } catch (e) {}
 }
 
-function elementIn(element, delay) {
+function elementIn(element: Element, delay: number) {
     element.animate([{ opacity: 0 }, { opacity: 0 }], {
         delay: 0,
         duration: delay || 0,

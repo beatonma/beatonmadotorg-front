@@ -1,1 +1,1 @@
-import "./js/webmention-test-tool.jsx";
+import "./js/webmention-test-tool";

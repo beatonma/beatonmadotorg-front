@@ -1,0 +1,18 @@
+::selection {
+    color: var(--local-on-primary-100);
+    background-color: var(--local-primary-100);
+}
+
+::-webkit-scrollbar {
+    $scrollbar-thickness: 6px;
+    width: $scrollbar-thickness;
+    height: $scrollbar-thickness;
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--text-secondary);
+}
+
+* {
+    scrollbar-width: auto;
+    scrollbar-color: var(--text-secondary);
+}

@@ -27,7 +27,7 @@ type ApiResponse = {
     notes: NoteItem[];
 };
 
-export function NotesApp(dom = document) {
+export function NotesApp(dom: Document | Element) {
     const container = dom.querySelector(CONTAINER);
 
     if (container) {

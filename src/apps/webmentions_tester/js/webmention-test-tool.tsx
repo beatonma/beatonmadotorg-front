@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, KeyboardEvent } from "react";
 import ReactDOM from "react-dom";
 import { Dropdown, Label, Row } from "../../main/js/components";
-import { classNames } from "../../main/js/components/props";
+import { ClassNameProps, classNames } from "../../main/js/components/props";
 import { loadJson, getCsrfToken, formatTimeDelta } from "../../main/js/util";
 
 const CONTAINER = "#webmentions_testing_tool";
 const endpoint = "active/";
 
-export function WebmentionTesterApp(dom = document) {
+export function WebmentionTesterApp(dom: Document | Element) {
     const container = dom.querySelector(CONTAINER);
 
     if (container) {
@@ -38,29 +38,52 @@ function TooSoon() {
     );
 }
 
-function ActiveMentions(props) {
+interface MentionStatus {
+    successful: boolean;
+    status_code: number;
+    message: string;
+    source_url: string;
+    target_url: string;
+    endpoint: string;
+}
+
+interface ActiveMention {
+    url: string;
+    submitted_at: string | Date;
+    expires_at: string | Date;
+    expires_in: number;
+    status: MentionStatus;
+}
+
+interface ActiveMentionsProps {
+    onChange: boolean;
+    refresh: () => void;
+}
+function ActiveMentions(props: ActiveMentionsProps) {
     const [ttl, setTtl] = useState(0);
     const [mentions, setMentions] = useState([]);
+
+    const { refresh, onChange } = props;
 
     useEffect(() => {
         loadJson(endpoint).then(data => {
             setTtl(data.ttl);
 
-            const mentions = data.mentions;
+            const mentions: ActiveMention[] = data.mentions;
             const uniqueUrlMentions = [
-                ...new Map(mentions.map(item => [item["url"], item])).values(),
+                ...new Map(mentions.map(item => [item.url, item])).values(),
             ];
 
             setMentions(uniqueUrlMentions);
         });
-    }, [props.onChange]);
+    }, [onChange]);
 
     const timeout = formatTimeDelta(ttl, {
         verbose: true,
     });
-    const requestUpdate = callback => {
+    const requestUpdate = (callback: () => void) => {
         setTimeout(() => {
-            props.refresh();
+            refresh();
             callback();
         }, 500);
     };
@@ -91,12 +114,18 @@ function ActiveMentions(props) {
     );
 }
 
-function SampleActiveMention(props) {
+interface SampleActiveMentionProps {
+    ttl: number;
+    expanded: boolean;
+}
+function SampleActiveMention(props: SampleActiveMentionProps) {
     const submittedAt = new Date();
-    const expiresAt = new Date(submittedAt.seconds + props.ttl);
+    const expiresAt = new Date(
+        Math.round(submittedAt.getTime() / 1000) + props.ttl
+    );
     const expiresIn = props.ttl;
 
-    const sampleData = {
+    const sampleData: ActiveMention = {
         url: "https://beatonma.org",
         submitted_at: submittedAt,
         expires_at: expiresAt,
@@ -113,7 +142,7 @@ function SampleActiveMention(props) {
 
     return (
         <ActiveMention
-            {...sampleData}
+            mention={sampleData}
             className="webmention-tester-sample"
             label="Sample"
             expanded={props.expanded}
@@ -121,30 +150,39 @@ function SampleActiveMention(props) {
     );
 }
 
-function ActiveMention(props) {
+interface ActiveMentionProps extends ClassNameProps {
+    requestUpdate?: (callback: () => void) => void;
+    mention: ActiveMention;
+    status?: MentionStatus;
+    expanded: boolean;
+    label?: string;
+}
+function ActiveMention(props: ActiveMentionProps) {
     const [awaitingTask, setAwaitingTask] = useState(true);
 
+    const { mention, requestUpdate, status, expanded } = props;
+
     useEffect(() => {
-        if (props.status === null && props.requestUpdate) {
-            props.requestUpdate(() => setAwaitingTask(!awaitingTask));
+        if (status === null && requestUpdate) {
+            requestUpdate(() => setAwaitingTask(!awaitingTask));
         }
-    }, [props.status, awaitingTask]);
+    }, [status, awaitingTask]);
 
     return (
         <div
             className={`webmention-tester-temp card preview-wide`}
-            title={`Submitted at ${props.submitted_at}`}
+            title={`Submitted at ${props.mention.submitted_at}`}
         >
             <div className={classNames(props, "card-content")}>
                 <Row className="flex-row-space-between">
-                    <a href={`${props.url}`}>{props.url}</a>
+                    <a href={`${props.mention.url}`}>{mention.url}</a>
                     <div>
                         <Label className="webmention-tester-temp-label">
                             {props.label}
                         </Label>
 
                         <Label>
-                            Expires: {formatTimeDelta(props.expires_in)}
+                            Expires: {formatTimeDelta(mention.expires_in)}
                         </Label>
                     </div>
                 </Row>
@@ -157,25 +195,23 @@ function ActiveMention(props) {
     );
 }
 
-function MentionStatus(props) {
-    if (props.status == null)
+interface MentionStatusProps {
+    status?: MentionStatus;
+    expanded: boolean;
+}
+function MentionStatus(props: MentionStatusProps) {
+    const { status, expanded } = props;
+
+    if (status === null) {
         return (
             <Row className="vertical-center">
                 <span className="material-icons refresh">refresh</span>
                 <div>Status unknown - please wait a moment...</div>
             </Row>
         );
+    }
 
-    const {
-        successful,
-        status_code,
-        message,
-        source_url,
-        target_url,
-        endpoint,
-    } = props.status;
-
-    const successMessage = successful ? (
+    const successMessage = status.successful ? (
         <Row className="vertical-center">
             <span className="material-icons">check</span>
             <span>Accepted by server</span>
@@ -188,21 +224,34 @@ function MentionStatus(props) {
     );
 
     return (
-        <Dropdown title={successMessage} expandedDefault={props.expanded}>
+        <Dropdown title={successMessage} expandedDefault={expanded}>
             <table className="webmention-tester-status">
                 <tbody>
-                    <StatusTableRow label="Code" content={status_code} />
-                    <StatusTableRow label="Message" content={message} />
-                    <StatusTableRow label="Source" content={source_url} />
-                    <StatusTableRow label="Target" content={target_url} />
-                    <StatusTableRow label="Endpoint" content={endpoint} />
+                    <StatusTableRow label="Code" content={status.status_code} />
+                    <StatusTableRow label="Message" content={status.message} />
+                    <StatusTableRow
+                        label="Source"
+                        content={status.source_url}
+                    />
+                    <StatusTableRow
+                        label="Target"
+                        content={status.target_url}
+                    />
+                    <StatusTableRow
+                        label="Endpoint"
+                        content={status.endpoint}
+                    />
                 </tbody>
             </table>
         </Dropdown>
     );
 }
 
-function StatusTableRow(props) {
+interface StatusTableRowProps {
+    label: string;
+    content: any;
+}
+function StatusTableRow(props: StatusTableRowProps) {
     return (
         <tr>
             <td>
@@ -217,7 +266,10 @@ function StatusTableRow(props) {
     );
 }
 
-function CreateTempMention(props) {
+interface CreateTempMentionProps {
+    onSubmit: () => void;
+}
+function CreateTempMention(props: CreateTempMentionProps) {
     const [url, setUrl] = useState("");
     const [isError, setIsError] = useState(false);
 
@@ -239,7 +291,7 @@ function CreateTempMention(props) {
             });
     };
 
-    const onKeyPress = event => {
+    const onKeyPress = (event: KeyboardEvent) => {
         setIsError(false);
         if (event.key == "Enter") {
             event.preventDefault();
@@ -284,7 +336,10 @@ function CreateTempMention(props) {
     );
 }
 
-function ErrorMessage(props) {
+interface ErrorMessageProps {
+    show: boolean;
+}
+function ErrorMessage(props: ErrorMessageProps) {
     if (props.show) {
         return <div>Please check your URL - validation failed.</div>;
     } else {
@@ -297,7 +352,7 @@ const headers = {
     "X-CSRFToken": getCsrfToken(),
 };
 
-function create(url, data) {
+function create(url: string, data: any) {
     return fetch(url, {
         method: "POST",
         cache: "no-cache",

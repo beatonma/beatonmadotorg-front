@@ -28,7 +28,7 @@ interface FileProps {
     file: File;
 }
 
-export function RelatedMediaApp(dom = document) {
+export function RelatedMediaApp(dom: Document | Element) {
     const container = dom.querySelector(CONTAINER);
 
     if (container) {
