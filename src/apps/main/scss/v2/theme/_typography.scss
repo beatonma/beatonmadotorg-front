@@ -13,7 +13,7 @@
     --fs-h5: 26px;
     --fs-h6: 24px;
 
-    @include breakpoints.display-width("medium") {
+    @include breakpoints.on-medium-width() {
         --fs-400: 16px;
         --fs-300: 14px;
 

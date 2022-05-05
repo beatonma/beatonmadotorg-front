@@ -13,7 +13,7 @@ $content-max-width: 1686px;
     padding-right: $content-margin-horizontal;
     transition: padding theme.$animation-duration;
 
-    @include theme.display-width("medium") {
+    @include theme.on-medium-width() {
         padding-left: $content-margin-horizontal-min;
         padding-right: $content-margin-horizontal-min;
     }

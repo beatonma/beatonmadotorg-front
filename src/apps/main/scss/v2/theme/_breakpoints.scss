@@ -31,3 +31,21 @@ $breakpoints: (
         @content;
     }
 }
+
+@mixin on-small-width() {
+    @include display-width("small") {
+        @content;
+    }
+}
+
+@mixin on-medium-width() {
+    @include display-width("medium") {
+        @content;
+    }
+}
+
+@mixin on-large-width() {
+    @include display-width("large") {
+        @content;
+    }
+}
