@@ -57,7 +57,11 @@ const buildJs = () => {
 
 const buildTemplates = () =>
     src(prepPath(ANY_HTML))
-        .pipe(gulpReplace(/[\r\n]+(?=.*?%})(?!.*?{%)/gs, " ")) // Remove any newlines found inside {% django\ntags %}
+        .pipe(
+            gulpReplace(/(?<={%).*?(?=%})/gs, match =>
+                match.replace(/\s/g, " ")
+            ) // Remove any newlines found inside {% django\ntags %}
+        )
         .pipe(gulpReplace(/([%}]})[\r\n]+\s*/gs, "$1")) // Remove line breaks and whitespace after django template closing tags %} }}.
         .pipe(dest(TEMP_PATH));
 
