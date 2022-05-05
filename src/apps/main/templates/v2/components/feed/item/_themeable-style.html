@@ -1,3 +1,8 @@
+{% load css %}
+
 {% if themeable %}
-background-color: {{ themeable.primary_color }}; color: {{ themeable.accent_color }}; fill: {{ themeable.accent_color }}; stroke: {{ themeable.accent_color }};
+{% style "background-color" themeable.primary_color %}
+{% style "color" themeable.accent_color %}
+{% style "fill" themeable.accent_color %}
+{% style "stroke" themeable.accent_color %}
 {% endif %}

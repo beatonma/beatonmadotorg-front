@@ -1,6 +1,8 @@
+{% load nullable %}
+
 {% include "./_feed-item.html"
     with
-    image_url=article.preview_image
+    image_url=article.preview_image|nullable:"url"
     title=article.title
     description=article.preview_text
     url=article.get_absolute_url
