@@ -246,3 +246,7 @@ $feed-card-height: 9rem;
         }
     }
 }
+
+.feed-message {
+    grid-column: 1 / -1;
+}

@@ -1,0 +1,8 @@
+{% include "./_feed-item.html"
+  with
+  image_url="/static/images/icon/github.svg"
+  title=repo.name
+  description=repo.description
+  date=repo.updated_at
+  url=repo.url
+%}

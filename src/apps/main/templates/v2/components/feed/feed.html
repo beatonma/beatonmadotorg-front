@@ -22,6 +22,12 @@
         {% elif cls == "Note" %}
           {% include "./item/note-item.html" with note=item type=cls %}
 
+        {% elif cls == "GithubRepository" %}
+          {% include "./item/repository-item.html" with repo=item type=cls %}
+
+        {% elif cls == "FeedMessage" %}
+          {% include "./item/message-item.html" with message=item type=cls %}
+
         {% else %}
           <div>TODO {{ cls }} {{ item.title }}</div>
 
