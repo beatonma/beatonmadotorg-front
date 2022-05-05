@@ -1,9 +1,14 @@
-{% extends 'v2/pages/base/scaffold.html' %}
+{% extends './_search_results.html' %}
 
-{% block title %}#{{ tag }}: beatonma.org{% endblock %}
-{% block description %}Items tagged with #{{ tag }}{% endblock %}
+{% block title %}#{{ filter }}: beatonma.org{% endblock %}
+{% block description %}Items tagged with #{{ filter }}{% endblock %}
 
-{% block content %}
-  <h2>#{{ tag }}</h2>
-  {% include 'v2/components/feed/feed.html' %}
+{% block search_header %}#{{ filter }}{% endblock %}
+
+{% block filters %}
+  {% include "./_filters.html"
+  with
+  filters_title="More tags"
+  filters_viewname="search-tags"
+  %}
 {% endblock %}

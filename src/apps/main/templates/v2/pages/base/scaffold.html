@@ -8,6 +8,7 @@
         <title>{% block title %}beatonma.org{% endblock %}</title>
         <meta name="description" content="{% block description %}Things by Michael Beaton{% endblock %}"/>
         {% include "./_head.html" %}
+        {% block html_head %}{% endblock %}
     </head>
     <body>
         <header>{% block header %}{% include "./_header.html" %}{% endblock %}</header>

@@ -1,10 +1,14 @@
-{% extends 'v2/pages/base/scaffold.html' %}
+{% extends './_search_results.html' %}
 
-{% block title %}{{ language }}: beatonma.org{% endblock %}
-{% block description %}Apps written with {{ language }}{% endblock %}
+{% block title %}{{ filter }}{% endblock %}
+{% block description %}Apps written with {{ filter }}{% endblock %}
 
-{% block content %}
-  <h2>{{ language }}</h2>
-  TODO
-  {% include 'v2/components/feed/feed.html' %}
+{% block search_header %}{{ filter }} apps{% endblock %}
+
+{% block filters %}
+  {% include "./_filters.html"
+    with
+    filters_title="Languages"
+    filters_viewname="search-languages"
+    %}
 {% endblock %}
