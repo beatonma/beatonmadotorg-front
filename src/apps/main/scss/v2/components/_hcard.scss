@@ -1,0 +1,46 @@
+@use "v2/layout";
+@use "v2/theme";
+@use "./card";
+@use "./links";
+
+.h-card {
+    @extend %card;
+    @extend %outlined;
+    @extend %shape-medium;
+    @extend %padding-medium;
+    @extend %center;
+    @extend %readable-text;
+    @extend %margin-large-bottom;
+
+    max-width: 52ch;
+
+    #relme {
+        @extend %links;
+        @extend %text-small;
+
+        a,
+        a:link,
+        a:visited {
+            @include theme.link-color(var(--accent));
+
+            font-variant: normal;
+        }
+    }
+
+    .p-name {
+        font-weight: bold;
+    }
+
+    .p-addr {
+        @extend %text-small;
+    }
+
+    .u-photo {
+        @extend %shape-small;
+    }
+
+    .basic {
+        @include layout.row($gap: 1rem);
+        @extend %margin-medium-bottom;
+    }
+}
