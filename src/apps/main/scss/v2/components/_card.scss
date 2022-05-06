@@ -5,6 +5,7 @@
     @extend %elevated;
 
     background-color: var(--surface);
+    overflow: clip;
 }
 
 %card-content {
