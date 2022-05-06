@@ -8,6 +8,7 @@
 {% elif post.hero_image %}
 <div class="hero-wrapper">
   <img
+    loading="lazy"
     class="hero {{ post.hero_css|default:'' }}"
     src="{{ post.hero_image.url }}"
     alt=""

@@ -140,6 +140,7 @@ interface MediaProps extends FileProps {
 function Image(props: MediaProps) {
     return (
         <img
+            loading="lazy"
             className="related-image"
             src={props.file.url}
             alt={props.description}

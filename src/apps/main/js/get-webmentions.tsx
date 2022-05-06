@@ -159,7 +159,9 @@ function Avatar(props: AvatarProps) {
 
     if (!url) return null;
 
-    return <img src={url} className="mention-avatar" alt={name} />;
+    return (
+        <img loading="lazy" src={url} className="mention-avatar" alt={name} />
+    );
 }
 
 interface QuoteProps {
