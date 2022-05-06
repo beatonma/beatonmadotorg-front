@@ -50,6 +50,7 @@ function SearchSuggestions() {
     if (suggestions) {
         return (
             <>
+                <div className="links-title">Explore</div>
                 {suggestions.map((suggestion: SuggestionProps) => (
                     <Suggestion key={suggestion.url} {...suggestion} />
                 ))}

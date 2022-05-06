@@ -26,10 +26,40 @@ $search-input-width: 32ch;
         overflow-x: hidden;
         opacity: 0;
 
-        @include theme.transition(
-            (opacity, max-width),
-            theme.$animation-duration
-        );
+        @include theme.transition((opacity, max-width));
+    }
+
+    #search {
+        @extend %text-normal;
+        max-width: $search-input-width;
+        margin: 0;
+        margin-left: 4px;
+        background-color: var(--input-text-background);
+
+        @include theme.transition((max-width));
+    }
+
+    #search_suggestions {
+        @extend %card;
+        @extend %links;
+        @extend %padding-small;
+        @extend %padding-medium-bottom;
+        @include theme.transition((max-height, opacity));
+
+        .links-title {
+            flex: 0 0 100%;
+            text-align: end;
+        }
+
+        position: absolute;
+        right: 0;
+        z-index: 10000;
+        justify-content: flex-end;
+
+        max-width: 0;
+        max-height: 0;
+        opacity: 0;
+        overflow: clip;
     }
 
     &:focus-within {
@@ -45,40 +75,16 @@ $search-input-width: 32ch;
         }
     }
 
-    #search_suggestions {
-        @extend %card;
-        @extend %links;
-        @extend %padding-small;
-        @include layout.row(
-            $horizontal: flex-end,
-            $vertical: baseline,
-            $wrap: wrap,
-            $gap: 0.5rem
-        );
-
-        position: absolute;
-        right: 0;
-        z-index: 10000;
-
-        max-width: 0;
-        max-height: 0;
-        opacity: 0;
-    }
-
-    #search {
-        @extend %text-normal;
-        max-width: $search-input-width;
-        margin: 0;
-        margin-left: 4px;
-        background-color: var(--input-text-background);
-    }
-
     @include theme.display-max-width($search-full-width) {
         width: stretch;
 
         #search_wrapper,
         input[type="text"] {
             width: stretch;
+        }
+
+        #search {
+            max-width: 100%;
         }
     }
 
