@@ -1,21 +1,49 @@
 @use "v2/layout";
 @use "v2/theme";
 
-.hero-wrapper {
-    @extend %shape-medium-top;
-    background-color: var(--local-primary);
-    aspect-ratio: 2;
-    width: 100%;
-    display: flex;
-}
+article[data-type="article"] {
+    $border-width: 2px;
 
-img.hero {
-    @extend %center;
-    height: 100%;
+    .hero-wrapper {
+        @extend %center;
+        display: flex;
+        position: relative;
+        aspect-ratio: unset;
+        width: fit-content;
+        max-width: 100%;
 
-    &.cover {
-        width: 100%;
-        height: auto;
+        img {
+            max-height: 25rem;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        &.cover {
+            width: 100%;
+
+            @include theme.on-small-width() {
+                &:before {
+                    content: "";
+                    position: absolute;
+                    width: stretch;
+                    height: stretch;
+                    left: 0;
+                    right: 0;
+                    background-color: var(--local-primary);
+                    z-index: -1;
+                    margin-left: -100%;
+                    margin-right: -100%;
+                }
+            }
+        }
+
+        &.contain {
+            img {
+                @extend %shape-medium-top;
+                outline: 4px var(--local-primary) solid;
+                outline-offset: 4px;
+            }
+        }
     }
 }
 
@@ -31,5 +59,23 @@ article {
             $vertical: baseline,
             $gap: 1rem
         );
+    }
+
+    .hero-wrapper {
+        @extend %shape-medium-top;
+        background-color: var(--local-primary);
+        aspect-ratio: 2;
+        width: 100%;
+        display: flex;
+
+        img.hero {
+            @extend %center;
+            height: 100%;
+
+            &.cover {
+                width: 100%;
+                height: auto;
+            }
+        }
     }
 }

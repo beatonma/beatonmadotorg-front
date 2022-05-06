@@ -7,7 +7,9 @@
 }
 
 .image {
-    @extend %foreground-accent;
+    @extend %surface-accent;
+    background-repeat: no-repeat;
+    background-position: center;
 
     &.cover {
         background-size: cover;

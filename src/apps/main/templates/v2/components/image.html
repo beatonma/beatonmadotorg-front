@@ -1,7 +1,7 @@
 {% load repetition %}
 {% if image_url %}
     <div
-        class="image {{ imageclass }}"
+        class="image {{ imageclass|default:'cover' }}"
         style="{% include 'v2/components/feed/item/_themeable-style.html' %} background-image: url('{{ image_url }}')"
     >
     </div>

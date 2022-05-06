@@ -70,7 +70,6 @@ $feed-card-height: 9rem;
 
     > .image {
         @include layout.size($feed-card-height);
-        @include image.background(cover);
         overflow: clip;
 
         > svg {
