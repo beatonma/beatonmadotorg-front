@@ -74,7 +74,6 @@ $feed-card-height: 9rem;
         overflow: clip;
 
         > svg {
-            @extend %margin-medium;
             width: stretch;
             height: stretch;
         }
@@ -157,7 +156,7 @@ $feed-card-height: 9rem;
     &[data-type="app"],
     &[data-type="githubrepository"] {
         .image {
-            @extend %padding-medium;
+            padding: calc(#{theme.$spacing-medium} * 2);
             background-size: contain;
             box-sizing: border-box;
             background-origin: content-box;
