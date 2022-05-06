@@ -34,6 +34,8 @@
 
         .menu-content {
             @extend %surface-primary;
+            @extend %padding-small;
+            @extend %shape-small;
             position: absolute;
             right: 0;
             display: flex;

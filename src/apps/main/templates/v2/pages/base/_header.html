@@ -47,13 +47,13 @@
         <div class="menu">
             <div class="menu-title material-icons">add</div>
             <div class="menu-content">
-                <a href="{% url 'admin:main_app_add' %}">App</a>
-                <a href="{% url 'admin:main_article_add' %}">Article</a>
-                <a href="{% url 'admin:main_blog_add' %}">Blog</a>
-                <a href="{% url 'admin:main_changelog_add' %}">Changelog</a>
-                <a href="{% url 'admin:main_note_add' %}">Note</a>
+                <a tabindex="-1" href="{% url 'admin:main_app_add' %}">App</a>
+                <a tabindex="-1" href="{% url 'admin:main_article_add' %}">Article</a>
+                <a tabindex="-1" href="{% url 'admin:main_blog_add' %}">Blog</a>
+                <a tabindex="-1" href="{% url 'admin:main_changelog_add' %}">Changelog</a>
+                <a tabindex="-1" href="{% url 'admin:main_note_add' %}">Note</a>
             </div>
         </div>
-             </div>
+     </div>
     {% endif %}
 </div>
