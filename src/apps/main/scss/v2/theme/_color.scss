@@ -67,3 +67,26 @@ $_contrastLevels: [ "100", "400", "900" ];
         }
     }
 }
+
+/**
+ * Generates something like:
+ * %on-primary-400 {
+ *   color: var(--local-on-primary-400);
+     ...etc.
+ * }
+ */
+%on {
+    @each $colorName in $_colorNames {
+        &-#{$colorName} {
+            @include _foregroundColor(var(--local-on#{$colorName}));
+        }
+
+        @each $contrastLevel in $_contrastLevels {
+            &-#{$contrastLevel} {
+                @include _foregroundColor(
+                    var(--local-on-#{$colorName}-#{$contrastLevel})
+                );
+            }
+        }
+    }
+}

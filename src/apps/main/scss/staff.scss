@@ -44,6 +44,7 @@
             text-align: end;
 
             a {
+                @extend %on-primary;
                 width: stretch;
             }
         }
