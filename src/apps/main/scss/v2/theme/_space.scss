@@ -1,11 +1,17 @@
 $defaultGap: 1rem;
 
+$spacing-zero: 0;
+$spacing-small: 8px;
+$spacing-medium: 16px;
+$spacing-large: 24px;
+$spacing-auto: auto;
+
 $spacing: (
-    "zero": 0,
-    "small": 8px,
-    "medium": 16px,
-    "large": 24px,
-    "auto": auto,
+    "zero": $spacing-zero,
+    "small": $spacing-small,
+    "medium": $spacing-medium,
+    "large": $spacing-large,
+    "auto": $spacing-auto,
 );
 
 @mixin spacing($property) {
