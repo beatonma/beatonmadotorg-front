@@ -1,4 +1,4 @@
-import { cookieExists, getCookie, setCookie } from "./util";
+import { clearCookie, cookieExists, getCookie, setCookie } from "./util";
 
 const DAY = "day";
 const NIGHT = "night";
@@ -13,12 +13,12 @@ let themeName = DAY; // values: 'day', 'night'
 
 // Automatically change basic color themes depending on time of day
 // If forceAuto then cookie values will be ignored
-export function setDayNightAutoTheme(forceAuto) {
+export function setDayNightAutoTheme(forceAuto?: boolean) {
     if (forceAuto) {
         clearCookie(COOKIE);
     } else if (cookieExists(COOKIE)) {
         const t = getCookie(COOKIE);
-        setTheme(t, true);
+        setTheme(t);
         return;
     }
 
@@ -32,7 +32,7 @@ export function setDayNightAutoTheme(forceAuto) {
     }
 }
 
-function setTheme(newtheme, args) {
+function setTheme(newtheme: string) {
     const stylesheet = document.getElementById(ID_STYLESHEET);
     console.log(`Theme: ${newtheme}`);
 
@@ -65,7 +65,7 @@ export function toggleTheme() {
     }
 
     setCookie(COOKIE, themeName, 24 * 60 * 60 * 1000 * 30); // Remember this theme selection for 30 days
-    setTheme(themeName, true);
+    setTheme(themeName);
 }
 
 export function initTheme() {
@@ -77,6 +77,10 @@ export function initTheme() {
     } catch (e) {
         console.error(e);
     }
+}
+
+export function isDarkTheme() {
+    return themeName === NIGHT;
 }
 
 initTheme();

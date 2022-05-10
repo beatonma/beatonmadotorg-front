@@ -1,0 +1,86 @@
+@use "v2/layout";
+@use "v2/theme";
+@use "v2/components/button";
+@use "v2/components/card";
+
+#contact {
+    @extend %center;
+    @extend %readable-text;
+
+    input[type="text"],
+    textarea {
+        @extend %shape-small;
+        @extend %surface;
+
+        resize: both;
+        width: stretch;
+        border: 2px var(--primary-100) solid;
+        @include theme.transition((border-color));
+
+        &:focus {
+            border-color: var(--accent);
+        }
+
+        &:not(:focus):invalid {
+            border-color: var(--accent-100);
+        }
+
+        &::placeholder {
+            color: var(--text-secondary);
+        }
+    }
+
+    input[type="text"] {
+        max-width: 50ch;
+    }
+
+    textarea {
+        width: stretch;
+        min-height: 4rem;
+    }
+
+    label {
+        display: block;
+        padding-bottom: 0.5rem;
+    }
+
+    button {
+        @extend %hover;
+        @extend %padding-large;
+        cursor: pointer;
+        background-color: transparent;
+        color: var(--accent);
+        font-size: 1.5rem;
+
+        @include theme.transition(
+            (padding, max-width, opacity, background-color)
+        );
+
+        &:disabled,
+        &disabled:hover {
+            cursor: default;
+            padding: 0;
+            background-color: var(--text-tertiary-invert);
+            border-color: var(--text-tertiary);
+            color: var(--text-tertiary);
+            max-width: 0;
+            opacity: 0;
+        }
+    }
+
+    .success {
+        @extend %fade-and-slide-in;
+    }
+
+    .failure {
+        @extend %card;
+        @extend %padding-medium;
+        @extend %margin-large-vertical;
+        @extend %fade-and-slide-in;
+
+        a,
+        a:visited {
+            @include theme.link-color(var(--accent));
+        }
+    }
+}
