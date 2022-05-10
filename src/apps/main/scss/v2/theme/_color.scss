@@ -2,6 +2,7 @@
  * Generate %surface-primary, %surface-primary-100, %surface-primary-400, etc...
  *
  */
+@use "./animation";
 
 $_colorNames: [ "primary", "accent" ];
 $_contrastLevels: [ "100", "400", "900" ];
@@ -23,10 +24,23 @@ $_contrastLevels: [ "100", "400", "900" ];
  * ... for each colorName, contrastLevel
  */
 %surface {
+    background-color: var(--surface);
+    color: var(--on-surface);
+
     @each $colorName in $_colorNames {
         &-#{$colorName} {
             background-color: var(--local-#{$colorName});
             @include _foregroundColor(var(--local-on-#{$colorName}));
+
+            &-hover {
+                background-color: var(--local-#{$colorName});
+                @include _foregroundColor(var(--local-on-#{$colorName}));
+
+                &:hover {
+                    background-color: var(--local-#{$colorName}-900);
+                }
+                @include animation.transition((background-color));
+            }
 
             @each $contrastLevel in $_contrastLevels {
                 &-#{$contrastLevel} {

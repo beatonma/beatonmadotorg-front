@@ -1,7 +1,7 @@
 @use "v2/layout";
 @use "v2/theme";
-@use "v2/components/button";
-@use "v2/components/card";
+@use "../components/button";
+@use "../components/card";
 
 #contact {
     @extend %center;
@@ -45,11 +45,11 @@
     }
 
     button {
-        @extend %hover;
         @extend %padding-large;
+        @extend %surface-accent-hover;
         cursor: pointer;
-        background-color: transparent;
-        color: var(--accent);
+        font-weight: bold;
+
         font-size: 1.5rem;
 
         @include theme.transition(

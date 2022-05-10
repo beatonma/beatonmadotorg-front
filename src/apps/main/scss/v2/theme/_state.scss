@@ -4,7 +4,6 @@
 /**
  * Hover, select, focus, etc.
  */
-
 %hover {
     @extend %shape-small;
     @include animation.transition([background-color]);
