@@ -73,50 +73,12 @@ const getScript = (element: HTMLScriptElement) =>
         document.body.appendChild(script);
     });
 
-// function getScript(element: HTMLScriptElement, callback: () => void) {
-//     const src = element.src;
-//     element.parentElement.removeChild(element);
-//
-//     let script: HTMLScriptElement = document.createElement("script");
-//     script.async = true;
-//
-//     script.onload = (_: GlobalEventHandlers, isAbort: Event): any => {
-//         if (
-//             isAbort ||
-//             !script.readyState ||
-//             /loaded|complete/.test(script.readyState)
-//         ) {
-//         }
-//     };
-//
-//     // script.onload = script.onreadystatechange = (_, isAbort) => {
-//     //     if (
-//     //         isAbort ||
-//     //         !script.readyState ||
-//     //         /loaded|complete/.test(script.readyState)
-//     //     ) {
-//     //         script.onload = script.onreadystatechange = null;
-//     //         script = undefined;
-//     //
-//     //         if (!isAbort && callback) {
-//     //             callback();
-//     //         }
-//     //     }
-//     // };
-//
-//     script.src = src;
-//     document.body.appendChild(script);
-// }
-
 function init() {
     // Intercept all click events
     document.addEventListener("click", e => {
         let el: HTMLElement | ParentNode = e.target as HTMLElement;
-        // Go up in the nodelist until we find a node with .href (HTMLAnchorElement)
-        // while (el && !el.href) {
-        //     el = el.parentNode;
-        // }
 
+        // Go up in the nodelist until we find a node with .href (HTMLAnchorElement)
         while (el && !(el instanceof HTMLAnchorElement)) {
             el = el.parentNode;
         }
