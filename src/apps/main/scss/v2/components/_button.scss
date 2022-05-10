@@ -9,7 +9,8 @@
     font-variant: all-small-caps;
     line-height: 1.2;
 
-    a {
+    a,
+    a:visited {
         @extend %button;
     }
 }
@@ -25,13 +26,16 @@
     @extend %outlined;
     @extend %text-one-line;
 
+    font-size: var(--fs-400);
+    font-variant: all-small-caps;
+
     &[data-selected="true"] {
         color: var(--local-accent);
         border-color: var(--local-accent-100);
     }
 }
 
-input[type="button"],
+button,
 .button {
     @extend %button;
 }
