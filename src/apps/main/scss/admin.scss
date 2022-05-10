@@ -1,15 +1,22 @@
+@forward "./colors-day";
+
 :root {
-    --secondary: var(--local-primary-100);
-    --header-bg: var(--local-primary-900);
-    --border-color: var(--local-accent-100);
-    --link-fg: var(--local-accent);
-    --link-hover-color: var(--local-accent-900);
-    --default-button-bg: var(--local-primary);
-    --button-hover-bg: var(--local-primary-900);
-    --selected-row: var(--local-accent-100);
+    --secondary: var(--primary-100);
+    --header-bg: var(--primary-900);
+    --border-color: var(--accent-100);
+    --link-fg: var(--accent);
+    --link-hover-color: var(--accent-900);
+    --default-button-bg: var(--primary);
+    --button-hover-bg: var(--primary-900);
+    --selected-row: var(--accent-100);
     --header-color: var(--text-light-primary);
     --delete-button-bg: var(--red);
     --error-fg: var(--red);
+}
+
+body {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 ::-webkit-scrollbar {
@@ -21,24 +28,29 @@ input[type="text"],
 textarea {
     min-width: 30ch;
     max-width: 80ch;
-    resize: both;
+    resize: both !important;
     font-family: monospace;
+    border: 2px var(--text-tertiary) solid;
+    border-radius: 6px;
+    background-color: var(--background);
+    color: var(--on-background);
 }
 
 #header {
     color: var(--text-light-primary);
 
+    a,
+    a:visited {
+        color: var(--text-light-primary) !important;
+    }
+
     #branding {
         h1 {
-            a,
-            a:visited {
-                color: var(--text-light-primary);
-                font-size: var(--fs-h1);
-            }
+            font-size: var(--fs-h1);
         }
     }
 
     #user-tools {
-        font-size: var(--fs-h5);
+        font-size: var(--fs-400);
     }
 }
