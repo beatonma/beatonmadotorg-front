@@ -21,6 +21,7 @@ const contentWrapperID = "content_wrapper"; // Placeholder parent of contentID.
 const localStyleID = "local_style"; // Hot-swappable inline CSS.
 const loadingID = "loading"; // globally available loading UI.
 const noAnimationClass = "noanim"; // Links with this class opt out of hot-swapping content.
+const noAnimationPathsRegex = /(webapp)\/.*/; // Disable animations when the URL path matches this pattern.
 
 const onPageChangeClass = ".onPageChange";
 const onPageUnloadClass = ".onPageUnload";
@@ -73,6 +74,30 @@ const getScript = (element: HTMLScriptElement) =>
         document.body.appendChild(script);
     });
 
+function shouldAnimateTransition(anchor: HTMLAnchorElement): boolean {
+    if (!domainsRegex.test(anchor.href)) {
+        // If target is on a different domain then handle it the normal way
+        return false;
+    }
+
+    // Links annotated with 'noanim' class should be treated as external (no content transition animations)
+    if (anchor.className.includes(noAnimationClass)) {
+        return false;
+    }
+
+    if (noAnimationPathsRegex.test(anchor.pathname)) {
+        return false;
+    }
+}
+
+function shouldScrollTo(anchor: HTMLAnchorElement): boolean {
+    return (
+        anchor.pathname === window.location.pathname &&
+        anchor.search === window.location.search &&
+        anchor.hash !== window.location.hash
+    );
+}
+
 function init() {
     // Intercept all click events
     document.addEventListener("click", e => {
@@ -83,36 +108,39 @@ function init() {
             el = el.parentNode;
         }
 
-        if (el) {
-            const anchor = el as HTMLAnchorElement;
-            const url = anchor.href;
-            if (!domainsRegex.test(url)) {
-                // If target is on a different domain then handle it the normal way
-                return;
-            }
+        if (!el) return;
+        const anchor = el as HTMLAnchorElement;
 
-            // Links annotated with 'noanim' class should be treated as external (no content transition animations)
-            if (anchor.className.includes(noAnimationClass)) {
-                return;
-            }
+        // const anchor = el as HTMLAnchorElement;
+        // const url = anchor.href;
+        // if (!domainsRegex.test(url)) {
+        //     // If target is on a different domain then handle it the normal way
+        //     return;
+        // }
+        //
+        // // Links annotated with 'noanim' class should be treated as external (no content transition animations)
+        // if (anchor.className.includes(noAnimationClass)) {
+        //     return;
+        // }
+        //
+        // if (noAnimationPathsRegex.test(anchor.pathname)) {
+        //     return;
+        // }
 
-            if (
-                anchor.pathname === window.location.pathname &&
-                anchor.search === window.location.search &&
-                anchor.hash !== window.location.hash
-            ) {
-                // Handle links to element #id
-                console.log(`navigate to ${anchor.hash}`);
-                e.preventDefault();
-                history.pushState(null, null, url);
-                scrollToId(anchor.hash);
-            } else {
-                // Otherwise fetch content from the target and insert it
-                // into the current page
-                e.preventDefault();
-                changePage(url);
-            }
+        if (!shouldAnimateTransition(anchor)) return;
+
+        if (shouldScrollTo(anchor)) {
+            // Handle links to element #id
+            e.preventDefault();
+            history.pushState(null, null, anchor.href);
+            scrollToId(anchor.hash);
+            return;
         }
+
+        // Otherwise fetch content from the target and insert it
+        // into the current page
+        e.preventDefault();
+        changePage(anchor.href);
     });
 
     window.addEventListener("popstate", () =>
@@ -164,6 +192,7 @@ export function changePage(url: string, pushToHistory: boolean = true) {
         .catch(err => {
             console.error(err);
             window.location.href = url;
+            showLoading(false);
         });
 }
 
