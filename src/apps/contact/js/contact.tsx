@@ -36,7 +36,7 @@ function onSubmitContact(event: SubmitEvent): boolean {
     const headers = new Headers();
     headers.append("X-CSRFToken", csrftoken);
 
-    fetch("/contact/send", {
+    fetch("/contact/send/", {
         headers: headers,
         method: "POST",
         body: form,
