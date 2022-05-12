@@ -63,6 +63,9 @@ $animation-duration: 300ms;
 }
 
 %animate-all {
-    // transition: all $animation-duration;
     @include transition((all));
+}
+
+*[data-animate-in="true"] {
+    @extend %fade-and-slide-in;
 }

@@ -1,12 +1,3 @@
-import { loadPage, scrollToId } from "./util";
-import { APPS } from "./apps";
-import { createElement } from "react";
-
-const itemAnimationDuration = 120;
-const itemAnimationDelay = 40;
-const enterInterpolator = "ease";
-const pageAnimationDuration = 200;
-
 /**
  * Expected structure:
  *
@@ -16,20 +7,37 @@ const pageAnimationDuration = 200;
  *     </div>
  *   </div>
  */
-const contentID = "content"; // Hot-swappable page content.
-const contentWrapperID = "content_wrapper"; // Placeholder parent of contentID.
-const localStyleID = "local_style"; // Hot-swappable inline CSS.
-const loadingID = "loading"; // globally available loading UI.
-const noAnimationClass = "noanim"; // Links with this class opt out of hot-swapping content.
-const noAnimationPathsRegex = /(webapp)\/.*/; // Disable animations when the URL path matches this pattern.
+import { loadPage, scrollToId } from "./util";
+import { APPS } from "./apps";
 
-const onPageChangeClass = ".onPageChange";
-const onPageUnloadClass = ".onPageUnload";
+const ItemAnimationDelay = 40;
+const PageAnimationDuration = 200;
 
-const animatedElements = ".card, .feed-item-card, article";
+// Hot-swappable page content.
+const ContentID = "content";
+
+// Placeholder parent of contentID.
+const ContentWrapperID = "content_wrapper";
+
+// Hot-swappable inline CSS.
+const LocalStyleID = "local_style";
+
+// globally available loading UI
+const LoadingID = "loading";
+
+// Links with this class opt out of hot-swapping content.
+const NoAnimationClass = "noanim";
+
+// Disable animations when the URL path matches this pattern.
+const NoAnimationPathsRegex = /(webapp)\/.*/;
+
+const OnPageChangeClass = ".onPageChange";
+const OnPageUnloadClass = ".onPageUnload";
+
+const AnimatedElementSelector = ".card, .feed-item-card, article";
 
 // Page transitions are enabled when travelling to URLs on these domains.
-const domainsRegex = /(beatonma.org|inverness.io|localhost)/;
+const DomainsRegex = /(beatonma.org|inverness.io|localhost)/;
 
 function onContentChanged(dom: Document | Element) {
     APPS.forEach(app => {
@@ -46,7 +54,7 @@ function onContentChanged(dom: Document | Element) {
 }
 
 export function showLoading(show: boolean) {
-    document.getElementById(loadingID).dataset.active = `${show}`;
+    document.getElementById(LoadingID).dataset.active = `${show}`;
 }
 
 const getScript = (element: HTMLScriptElement) =>
@@ -77,19 +85,19 @@ const getScript = (element: HTMLScriptElement) =>
 function shouldAnimateTransition(
     anchor: HTMLAnchorElement | URL | Location
 ): boolean {
-    if (!domainsRegex.test(anchor.href)) {
+    if (!DomainsRegex.test(anchor.href)) {
         // If target is on a different domain then handle it the normal way
         return false;
     }
 
-    if (noAnimationPathsRegex.test(anchor.pathname)) {
+    if (NoAnimationPathsRegex.test(anchor.pathname)) {
         return false;
     }
 
     // Links annotated with 'noanim' class should be treated as external (no content transition animations)
     if (
         anchor instanceof HTMLAnchorElement &&
-        anchor.className.includes(noAnimationClass)
+        anchor.className.includes(NoAnimationClass)
     ) {
         return false;
     }
@@ -97,14 +105,14 @@ function shouldAnimateTransition(
     return true;
 }
 
-function shouldScrollTo(anchor: HTMLAnchorElement): boolean {
+function shouldScrollTo(anchor: HTMLAnchorElement | URL | Location): boolean {
     return (
         anchor.pathname === window.location.pathname &&
         anchor.search === window.location.search
     );
 }
 
-function init() {
+function setup() {
     // Intercept all click events
     document.addEventListener("click", e => {
         let el: HTMLElement | ParentNode = e.target as HTMLElement;
@@ -168,13 +176,13 @@ export function changePage(url: string, pushToHistory: boolean = true) {
             ).content;
 
             const newLocalStyle = wrapper.querySelector(
-                `#${localStyleID}`
+                `#${LocalStyleID}`
             ).innerHTML;
-            document.getElementById(localStyleID).innerHTML = newLocalStyle;
+            document.getElementById(LocalStyleID).innerHTML = newLocalStyle;
 
-            const oldContent = document.getElementById(contentID);
+            const oldContent = document.getElementById(ContentID);
             const newContent = wrapper.querySelector(
-                `#${contentID}`
+                `#${ContentID}`
             ) as HTMLElement;
 
             animatePageChange(oldContent, newContent, onContentChanged);
@@ -191,10 +199,10 @@ function animatePageChange(
     newContent: HTMLElement,
     callback: (content: HTMLElement) => void
 ) {
-    const contentWrapper = document.getElementById(contentWrapperID);
+    const contentWrapper = document.getElementById(ContentWrapperID);
     const fadeOut = oldContent.animate(
         [{ opacity: 1 }, { opacity: 0 }],
-        pageAnimationDuration
+        PageAnimationDuration
     );
 
     fadeOut.onfinish = () => {
@@ -206,7 +214,7 @@ function animatePageChange(
         showLoading(false);
         animateContentEnter(newContent);
 
-        newContent.querySelectorAll(onPageChangeClass).forEach(el => {
+        newContent.querySelectorAll(OnPageChangeClass).forEach(el => {
             const script = el as HTMLScriptElement;
             if (script.src) {
                 getScript(script);
@@ -217,7 +225,7 @@ function animatePageChange(
             }
         });
 
-        oldContent.querySelectorAll(onPageUnloadClass).forEach(el => {
+        oldContent.querySelectorAll(OnPageUnloadClass).forEach(el => {
             const script = el as HTMLScriptElement;
             if (script.src) {
                 getScript(script);
@@ -232,38 +240,21 @@ function animatePageChange(
     };
 }
 
-function animateContentEnter(parent: Element) {
+function animateContentEnter(parent: HTMLElement) {
     let delay = 0;
 
     try {
-        parent.querySelectorAll(animatedElements).forEach(el => {
-            elementIn(el, delay);
+        parent.querySelectorAll(AnimatedElementSelector).forEach(el => {
+            elementIn(el as HTMLElement, delay);
 
-            delay += itemAnimationDelay;
+            delay += ItemAnimationDelay;
         });
     } catch (e) {}
 }
 
-function elementIn(element: Element, delay: number) {
-    element.animate([{ opacity: 0 }, { opacity: 0 }], {
-        delay: 0,
-        duration: delay || 0,
-    });
-
-    element.animate([{ opacity: 0 }, { opacity: 1 }], {
-        delay: delay || 0,
-        duration: itemAnimationDuration,
-        easing: enterInterpolator,
-    });
-
-    element.animate(
-        [{ transform: "translateY(50px)" }, { transform: "translateY(0px)" }],
-        {
-            delay: delay || 0,
-            duration: itemAnimationDuration,
-            easing: enterInterpolator,
-        }
-    );
+function elementIn(element: HTMLElement, delay: number) {
+    element.style.animationDelay = `${delay}ms`;
+    element.dataset.animateIn = "true";
 }
 
-init();
+setup();
