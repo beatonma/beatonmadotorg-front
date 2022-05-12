@@ -1,15 +1,22 @@
-export const SERVER = "localhost:8000";
+import { SERVER } from "./config";
 
-describe("Index page", () => {
+describe("Index page displays correctly", () => {
     it("Opens the main page", () => {
         cy.visit(SERVER);
         cy.contains("beatonma.org");
+
+        cy.get("#github_recent");
+        cy.get("#notes");
     });
 
-    it("Navigates to next page of feed", () => {
+    it("Feed pagination works", () => {
         cy.visit(SERVER);
         cy.get("[title='Next page']").click();
         cy.url().should("include", "?page=2");
+
+        // Github and notes should only be on the first page.
+        cy.get("#github_recent").should("not.exist");
+        cy.get("#notes").should("not.exist");
     });
 
     it("Search UI works", () => {
