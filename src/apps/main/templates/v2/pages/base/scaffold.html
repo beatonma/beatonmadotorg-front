@@ -24,6 +24,10 @@
 
         <footer>
             {% block footer %}
+            {% include "./_footer.html" %}
+            {% endblock %}
+
+            {% block hcard %}
             {% include "v2/components/hcard/hcard-basic.html" %}
             {% endblock %}
         </footer>

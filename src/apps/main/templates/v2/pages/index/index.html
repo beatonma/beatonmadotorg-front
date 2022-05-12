@@ -12,32 +12,9 @@
   {% endif %}
     
   {% include 'v2/components/feed/main-feed.html' %}
-
-  {% if apps %}
-    <section>
-      {% for app in apps %}
-        <a class="tag" href="{% url 'app' app.app_id %}">{{ app.title }}</a>
-      {% endfor %}
-    </section>
-  {% endif %}
-
-  {% if tags %}
-    <section>
-        <div class="tags flex-row-center">
-          {% for tag in tags %}
-            <a class="tag" href="{% url 'search-tags' tag.slug %}">#{{ tag.name }}</a>
-          {% endfor %}
-        </div>
-        <div class="tags flex-row-center">
-          {% for language in languages %}
-            <a class="tag" href="{% url 'search-languages' language.name %}">{{ language.name }}</a>
-          {% endfor %}
-        </div>
-    </section>
-  {% endif %}
 {% endblock %}
 
-{% block footer %}
+{% block hcard %}
   <div data-meta="true">
     {% include "v2/components/hcard/hcard.html" %}
   </div>
