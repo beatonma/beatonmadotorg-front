@@ -5,6 +5,7 @@
 :root {
     --fs-400: 18px;
     --fs-300: 16px;
+    --fs-100: 14px;
 
     --fs-h1: 38px;
     --fs-h2: 34px;
@@ -16,6 +17,7 @@
     @include breakpoints.on-medium-width() {
         --fs-400: 16px;
         --fs-300: 14px;
+        --fs-100: 12px;
 
         --fs-h1: 30px;
         --fs-h2: 28px;
@@ -40,6 +42,10 @@
 
 %text-small {
     font-size: var(--fs-300);
+}
+
+%text-smallest {
+    font-size: var(--fs-100);
 }
 
 %text-container {

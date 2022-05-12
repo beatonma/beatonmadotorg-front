@@ -1,0 +1,70 @@
+@use "v2/theme";
+@use "v2/layout";
+
+#webmentions_testing_tool {
+    @extend %readable-text;
+    @extend %center;
+
+    .header-row {
+        @include layout.row(
+            $vertical: baseline,
+            $column-gap: 1rem,
+            $row-gap: 0.5rem
+        );
+    }
+
+    .form {
+        @include layout.row($gap: theme.$defaultGap);
+        @extend %outlined;
+        @extend %padding-medium;
+        @extend %center;
+        @extend %shape-small;
+
+        width: fit-content;
+
+        input[type="text"] {
+            font-size: var(--fs-h5);
+            outline: 2px var(--primary-100) solid;
+            outline-offset: 2px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    }
+
+    .active-mentions {
+        .active-mention {
+            @extend %outlined;
+            @extend %shape-small;
+            @extend %padding-medium;
+            @extend %margin-medium-bottom;
+        }
+    }
+
+    .label {
+        @extend %text-smallest;
+        color: var(--text-secondary);
+
+        &.temp {
+            @extend %foreground-accent;
+        }
+    }
+
+    .toolbar {
+        .right {
+            display: block;
+            text-align: end;
+        }
+    }
+
+    table {
+        td {
+            @extend %padding-small-right;
+        }
+
+        code {
+            line-break: anywhere;
+        }
+    }
+}

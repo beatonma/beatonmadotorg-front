@@ -1,11 +1,12 @@
 import React, { useState, useEffect, KeyboardEvent } from "react";
 import ReactDOM from "react-dom";
 import { Dropdown, Label, Row } from "../../main/js/components";
-import { ClassNameProps, classNames } from "../../main/js/components/props";
+import { ClassNameProps } from "../../main/js/components/props";
 import { loadJson, getCsrfToken, formatTimeDelta } from "../../main/js/util";
+import { MaterialIcon } from "../../main/js/components/icons";
 
 const CONTAINER = "#webmentions_testing_tool";
-const endpoint = "active/";
+const ENDPOINT = "active/";
 
 export function WebmentionTesterApp(dom: Document | Element) {
     const container = dom.querySelector(CONTAINER);
@@ -24,16 +25,6 @@ function WebmentionsTester() {
         <div>
             <CreateTempMention onSubmit={refresh} />
             <ActiveMentions onChange={refreshFlag} refresh={refresh} />
-        </div>
-    );
-}
-
-function TooSoon() {
-    return (
-        <div className="webmention-tester-form">
-            <h1>Welcome!</h1>
-            But I'm afraid the tool isn't quite ready yet :( Check back in a
-            couple of days!
         </div>
     );
 }
@@ -66,7 +57,7 @@ function ActiveMentions(props: ActiveMentionsProps) {
     const { refresh, onChange } = props;
 
     useEffect(() => {
-        loadJson(endpoint).then(data => {
+        loadJson(ENDPOINT).then(data => {
             setTtl(data.ttl);
 
             const mentions: ActiveMention[] = data.mentions;
@@ -90,25 +81,24 @@ function ActiveMentions(props: ActiveMentionsProps) {
 
     return (
         <section>
+            <div className="header-row">
+                <h3>Active mentions</h3>
+                <Label>{`Temporary mentions submitted in the last ${timeout}`}</Label>
+            </div>
+
             <div className="active-mentions">
-                <Row className="vertical-bottom">
-                    <h3 className="row-item">Active mentions</h3>
-                    <Label>{`Temporary mentions submitted in the last ${timeout}`}</Label>
-                </Row>
-                <div className="flex-row">
-                    <SampleActiveMention
-                        ttl={ttl}
-                        expanded={mentions.length == 0}
+                <SampleActiveMention
+                    ttl={ttl}
+                    expanded={mentions.length == 0}
+                />
+                {mentions.map(m => (
+                    <ActiveMentionUI
+                        mention={m}
+                        key={m.submitted_at}
+                        expanded={false}
+                        requestUpdate={requestUpdate}
                     />
-                    {mentions.map(m => (
-                        <ActiveMention
-                            {...m}
-                            key={m.submitted_at}
-                            requestUpdate={requestUpdate}
-                        />
-                    ))}
-                    {}
-                </div>
+                ))}
             </div>
         </section>
     );
@@ -141,7 +131,7 @@ function SampleActiveMention(props: SampleActiveMentionProps) {
     };
 
     return (
-        <ActiveMention
+        <ActiveMentionUI
             mention={sampleData}
             className="webmention-tester-sample"
             label="Sample"
@@ -153,14 +143,14 @@ function SampleActiveMention(props: SampleActiveMentionProps) {
 interface ActiveMentionProps extends ClassNameProps {
     requestUpdate?: (callback: () => void) => void;
     mention: ActiveMention;
-    status?: MentionStatus;
     expanded: boolean;
     label?: string;
 }
-function ActiveMention(props: ActiveMentionProps) {
+function ActiveMentionUI(props: ActiveMentionProps) {
     const [awaitingTask, setAwaitingTask] = useState(true);
 
-    const { mention, requestUpdate, status, expanded } = props;
+    const { mention, requestUpdate, label, expanded } = props;
+    const status = mention?.status;
 
     useEffect(() => {
         if (status === null && requestUpdate) {
@@ -169,28 +159,21 @@ function ActiveMention(props: ActiveMentionProps) {
     }, [status, awaitingTask]);
 
     return (
-        <div
-            className={`webmention-tester-temp card preview-wide`}
-            title={`Submitted at ${props.mention.submitted_at}`}
-        >
-            <div className={classNames(props, "card-content")}>
-                <Row className="flex-row-space-between">
-                    <a href={`${props.mention.url}`}>{mention.url}</a>
-                    <div>
-                        <Label className="webmention-tester-temp-label">
-                            {props.label}
-                        </Label>
+        <div className="active-mention">
+            <div className="toolbar">
+                <div>
+                    <Label className="temp">{label}</Label>
+                    <a href={`${mention.url}`}>{mention.url}</a>
+                </div>
 
-                        <Label>
-                            Expires: {formatTimeDelta(mention.expires_in)}
-                        </Label>
-                    </div>
-                </Row>
-                <MentionStatus
-                    status={props.status}
-                    expanded={props.expanded}
-                />
+                <div className="right">
+                    <Label>
+                        Expires: {formatTimeDelta(mention.expires_in)}
+                    </Label>
+                </div>
             </div>
+
+            <MentionStatusUI status={status} expanded={expanded} />
         </div>
     );
 }
@@ -199,35 +182,38 @@ interface MentionStatusProps {
     status?: MentionStatus;
     expanded: boolean;
 }
-function MentionStatus(props: MentionStatusProps) {
+function MentionStatusUI(props: MentionStatusProps) {
     const { status, expanded } = props;
 
     if (status === null) {
         return (
-            <Row className="vertical-center">
-                <span className="material-icons refresh">refresh</span>
+            <Row>
+                <MaterialIcon className="refresh">refresh</MaterialIcon>
                 <div>Status unknown - please wait a moment...</div>
             </Row>
         );
     }
 
     const successMessage = status.successful ? (
-        <Row className="vertical-center">
-            <span className="material-icons">check</span>
+        <Row>
+            <MaterialIcon>check</MaterialIcon>
             <span>Accepted by server</span>
         </Row>
     ) : (
-        <Row className="vertical-center">
-            <span className="material-icons warn">close</span>
+        <Row>
+            <MaterialIcon className="warn">close</MaterialIcon>
             <span>Rejected by server</span>
         </Row>
     );
 
     return (
         <Dropdown title={successMessage} expandedDefault={expanded}>
-            <table className="webmention-tester-status">
+            <table className="status">
                 <tbody>
-                    <StatusTableRow label="Code" content={status.status_code} />
+                    <StatusTableRow
+                        label="Status"
+                        content={status.status_code}
+                    />
                     <StatusTableRow label="Message" content={status.message} />
                     <StatusTableRow
                         label="Source"
@@ -258,9 +244,7 @@ function StatusTableRow(props: StatusTableRowProps) {
                 <Label>{props.label}</Label>
             </td>
             <td>
-                <span className="webmention-tester-status-content">
-                    {props.content}
-                </span>
+                <code className="status-content">{props.content}</code>
             </td>
         </tr>
     );
@@ -274,7 +258,7 @@ function CreateTempMention(props: CreateTempMentionProps) {
     const [isError, setIsError] = useState(false);
 
     const post = () => {
-        create(endpoint, { url: url })
+        create(ENDPOINT, { url: url })
             .then(response => {
                 if (response.status == 400) {
                     throw "Validation failure";
@@ -293,7 +277,7 @@ function CreateTempMention(props: CreateTempMentionProps) {
 
     const onKeyPress = (event: KeyboardEvent) => {
         setIsError(false);
-        if (event.key == "Enter") {
+        if (event.key === "Enter") {
             event.preventDefault();
             post();
         }
@@ -314,15 +298,14 @@ function CreateTempMention(props: CreateTempMentionProps) {
                 </li>
             </ul>
 
-            {/* <TooSoon /> */}
-
-            <div className="webmention-tester-form">
+            <div className="form">
                 <input
                     type="text"
                     value={url}
                     onChange={e => setUrl(e.target.value)}
                     placeholder="https://mysite.example/my-article/"
                     onKeyUp={onKeyPress}
+                    autoFocus
                 />
                 <button onClick={post}>Submit</button>
                 <ErrorMessage show={isError} />
@@ -330,7 +313,7 @@ function CreateTempMention(props: CreateTempMentionProps) {
 
             <p>
                 If your page mentions this page, it should appear{" "}
-                <a href="#related_content">below</a>.
+                <a href="#related">below</a>.
             </p>
         </section>
     );
