@@ -1,15 +1,17 @@
+@use "../animation";
+
 a {
     text-decoration: none;
     color: var(--local-accent);
-    transition: color 220ms;
     width: fit-content;
+    @include animation.transition((color));
 
     > * {
         color: var(--text-primary);
     }
 
     &:hover {
-        color: var(--text-secondary);
+        color: var(--local-accent-900);
     }
 }
 

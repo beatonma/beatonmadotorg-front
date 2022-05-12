@@ -10,6 +10,7 @@ form {
     @extend %shape-small;
     @extend %padding-small;
     @include border.shape($top: null, $bottom: 0);
+
     color: var(--text-primary);
     background-color: transparent;
     min-width: 32ch;
@@ -18,7 +19,7 @@ form {
     border: none;
 
     &:focus {
-        border-bottom: solid 2px var(--local-accent);
+        border-bottom: 2px solid var(--local-accent);
     }
 }
 
