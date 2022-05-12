@@ -74,27 +74,33 @@ const getScript = (element: HTMLScriptElement) =>
         document.body.appendChild(script);
     });
 
-function shouldAnimateTransition(anchor: HTMLAnchorElement): boolean {
+function shouldAnimateTransition(
+    anchor: HTMLAnchorElement | URL | Location
+): boolean {
     if (!domainsRegex.test(anchor.href)) {
         // If target is on a different domain then handle it the normal way
-        return false;
-    }
-
-    // Links annotated with 'noanim' class should be treated as external (no content transition animations)
-    if (anchor.className.includes(noAnimationClass)) {
         return false;
     }
 
     if (noAnimationPathsRegex.test(anchor.pathname)) {
         return false;
     }
+
+    // Links annotated with 'noanim' class should be treated as external (no content transition animations)
+    if (
+        anchor instanceof HTMLAnchorElement &&
+        anchor.className.includes(noAnimationClass)
+    ) {
+        return false;
+    }
+
+    return true;
 }
 
 function shouldScrollTo(anchor: HTMLAnchorElement): boolean {
     return (
         anchor.pathname === window.location.pathname &&
-        anchor.search === window.location.search &&
-        anchor.hash !== window.location.hash
+        anchor.search === window.location.search
     );
 }
 
@@ -111,25 +117,9 @@ function init() {
         if (!el) return;
         const anchor = el as HTMLAnchorElement;
 
-        // const anchor = el as HTMLAnchorElement;
-        // const url = anchor.href;
-        // if (!domainsRegex.test(url)) {
-        //     // If target is on a different domain then handle it the normal way
-        //     return;
-        // }
-        //
-        // // Links annotated with 'noanim' class should be treated as external (no content transition animations)
-        // if (anchor.className.includes(noAnimationClass)) {
-        //     return;
-        // }
-        //
-        // if (noAnimationPathsRegex.test(anchor.pathname)) {
-        //     return;
-        // }
-
         if (!shouldAnimateTransition(anchor)) return;
 
-        if (shouldScrollTo(anchor)) {
+        if (anchor.hash && shouldScrollTo(anchor)) {
             // Handle links to element #id
             e.preventDefault();
             history.pushState(null, null, anchor.href);
