@@ -1,11 +1,12 @@
 <div id="loading" class="progressbar"></div>
+<nav>
 <div class="header-row-primary">
     <div class="left">
         <a href="/" tabindex="-1"><h1>beatonma.org</h1></a>
     </div>
 
     <div class="right">
-        <form action="/search/" method="get" id="search_form">
+        <form action="/search/" method="get" id="search_form" role="search">
             <div id="search_bar">
                 <label
                     id="search_icon"
@@ -17,7 +18,7 @@
                 </label>
                 <div id="search_wrapper">
                     <input
-                        type="text"
+                        type="search"
                         id="search"
                         name="query"
                         placeholder="Search beatonma.org"
@@ -57,3 +58,4 @@
      </div>
     {% endif %}
 </div>
+</nav>

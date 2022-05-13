@@ -23,7 +23,8 @@ form {
     }
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="search"] {
     @extend %input-text;
 }
 
