@@ -5,24 +5,25 @@
  * Output: DIST_PATH.
  */
 
-const {
+import { isProductionBuild } from "./setup";
+
+import {
     ANY_CSS,
     ANY_FILE,
     ANY_HTML,
     ANY_JS,
+    ANY_TS,
     DIST_PATH,
     distPath,
     srcPath,
-    ANY_TS,
     tempPath,
-} = require("./paths");
-const { BUILD_TYPE_PRODUCTION, buildType } = require("./setup");
+} from "./paths";
 
-const { dest, src, parallel, series } = require("gulp");
-const gulpCssNano = require("gulp-cssnano");
-const gulpIf = require("gulp-if");
-const gulpRename = require("gulp-rename");
-const gulpReplace = require("gulp-replace");
+import { dest, parallel, series, src } from "gulp";
+import gulpCssNano from "gulp-cssnano";
+import gulpIf from "gulp-if";
+import gulpRename from "gulp-rename";
+import gulpReplace from "gulp-replace";
 
 /**
  * Copy processed javascript files to final output directory.
@@ -55,7 +56,7 @@ const collectCss = () =>
                 path.extname = ".min.css";
             })
         )
-        .pipe(gulpIf(buildType() === BUILD_TYPE_PRODUCTION, gulpCssNano()))
+        .pipe(gulpIf(isProductionBuild(), gulpCssNano()))
         .pipe(dest(DIST_PATH));
 
 /**
@@ -119,7 +120,7 @@ const unwrap = () =>
         )
         .pipe(dest(DIST_PATH));
 
-exports.collect = series(
+export const collect = series(
     parallel(collectJs, collectCss, collectHtml, collectImages, collectStatic),
     collectFlatpageTemplates,
     unwrap

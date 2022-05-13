@@ -3,19 +3,33 @@
  * Output: TEMP_PATH.
  */
 
-const { ANY_SCSS, srcPath, TEMP_PATH, ANY_HTML } = require("./paths");
-const { buildType } = require("./setup");
+import {
+    ANY_HTML,
+    ANY_SCSS,
+    SRC_PATH,
+    prepPath,
+    srcPath,
+    TEMP_PATH,
+} from "./paths";
 
-const { src, dest, parallel } = require("gulp");
+import { getBuildType } from "./setup";
 
-const gulpAutoprefixer = require("gulp-autoprefixer"); // css browser compatibility
-const gulpInline64 = require("gulp-inline-base64"); // Requires mime@^1.6.0
-const gulpRename = require("gulp-rename");
-const gulpReplace = require("gulp-replace");
-const gulpSass = require("gulp-sass")(require("sass"));
+import { dest, parallel, src } from "gulp";
 
-const webpack = require("webpack");
-const webpackConfig = require("../webpack.config.js");
+// css browser compatibility
+import gulpAutoprefixer from "gulp-autoprefixer";
+
+// Requires mime@^1.6.0
+import gulpInline64 from "gulp-inline-base64";
+
+import gulpRename from "gulp-rename";
+import gulpReplace from "gulp-replace";
+import gulp_sass from "gulp-sass";
+import sass from "sass";
+import webpack from "webpack";
+import { config as webpackConfig } from "../webpack.config";
+
+const gulpSass = gulp_sass(sass);
 
 const buildSass = () =>
     src(srcPath(ANY_SCSS))
@@ -39,18 +53,17 @@ const buildSass = () =>
  * Process webapp javascript via webpack.
  */
 const buildJs = () => {
-    const buildConfig = webpackConfig;
-    buildConfig.mode = buildType();
+    webpackConfig.mode = getBuildType();
 
     return new Promise((resolve, reject) => {
-        webpack(buildConfig, (err, stats) => {
+        webpack(webpackConfig, (err, stats) => {
             if (err) {
                 return reject(err);
             }
             if (stats.hasErrors()) {
                 return reject(new Error(stats.compilation.errors.join("\n")));
             }
-            resolve();
+            resolve(null);
         });
     });
 };
@@ -65,4 +78,4 @@ const buildTemplates = () =>
         .pipe(gulpReplace(/([%}]})[\r\n]+\s*/gs, "$1")) // Remove line breaks and whitespace after django template closing tags %} }}.
         .pipe(dest(TEMP_PATH));
 
-exports.build = parallel(buildSass, buildJs, buildTemplates);
+export const build = parallel(buildSass, buildJs, buildTemplates);

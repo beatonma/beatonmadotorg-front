@@ -1,15 +1,63 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { render } from "react-dom";
+import React, { ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { formatDate } from "../../main/js/util";
+import { createRoot } from "react-dom/client";
 
 const DashboardApp = () => {
-    render(<Dashboard />, document.getElementById("dashboard_wrapper"));
+    const root = createRoot(document.getElementById("dashboard_wrapper"));
+    root.render(<Dashboard />);
 };
 
+interface SystemStatus {
+    uptime: string;
+}
+
+interface GithubStatus {
+    cached_at: string;
+}
+
+interface HCard {
+    name: string;
+    avatar: string;
+    homepage: string;
+}
+
+interface WebMentionData {
+    hcard?: HCard;
+    quote?: string;
+    source_url: string;
+    target_url: string;
+    published: string;
+    type: string;
+}
+
+interface WebmailData {
+    name: string;
+    contact: string;
+    body: string;
+    timestamp: string;
+}
+
+interface PageViewData {
+    url: string;
+    timestamp: string;
+    ip: string;
+    device: string;
+    os: string;
+    browser: string;
+    count?: number;
+}
+
+interface DashboardStatus {
+    system: SystemStatus;
+    github: GithubStatus;
+    mentions: WebMentionData[];
+    webmail: WebmailData[];
+    views: PageViewData[];
+}
+
 const Dashboard = () => {
-    const [status, setStatus] = useState(null);
+    const [status, setStatus] = useState<DashboardStatus>(null);
 
     useEffect(() => {
         document.title = "Dashboard";
@@ -23,8 +71,8 @@ const Dashboard = () => {
     return (
         <>
             <h1>Dashboard</h1>
-            <System system={status.system} />
-            <Github github={status.github} />
+            <System status={status.system} />
+            <Github status={status.github} />
             <div id="dashboard">
                 <RecentViews views={status.views} />
                 <RecentMentions mentions={status.mentions} />
@@ -35,24 +83,33 @@ const Dashboard = () => {
     );
 };
 
-const Github = props => {
+interface GithubProps {
+    status: GithubStatus;
+}
+const Github = (props: GithubProps) => {
     return (
         <div className="github">
             <span>
                 <TimeStamp
                     label="Github cached at"
-                    timestamp={props.github.cached_at}
+                    timestamp={props.status.cached_at}
                 />
             </span>
         </div>
     );
 };
 
-const System = props => {
-    return <div className="system">Uptime {props.system.uptime}</div>;
+interface SystemProps {
+    status: SystemStatus;
+}
+const System = (props: SystemProps) => {
+    return <div className="system">Uptime {props.status.uptime}</div>;
 };
 
-const RecentMentions = props => {
+interface RecentMentionsProps {
+    mentions: WebMentionData[];
+}
+const RecentMentions = (props: RecentMentionsProps) => {
     return (
         <Group title="Recent mentions">
             {props.mentions.map(mention => (
@@ -62,8 +119,11 @@ const RecentMentions = props => {
     );
 };
 
-const Mention = props => {
-    const mention = props.mention;
+interface MentionProps {
+    mention: WebMentionData;
+}
+const Mention = (props: MentionProps) => {
+    const { mention } = props;
     const source = new URL(mention.source_url);
     const target = new URL(mention.target_url);
 
@@ -102,13 +162,21 @@ const Mention = props => {
     );
 };
 
-const OptionalLink = props => {
-    if (props.url) {
-        return <a href={props.url} {...props} />;
-    } else return <>{props.children}</>;
+interface OptionalLinkProps {
+    url: string;
+    children: ReactNode | ReactNode[];
+}
+const OptionalLink = (props: OptionalLinkProps) => {
+    const { url, children, ...rest } = props;
+    if (url) {
+        return <a href={url} {...rest} />;
+    } else return <>{children}</>;
 };
 
-const RecentViews = props => {
+interface RecentViewsProps {
+    views: PageViewData[];
+}
+const RecentViews = (props: RecentViewsProps) => {
     const [views, setViews] = useState([]);
 
     useEffect(() => {
@@ -139,14 +207,16 @@ const RecentViews = props => {
     );
 };
 
-const PageView = props => {
+interface PageViewProps {
+    view: PageViewData;
+}
+const PageView = (props: PageViewProps) => {
     const view = props.view;
     const url = new URL(view.url);
 
     return (
         <a href={view.url}>
             <div
-                href={view.url}
                 key={view.timestamp}
                 className="page-view v1-row"
                 title={`${view.device} | ${view.os} | ${view.browser}: ${view.ip}`}
@@ -163,7 +233,10 @@ const PageView = props => {
     );
 };
 
-const RecentWebmail = props => {
+interface RecentWebmailProps {
+    webmail: WebmailData[];
+}
+const RecentWebmail = (props: RecentWebmailProps) => {
     return (
         <Group title="Recent mail">
             {props.webmail.map(mail => (
@@ -173,8 +246,11 @@ const RecentWebmail = props => {
     );
 };
 
-const Webmail = props => {
-    const mail = props.mail;
+interface WebmailProps {
+    mail: WebmailData;
+}
+const Webmail = (props: WebmailProps) => {
+    const { mail } = props;
 
     return (
         <div
@@ -193,7 +269,12 @@ const Webmail = props => {
     );
 };
 
-const Url = props => {
+interface UrlProps {
+    href?: string;
+    className?: string;
+    children: string;
+}
+const Url = (props: UrlProps) => {
     const parts = props.children
         .replace("www.", "")
         .replace(".com", "")
@@ -216,7 +297,10 @@ const Url = props => {
     );
 };
 
-const LinkifyText = props => {
+interface LinkfyTextProps {
+    children: string;
+}
+const LinkifyText = (props: LinkfyTextProps) => {
     const [linkified, setLinkified] = useState(null);
     const pattern = /((?:https?:\/\/)?(?:[\w-_.]+\.[\w-_./]+))/g;
 
@@ -257,7 +341,11 @@ const LinkifyText = props => {
     return <>{linkified}</>;
 };
 
-const Group = props => {
+interface GroupProps {
+    title: string;
+    children: ReactNode | ReactNode[];
+}
+const Group = (props: GroupProps) => {
     return (
         <div className="group">
             <h3>{props.title}</h3>
@@ -266,7 +354,11 @@ const Group = props => {
     );
 };
 
-const TimeStamp = props => {
+interface TimestampProps {
+    timestamp: string;
+    label?: string;
+}
+const TimeStamp = (props: TimestampProps) => {
     const timestamp = new Date(props.timestamp);
 
     const _date = formatDate(timestamp, {
@@ -281,7 +373,7 @@ const TimeStamp = props => {
     });
 
     return (
-        <time className="timestamp" dateTime={timestamp}>
+        <time className="timestamp" dateTime={props.timestamp}>
             {props.label} {date} {time}
         </time>
     );

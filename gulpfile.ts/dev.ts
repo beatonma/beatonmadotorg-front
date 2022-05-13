@@ -1,29 +1,36 @@
-const { completeBuild } = require("./complete");
-const gulpRename = require("gulp-rename");
-
-const gulp = require("gulp");
-const { src, dest, series } = gulp;
-const {
+import { Callback } from "./types";
+import {
     ANY_CSS,
-    ANY_SCSS,
-    ANY_JS,
-    ANY_HTML,
     ANY_FILE,
-    LOCAL_PATH,
-    distPath,
-    srcPath,
+    ANY_HTML,
+    ANY_JS,
     ANY_JS_OR_TS,
-} = require("./paths");
+    ANY_SCSS,
+    DIST_PATH,
+    distPath,
+    LOCAL_PATH,
+    srcPath,
+} from "./paths";
 
-const browserSync = require("browser-sync").create();
+import gulp from "gulp";
 
-const initBrowser = cb => {
+import { completeBuild } from "./complete";
+
+import gulpRename from "gulp-rename";
+
+import { create as browserSyncCreate } from "browser-sync";
+
+const { src, dest, series } = gulp;
+
+const browserSync = browserSyncCreate();
+
+const initBrowser = (cb: Callback) => {
     browserSync.init({
         proxy: "localhost:8000",
     });
     return cb();
 };
-const refreshBrowser = cb => {
+const refreshBrowser = (cb: Callback) => {
     browserSync.reload();
     cb();
 };
@@ -50,10 +57,10 @@ const localBuild = series(
     refreshBrowser
 );
 
-const watch = () => {
+const _watch = () => {
     gulp.watch(srcPath(ANY_SCSS), localBuild);
     gulp.watch(srcPath(ANY_JS_OR_TS), localBuild);
     gulp.watch(srcPath(ANY_HTML), localBuild);
 };
 
-exports.watch = series(initBrowser, localBuild, watch);
+export const watch = series(initBrowser, localBuild, _watch);

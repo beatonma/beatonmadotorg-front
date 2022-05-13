@@ -1,8 +1,17 @@
+import { ANY_FILE, DIST_PATH, distPath } from "./paths";
+import { src } from "gulp";
+
 const gulpRsync = require("gulp-rsync");
 const keyfile =
     "keyfile";
 
-const rsyncConfig = config => ({
+interface RsyncConfig {
+    keyfile: string;
+    username: string;
+    hostname: string;
+}
+
+const rsyncConfig = (config: RsyncConfig) => ({
     options: {
         chmod: "Du=rwx,Dgo=rx,Fu=rw,Fgo=r",
         e: `ssh -i "${config.keyfile}"`,
@@ -16,7 +25,7 @@ const rsyncConfig = config => ({
     progress: false,
 });
 
-const publish = () => {
+export const publish = () => {
     const config = rsyncConfig({
         keyfile: keyfile,
         username: "username",
@@ -26,9 +35,7 @@ const publish = () => {
 
     return src(distPath(ANY_FILE))
         .pipe(gulpRsync(config))
-        .on("error", err => {
+        .on("error", (err: Error) => {
             console.log(JSON.stringify(err, null, 2));
         });
 };
-
-exports.publish = publish;

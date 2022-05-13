@@ -9,7 +9,22 @@
         "moduleResolution": "node",
         "noImplicitAny": true,
         "sourceMap": true,
-        "types": ["cypress"]
+        "esModuleInterop": true,
+        "typeRoots": [
+            "types",
+            "node_modules/@types",
+        ],
     },
-    "exclude": ["build/", "dist/"]
+    "exclude": ["build/",
+        "dist/",
+        "node_modules/",
+        "types/",
+        "cypress/",
+        "gulpfile.ts/"
+    ],
+    "ts-node": {
+        "compilerOptions": {
+            "module": "commonjs",
+        },
+    }
 }

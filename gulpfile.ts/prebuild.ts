@@ -5,20 +5,22 @@
  * Output: PREPROCESSING_PATH
  */
 
-const {
+import {
     ANY_HTML,
+    ANY_JS_OR_TS,
+    prepPath,
     PREPROCESSING_PATH,
     srcPath,
-    prepPath,
-    ANY_JS_OR_TS,
-} = require("./paths");
+} from "./paths";
 
-const { dest, series, src } = require("gulp");
+import { dest, series, src } from "gulp";
 
 // File reduction/combination
-const gulpInclude = require("gulp-file-include");
-const gulpReplace = require("gulp-replace");
-const gulpUseref = require("gulp-useref");
+import gulpInclude from "gulp-file-include";
+
+import gulpReplace from "gulp-replace";
+
+import gulpUseref from "gulp-useref";
 
 /**
  * Inline any @@included files with gulpInclude.
@@ -37,4 +39,4 @@ const prepJsx = () =>
         .pipe(gulpReplace("@@", ""))
         .pipe(dest(PREPROCESSING_PATH));
 
-exports.prebuild = series(prepInclude, prepJsx);
+export const prebuild = series(prepInclude, prepJsx);
