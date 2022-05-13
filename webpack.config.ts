@@ -1,6 +1,7 @@
-const path = require("path");
+import path from "path";
+import { Configuration } from "webpack";
 
-module.exports = {
+export const config: Configuration = {
     mode: "production",
     entry: {
         app: {
