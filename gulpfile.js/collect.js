@@ -24,6 +24,9 @@ const gulpIf = require("gulp-if");
 const gulpRename = require("gulp-rename");
 const gulpReplace = require("gulp-replace");
 
+/**
+ * Copy processed javascript files to final output directory.
+ */
 const collectJs = () =>
     src([tempPath(ANY_JS), tempPath(ANY_TS)])
         .pipe(
@@ -38,7 +41,7 @@ const collectJs = () =>
         .pipe(dest(DIST_PATH));
 
 /**
- * Copy processed javascript files to final output directory.
+ * Copy processed CSS files to final output directory.
  */
 const collectCss = () =>
     src(tempPath(ANY_CSS))
@@ -55,6 +58,9 @@ const collectCss = () =>
         .pipe(gulpIf(buildType() === BUILD_TYPE_PRODUCTION, gulpCssNano()))
         .pipe(dest(DIST_PATH));
 
+/**
+ * Copy HTML templates to final output directory.
+ */
 const collectHtml = () =>
     src(tempPath(ANY_HTML))
         .pipe(gulpReplace(/(?<=<.*?)[\s]+(?=[^<]*>)/gs, " ")) // Remove any newlines found inside <html tags>
