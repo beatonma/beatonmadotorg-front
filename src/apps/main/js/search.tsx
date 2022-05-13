@@ -1,7 +1,7 @@
 import { changePage } from "./page-transitions";
 import React, { useEffect, useState } from "react";
 import { loadJson } from "./util";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 const formID = "search_form";
 const iconID = "search_icon";
@@ -35,7 +35,10 @@ function initSearch() {
 function SearchSuggestionsApp() {
     const container = document.getElementById(suggestionsID);
 
-    ReactDOM.render(<SearchSuggestions />, container);
+    if (container) {
+        const root = createRoot(container);
+        root.render(<SearchSuggestions />);
+    }
 }
 
 function SearchSuggestions() {

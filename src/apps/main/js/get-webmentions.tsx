@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import { loadJson } from "./util";
+import { createRoot } from "react-dom/client";
 
 const CONTAINER = "#mentions";
 const getContainerElement = () => document.getElementById("mentions");
@@ -22,7 +22,8 @@ export function WebmentionsApp(dom: Document | Element) {
     const container = dom.querySelector(CONTAINER);
 
     if (container) {
-        ReactDOM.render(<Webmentions />, container);
+        const root = createRoot(container);
+        root.render(<Webmentions />);
     }
 }
 

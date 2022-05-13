@@ -2,7 +2,7 @@ import { showLoading } from "../../main/js/page-transitions";
 import { getCsrfToken } from "../../main/js/util";
 import { isDarkTheme } from "../../main/js/theme";
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 const CONTAINER_ID = "contact";
 const ERROR_MESSAGE_ID = "error_response";
@@ -61,17 +61,19 @@ function onSubmitContact(event: SubmitEvent): boolean {
 }
 
 function renderSuccess() {
-    ReactDOM.render(
-        <ContactSuccessful />,
-        document.getElementById(CONTAINER_ID)
-    );
+    const container = document.getElementById(CONTAINER_ID);
+    if (container) {
+        const root = createRoot(container);
+        root.render(<ContactSuccessful />);
+    }
 }
 
 function renderError(message: string, status?: number) {
-    ReactDOM.render(
-        <ContactError errorMessage={message} status={status} />,
-        document.getElementById(ERROR_MESSAGE_ID)
-    );
+    const container = document.getElementById(ERROR_MESSAGE_ID);
+    if (container) {
+        const root = createRoot(container);
+        root.render(<ContactError errorMessage={message} status={status} />);
+    }
 }
 
 function ContactSuccessful() {

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, KeyboardEvent } from "react";
-import ReactDOM from "react-dom";
 import { Dropdown, Label, Row } from "../../main/js/components";
 import { ClassNameProps } from "../../main/js/components/props";
 import { loadJson, getCsrfToken, formatTimeDelta } from "../../main/js/util";
 import { MaterialIcon } from "../../main/js/components/icons";
+import { createRoot } from "react-dom/client";
 
 const CONTAINER = "#webmentions_testing_tool";
 const ENDPOINT = "active/";
@@ -12,7 +12,8 @@ export function WebmentionTesterApp(dom: Document | Element) {
     const container = dom.querySelector(CONTAINER);
 
     if (container) {
-        ReactDOM.render(<WebmentionsTester />, container);
+        const root = createRoot(container);
+        root.render(<WebmentionsTester />);
     }
 }
 

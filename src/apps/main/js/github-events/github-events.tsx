@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
 import { LoadingSpinner } from "../components";
 import { loadJson } from "../util";
 import { EventGroup } from "./group";
@@ -19,6 +18,7 @@ import {
 import { Repository } from "./types/common";
 import { PushPayload, WikiPayload } from "./types/payload";
 import { LargeFeedItem } from "../components/feed-item";
+import { createRoot } from "react-dom/client";
 
 const URL = "/api/github-events/";
 const CONTAINER = "#github_recent";
@@ -27,7 +27,8 @@ export function GithubEventsApp(dom: Document | Element) {
     const container = dom.querySelector(CONTAINER);
 
     if (container) {
-        ReactDOM.render(<GithubEvents />, container);
+        const root = createRoot(dom.querySelector(CONTAINER));
+        root.render(<GithubEvents />);
     }
 }
 

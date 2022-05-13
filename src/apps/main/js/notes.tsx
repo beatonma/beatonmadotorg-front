@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
 import { microformats } from "./microformats";
 import { LoadingSpinner } from "./components/loading";
 import { formatDate, loadJson } from "./util";
 import { LargeFeedItem } from "./components/feed-item";
+import { createRoot } from "react-dom/client";
 
 const URL = "/api/notes/";
 const CONTAINER = "#notes";
@@ -31,7 +31,8 @@ export function NotesApp(dom: Document | Element) {
     const container = dom.querySelector(CONTAINER);
 
     if (container) {
-        ReactDOM.render(<Notes />, container);
+        const root = createRoot(container);
+        root.render(<Notes />);
     }
 }
 

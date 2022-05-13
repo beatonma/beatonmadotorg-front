@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
 import { loadJson } from "./util";
+import { createRoot } from "react-dom/client";
 
 const CONTAINER = "#related_media";
 const MEDIA_VIEWER_WRAPPER_ID = "media_viewer_wrapper";
@@ -32,7 +32,8 @@ export function RelatedMediaApp(dom: Document | Element) {
     const container = dom.querySelector(CONTAINER);
 
     if (container) {
-        ReactDOM.render(<RelatedMedia />, container);
+        const root = createRoot(container);
+        root.render(<RelatedMedia />);
     }
 }
 
