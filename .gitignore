@@ -21,3 +21,4 @@ __pycache__/
 .idea/
 *.egg-info/
 .vscode
+/gulpfile.ts/env-production.ts

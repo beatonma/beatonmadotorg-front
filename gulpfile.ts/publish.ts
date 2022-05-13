@@ -1,15 +1,9 @@
 import { ANY_FILE, DIST_PATH, distPath } from "./paths";
 import { src } from "gulp";
+import { RsyncConfig } from "./env";
+import { getEnvironment, isDevBuild } from "./setup";
 
 const gulpRsync = require("gulp-rsync");
-const keyfile =
-    "keyfile";
-
-interface RsyncConfig {
-    keyfile: string;
-    username: string;
-    hostname: string;
-}
 
 const rsyncConfig = (config: RsyncConfig) => ({
     options: {
@@ -18,7 +12,7 @@ const rsyncConfig = (config: RsyncConfig) => ({
     },
     username: config.username,
     hostname: config.hostname,
-    destination: "path",
+    destination: config.destinationPath,
     recursive: true,
     silent: true,
     root: DIST_PATH,
@@ -26,11 +20,12 @@ const rsyncConfig = (config: RsyncConfig) => ({
 });
 
 export const publish = () => {
-    const config = rsyncConfig({
-        keyfile: keyfile,
-        username: "username",
-        "",
-    });
+    if (isDevBuild()) {
+        throw "Unexpected call to publish() in development build!";
+    }
+    const env = getEnvironment();
+    const config = rsyncConfig(env.rsyncConfig);
+
     console.log(JSON.stringify(config, null, 2));
 
     return src(distPath(ANY_FILE))
