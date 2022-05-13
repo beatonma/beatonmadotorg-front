@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
         "allowSyntheticDefaultImports": true,
-        "module": "ES6",
-        "target": "ES6",
+        "module": "es2020",
+        "target": "es2016",
+        "lib": ["es2020", "dom"],
         "allowJs": false,
         "jsx": "react",
         "moduleResolution": "node",
