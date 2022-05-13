@@ -1,8 +1,9 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
   <head>
-    {% include 'v1/fragments/head/browser.fragment.html' %}
+
+    {% include "v2/pages/base/_meta.html" %}
     <title>{% block title %}{% endblock %}</title>
     <meta name="robots" content="noindex">
     <link rel="stylesheet" href="{% static '/css/dashboard.min.css' %}" />
