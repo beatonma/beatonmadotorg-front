@@ -11,6 +11,7 @@ export interface RsyncConfig {
  * - ProductionEnv in ./env-production.ts
  */
 export interface Env {
+    contactEmail: string;
     googleRecaptchaToken: string;
     rsyncConfig: RsyncConfig;
 }

@@ -106,7 +106,7 @@ function ContactError(props: ContactErrorProps) {
             <p>It looks like something went wrong. Sorry about that!</p>
             <div className="buttons-row-end">
                 <a
-                    href={`mailto:michael@beatonma.org?subject=${subject}&body=${message}`}
+                    href={`mailto:__env__:contactEmail?subject=${subject}&body=${message}`}
                 >
                     Email me instead
                 </a>
