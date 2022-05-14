@@ -10,10 +10,12 @@
 
     .left {
         @include layout.row($horizontal: flex-start);
+        order: 0;
     }
 
     .right {
         @include layout.row($horizontal: flex-end);
+        order: 1;
     }
 }
 

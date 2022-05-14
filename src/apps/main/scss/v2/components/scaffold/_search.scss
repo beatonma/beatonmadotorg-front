@@ -60,6 +60,7 @@ $search-input-width: 32ch;
         max-height: 0;
         opacity: 0;
         overflow: clip;
+        box-sizing: border-box;
     }
 
     &:focus-within {
