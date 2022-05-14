@@ -1,9 +1,0 @@
-@use "v2/layout";
-@use "v2/theme";
-
-footer {
-    .footer-links {
-        @include layout.row($horizontal: center, $gap: 1ch);
-        @extend %text-small;
-    }
-}

@@ -1,3 +1,4 @@
+@use "v2/layout";
 @use "v2/theme";
 
 $content-margin-horizontal: 32px;
@@ -26,7 +27,7 @@ body {
 
 main {
     margin-top: $content-margin-vertical;
-    margin-bottom: $content-margin-vertical;
+    margin-bottom: 4rem;
 }
 
 main,
@@ -53,10 +54,16 @@ footer {
 }
 
 footer {
-    margin-bottom: 110px;
+    margin-top: 6rem;
+    margin-bottom: 2rem;
 
     > * {
         @extend %center;
         max-width: $content-max-width;
+    }
+
+    .footer-links {
+        @include layout.row($horizontal: center, $gap: 1ch);
+        @extend %text-small;
     }
 }
