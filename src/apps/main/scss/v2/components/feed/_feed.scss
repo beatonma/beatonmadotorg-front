@@ -191,57 +191,25 @@ $feed-card-height: 9rem;
     flex-direction: column;
     max-height: $feed-scrollable-height;
 
-    > .feed-item-dropdown-header {
+    &.dropdown[data-expanded="true"] {
+        padding: 0;
+    }
+
+    > .dropdown-header {
         @include layout.row($horizontal: space-between, $wrap: nowrap);
         @extend %padding-medium;
+
         $font-size: var(--fs-h5);
         font-size: $font-size;
-        -webkit-user-select: all;
 
-        > .feed-item-dropdown-title {
+        > .dropdown-title {
             font-size: $font-size;
-        }
-
-        > .feed-item-dropdown-icon {
-            @extend %margin-small-horizontal;
-            @extend %hover;
-            transition: transform 220ms;
-
-            &[data-expanded="true"] {
-                transform: rotate(180deg);
-            }
         }
     }
 
-    > .feed-item-dropdown-content {
-        animation-name: dropdown;
-        animation-duration: 300ms;
-        animation-fill-mode: forwards;
-
+    > .dropdown-content {
         @extend %list-vertical-scroll;
         max-height: 100%;
-
-        &[data-expanded="false"] {
-            display: none;
-            height: 0;
-        }
-
-        @keyframes dropdown {
-            0% {
-                display: none;
-                opacity: 0;
-                height: 0;
-            }
-            1% {
-                display: block;
-                opacity: 0;
-                height: 0;
-            }
-            100% {
-                opacity: 1;
-                height: auto;
-            }
-        }
     }
 }
 

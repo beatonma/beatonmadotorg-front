@@ -1,4 +1,5 @@
 @use "v2/theme";
+@use "v2/layout";
 
 .dropdown {
     @extend %shape-small;
@@ -10,6 +11,7 @@
 }
 
 .dropdown-header {
+    @include layout.row();
     cursor: pointer;
 }
 
