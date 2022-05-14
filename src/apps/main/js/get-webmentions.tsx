@@ -110,8 +110,10 @@ function MentionsContainer(props: MentionsContainerProps) {
 
     return (
         <>
-            <h3>{title}</h3>
-            <div className="mentions">{content}</div>
+            <h3 data-animate-in={true}>{title}</h3>
+            <div className="mentions" data-animate-in={true}>
+                {content}
+            </div>
         </>
     );
 }

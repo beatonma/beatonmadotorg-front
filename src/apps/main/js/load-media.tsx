@@ -75,10 +75,11 @@ function MediaViewer(props: MediaViewerProps) {
 
     return (
         <>
-            <h3>Media</h3>
+            <h3 data-animate-in={true}>Media</h3>
             <div
                 id={MEDIA_VIEWER_WRAPPER_ID}
                 data-fullscreen={fullscreen}
+                data-animate-in={true}
                 onClick={() => {
                     if (fullscreen) setFullscreen(false);
                 }}
