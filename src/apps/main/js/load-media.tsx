@@ -123,10 +123,10 @@ function MediaItem(props: MediaItemProps) {
     };
 
     return (
-        <div className="media-viewer-item" {...rest}>
+        <figure className="media-viewer-item" {...rest}>
             {isImage ? <Image {...mediaProps} /> : <Video {...mediaProps} />}
             <Description file={file} />
-        </div>
+        </figure>
     );
 }
 
@@ -137,9 +137,9 @@ function Description(props: FileProps) {
         return <></>;
     }
     return (
-        <div className="related-media-description">
+        <figcaption className="related-media-description">
             {props.file.description}
-        </div>
+        </figcaption>
     );
 }
 
