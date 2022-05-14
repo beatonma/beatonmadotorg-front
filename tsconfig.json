@@ -11,20 +11,21 @@
         "sourceMap": true,
         "esModuleInterop": true,
         "typeRoots": [
-            "types",
-            "node_modules/@types",
-        ],
+          "gulpfile.ts/types",
+            "node_modules/@types"
+        ]
     },
-    "exclude": ["build/",
+    "exclude": [
+        "build/",
         "dist/",
         "node_modules/",
-        "types/",
+        "gulpfile.ts/types/",
         "cypress/",
         "gulpfile.ts/"
     ],
     "ts-node": {
         "compilerOptions": {
-            "module": "commonjs",
-        },
+            "module": "commonjs"
+        }
     }
 }
