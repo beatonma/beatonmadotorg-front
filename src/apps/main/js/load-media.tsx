@@ -67,11 +67,12 @@ interface MediaViewerProps {
 }
 function MediaViewer(props: MediaViewerProps) {
     const [fullscreen, setFullscreen] = useState(false);
+    const [focussedItem, setFocussedItem] = useState(-1);
     const { appID, files, ...rest } = props;
 
     useEffect(() => {
-        handleScrolling(fullscreen);
-    }, [fullscreen]);
+        handleScrolling(fullscreen, focussedItem);
+    }, [fullscreen, focussedItem]);
 
     return (
         <>
@@ -81,17 +82,23 @@ function MediaViewer(props: MediaViewerProps) {
                 data-fullscreen={fullscreen}
                 data-animate-in={true}
                 onClick={() => {
-                    if (fullscreen) setFullscreen(false);
+                    if (fullscreen) {
+                        setFullscreen(false);
+                        setFocussedItem(-1);
+                    }
                 }}
             >
                 <div id={MEDIA_VIEWER_ID} data-fullscreen={fullscreen}>
-                    {files.map(file => (
+                    {files.map((file, index) => (
                         <MediaItem
                             file={file}
                             appID={appID}
                             key={file.url}
                             data-fullscreen={fullscreen}
-                            onClick={() => setFullscreen(true)}
+                            onClick={() => {
+                                setFocussedItem(index);
+                                setFullscreen(true);
+                            }}
                         />
                     ))}
                 </div>
@@ -190,36 +197,35 @@ function getAccessibilityDescription(
     return "";
 }
 
-// function getMediaWrapper() {
-//     return document.getElementById(MEDIA_VIEWER_WRAPPER_ID);
-// }
-
 function getMediaViewer() {
     return document.getElementById(MEDIA_VIEWER_ID);
 }
 
-// function setEventHandlers() {
-//     // getMediaWrapper().addEventListener("click", toggleFullscreen);
-//
-//     const viewer = getMediaViewer();
-//     viewer.addEventListener("wheel", e => {
-//         e.preventDefault();
-//         viewer.scrollBy(e.deltaY, 0);
-//     });
-// }
-//
-// function toggleFullscreen() {
-//     const wrapper = getMediaWrapper();
-//     if (wrapper) {
-//         wrapper.dataset.fullscreen
-//         // wrapper.classList.toggle("fullscreen");
-//     }
-// }
-
-function handleScrolling(fullscreen: boolean) {
+function handleScrolling(fullscreen: boolean, focussedItem: number = -1) {
     const viewer = getMediaViewer();
-    let focussedItemIndex = 0;
+    let focussedItemIndex = Math.max(0, focussedItem);
     let scrolling = false;
+
+    const scrollToChild = (index: number, behaviour: "auto" | "smooth") => {
+        const children = viewer.children;
+        const focussedChild = children[index] as HTMLElement;
+
+        viewer.scrollTo({
+            top: 0,
+            left: focussedChild.offsetLeft - viewer.offsetLeft,
+            behavior: behaviour,
+        });
+        scrolling = true;
+
+        setTimeout(() => {
+            // Briefly prevent scrolling to allow smooth-scroll to finish.
+            scrolling = false;
+        }, 200);
+    };
+
+    if (focussedItem >= 0) {
+        scrollToChild(focussedItem, "auto");
+    }
 
     viewer.addEventListener("wheel", e => {
         if (scrolling) {
@@ -243,19 +249,8 @@ function handleScrolling(fullscreen: boolean) {
             } else if (delta < 0) {
                 focussedItemIndex = Math.max(0, focussedItemIndex - 1);
             }
-            const focussedChild = children[focussedItemIndex] as HTMLElement;
 
-            viewer.scrollTo({
-                top: 0,
-                left: focussedChild.offsetLeft - viewer.offsetLeft,
-                behavior: "smooth",
-            });
-            scrolling = true;
-
-            setTimeout(() => {
-                // Briefly prevent scrolling to allow smooth-scroll to finish.
-                scrolling = false;
-            }, 200);
+            scrollToChild(focussedItemIndex, "smooth");
         };
 
         if (fullscreen) {
@@ -263,14 +258,14 @@ function handleScrolling(fullscreen: boolean) {
             return;
         }
 
-        if (viewer.scrollLeft === 0 && delta < 0) {
+        if (viewer.scrollLeft === 0 && delta <= 0) {
             // Scroll up when at start of view -> scroll up normally
             return;
         }
 
         if (
             viewer.scrollLeft + viewer.offsetWidth >= viewer.scrollWidth &&
-            delta > 0
+            delta >= 0
         ) {
             // Scroll down when at end of view -> scroll down normally.
             return;
