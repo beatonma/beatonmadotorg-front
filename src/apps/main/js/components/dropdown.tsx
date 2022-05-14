@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { HTMLAttributes, useState } from "react";
 import { MaterialIcon } from "./icons";
-import { joinClassNames, LayoutProps } from "./props";
+import { joinClassNames } from "./props";
 
-interface DropdownProps extends LayoutProps {
+interface DropdownProps extends HTMLAttributes<any> {
     expandedDefault?: boolean;
-    title: string | React.ReactNode;
+    header: string | React.ReactNode;
 }
 export function Dropdown(props: DropdownProps) {
-    const { expandedDefault, title, className, children, ...rest } = props;
+    const { expandedDefault, header, className, children, ...rest } = props;
 
     const [expanded, setExpanded] = useState(expandedDefault || false);
     const toggle = () => setExpanded(!expanded);

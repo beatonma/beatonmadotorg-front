@@ -79,7 +79,7 @@ function renderError(message: string, status?: number) {
 function ContactSuccessful() {
     return (
         <div className="success">
-            <h4>Thank you!</h4>
+            <h2>Thank you!</h2>
             <p>
                 Your message has been submitted successfully - I will get back
                 to you as soon as possible.
@@ -102,7 +102,7 @@ function ContactError(props: ContactErrorProps) {
 
     return (
         <div className="failure">
-            {status ? <h6>[{status}] Submission failed.</h6> : <></>}
+            {status ? <h3>[{status}] Submission failed.</h3> : <></>}
             <p>It looks like something went wrong. Sorry about that!</p>
             <div className="buttons-row-end">
                 <a

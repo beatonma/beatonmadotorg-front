@@ -1,7 +1,7 @@
-import React from "react";
-import { joinClassNames, LayoutProps } from "./props";
+import React, { HTMLAttributes } from "react";
+import { joinClassNames } from "./props";
 
-export function MaterialIcon(props: LayoutProps) {
+export function MaterialIcon(props: HTMLAttributes<any>) {
     const { className, children, ...rest } = props;
 
     return (

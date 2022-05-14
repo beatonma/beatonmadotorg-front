@@ -15,7 +15,7 @@ export function Commits(props: CommitProps) {
             <Dropdown
                 className="github-event"
                 data-type="commits"
-                title={`${commits.length} ${pluralize(
+                header={`${commits.length} ${pluralize(
                     "commit",
                     commits.length
                 )}`}

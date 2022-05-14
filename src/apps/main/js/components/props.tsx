@@ -1,17 +1,10 @@
-import { ReactNode } from "react";
+import { HTMLAttributes } from "react";
 
-export interface ClassNameProps {
-    className?: string;
-}
-
-export interface LayoutProps extends ClassNameProps {
-    children?: ReactNode | ReactNode[];
-}
-
-export function classNames(props: ClassNameProps, additionalClasses: string) {
-    const { className } = props;
-
-    return joinClassNames(className, additionalClasses);
+export function classNames(
+    props: HTMLAttributes<any>,
+    additionalClasses: string
+) {
+    return joinClassNames(props.className, additionalClasses);
 }
 
 export function joinClassNames(existing: string, additionalClasses: string) {

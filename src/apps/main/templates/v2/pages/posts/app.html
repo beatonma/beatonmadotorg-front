@@ -14,7 +14,7 @@
     <div class="text">
       <div class="toolbar">
         <div class="left">
-          <h5 class="title p-name">{{ app.title }}</h5>
+          <h2 class="title p-name">{{ app.title }}</h2>
 
           {% include "./_app_type.html" with app_type=app.app_type %}
         </div>
@@ -37,7 +37,7 @@
 
 {% if changelogs %}
 <section id="changelog">
-  <h3>Changelog</h3>
+  <h2>Changelog</h2>
 
   {% for changelog in changelogs %}
   {% include "./_changelog.html" %}

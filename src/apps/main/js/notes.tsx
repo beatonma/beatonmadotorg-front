@@ -46,7 +46,7 @@ function Notes() {
     }, []);
 
     return (
-        <LargeFeedItem title="Notes" parentID={CONTAINER}>
+        <LargeFeedItem header="Notes" parentID={CONTAINER}>
             <div className="notes">
                 <NotesContent items={items} />
             </div>

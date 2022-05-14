@@ -1,7 +1,6 @@
-import React from "react";
-import { LayoutProps } from "./props";
+import React, { HTMLAttributes } from "react";
 
-interface TooltipProps extends LayoutProps {
+interface TooltipProps extends HTMLAttributes<any> {
     popupText: string;
 }
 

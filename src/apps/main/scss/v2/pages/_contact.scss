@@ -83,4 +83,12 @@
             @include theme.link-color(var(--accent));
         }
     }
+
+    h2 {
+        font-size: var(--fs-h4);
+    }
+
+    h3 {
+        font-size: var(--fs-h6);
+    }
 }

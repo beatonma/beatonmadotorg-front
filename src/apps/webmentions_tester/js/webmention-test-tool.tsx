@@ -1,6 +1,10 @@
-import React, { useState, useEffect, KeyboardEvent } from "react";
+import React, {
+    useState,
+    useEffect,
+    KeyboardEvent,
+    HTMLAttributes,
+} from "react";
 import { Dropdown, Label, Row } from "../../main/js/components";
-import { ClassNameProps } from "../../main/js/components/props";
 import { loadJson, getCsrfToken, formatTimeDelta } from "../../main/js/util";
 import { MaterialIcon } from "../../main/js/components/icons";
 import { createRoot } from "react-dom/client";
@@ -83,7 +87,7 @@ function ActiveMentions(props: ActiveMentionsProps) {
     return (
         <section>
             <div className="header-row">
-                <h3>Active mentions</h3>
+                <h2>Active mentions</h2>
                 <Label>{`Temporary mentions submitted in the last ${timeout}`}</Label>
             </div>
 
@@ -141,7 +145,7 @@ function SampleActiveMention(props: SampleActiveMentionProps) {
     );
 }
 
-interface ActiveMentionProps extends ClassNameProps {
+interface ActiveMentionProps extends HTMLAttributes<any> {
     requestUpdate?: (callback: () => void) => void;
     mention: ActiveMention;
     expanded: boolean;
@@ -208,7 +212,7 @@ function MentionStatusUI(props: MentionStatusProps) {
     );
 
     return (
-        <Dropdown title={successMessage} expandedDefault={expanded}>
+        <Dropdown header={successMessage} expandedDefault={expanded}>
             <table className="status">
                 <tbody>
                     <StatusTableRow
@@ -286,7 +290,7 @@ function CreateTempMention(props: CreateTempMentionProps) {
 
     return (
         <section>
-            <h3>Temporary mentions</h3>
+            <h2>Temporary mentions</h2>
             <p>Submit a link to your content to test your Webmentions setup!</p>
             <ul>
                 <li>

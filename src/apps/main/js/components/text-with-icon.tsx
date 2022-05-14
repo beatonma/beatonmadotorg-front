@@ -1,8 +1,8 @@
-import React from "react";
+import React, { HTMLAttributes } from "react";
 import { MaterialIcon } from "./icons";
-import { joinClassNames, LayoutProps } from "./props";
+import { joinClassNames } from "./props";
 
-interface TextWithIconProps extends LayoutProps {
+interface TextWithIconProps extends HTMLAttributes<any> {
     icon: string | React.ReactNode;
     text?: string | React.ReactNode;
     dangerousHtml?: string;

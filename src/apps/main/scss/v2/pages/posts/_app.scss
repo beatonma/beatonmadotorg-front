@@ -9,6 +9,10 @@ article[data-type="app"] {
     height: auto;
     max-height: none;
 
+    .title {
+        font-size: var(--fs-h3);
+    }
+
     .image {
         @extend %margin-medium;
         @extend %shape-small;

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { classNames, LayoutProps } from "./props";
+import React, { HTMLAttributes, useEffect, useState } from "react";
+import { classNames } from "./props";
 import { MaterialIcon } from "./icons";
 
-interface LargeFeedItemProps extends LayoutProps {
+interface LargeFeedItemProps extends HTMLAttributes<any> {
     expandedDefault?: boolean;
-    title: string | React.ReactNode;
+    header: string | React.ReactNode;
     parentID: string;
 }
 export function LargeFeedItem(props: LargeFeedItemProps) {

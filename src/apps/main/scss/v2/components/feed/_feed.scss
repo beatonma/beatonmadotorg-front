@@ -117,6 +117,7 @@ $feed-card-height: 9rem;
 
             > .title {
                 @extend %text-one-line;
+                font-size: var(--fs-h5);
             }
         }
 
@@ -193,6 +194,13 @@ $feed-card-height: 9rem;
     > .feed-item-dropdown-header {
         @include layout.row($horizontal: space-between, $wrap: nowrap);
         @extend %padding-medium;
+        $font-size: var(--fs-h5);
+        font-size: $font-size;
+        -webkit-user-select: all;
+
+        > .feed-item-dropdown-title {
+            font-size: $font-size;
+        }
 
         > .feed-item-dropdown-icon {
             @extend %margin-small-horizontal;

@@ -47,7 +47,7 @@ function GithubEvents() {
     } else {
         return (
             <LargeFeedItem
-                title={
+                header={
                     <a href="https://github.com/beatonma">github/beatonma</a>
                 }
                 parentID={CONTAINER}
