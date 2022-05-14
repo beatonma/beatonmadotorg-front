@@ -20,13 +20,13 @@ $animation-duration: 300ms;
 
 %enter-animation {
     animation-duration: $animation-duration;
-    animation-fill-mode: both;
+    animation-fill-mode: forwards;
     animation-iteration-count: 1;
 }
 
 %fade-in {
     @extend %enter-animation;
-    animation-name: fade-and-slide-in;
+    animation-name: fade-in;
 
     @keyframes fade-in {
         0% {
@@ -60,10 +60,6 @@ $animation-duration: 300ms;
             transform: translateY(0);
         }
     }
-}
-
-%animate-all {
-    @include transition((all));
 }
 
 *[data-animate-in="true"] {

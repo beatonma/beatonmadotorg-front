@@ -21,6 +21,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index: 10000;
         @include theme.transition(background-color);
     }
 }
@@ -55,6 +56,8 @@
                 @extend %padding-small-vertical;
                 @extend %margin-medium-bottom;
                 @extend %text-small;
+                @extend %text-one-line;
+                text-align: center;
             }
         }
 
