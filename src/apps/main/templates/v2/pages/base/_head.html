@@ -5,6 +5,7 @@
 {% block style %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 {% if user.is_staff %}<link rel="stylesheet" href="{% static 'css/staff.min.css' %}" />{% endif %}
+{% include "./_colors.html" %}
 <link rel="stylesheet" href="{% static 'css/base.min.css' %}" />
 <link id="theme" rel="stylesheet" href="" />
 <style id="local_style">
