@@ -45,6 +45,13 @@
     .mention-avatar {
         @include layout.size(1.75rem);
         @extend %shape-small;
+
+        &-null {
+            @extend .mention-avatar;
+            @extend %surface-accent;
+            text-transform: uppercase;
+            text-align: center;
+        }
     }
 
     .mention-quote {

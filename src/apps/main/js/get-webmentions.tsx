@@ -132,7 +132,7 @@ function Webmention(props: MentionProps) {
             href={mention.source_url}
             data-quoted={hasQuote}
         >
-            <HCardInfo hcard={mention.hcard} />
+            <HCardInfo hcard={mention.hcard} sourceUrl={mention.source_url} />
             <Quote quote={mention.quote} />
         </a>
     );
@@ -140,9 +140,12 @@ function Webmention(props: MentionProps) {
 
 interface HCardProps {
     hcard?: HCard;
+    sourceUrl: string;
 }
 function HCardInfo(props: HCardProps) {
-    const { hcard } = props;
+    const { hcard, sourceUrl } = props;
+    if (!hcard) return <NullHcard url={sourceUrl} />;
+
     const { name, avatar, homepage } = hcard;
 
     return (
@@ -151,6 +154,31 @@ function HCardInfo(props: HCardProps) {
             {name}
         </div>
     );
+}
+
+interface NullHcardProps {
+    url: string;
+}
+function NullHcard(props: NullHcardProps) {
+    const { url } = props;
+
+    try {
+        const host = new URL(url).host.replace("www.", "");
+
+        return (
+            <div className="mention-hcard">
+                <div className="mention-avatar-null">{host[0]}</div>
+                {host}
+            </div>
+        );
+    } catch {
+        return (
+            <div className="mention-hcard">
+                <div className="mention-avatar-null">?</div>
+                Unknown
+            </div>
+        );
+    }
 }
 
 interface AvatarProps {
