@@ -23,3 +23,18 @@
     min-height: 0;
     max-height: none;
 }
+
+%stretch-width {
+    width: stretch;
+    width: -webkit-fill-available;
+}
+
+%stretch-height {
+    height: stretch;
+    height: -webkit-fill-available;
+}
+
+%stretch {
+    @extend %stretch-height;
+    @extend %stretch-width;
+}

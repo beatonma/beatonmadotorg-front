@@ -73,8 +73,7 @@ $feed-card-height: 9rem;
         overflow: clip;
 
         > svg {
-            width: stretch;
-            height: stretch;
+            @extend %stretch;
         }
     }
 
@@ -105,8 +104,7 @@ $feed-card-height: 9rem;
     > .text {
         @extend %margin-medium;
         @extend %readable-text;
-        height: stretch;
-        width: stretch;
+        @extend %stretch;
         overflow: clip;
 
         > .row {
