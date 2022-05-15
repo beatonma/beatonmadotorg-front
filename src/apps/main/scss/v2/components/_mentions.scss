@@ -45,6 +45,7 @@
     .mention-avatar {
         @include layout.size(1.75rem);
         @extend %shape-small;
+        object-fit: cover;
 
         &-null {
             @extend .mention-avatar;
