@@ -5,7 +5,9 @@
 @use "../list";
 @use "../card";
 
-$feed-item-preferred-width: 550px;
+$feed-item-min-width: 550px;
+$feed-item-max-width: 600px;
+
 $feed-card-height: 9rem;
 $feed-gap: 1rem;
 $feed-scrollable-span: 3;
@@ -25,15 +27,16 @@ $feed-card-height: 9rem;
     display: grid;
     grid-template-columns: repeat(
         auto-fit,
-        minmax($feed-item-preferred-width, 0.5fr)
+        minmax($feed-item-min-width, $feed-item-max-width)
     );
     grid-gap: $feed-gap;
     grid-auto-flow: row dense;
     justify-content: center;
 
     @include theme.display-max-width(
-        scaffold.contentWidth($feed-item-preferred-width)
+        scaffold.contentWidth($feed-item-min-width)
     ) {
+        // On narrow devices, use a flex column instead of grid
         display: flex;
         flex-direction: column;
         row-gap: $feed-gap;
@@ -50,14 +53,6 @@ $feed-card-height: 9rem;
 
 .feed-item-scrollable {
     @extend %feed-item;
-
-    &[data-expanded="true"] {
-        grid-row: auto / span $feed-scrollable-span;
-    }
-
-    &[data-expanded="false"] {
-        grid-row: auto / span 1;
-    }
 }
 
 .feed-item-card {
@@ -174,9 +169,20 @@ $feed-card-height: 9rem;
     @extend %shape-small;
     background-color: var(--surface);
     border: 2px solid var(--local-primary-100);
-    max-height: heightOfFeedRows($feed-scrollable-span);
     display: flex;
     flex-direction: column;
+
+    @include theme.transition((max-height));
+
+    &[data-expanded="true"] {
+        max-height: heightOfFeedRows($feed-scrollable-span);
+        grid-row: auto / span $feed-scrollable-span;
+    }
+
+    &[data-expanded="false"] {
+        grid-row: auto / span 1;
+        max-height: $feed-card-height;
+    }
 }
 
 %embedded-scrollable-list {
