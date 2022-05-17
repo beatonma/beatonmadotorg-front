@@ -27,7 +27,7 @@ import gulpReplace from "gulp-replace";
 import gulp_sass from "gulp-sass";
 import sass from "sass";
 import webpack from "webpack";
-import { config as webpackConfig } from "../webpack.config";
+import { getConfig } from "../webpack.config";
 
 const gulpSass = gulp_sass(sass);
 
@@ -53,10 +53,10 @@ const buildSass = () =>
  * Process webapp javascript via webpack.
  */
 const buildJs = () => {
-    webpackConfig.mode = getBuildType();
+    const config = getConfig();
 
     return new Promise((resolve, reject) => {
-        webpack(webpackConfig, (err, stats) => {
+        webpack(config, (err, stats) => {
             if (err) {
                 return reject(err);
             }

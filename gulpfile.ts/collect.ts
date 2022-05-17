@@ -5,7 +5,7 @@
  * Output: DIST_PATH.
  */
 
-import { isProductionBuild } from "./setup";
+import { getGitHash, isProductionBuild } from "./setup";
 
 import {
     ANY_CSS,
@@ -53,6 +53,7 @@ const collectCss = () =>
                     /apps[/\\](.+?)[/\\]css/g,
                     "apps/$1/static/$1/css"
                 );
+                path.basename = `${path.basename}-${getGitHash()}`;
                 path.extname = ".min.css";
             })
         )

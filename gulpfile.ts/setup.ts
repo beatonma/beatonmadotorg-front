@@ -8,23 +8,34 @@ export const BUILD_TYPE_DEVELOPMENT = "development"; // Disable js/css minificat
 
 let buildType: "none" | "development" | "production" = null;
 let environment: Env = null;
+let gitHash: string = null;
 
 export const getBuildType = () => buildType;
 export const isDevBuild = () => buildType === BUILD_TYPE_DEVELOPMENT;
 export const isProductionBuild = () => buildType === BUILD_TYPE_PRODUCTION;
 
 export const getEnvironment = () => environment;
+export const getGitHash = () => gitHash;
+import { exec as shellExec } from "child_process";
+
+const init = (cb: Callback) => {
+    shellExec("git rev-parse --short HEAD", (error, stdout, stderr) => {
+        gitHash = stdout.trim();
+        environment.gitHash = gitHash;
+        cb();
+    });
+};
 
 export const initDev = (cb: Callback) => {
     buildType = BUILD_TYPE_DEVELOPMENT;
     environment = DevelopmentEnv;
-    return cb();
+    return init(cb);
 };
 
 export const initProduction = (cb: Callback) => {
     buildType = BUILD_TYPE_PRODUCTION;
     environment = ProductionEnv;
-    return cb();
+    return init(cb);
 };
 
 export const checkConfiguration = (cb: Callback) => {

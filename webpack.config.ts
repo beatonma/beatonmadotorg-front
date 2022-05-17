@@ -1,8 +1,12 @@
 import path from "path";
 import { Configuration } from "webpack";
+import { getBuildType, getGitHash } from "./gulpfile.ts/setup";
 
-export const config: Configuration = {
-    mode: "production",
+const withGitHash = (filepath: string) =>
+    filepath.replace("[name]", `[name]-${getGitHash()}`);
+
+export const getConfig: () => Configuration = () => ({
+    mode: getBuildType(),
     entry: {
         app: {
             import: [
@@ -10,22 +14,22 @@ export const config: Configuration = {
                 "./build/preprocessed/apps/webmentions_tester/app",
             ],
             chunkLoading: false,
-            filename: "apps/main/js/[name].min.js",
+            filename: withGitHash("apps/main/js/[name].min.js"),
         },
         contact: {
             import: "./build/preprocessed/apps/contact/js/contact",
             chunkLoading: false,
-            filename: "apps/contact/js/[name].min.js",
+            filename: withGitHash("apps/contact/js/[name].min.js"),
         },
         dashboard: {
             import: "./build/preprocessed/apps/dashboard/js/dashboard",
             chunkLoading: false,
-            filename: "apps/dashboard/js/[name].min.js",
+            filename: withGitHash("apps/dashboard/js/[name].min.js"),
         },
     },
     output: {
         path: path.resolve(__dirname, "build/temp/"),
-        filename: "[name].min.js",
+        filename: withGitHash(`[name].min.js`),
     },
     module: {
         rules: [
@@ -59,4 +63,4 @@ export const config: Configuration = {
         extensions: [".ts", ".tsx", ".js", ".jsx"],
     },
     devtool: "inline-source-map",
-};
+});

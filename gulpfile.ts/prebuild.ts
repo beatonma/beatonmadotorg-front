@@ -17,11 +17,10 @@ import { dest, series, src } from "gulp";
 
 // File reduction/combination
 import gulpInclude from "gulp-file-include";
-
 import gulpReplace from "gulp-replace";
-
 import gulpUseref from "gulp-useref";
-import { getEnvironment } from "./setup";
+
+import { getEnvironment, getGitHash } from "./setup";
 import { Env } from "./env";
 
 /**
@@ -32,7 +31,7 @@ const prepInclude = () =>
         .pipe(gulpUseref())
         .pipe(gulpInclude({ basepath: "src/apps/main/templates" }))
         .pipe(
-            gulpReplace(/__env__:(\w+)/, (match: string, key: string) => {
+            gulpReplace(/__env__:(\w+)/g, (match: string, key: string) => {
                 const env = getEnvironment();
                 if (Object.keys(env).includes(key)) {
                     return env[key as keyof Env] as string;
@@ -43,12 +42,14 @@ const prepInclude = () =>
         )
         .pipe(dest(PREPROCESSING_PATH));
 
-const prepJsx = () =>
-    src(prepPath(ANY_JS_OR_TS))
-        .pipe(gulpReplace("class=", "className="))
-        .pipe(gulpReplace("@@id", ""))
-        .pipe(gulpReplace("@@class", ""))
-        .pipe(gulpReplace("@@", ""))
+const prepTemplates = () =>
+    src(prepPath(ANY_HTML))
+        .pipe(
+            gulpReplace(
+                /({% static )(.*?).min.(.*? %})/g,
+                `$1$2-${getGitHash()}.min.$3`
+            )
+        )
         .pipe(dest(PREPROCESSING_PATH));
 
-export const prebuild = series(prepInclude, prepJsx);
+export const prebuild = series(prepInclude, prepTemplates);

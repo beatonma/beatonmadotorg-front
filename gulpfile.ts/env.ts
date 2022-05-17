@@ -12,6 +12,7 @@ export interface RsyncConfig {
  */
 export interface Env {
     contactEmail: string;
+    gitHash?: string;
     googleRecaptchaToken: string;
     rsyncConfig: RsyncConfig;
 }
