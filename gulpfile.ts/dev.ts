@@ -11,13 +11,9 @@ import {
     LOCAL_PATH,
     srcPath,
 } from "./paths";
-
-import gulp from "gulp";
-
 import { completeBuild } from "./complete";
-
+import gulp from "gulp";
 import gulpRename from "gulp-rename";
-
 import { create as browserSyncCreate } from "browser-sync";
 
 const { src, dest, series } = gulp;

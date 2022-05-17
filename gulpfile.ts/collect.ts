@@ -12,6 +12,7 @@ import {
     ANY_FILE,
     ANY_HTML,
     ANY_JS,
+    ANY_JS_OR_TS,
     ANY_TS,
     DIST_PATH,
     distPath,
@@ -53,7 +54,6 @@ const collectCss = () =>
                     /apps[/\\](.+?)[/\\]css/g,
                     "apps/$1/static/$1/css"
                 );
-                path.basename = `${path.basename}-${getGitHash()}`;
                 path.extname = ".min.css";
             })
         )
@@ -109,6 +109,18 @@ const collectFlatpageTemplates = () =>
         )
         .pipe(dest(DIST_PATH));
 
+const collectHashedFilenames = () =>
+    src([distPath(ANY_JS_OR_TS), distPath(ANY_CSS)])
+        .pipe(
+            gulpRename(path => {
+                path.basename = path.basename.replace(
+                    /^(.*?)(\.min)/,
+                    `$1-${getGitHash()}$2`
+                );
+            })
+        )
+        .pipe(dest(DIST_PATH));
+
 /**
  * Move everything up a directory, removing 'apps' parent directory
  */
@@ -123,6 +135,6 @@ const unwrap = () =>
 
 export const collect = series(
     parallel(collectJs, collectCss, collectHtml, collectImages, collectStatic),
-    collectFlatpageTemplates,
+    parallel(collectFlatpageTemplates, collectHashedFilenames),
     unwrap
 );

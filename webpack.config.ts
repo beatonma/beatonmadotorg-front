@@ -1,9 +1,7 @@
 import path from "path";
 import { Configuration } from "webpack";
-import { getBuildType, getGitHash } from "./gulpfile.ts/setup";
+import { getBuildType } from "./gulpfile.ts/setup";
 
-const withGitHash = (filepath: string) =>
-    filepath.replace("[name]", `[name]-${getGitHash()}`);
 
 export const getConfig: () => Configuration = () => ({
     mode: getBuildType(),
@@ -14,22 +12,22 @@ export const getConfig: () => Configuration = () => ({
                 "./build/preprocessed/apps/webmentions_tester/app",
             ],
             chunkLoading: false,
-            filename: withGitHash("apps/main/js/[name].min.js"),
+            filename: "apps/main/js/[name].min.js",
         },
         contact: {
             import: "./build/preprocessed/apps/contact/js/contact",
             chunkLoading: false,
-            filename: withGitHash("apps/contact/js/[name].min.js"),
+            filename: "apps/contact/js/[name].min.js",
         },
         dashboard: {
             import: "./build/preprocessed/apps/dashboard/js/dashboard",
             chunkLoading: false,
-            filename: withGitHash("apps/dashboard/js/[name].min.js"),
+            filename: "apps/dashboard/js/[name].min.js",
         },
     },
     output: {
         path: path.resolve(__dirname, "build/temp/"),
-        filename: withGitHash(`[name].min.js`),
+        filename: `[name].min.js`,
     },
     module: {
         rules: [
