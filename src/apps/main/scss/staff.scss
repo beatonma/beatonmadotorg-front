@@ -1,5 +1,6 @@
 @use "v2/theme";
 @use "v2/layout";
+@use "v2/objects/a";
 
 .staff {
     @include layout.row($horizontal: flex-end);

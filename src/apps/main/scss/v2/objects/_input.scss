@@ -1,6 +1,6 @@
-@use "../border";
-@use "../space";
-@use "../typography";
+@use "../theme/border";
+@use "../theme/space";
+@use "../theme/typography";
 
 form {
     max-width: 100%;

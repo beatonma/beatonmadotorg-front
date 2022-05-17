@@ -1,6 +1,6 @@
-@use "v2/layout";
-@use "../space";
-@use "../typography";
+@use "../layout/index";
+@use "../theme/space";
+@use "../theme/typography";
 
 article {
     @extend %readable-text;

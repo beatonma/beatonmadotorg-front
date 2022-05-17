@@ -1,4 +1,4 @@
-@use "../space";
+@use "../theme/space";
 
 section:not(:empty):not(:only-child):not(:last-child) {
     margin-bottom: 4rem;

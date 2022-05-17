@@ -1,5 +1,6 @@
 @use "v2/theme";
 @use "v2/layout";
+@use "v2/objects/a";
 
 %buttons-row {
     @extend %nolinks;
