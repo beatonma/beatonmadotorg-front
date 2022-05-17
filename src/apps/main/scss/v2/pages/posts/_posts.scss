@@ -23,10 +23,9 @@ article[data-type="article"] {
 
             @include theme.on-small-width() {
                 &:before {
+                    @include layout.stretch();
                     content: "";
                     position: absolute;
-                    width: stretch;
-                    height: stretch;
                     left: 0;
                     right: 0;
                     background-color: var(--local-primary);

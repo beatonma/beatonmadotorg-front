@@ -38,3 +38,18 @@
     @extend %stretch-height;
     @extend %stretch-width;
 }
+
+@mixin stretch-width {
+    width: stretch;
+    width: -webkit-fill-available;
+}
+
+@mixin stretch-height {
+    height: stretch;
+    height: -webkit-fill-available;
+}
+
+@mixin stretch {
+    @include stretch-width();
+    @include stretch-height();
+}

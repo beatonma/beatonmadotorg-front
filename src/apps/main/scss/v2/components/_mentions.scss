@@ -27,8 +27,8 @@
     @extend %shape-small;
     @extend %readable-text;
     @extend %hover;
+    @extend %stretch-width;
 
-    width: stretch;
     background-color: var(--local-primary-100);
     grid-row: auto / span 1;
 

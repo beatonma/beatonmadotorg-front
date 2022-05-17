@@ -11,9 +11,9 @@
     textarea {
         @extend %shape-small;
         @extend %surface;
+        @extend %stretch-width;
 
         resize: both;
-        width: stretch;
         border: 2px var(--primary-100) solid;
         @include theme.transition((border-color));
 
@@ -35,7 +35,7 @@
     }
 
     textarea {
-        width: stretch;
+        @extend %stretch-width;
         min-height: 4rem;
     }
 

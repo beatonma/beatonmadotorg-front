@@ -9,6 +9,11 @@ $dashboard-one-col: $group-width + (2 * $group-margin);
     font-size: 0.8rem;
 }
 
+%stretch-width {
+    width: stretch;
+    width: -webkit-fill-available;
+}
+
 body {
     margin: 0;
     background-color: var(--color-tone-1);
@@ -97,7 +102,7 @@ a:visited {
 }
 
 .group-content {
-    width: stretch;
+    @extend %stretch-width;
     max-height: 400px;
     overflow-x: hidden;
     overflow-y: auto;

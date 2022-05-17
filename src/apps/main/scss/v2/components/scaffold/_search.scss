@@ -77,11 +77,11 @@ $search-input-width: 32ch;
     }
 
     @include theme.display-max-width($search-full-width) {
-        width: stretch;
+        @include layout.stretch-width();
 
         #search_wrapper,
         input[type="search"] {
-            width: stretch;
+            @include layout.stretch-width();
         }
 
         #search {

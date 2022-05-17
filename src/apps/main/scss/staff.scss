@@ -48,7 +48,7 @@
 
             a {
                 @extend %on-primary;
-                width: stretch;
+                @extend %stretch-width;
             }
         }
 
