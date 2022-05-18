@@ -20,14 +20,21 @@ $content-max-width: 1686px;
     }
 }
 
+html {
+    height: 100%;
+}
+
 body {
-    margin-top: $content-margin-vertical;
-    margin-bottom: $content-margin-vertical;
+    height: 100%;
 }
 
 main {
     margin-top: $content-margin-vertical;
     margin-bottom: 4rem;
+}
+
+header {
+    padding-top: $content-margin-vertical;
 }
 
 main,
@@ -36,8 +43,30 @@ footer {
     @extend %center;
 }
 
+footer {
+    position: sticky;
+    top: 100vh;
+    padding-bottom: $content-margin-vertical;
+
+    > * {
+        @extend %center;
+        max-width: $content-max-width;
+    }
+
+    .footer-links {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        @include layout.row($horizontal: center, $gap: 1ch);
+        @extend %text-small;
+    }
+}
+
 @function contentWidth($width) {
     @return calc(#{$width} + #{$content-margins-horizontal-total});
+}
+
+#content_wrapper {
+    flex: 1;
 }
 
 #content {
@@ -50,20 +79,5 @@ footer {
     #mentions {
         @extend %screen-margins;
         @extend %margin-large-bottom;
-    }
-}
-
-footer {
-    margin-top: 6rem;
-    margin-bottom: 2rem;
-
-    > * {
-        @extend %center;
-        max-width: $content-max-width;
-    }
-
-    .footer-links {
-        @include layout.row($horizontal: center, $gap: 1ch);
-        @extend %text-small;
     }
 }
