@@ -4,7 +4,7 @@
 }
 
 ::-webkit-scrollbar {
-    $scrollbar-thickness: 6px;
+    $scrollbar-thickness: 10px;
     width: $scrollbar-thickness;
     height: $scrollbar-thickness;
 }
@@ -14,5 +14,5 @@
 
 * {
     scrollbar-width: auto;
-    scrollbar-color: var(--text-secondary);
+    scrollbar-color: var(--text-secondary) var(--text-tertiary);
 }
