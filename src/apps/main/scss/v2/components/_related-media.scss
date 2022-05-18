@@ -48,6 +48,7 @@
             img,
             video {
                 max-height: 15rem;
+                height: 15rem;
                 aspect-ratio: 1;
                 @extend %shape-small;
             }
