@@ -24,32 +24,33 @@
     max-height: none;
 }
 
-%stretch-width {
-    width: stretch;
-    width: -webkit-fill-available;
-}
-
-%stretch-height {
-    height: stretch;
-    height: -webkit-fill-available;
-}
-
-%stretch {
-    @extend %stretch-height;
-    @extend %stretch-width;
-}
-
 @mixin stretch-width {
     width: stretch;
+    width: -moz-available;
     width: -webkit-fill-available;
+    width: fill-available;
 }
 
 @mixin stretch-height {
     height: stretch;
+    height: -moz-available;
     height: -webkit-fill-available;
+    height: fill-available;
 }
 
 @mixin stretch {
     @include stretch-width();
     @include stretch-height();
+}
+
+%stretch-width {
+    @include stretch-width();
+}
+
+%stretch-height {
+    @include stretch-height();
+}
+
+%stretch {
+    @include stretch();
 }
