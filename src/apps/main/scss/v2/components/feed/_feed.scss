@@ -220,3 +220,88 @@ $feed-card-height: 9rem;
 .feed-message {
     grid-column: 1 / -1;
 }
+
+.feed-empty {
+    @extend %card;
+    @extend %center;
+    @extend %padding-medium;
+    text-align: center;
+
+    &-title {
+        @extend %center;
+        @extend %padding-medium;
+
+        width: fit-content;
+        background: rgb(2, 0, 36);
+        background: linear-gradient(
+            131deg,
+            var(--local-accent),
+            rgb(129, 52, 163),
+            var(--local-accent)
+        );
+        background-size: 300% 300%;
+        animation-name: gradient-rotation;
+        animation-duration: 8s;
+        animation-iteration-count: infinite;
+        animation-direction: normal;
+
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        font-family: monospace;
+        font-size: xxx-large;
+        font-weight: 600;
+
+        @keyframes gradient-rotation {
+            0% {
+                background-position: 0 0;
+            }
+            25% {
+                background-position: 100% 0;
+            }
+            75% {
+                background-position: 0 100%;
+            }
+            100% {
+                background-position: 0 0;
+            }
+        }
+    }
+
+    &-message {
+        @extend %padding-medium;
+    }
+
+    .oh-no {
+        @extend %center;
+        font-family: monospace;
+        display: flex;
+        $translation: 45ch;
+        max-width: 6ch;
+
+        .marquee-wrapper {
+            @extend %text-one-line;
+            width: 6ch;
+            overflow-x: clip;
+
+            .marquee {
+                @extend %text-one-line;
+                animation-name: marquee-scroll;
+                animation-duration: 2s;
+                animation-direction: normal;
+                animation-iteration-count: 1;
+                animation-fill-mode: forwards;
+                animation-timing-function: cubic-bezier(0.98, 0, 0.72, 0.89);
+                animation-delay: 800ms;
+            }
+
+            @keyframes marquee-scroll {
+                from {
+                    transform: translateX(0);
+                }
+                to {
+                    transform: translateX(-$translation);
+                }
+            }
+        }
+    }
+}
