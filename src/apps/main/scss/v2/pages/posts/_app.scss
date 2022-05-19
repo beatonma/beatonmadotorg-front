@@ -19,6 +19,10 @@ article[data-type="app"] {
         background-size: contain;
     }
 
+    > .text {
+        overflow: visible;
+    }
+
     .description {
         @extend %readable-text;
     }
