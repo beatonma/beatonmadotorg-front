@@ -1,6 +1,6 @@
 {% include "./_feed-item.html"
   with
-  image_url=changelog.app.icon
+  image_url=changelog.app.resolve_icon_url
   image_svg=changelog.app.resolve_icon_svg
   title=changelog.preview_title
   description=changelog.preview_text
