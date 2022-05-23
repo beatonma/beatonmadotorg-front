@@ -149,7 +149,7 @@ function MediaView(props: MediaViewProps) {
     } else if (type == "image") {
         return (
             <img
-                src={`https://beatonma.org${url}`}
+                src={url}
                 alt={description}
                 aria-label={description}
                 className="media"
