@@ -1,0 +1,22 @@
+@use "dark";
+@use "light";
+
+html {
+    @include light.light();
+
+    @media (prefers-color-scheme: dark) {
+        @include dark.dark();
+    }
+
+    @media (prefers-color-scheme: light) {
+        @include light.light();
+    }
+
+    &.dark {
+        @include dark.dark();
+    }
+
+    &.light {
+        @include light.light();
+    }
+}
