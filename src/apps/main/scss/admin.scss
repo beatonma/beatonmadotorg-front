@@ -10,8 +10,8 @@ body {
 
 input[type="text"],
 textarea {
-    min-width: 30ch;
-    max-width: 80ch;
+    min-width: min(100%, 30ch);
+    max-width: min(95%, 80ch) !important;
     resize: both !important;
     font-family: monospace;
     border: 2px solid;
@@ -40,5 +40,16 @@ textarea:not(.charfield) {
 
 .readonly {
     font-family: monospace;
-    max-height: 10rem;
+    overflow: auto;
+    margin: auto;
+
+    img,
+    video {
+        width: auto;
+        max-height: 25rem;
+    }
+
+    img {
+        object-fit: contain;
+    }
 }
