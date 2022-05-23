@@ -12,7 +12,7 @@ import { createRoot } from "react-dom/client";
 const CONTAINER = "#webmentions_testing_tool";
 const ENDPOINT = "active/";
 
-export function WebmentionTesterApp(dom: Document | Element) {
+export async function WebmentionTesterApp(dom: Document | Element) {
     const container = dom.querySelector(CONTAINER);
 
     if (container) {

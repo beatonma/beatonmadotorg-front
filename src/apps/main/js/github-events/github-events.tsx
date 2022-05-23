@@ -23,7 +23,7 @@ import { createRoot } from "react-dom/client";
 const URL = "/api/github-events/";
 const CONTAINER = "#github_recent";
 
-export function GithubEventsApp(dom: Document | Element) {
+export async function GithubEventsApp(dom: Document | Element) {
     const container = dom.querySelector(CONTAINER);
 
     if (container) {

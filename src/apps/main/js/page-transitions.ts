@@ -39,7 +39,7 @@ const AnimatedElementSelector = ".card, .feed-item-card, article";
 // Page transitions are enabled when travelling to URLs on these domains.
 const DomainsRegex = /(beatonma.org|inverness.io|localhost)/;
 
-function onContentChanged(dom: Document | Element) {
+async function onContentChanged(dom: Document | Element) {
     APPS.forEach(app => {
         try {
             app(dom);

@@ -5,8 +5,8 @@ import { GithubEventsApp } from "./github-events";
 import { WebmentionTesterApp } from "../../webmentions_tester/js/webmention-test-tool";
 
 export const APPS = [
-    GithubEventsApp,
     NotesApp,
+    GithubEventsApp,
     RelatedMediaApp,
     WebmentionsApp,
     WebmentionTesterApp,

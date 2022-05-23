@@ -18,7 +18,7 @@ interface Mention {
     type: string;
 }
 
-export function WebmentionsApp(dom: Document | Element) {
+export async function WebmentionsApp(dom: Document | Element) {
     const container = dom.querySelector(CONTAINER);
 
     if (container) {
