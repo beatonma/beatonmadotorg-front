@@ -53,34 +53,20 @@ async function onContentChanged(dom: Document | Element) {
     }
 }
 
-export function showLoading(show: boolean) {
+export const showLoading = (show: boolean) => {
     document.getElementById(LoadingID).dataset.active = `${show}`;
-}
+};
 
-const getScript = (element: HTMLScriptElement) =>
-    new Promise((resolve, reject) => {
-        const src = element.src;
-        element.parentElement.removeChild(element);
+const getScript = async (element: HTMLScriptElement) => {
+    const src = element.src;
+    element.parentElement.removeChild(element);
 
-        const script: HTMLScriptElement = document.createElement("script");
-        script.async = true;
-        script.src = src;
+    const script: HTMLScriptElement = document.createElement("script");
+    script.async = true;
+    script.src = src;
 
-        // @ts-ignore
-        script.onload = script.onreadystatechange = function () {
-            const loadState = this.readyState;
-
-            if (loadState && loadState !== "loaded" && loadState !== "complete")
-                return;
-
-            // @ts-ignore
-            script.onload = script.onreadystatechange = null;
-
-            resolve(null);
-        };
-
-        document.body.appendChild(script);
-    });
+    document.body.appendChild(script);
+};
 
 function shouldAnimateTransition(
     anchor: HTMLAnchorElement | URL | Location

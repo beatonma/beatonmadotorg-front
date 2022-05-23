@@ -52,19 +52,17 @@ const buildSass = () =>
 /**
  * Process webapp javascript via webpack.
  */
-const buildJs = () => {
+const buildJs = async () => {
     const config = getConfig();
 
-    return new Promise((resolve, reject) => {
-        webpack(config, (err, stats) => {
-            if (err) {
-                return reject(err);
-            }
-            if (stats.hasErrors()) {
-                return reject(new Error(stats.compilation.errors.join("\n")));
-            }
-            resolve(null);
-        });
+    webpack(config, (err, stats) => {
+        if (err) {
+            throw err;
+        }
+        if (stats.hasErrors()) {
+            throw new Error(stats.compilation.errors.join("\n"));
+        }
+        return;
     });
 };
 
