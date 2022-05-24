@@ -24,7 +24,7 @@ import gulpRename from "gulp-rename";
 import gulpReplace from "gulp-replace";
 import gulp_sass from "gulp-sass";
 import sass from "sass";
-import webpack from "webpack";
+import webpackStream from "webpack-stream";
 import { getConfig } from "../webpack.config";
 
 const gulpSass = gulp_sass(sass);
@@ -50,19 +50,7 @@ const buildSass = () =>
 /**
  * Process webapp javascript via webpack.
  */
-const buildJs = async () => {
-    const config = getConfig();
-
-    webpack(config, (err, stats) => {
-        if (err) {
-            throw err;
-        }
-        if (stats.hasErrors()) {
-            throw new Error(stats.compilation.errors.join("\n"));
-        }
-        return;
-    });
-};
+const buildJs = () => webpackStream(getConfig()).pipe(dest(TEMP_PATH));
 
 const buildTemplates = () =>
     src(prepPath(ANY_HTML))
