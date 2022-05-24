@@ -21,6 +21,7 @@ const init = async () => {
     shellExec("git rev-parse --short HEAD", (error, stdout, stderr) => {
         gitHash = stdout.trim();
         environment.gitHash = gitHash;
+        console.log(`gitHash: ${gitHash}`);
     });
 };
 

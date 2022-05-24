@@ -1,7 +1,6 @@
 import { completeBuild } from "./00-complete";
 import {
     getBuildType as _getBuildType,
-    isDevBuild as _isDevBuild,
     isProductionBuild as _isProductionBuild,
     initDev,
     initProduction,
@@ -10,8 +9,8 @@ import { publish as push } from "./05-publish";
 import { series } from "gulp";
 import { watch } from "./05-watch";
 
-const devWatch = series(initDev, completeBuild, watch);
-const prodWatch = series(initProduction, completeBuild, watch);
+const devWatch = series(initDev, watch);
+const prodWatch = series(initProduction, watch);
 const pushToPublicServer = series(initProduction, completeBuild, push);
 
 /**
@@ -19,6 +18,7 @@ const pushToPublicServer = series(initProduction, completeBuild, push);
  */
 export default devWatch;
 
+// noinspection JSUnusedGlobalSymbols
 /**
  * Complete build and push to server.
  */
@@ -30,5 +30,4 @@ export const publish = pushToPublicServer;
 export const local = prodWatch;
 
 export const getBuildType = _getBuildType;
-export const isDevBuild = _isDevBuild;
 export const isProductionBuild = _isProductionBuild;

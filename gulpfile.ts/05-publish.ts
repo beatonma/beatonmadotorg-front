@@ -31,6 +31,6 @@ export const publish = () => {
     return src(distPath(ANY_FILE))
         .pipe(gulpRsync(config))
         .on("error", (err: Error) => {
-            console.log(JSON.stringify(err, null, 2));
+            console.error(JSON.stringify(err, null, 2));
         });
 };

@@ -19,15 +19,12 @@ const { src, dest, series } = gulp;
 
 const browserSync = browserSyncCreate();
 
-const initBrowser = async () => {
+const initBrowser = async () =>
     browserSync.init({
         proxy: "localhost:8000",
     });
-};
 
-const refreshBrowser = async () => {
-    browserSync.reload();
-};
+const refreshBrowser = async () => browserSync.reload();
 
 /**
  * Collect js|css files together into static/(js|css)/ directory
