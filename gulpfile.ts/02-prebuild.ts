@@ -20,7 +20,7 @@ import gulpInclude from "gulp-file-include";
 import gulpReplace from "gulp-replace";
 import gulpUseref from "gulp-useref";
 
-import { getEnvironment, getGitHash } from "./setup";
+import { getEnvironment, getGitHash } from "./01-setup";
 import { Env } from "./env";
 
 /**

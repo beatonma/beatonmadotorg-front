@@ -1,7 +1,6 @@
 import path from "path";
 import { Configuration } from "webpack";
-import { getBuildType } from "./gulpfile.ts/setup";
-
+import { getBuildType } from "./gulpfile.ts";
 
 export const getConfig: () => Configuration = () => ({
     mode: getBuildType(),

@@ -12,8 +12,6 @@ import {
     TEMP_PATH,
 } from "./paths";
 
-import { getBuildType } from "./setup";
-
 import { dest, parallel, src } from "gulp";
 
 // css browser compatibility

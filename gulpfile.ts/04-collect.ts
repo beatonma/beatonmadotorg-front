@@ -5,7 +5,7 @@
  * Output: DIST_PATH.
  */
 
-import { getGitHash, isProductionBuild } from "./setup";
+import { getGitHash, isProductionBuild } from "./01-setup";
 
 import {
     ANY_CSS,
