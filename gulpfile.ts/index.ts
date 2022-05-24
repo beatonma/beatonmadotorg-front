@@ -1,6 +1,8 @@
 import { completeBuild } from "./00-complete";
 import {
     getBuildType as _getBuildType,
+    isDevBuild as _isDevBuild,
+    isProductionBuild as _isProductionBuild,
     initDev,
     initProduction,
 } from "./01-setup";
@@ -28,3 +30,5 @@ export const publish = pushToPublicServer;
 export const local = prodWatch;
 
 export const getBuildType = _getBuildType;
+export const isDevBuild = _isDevBuild;
+export const isProductionBuild = _isProductionBuild;

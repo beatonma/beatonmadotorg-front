@@ -1,6 +1,6 @@
 import path from "path";
 import { Configuration } from "webpack";
-import { getBuildType } from "./gulpfile.ts";
+import { getBuildType, isProductionBuild } from "./gulpfile.ts";
 
 export const getConfig: () => Configuration = () => ({
     mode: getBuildType(),
@@ -28,18 +28,17 @@ export const getConfig: () => Configuration = () => ({
         path: path.resolve(__dirname, "build/temp/"),
         filename: `[name].min.js`,
     },
+    optimization: {
+        minimize: isProductionBuild(),
+    },
     module: {
         rules: [
-            {
-                test: /\.s[ac]ss$/i,
-                use: ["style-loader", "css-loader", "sass-loader"],
-            },
             {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/,
                 type: "asset",
             },
             {
-                test: /\.jsx?$/,
+                test: /\.[jt]sx?$/,
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
@@ -59,5 +58,5 @@ export const getConfig: () => Configuration = () => ({
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx"],
     },
-    devtool: "inline-source-map",
+    devtool: isProductionBuild() ? "source-map" : "inline-source-map",
 });

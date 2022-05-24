@@ -12,10 +12,9 @@ import {
     ANY_FILE,
     ANY_HTML,
     ANY_JS,
-    ANY_JS_OR_TS,
-    ANY_TS,
     DIST_PATH,
     distPath,
+    ANY_META,
     srcPath,
     tempPath,
 } from "./paths";
@@ -25,12 +24,13 @@ import gulpCssNano from "gulp-cssnano";
 import gulpIf from "gulp-if";
 import gulpRename from "gulp-rename";
 import gulpReplace from "gulp-replace";
+import gulpSourcemaps from "gulp-sourcemaps";
 
 /**
  * Copy processed javascript files to final output directory.
  */
 const collectJs = () =>
-    src([tempPath(ANY_JS), tempPath(ANY_TS)])
+    src(tempPath("**/js/*"))
         .pipe(
             gulpRename(path => {
                 // Move to apps/appname/static/appname/js
@@ -46,7 +46,7 @@ const collectJs = () =>
  * Copy processed CSS files to final output directory.
  */
 const collectCss = () =>
-    src(tempPath(ANY_CSS))
+    src(tempPath("**/css/*"))
         .pipe(
             gulpRename(path => {
                 // Move to apps/appname/static/appname/css
@@ -54,10 +54,14 @@ const collectCss = () =>
                     /apps[/\\](.+?)[/\\]css/g,
                     "apps/$1/static/$1/css"
                 );
-                path.extname = ".min.css";
+                if (path.extname === ".css") {
+                    path.extname = ".min.css";
+                }
             })
         )
+        .pipe(gulpSourcemaps.init())
         .pipe(gulpIf(isProductionBuild(), gulpCssNano()))
+        .pipe(gulpSourcemaps.write("."))
         .pipe(dest(DIST_PATH));
 
 /**
@@ -109,8 +113,12 @@ const collectFlatpageTemplates = () =>
         )
         .pipe(dest(DIST_PATH));
 
+/**
+ * Create a copy of JS//CSS files with the current git has in the name
+ * for cachebusting.
+ */
 const collectHashedFilenames = () =>
-    src([distPath(ANY_JS_OR_TS), distPath(ANY_CSS)])
+    src([distPath(ANY_JS), distPath(ANY_CSS), distPath(ANY_META)])
         .pipe(
             gulpRename(path => {
                 path.basename = path.basename.replace(

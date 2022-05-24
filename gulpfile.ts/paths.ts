@@ -7,6 +7,7 @@ export const ANY_HTML = "**/*.html";
 export const ANY_SCSS = "**/*.scss";
 export const ANY_JS_OR_TS = "**/*.{j,t}s?(x)"; // .js, .ts, .jsx, .tsx
 export const ANY_FILE = "**";
+export const ANY_META = "**/*.{map,LICENSE.txt}";
 
 /* Paths */
 export const SRC_PATH = "src/";
