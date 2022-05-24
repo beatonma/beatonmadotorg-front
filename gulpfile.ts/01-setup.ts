@@ -1,4 +1,3 @@
-import { Callback } from "./types";
 import { Env } from "./env";
 import { DevelopmentEnv } from "./env-development";
 import { ProductionEnv } from "./env-production";
@@ -18,27 +17,26 @@ export const getEnvironment = () => environment;
 export const getGitHash = () => gitHash;
 import { exec as shellExec } from "child_process";
 
-const init = (cb: Callback) => {
+const init = async () => {
     shellExec("git rev-parse --short HEAD", (error, stdout, stderr) => {
         gitHash = stdout.trim();
         environment.gitHash = gitHash;
-        cb();
     });
 };
 
-export const initDev = (cb: Callback) => {
+export const initDev = async () => {
     buildType = BUILD_TYPE_DEVELOPMENT;
     environment = DevelopmentEnv;
-    return init(cb);
+    return init();
 };
 
-export const initProduction = (cb: Callback) => {
+export const initProduction = async () => {
     buildType = BUILD_TYPE_PRODUCTION;
     environment = ProductionEnv;
-    return init(cb);
+    return init();
 };
 
-export const checkConfiguration = (cb: Callback) => {
+export const checkConfiguration = async () => {
     if (![BUILD_TYPE_DEVELOPMENT, BUILD_TYPE_PRODUCTION].includes(buildType)) {
         throw `gulpfile task configuration error
             buildType must be set before calling 'build' task!
@@ -47,5 +45,4 @@ export const checkConfiguration = (cb: Callback) => {
     } else {
         console.log(`Build configuration: ${buildType}`);
     }
-    return cb();
 };

@@ -1,4 +1,3 @@
-import { Callback } from "./types";
 import {
     ANY_CSS,
     ANY_FILE,
@@ -20,15 +19,14 @@ const { src, dest, series } = gulp;
 
 const browserSync = browserSyncCreate();
 
-const initBrowser = (cb: Callback) => {
+const initBrowser = async () => {
     browserSync.init({
         proxy: "localhost:8000",
     });
-    return cb();
 };
-const refreshBrowser = (cb: Callback) => {
+
+const refreshBrowser = async () => {
     browserSync.reload();
-    cb();
 };
 
 /**
