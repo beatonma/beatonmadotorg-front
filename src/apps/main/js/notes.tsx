@@ -150,7 +150,7 @@ function MediaView(props: MediaViewProps) {
         return (
             <img
                 src={url}
-                alt={description}
+                alt={description ?? ""}
                 aria-label={description}
                 className="media"
             />
