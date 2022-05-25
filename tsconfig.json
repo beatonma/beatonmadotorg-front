@@ -10,8 +10,9 @@
         "noImplicitAny": true,
         "sourceMap": true,
         "esModuleInterop": true,
+        "skipLibCheck": true,
         "typeRoots": [
-          "gulpfile.ts/types",
+            "gulpfile.ts/types",
             "node_modules/@types"
         ]
     },

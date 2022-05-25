@@ -1,4 +1,4 @@
-export {
+export type {
     CreateEventPayload,
     IssueEventPayload,
     PullRequestPayload,
@@ -7,19 +7,8 @@ export {
     ReleasePayload,
 } from "./payload";
 
-export {
-    Event,
-    Events,
-    PrivateEvent,
-    PublicEvent,
-    isPublicEvent,
-    isPrivateEvent,
-} from "./events";
+export type { Event, PrivateEvent, PublicEvent } from "./events";
+export { Events, isPublicEvent, isPrivateEvent } from "./events";
 
-export {
-    Group,
-    PrivateGroup,
-    PublicGroup,
-    isPublicGroup,
-    isPrivateGroup,
-} from "./groups";
+export type { Group, PrivateGroup, PublicGroup } from "./groups";
+export { isPublicGroup, isPrivateGroup } from "./groups";

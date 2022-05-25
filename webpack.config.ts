@@ -34,11 +34,7 @@ export const getConfig: () => Configuration = () => ({
     module: {
         rules: [
             {
-                test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/,
-                type: "asset",
-            },
-            {
-                test: /\.[jt]sx?$/,
+                test: /\.tsx?$/,
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
@@ -47,11 +43,6 @@ export const getConfig: () => Configuration = () => ({
                         cacheCompression: false,
                     },
                 },
-            },
-            {
-                test: /\.tsx?$/,
-                exclude: /node_modules/,
-                use: "ts-loader",
             },
         ],
     },

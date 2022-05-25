@@ -26,6 +26,7 @@ import gulp_sass from "gulp-sass";
 import sass from "sass";
 import webpackStream from "webpack-stream";
 import { getConfig } from "../webpack.config";
+import { exec as shellExec } from "child_process";
 
 const gulpSass = gulp_sass(sass);
 
@@ -47,6 +48,26 @@ const buildSass = () =>
         .pipe(gulpAutoprefixer())
         .pipe(dest(TEMP_PATH));
 
+// const checkTypescript = () => src(srcPath(ANY_JS_OR_TS));
+const checkTypescript = () => {
+    return new Promise<void>((resolve, reject) => {
+        shellExec(
+            "npx tsc --project ./tsconfig.json --noEmit",
+            (error, stdout, stderr) => {
+                if (error) {
+                    console.error("ERROR", error);
+                    if (stderr) console.error(stderr);
+                    if (stdout) console.error(stdout);
+                    reject(error);
+                    throw error;
+                }
+
+                resolve();
+            }
+        );
+    });
+};
+
 /**
  * Process webapp javascript via webpack.
  */
@@ -62,4 +83,9 @@ const buildTemplates = () =>
         .pipe(gulpReplace(/([%}]})[\r\n]+\s*/gs, "$1")) // Remove line breaks and whitespace after django template closing tags %} }}.
         .pipe(dest(TEMP_PATH));
 
-export const build = parallel(buildSass, buildJs, buildTemplates);
+export const build = parallel(
+    checkTypescript,
+    buildJs,
+    buildSass,
+    buildTemplates
+);
