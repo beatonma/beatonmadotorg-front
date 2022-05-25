@@ -190,6 +190,13 @@ $feed-card-height: 9rem;
     max-height: 100%;
 }
 
+#github_recent,
+#notes {
+    &:empty {
+        height: $feed-scrollable-height;
+    }
+}
+
 .feed-item-dropdown {
     display: flex;
     flex-direction: column;
@@ -197,6 +204,7 @@ $feed-card-height: 9rem;
 
     &.dropdown[data-expanded="true"] {
         padding: 0;
+        height: $feed-scrollable-height;
     }
 
     > .dropdown-header {
