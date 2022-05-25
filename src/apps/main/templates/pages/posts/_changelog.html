@@ -1,6 +1,6 @@
 {% load date_tag %}
 <article id="{{ changelog.version_name }}" class="changelog h-entry">
-  {% include 'v2/staff/edit-links.html' with target=changelog %}
+  {% include 'staff/edit-links.html' with target=changelog %}
   <div class="changelog-header">
     <div class="title-bar">
       <h3 class="p-name">{{ changelog.version_name }}</h3>
@@ -11,7 +11,7 @@
     <div class="tagline p-summary">{{ changelog.tagline }}</div>
     {% endif %}
 
-    {% include "v2/components/links.html" with links=changelog.links.all %}
+    {% include "components/links.html" with links=changelog.links.all %}
 
   </div>
 

@@ -58,19 +58,19 @@
       {% if page_obj.has_previous %}
 
         {% if page_obj.number > 2 %}
-          @@include("v2/includes/tooltip.include.html", {
-            item: '<a href="/#feed" title="First page" class="material-icons">first_page</a>',
+          @@include("includes/tooltip.include.html", {
+            item: '<a href="/src/static#feed" title="First page" class="material-icons">first_page</a>',
             popup: "First page"
           })
 
-          @@include("v2/includes/tooltip.include.html", {
+          @@include("includes/tooltip.include.html", {
             item: '<a href="?page={{ page_obj.previous_page_number }}#feed" title="Previous page" class="material-icons">navigate_before</a>',
             popup: "Previous page"
           })
 
         {% else %}
-          @@include("v2/includes/tooltip.include.html", {
-            item: '<a href="/#feed" title="First page" class="material-icons">first_page</a>',
+          @@include("includes/tooltip.include.html", {
+            item: '<a href="/src/static#feed" title="First page" class="material-icons">first_page</a>',
             popup: "First page"
           })
         {% endif %}
@@ -79,12 +79,12 @@
 
     <div class="pagination-group">
       {% if page_obj.has_next %}
-        @@include("v2/includes/tooltip.include.html", {
+        @@include("includes/tooltip.include.html", {
           item: '<a href="?page={{ page_obj.next_page_number }}#feed" title="Next page" class="material-icons">navigate_next</a>',
           popup: "Next page"
         })
 
-        @@include("v2/includes/tooltip.include.html", {
+        @@include("includes/tooltip.include.html", {
           item: '<a href="?page={{ page_obj.paginator.num_pages }}#feed" title="Last page" class="material-icons">last_page</a>',
           popup: "Last page"
         })

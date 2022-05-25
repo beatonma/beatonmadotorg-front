@@ -1,4 +1,4 @@
-{% extends 'v2/pages/base/scaffold.html' %}
+{% extends 'pages/base/scaffold.html' %}
 {% load date_tag %}
 
 
@@ -6,10 +6,10 @@
 {% block description %}{{ app.tagline }}{% endblock %}
 
 {% block content %}
-{% include 'v2/staff/edit-links.html' with target=app %}
+{% include 'staff/edit-links.html' with target=app %}
 <section id="app">
   <article class="h-entry" data-type="app">
-    {% include "v2/components/image.html" with image_url=app.resolve_icon_url
+    {% include "components/image.html" with image_url=app.resolve_icon_url
     image_svg=app.resolve_icon_svg
     title=app.title imageclass="contain" themeable=app %}
 
@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      {% include "v2/components/links.html" with links=app.links.all %}
+      {% include "components/links.html" with links=app.links.all %}
 
       <div class="description e-content">{{ app.description|default:"" }}</div>
     </div>

@@ -1,12 +1,12 @@
-{% extends 'v2/pages/base/scaffold.html' %}
+{% extends 'pages/base/scaffold.html' %}
 
 {% block title %}About{% endblock %}
 
 {% block content %}
-{% include "v2/components/hcard/hcard.html" %}
+{% include "components/hcard/hcard.html" %}
 
 <article>
-  {% include 'v2/staff/edit-links.html' with target=about %}
+  {% include 'staff/edit-links.html' with target=about %}
   {{ about.content_html|safe }}
 </article>
 {% endblock %}

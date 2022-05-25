@@ -1,4 +1,4 @@
-{% extends 'v2/pages/base/scaffold.html' %}
+{% extends 'pages/base/scaffold.html' %}
 
 {% block title %}beatonma.org{% endblock %}
 {% block title_suffix %}{% endblock %}
@@ -12,11 +12,11 @@
     </section>
   {% endif %}
     
-  {% include 'v2/components/feed/main-feed.html' %}
+  {% include 'components/feed/main-feed.html' %}
 {% endblock %}
 
 {% block hcard %}
   <div data-meta="true">
-    {% include "v2/components/hcard/hcard.html" %}
+    {% include "components/hcard/hcard.html" %}
   </div>
 {% endblock %}
