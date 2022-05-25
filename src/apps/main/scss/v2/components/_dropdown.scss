@@ -1,0 +1,63 @@
+@use "v2/theme";
+@use "v2/layout";
+
+.dropdown {
+    @extend %shape-small;
+    @include theme.transition((background-color, padding));
+
+    &[data-expanded="true"] {
+        @extend %padding-small;
+    }
+}
+
+.dropdown-header {
+    @include layout.row();
+    cursor: pointer;
+}
+
+.dropdown-title {
+}
+
+.dropdown-icon {
+    @extend %margin-small-horizontal;
+    @extend %hover;
+    transition: transform 220ms;
+
+    &[data-expanded="true"] {
+        transform: rotate(180deg);
+    }
+}
+
+.dropdown-content {
+    animation-name: dropdown;
+    animation-duration: 300ms;
+    animation-fill-mode: both;
+
+    &[data-expanded="true"] {
+        height: auto;
+        animation-direction: normal;
+    }
+
+    &[data-expanded="false"] {
+        display: none;
+        height: 0;
+        animation-direction: reverse;
+    }
+
+    @keyframes dropdown {
+        0% {
+            display: none;
+            opacity: 0;
+            height: 0;
+        }
+        1% {
+            display: block;
+            opacity: 0;
+            height: 0;
+        }
+        100% {
+            opacity: 1;
+            height: auto;
+        }
+    }
+}

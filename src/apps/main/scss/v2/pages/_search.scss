@@ -1,0 +1,9 @@
+@use "v2/theme";
+@use "../components/links";
+
+.search-results {
+    .filters {
+        @extend %links;
+        @extend %margin-large-vertical;
+    }
+}

@@ -1,0 +1,63 @@
+@use "v2/layout";
+@use "v2/theme";
+
+#mentions {
+    @extend %text-container;
+    @extend %center;
+
+    h3 {
+        @extend %margin-medium-bottom;
+    }
+}
+
+.mentions {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(18ch, 100%), 1fr));
+    grid-gap: 1rem;
+
+    @include theme.display-width("large") {
+        display: flex;
+        flex-direction: column;
+        row-gap: 1rem;
+    }
+}
+
+.mention {
+    @extend %padding-small;
+    @extend %shape-small;
+    @extend %readable-text;
+    @extend %hover;
+    @extend %stretch-width;
+
+    background-color: var(--local-primary-100);
+    grid-row: auto / span 1;
+
+    &[data-quoted="true"] {
+        grid-row: auto / span 2;
+    }
+
+    .mention-hcard {
+        @include layout.row($gap: 1ch, $wrap: nowrap);
+        @extend %text-one-line;
+        line-height: 1.75;
+    }
+
+    .mention-avatar {
+        @include layout.size(1.75rem);
+        @extend %shape-small;
+        object-fit: cover;
+
+        &-null {
+            @extend .mention-avatar;
+            @extend %surface-accent;
+            text-transform: uppercase;
+            text-align: center;
+        }
+    }
+
+    .mention-quote {
+        @include layout.clipped-text(2);
+        @extend %text-small;
+        @extend %padding-small-top;
+    }
+}

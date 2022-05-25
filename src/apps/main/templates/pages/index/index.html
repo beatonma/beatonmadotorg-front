@@ -1,0 +1,22 @@
+{% extends 'pages/base/scaffold.html' %}
+
+{% block title %}beatonma.org{% endblock %}
+{% block title_suffix %}{% endblock %}
+
+{% block content %}
+  {% include "./_quick-links.html" %}
+
+  {% if motd %}
+    <section>
+      {% include './_motd.html' %}
+    </section>
+  {% endif %}
+    
+  {% include 'components/feed/main-feed.html' %}
+{% endblock %}
+
+{% block hcard %}
+  <div data-meta="true">
+    {% include "components/hcard/hcard.html" %}
+  </div>
+{% endblock %}

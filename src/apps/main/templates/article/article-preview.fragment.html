@@ -1,9 +1,0 @@
-{% load date_tag %}
-<a class="card preview h-entry" href="{{ article.get_absolute_url }}">
-    <div class="card-image {{ article.preview_image_css }}" style="{% if article.preview_image %}background-image:url('{{ article.preview_image.url }}');{% endif %}background-color:{{ article.primary_color }};"></div>
-    <div class="preview-content">
-        <h3 class="card-title p-name">{{ article.title }}</h3>
-        <div class="card-description spacer p-summary">{{ article.preview_text }}</div>
-        <div class="card-timestamp secondary"><time class="dt-updated" datetime="{{ article.updated|date }}">{{ article.updated|minimaldate }}</time></div>
-    </div>
-</a>

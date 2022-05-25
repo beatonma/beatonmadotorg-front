@@ -1,0 +1,47 @@
+@use "v2/theme";
+@use "v2/layout";
+@use "../toolbar";
+@use "./content";
+
+#theme_icon {
+    @extend %hover;
+    @include layout.size(2rem);
+}
+
+%main-header-row {
+    @extend %screen-margins;
+    @extend %nolinks;
+
+    color: var(--text-primary);
+}
+
+.header-row-primary {
+    $show-search-max-width: 700px; // On narrow devices, hide the search icon and always show search input.
+    $search-full-width: 580px; // On narrow devices, make the search input fill the available width.
+
+    @extend %toolbar;
+    @extend %main-header-row;
+    @extend %margin-medium-bottom;
+
+    h1 {
+        margin-top: 8px;
+    }
+
+    @include theme.display-max-width($show-search-max-width) {
+        flex-direction: column;
+
+        .right {
+            @include layout.stretch-width();
+        }
+    }
+}
+
+.header-row-secondary {
+    @extend %main-header-row;
+    @include layout.row(flex-end);
+
+    a {
+        @extend %hover;
+        @extend %padding-small;
+    }
+}

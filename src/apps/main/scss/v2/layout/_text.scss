@@ -1,0 +1,23 @@
+%clipped-text {
+    text-overflow: ellipsis;
+    overflow: clip;
+}
+
+@mixin clipped-text($max-lines: 2) {
+    @extend %clipped-text;
+    display: -webkit-box;
+    -webkit-line-clamp: $max-lines;
+    -webkit-box-orient: vertical;
+    word-break: break-word;
+}
+
+%text-one-line {
+    @extend %clipped-text;
+    white-space: nowrap;
+    line-break: anywhere;
+}
+
+%text-noclip {
+    white-space: normal;
+    overflow: auto;
+}

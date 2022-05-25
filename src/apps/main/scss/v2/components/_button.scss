@@ -1,0 +1,42 @@
+@use "v2/theme";
+@use "v2/layout";
+@use "v2/objects/a";
+
+%buttons-row {
+    @extend %nolinks;
+    @extend %margin-small-vertical;
+    @include layout.row($gap: 0.5em);
+
+    font-variant: all-small-caps;
+    line-height: 1.2;
+
+    a,
+    a:visited {
+        @extend %button;
+    }
+}
+
+.buttons-row {
+    @extend %buttons-row;
+}
+
+%button {
+    @extend %hover;
+    @extend %shape-small;
+    @extend %padding-link;
+    @extend %outlined;
+    @extend %text-one-line;
+
+    font-size: var(--fs-400);
+    font-variant: all-small-caps;
+
+    &[data-selected="true"] {
+        color: var(--local-accent);
+        border-color: var(--local-accent-100);
+    }
+}
+
+button,
+.button {
+    @extend %button;
+}

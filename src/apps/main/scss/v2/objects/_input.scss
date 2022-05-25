@@ -1,0 +1,34 @@
+@use "../theme/border";
+@use "../theme/space";
+@use "../theme/typography";
+
+form {
+    max-width: 100%;
+}
+
+%input-text {
+    @extend %shape-small;
+    @extend %padding-small;
+    @include border.shape($top: null, $bottom: 0);
+
+    color: var(--text-primary);
+    background-color: transparent;
+    min-width: 32ch;
+    max-width: 100%;
+    outline: none;
+    border: none;
+
+    &:focus {
+        border-bottom: 2px solid var(--local-accent);
+    }
+}
+
+input[type="text"],
+input[type="search"] {
+    @extend %input-text;
+}
+
+textarea {
+    @extend %input-text;
+    resize: both;
+}

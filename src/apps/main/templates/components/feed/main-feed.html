@@ -1,0 +1,7 @@
+{% extends "./feed.html" %}
+{% block first_feed_items %}
+  {% if is_first_page %}
+    <div id="github_recent" class="feed-item-scrollable"></div>
+    <div id="notes" class="feed-item-scrollable"></div>
+  {% endif %}
+{% endblock %}

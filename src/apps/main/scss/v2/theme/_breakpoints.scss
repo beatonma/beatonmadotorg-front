@@ -1,0 +1,51 @@
+$breakpoints: (
+    "small": (
+        max-width: 50ch,
+    ),
+    "medium": (
+        max-width: 60ch,
+    ),
+    "large": (
+        max-width: 80ch,
+    ),
+);
+
+@mixin display-width($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media screen and #{inspect(map-get($breakpoints, $breakpoint))} {
+            @content;
+        }
+    } @else {
+        @warn "Unknown breakpoint #{$breakpoint}. Expected one of #{map-keys($breakpoints)}.";
+    }
+}
+
+@mixin display-min-width($width) {
+    @media screen and (min-width: $width) {
+        @content;
+    }
+}
+
+@mixin display-max-width($width) {
+    @media screen and (max-width: $width) {
+        @content;
+    }
+}
+
+@mixin on-small-width() {
+    @include display-width("small") {
+        @content;
+    }
+}
+
+@mixin on-medium-width() {
+    @include display-width("medium") {
+        @content;
+    }
+}
+
+@mixin on-large-width() {
+    @include display-width("large") {
+        @content;
+    }
+}

@@ -1,0 +1,19 @@
+{% load date_tag %}
+<a
+    class="feed-item-card h-entry"
+    href="{{ url }}"
+    aria-label="{{ type }}: {{ title }}"
+    title="{{ type }}: {{ title }}"
+    data-type="{{ type|lower }}"
+    >
+
+    {% include "components/image.html" %}
+
+    <div class="text">
+        <div class="row">
+            <h2 class="title p-name">{{ title }}</h2>
+            <time class="date" datetime="{{ date }}">{{ date|minimaldate }}</time>
+        </div>
+        <div class="summary p-summary">{{ description|default:""|truncatewords:14 }}</div>
+    </div>
+</a>

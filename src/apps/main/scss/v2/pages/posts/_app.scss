@@ -1,0 +1,57 @@
+@use "v2/layout";
+@use "v2/theme";
+@use "v2/components/feed/feed";
+
+article[data-type="app"] {
+    @extend .feed-item-card;
+    align-items: flex-start;
+
+    height: auto;
+    max-height: none;
+
+    .title {
+        font-size: var(--fs-h3);
+    }
+
+    .image {
+        @extend %margin-medium;
+        @extend %shape-small;
+        background-size: contain;
+    }
+
+    > .text {
+        overflow: visible;
+    }
+
+    .description {
+        @extend %readable-text;
+    }
+}
+
+.app-type {
+    @include layout.size(1em);
+    @extend %margin-small;
+    display: flex;
+    font-size: var(--fs-h5);
+    fill: var(--local-accent);
+    stroke: var(--local-accent);
+
+    > svg {
+        @include layout.size(1em);
+    }
+}
+
+article.changelog {
+    @extend %margin-large-vertical;
+    @extend %padding-medium;
+    @extend %shape-medium;
+    @extend %outlined;
+
+    .changelog-header {
+    }
+}
+
+section#changelog {
+    @extend %text-container;
+    @extend %center;
+}

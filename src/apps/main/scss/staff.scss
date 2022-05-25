@@ -1,0 +1,62 @@
+@use "v2/theme";
+@use "v2/layout";
+@use "v2/objects/a";
+
+.staff {
+    @include layout.row($horizontal: flex-end);
+
+    .staff-links {
+        @extend %text-small;
+        @extend %shape-small;
+        @extend %surface-primary-100;
+
+        a {
+            @include theme.link-color(var(--local-on-primary-100));
+            @extend %padding-link;
+            @extend %hover;
+            font-variant: all-small-caps;
+        }
+
+        .material-icons {
+            cursor: pointer;
+            @extend %padding-link;
+            @extend %hover;
+        }
+    }
+
+    .menu {
+        position: relative;
+        z-index: 1000;
+
+        .menu-title {
+            @extend %hover;
+            @extend %padding-small;
+        }
+
+        .menu-content {
+            @extend %surface-primary;
+            @extend %padding-small;
+            @extend %shape-small;
+            position: absolute;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: scale(0);
+            align-items: flex-end;
+            text-align: end;
+
+            a {
+                @extend %on-primary;
+                @extend %stretch-width;
+            }
+        }
+
+        &:hover {
+            .menu-content {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    }
+}

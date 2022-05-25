@@ -1,0 +1,34 @@
+{% extends 'pages/base/scaffold.html' %}
+{% load date_tag %}
+{% load class_tag %}
+
+{% block title %}{{ post.title }}{% endblock %}
+{% block description %}{{ post.tagline }}{% endblock %}
+
+{% block content %}
+<article class="h-entry" data-type="{{ post|get_class|lower }}">
+  {% include 'staff/edit-links.html' with target=post %}
+  {% block post_header %}{% endblock %}
+  <div class="header">
+    <div class="title-bar">
+      <h2 class="p-name">{{ post.title }}</h2>
+      <time class="dt-published" datetime="{{ post.created_at }}">{{ post.created_at|minimaldate }}</time>
+    </div>
+
+    {% if post.tagline %}
+    <div class="tagline p-summary">{{ post.tagline }}</div>
+    {% endif %}
+    {% block links %}{% endblock %}
+  </div>
+
+  <div class="e-content">
+    {{ post.content_html|safe }}
+  </div>
+</article>
+{% endblock %}
+
+{% block after %}
+{% include "components/related.html" %}
+{% endblock %}}
+
+{% block post_scripts %}{{ post.content_script|default:""|safe }}{% endblock %}

@@ -1,0 +1,27 @@
+@use "../layout";
+
+%icon-small {
+    $size: 18px;
+    @include layout.size($size);
+    font-size: $size;
+}
+
+%icon-medium {
+    $size: 24px;
+    @include layout.size($size);
+    font-size: $size;
+}
+
+%icon-large {
+    $size: 32px;
+    @include layout.size($size);
+    font-size: $size;
+}
+
+.material-icons {
+    display: inline-flex;
+    user-select: none;
+    font-size: inherit;
+    line-height: inherit;
+    vertical-align: middle;
+}

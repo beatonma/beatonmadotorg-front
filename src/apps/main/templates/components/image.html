@@ -1,0 +1,28 @@
+{% load repetition %}
+{% if image_url %}
+    <div
+        class="image {{ imageclass|default:'cover' }}"
+        style="{% include 'components/feed/item/_themeable-style.html' %} background-image: url('{{ image_url }}')"
+    >
+    </div>
+{% elif image_svg %}
+    <div
+        class="image {{ imageclass }}"
+        style="{% include 'components/feed/item/_themeable-style.html' %}"
+    >
+        {{ image_svg|safe }}
+    </div>
+{% else %}
+    <div
+        class="image-text-wrapper {{ imageclass }}"
+        style="{% include 'components/feed/item/_themeable-style.html' %}"
+    >
+        <div class="image-text">
+            {% if title %}
+                {{ title|repeat_until_length:120|safe }}
+            {% elif description %}
+                {{ description|repeat_until_length:120|safe }}
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

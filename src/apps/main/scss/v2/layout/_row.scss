@@ -1,0 +1,26 @@
+%row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+@mixin row(
+    $horizontal: flex-start,
+    $vertical: center,
+    $wrap: wrap,
+    $gap: 0,
+    $column-gap: $gap,
+    $row-gap: $gap
+) {
+    @extend %row;
+    justify-content: $horizontal;
+    align-items: $vertical;
+    flex-wrap: $wrap;
+    column-gap: $column-gap;
+    row-gap: $row-gap;
+}
+
+.row {
+    @extend %row;
+}

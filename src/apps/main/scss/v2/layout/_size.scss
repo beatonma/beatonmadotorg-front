@@ -1,0 +1,54 @@
+@mixin width($width) {
+    width: $width;
+    min-width: $width;
+    max-width: $width;
+}
+
+@mixin height($height) {
+    height: $height;
+    min-height: $height;
+    max-height: $height;
+}
+
+@mixin size($width, $height: $width) {
+    @include width($width);
+    aspect-ratio: 1;
+}
+
+@mixin size-unset() {
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+}
+
+@mixin stretch-width {
+    width: stretch;
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
+@mixin stretch-height {
+    height: stretch;
+    height: -moz-available;
+    height: -webkit-fill-available;
+}
+
+@mixin stretch {
+    @include stretch-width();
+    @include stretch-height();
+}
+
+%stretch-width {
+    @include stretch-width();
+}
+
+%stretch-height {
+    @include stretch-height();
+}
+
+%stretch {
+    @include stretch();
+}

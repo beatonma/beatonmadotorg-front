@@ -1,7 +1,0 @@
-{% for selector in local_style %}
-{{ selector.0 }} {
-    {% for attr in selector.1 %}
-    {{ attr.0 }}: {{ attr.1|safe }};
-    {% endfor %}
-}
-{% endfor %}

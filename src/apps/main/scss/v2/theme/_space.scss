@@ -1,0 +1,76 @@
+$defaultGap: 1rem;
+
+$spacing-zero: 0;
+$spacing-small: 8px;
+$spacing-medium: 16px;
+$spacing-large: 24px;
+$spacing-auto: auto;
+
+$spacing: (
+    "zero": $spacing-zero,
+    "small": $spacing-small,
+    "medium": $spacing-medium,
+    "large": $spacing-large,
+    "auto": $spacing-auto,
+);
+
+@mixin spacing($property) {
+    $sides: ("top", "bottom", "left", "right");
+
+    @each $name, $size in $spacing {
+        // e.g. padding-small, padding-medium...
+        &-#{$name} {
+            #{$property}: $size;
+        }
+
+        // e.g. padding-small-left, padding-small-right...
+        @each $side in $sides {
+            &-#{$name}-#{$side} {
+                #{$property}-#{$side}: $size;
+            }
+        }
+
+        // e.g. padding-small-vertical
+        &-#{$name}-vertical {
+            #{$property}-top: $size;
+            #{$property}-bottom: $size;
+        }
+
+        // e.g. padding-small-horizontal
+        &-#{$name}-horizontal {
+            #{$property}-left: $size;
+            #{$property}-right: $size;
+        }
+    }
+}
+
+%padding {
+    @include spacing("padding");
+}
+
+%margin {
+    @include spacing("margin");
+}
+
+@mixin padding(
+    $vertical: 0,
+    $horizontal: $vertical,
+    $top: $vertical,
+    $bottom: $vertical,
+    $left: $horizontal,
+    $right: $horizontal
+) {
+    padding: $top $right $bottom $left;
+}
+
+@mixin margin(
+    $vertical: 0,
+    $horizontal: $vertical,
+    $top: $vertical,
+    $bottom: $vertical,
+    $left: $horizontal,
+    $right: $horizontal
+) {
+    margin: map-get($spacing, $top) map-get($spacing, $right)
+        map-get($spacing, $bottom) map-get($spacing, $left);
+}

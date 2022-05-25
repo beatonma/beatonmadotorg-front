@@ -1,0 +1,21 @@
+@use "v2/theme";
+
+%card {
+    @extend %shape-small;
+    @extend %elevated;
+
+    background-color: var(--surface);
+    overflow: clip;
+}
+
+%card-content {
+    @extend %padding-medium;
+}
+
+.card {
+    @extend %card;
+}
+
+.card-content {
+    @extend %card-content;
+}

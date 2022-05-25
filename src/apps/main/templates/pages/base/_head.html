@@ -1,0 +1,25 @@
+{% load static %}
+
+{% include "./_meta.html" %}
+
+{% block style %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+{% if user.is_staff %}<link rel="stylesheet" href="{% static 'css/staff.min.css' %}" />{% endif %}
+<link rel="stylesheet" href="{% static 'css/base.min.css' %}" />
+<style id="local_style">
+  {% if local_style %}
+    {% for selector in local_style %}
+    {{ selector.0 }} {
+      {% for attr in selector.1 %}
+        {{ attr.0 }}: {{ attr.1|safe }};
+      {% endfor %}
+    }
+    {% endfor %}
+  {% endif %}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static '/js/app.min.js' %}" defer type="application/javascript" ></script>
+{% include './_analytics.html' %}
+{% endblock %}

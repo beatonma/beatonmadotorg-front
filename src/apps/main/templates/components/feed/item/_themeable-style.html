@@ -1,0 +1,8 @@
+{% load css %}
+
+{% if themeable %}
+{% style "background-color" themeable.primary_color %}
+{% style "color" themeable.accent_color %}
+{% style "fill" themeable.accent_color %}
+{% style "stroke" themeable.accent_color %}
+{% endif %}

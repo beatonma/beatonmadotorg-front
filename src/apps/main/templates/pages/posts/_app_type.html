@@ -1,0 +1,11 @@
+{% if app_type.icon_svg %}
+  @@include("includes/tooltip.include.html", {
+    item: '<div class="app-type">{{ app_type.icon_svg|safe }}</div>',
+    popup: "{{ app_type.name }}"
+  })
+{% elif app_type.icon_file %}
+  @@include("includes/tooltip.include.html", {
+    item: '<div class="app-type" style="background-image: url(\'{{ app_type.icon_file.url }}\')"></div>',
+    popup: "{{ app_type.name }}"
+  })
+{% endif %}

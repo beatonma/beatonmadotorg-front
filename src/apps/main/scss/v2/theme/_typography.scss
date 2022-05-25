@@ -1,0 +1,123 @@
+@use "./animation";
+@use "./breakpoints";
+
+:root {
+    --fs-400: 18px;
+    --fs-300: 16px;
+    --fs-100: 14px;
+
+    --fs-h1: 38px;
+    --fs-h2: 34px;
+    --fs-h3: 30px;
+    --fs-h4: 28px;
+    --fs-h5: 26px;
+    --fs-h6: 24px;
+
+    @include breakpoints.on-medium-width() {
+        --fs-400: 16px;
+        --fs-300: 14px;
+        --fs-100: 12px;
+
+        --fs-h1: 30px;
+        --fs-h2: 28px;
+        --fs-h3: 24px;
+        --fs-h4: 22px;
+        --fs-h5: 20px;
+        --fs-h6: 18px;
+    }
+}
+
+%text-default {
+    @extend %text-normal;
+}
+
+%text-normal {
+    @extend %font-default;
+    font-size: var(--fs-400);
+    color: var(--text-primary);
+    line-height: 1;
+    transition: font-size animation.$animation-duration;
+}
+
+%text-small {
+    font-size: var(--fs-300);
+}
+
+%text-smallest {
+    font-size: var(--fs-100);
+}
+
+%text-container {
+    max-width: 80ch;
+}
+
+%readable-text {
+    @extend %text-container;
+    line-height: 1.5;
+}
+
+%font-default {
+    font-family: sans-serif;
+}
+
+%font-monospace {
+    font-family: monospace;
+}
+
+@mixin link-color($default, $hover: $default) {
+    color: $default;
+
+    &:hover {
+        color: $hover;
+    }
+}
+
+%nolink {
+    // Render links as normal text.
+    color: var(--text-primary);
+
+    &:link,
+    &:hover,
+    &:visited,
+    &:visited:hover,
+    &:active {
+        color: var(--text-primary);
+    }
+}
+
+%nolinks {
+    a {
+        @extend %nolink;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @extend %nolinks;
+    font-weight: normal;
+    margin: 0;
+    width: fit-content;
+}
+
+h1 {
+    font-size: var(--fs-h1);
+}
+h2 {
+    font-size: var(--fs-h2);
+}
+h3 {
+    font-size: var(--fs-h3);
+}
+h4 {
+    font-size: var(--fs-h4);
+}
+h5 {
+    font-size: var(--fs-h5);
+}
+h6 {
+    font-size: var(--fs-h6);
+}

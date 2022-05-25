@@ -1,0 +1,94 @@
+@use "v2/layout";
+@use "v2/theme";
+@use "../list";
+@use "./feed";
+
+#github_recent {
+    @extend %embedded-scrollable-list-container;
+}
+
+.github-events {
+    @extend %embedded-scrollable-list;
+}
+
+.github-group {
+    @extend %item-small;
+    @extend %margin-medium-horizontal;
+    @extend %readable-text;
+
+    time {
+        @extend %text-small;
+        color: var(--text-secondary);
+    }
+
+    > .github-group-header {
+        @include layout.row($vertical: baseline, $gap: 0.5rem);
+    }
+
+    > .private {
+        @include layout.row($wrap: nowrap);
+        @extend %text-small;
+        color: var(--text-secondary);
+
+        .material-icons {
+            color: var(--text-tertiary);
+        }
+    }
+
+    span.github-event {
+        @extend %margin-small-right;
+        @extend %padding-small-horizontal;
+        @extend %shape-small;
+        @extend %text-small;
+        color: var(--text-light);
+        background-color: var(--local-accent-100);
+    }
+
+    code {
+        @extend %text-small;
+    }
+
+    &::after {
+        content: "";
+        display: block;
+        width: 2px;
+        height: 0.5rem;
+        margin-top: 2px;
+        margin-left: 4px;
+    }
+}
+
+.github-event-badges {
+    @extend %text-small;
+    display: flex;
+    flex-direction: row;
+}
+
+.github-event {
+    @extend %text-small;
+}
+
+.github-commit {
+    @include layout.row($wrap: nowrap);
+    @extend %font-monospace;
+
+    span {
+        @include layout.clipped-text(2);
+    }
+}
+
+.badge {
+    @extend %margin-small-right;
+    @extend %hover;
+
+    display: inline-block;
+    color: var(--accent-900);
+
+    &:hover {
+        font-weight: 600;
+    }
+
+    .spacer {
+        width: 0.25ch !important;
+    }
+}

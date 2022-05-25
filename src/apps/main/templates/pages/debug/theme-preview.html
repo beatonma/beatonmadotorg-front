@@ -1,0 +1,19 @@
+{% extends 'pages/base/scaffold.html' %}
+
+{% block title %}beatonma.org: Theme preview{% endblock %}
+
+{% block content %}
+
+<div id="theme_preview">
+  {% include "./_icons.html" %}
+  {% include "./_headers.html" %}
+  {% include "./_color-palette.html" %}
+  {% include "./_components.html" %}
+</div>
+
+<div style="background-color: #8bc34a99; vertical-align: middle;">
+  <span class="material-icons" style="background-color: #cc000099; vertical-align: middle;">public</span>
+  <span style="background-color: #00558899; vertical-align: middle;">This should be aligned with the icon</span>
+</div>
+
+{% endblock %}

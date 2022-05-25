@@ -1,0 +1,34 @@
+@use "../../theme";
+@use "../list";
+@use "./feed";
+
+#notes {
+    @extend %embedded-scrollable-list-container;
+}
+
+.notes {
+    @extend %embedded-scrollable-list;
+}
+
+.note {
+    @extend %item-medium;
+    @extend %padding-medium-horizontal;
+    @extend %readable-text;
+
+    time {
+        @extend %text-small;
+    }
+
+    > .media-wrapper {
+        @extend %margin-small;
+
+        .media {
+            @extend %shape-medium;
+            background-color: var(--hover);
+            width: auto;
+            max-width: 400px;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+    }
+}

@@ -1,0 +1,23 @@
+@use "v2/layout";
+@use "v2/theme";
+@use "./button";
+
+%links {
+    @extend %buttons-row;
+
+    .links-title {
+        font-weight: bold;
+    }
+
+    .description {
+        color: var(--local-accent);
+    }
+}
+
+.links {
+    @extend %links;
+}
+
+.related-links {
+    @extend %links;
+}

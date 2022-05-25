@@ -1,0 +1,24 @@
+@use "v2/theme";
+@use "v2/layout";
+
+%toolbar {
+    @include layout.row(
+        $horizontal: space-between,
+        $vertical: baseline,
+        $column-gap: theme.$defaultGap
+    );
+
+    .left {
+        @include layout.row($horizontal: flex-start);
+        order: 0;
+    }
+
+    .right {
+        @include layout.row($horizontal: flex-end);
+        order: 1;
+    }
+}
+
+.toolbar {
+    @extend %toolbar;
+}
