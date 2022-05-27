@@ -28,17 +28,17 @@ export const buildCss = () =>
         .pipe(gulpSourcemaps.init())
         .pipe(gulpIf(isProductionBuild(), gulpCssNano()))
         .pipe(gulpSourcemaps.write("."))
-        .pipe(appendGitHash())
         .pipe(
             gulpRename(path => {
                 // Move to apps/appname/static/appname/css
                 path.dirname = path.dirname.replace(
                     /apps[/\\](.+?)[/\\]s?css/g,
-                    "apps/$1/static/$1/css",
+                    "apps/$1/static/$1/css"
                 );
 
                 path.extname = ".min.css";
-            }),
+            })
         )
+        .pipe(appendGitHash())
         .pipe(unwrap())
         .pipe(dest(DIST_PATH));
