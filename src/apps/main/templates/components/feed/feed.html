@@ -59,7 +59,7 @@
 
         {% if page_obj.number > 2 %}
           @@include("includes/tooltip.include.html", {
-            item: '<a href="/src/static#feed" title="First page" class="material-icons">first_page</a>',
+            item: '<a href="/#feed" title="First page" class="material-icons">first_page</a>',
             popup: "First page"
           })
 
@@ -70,7 +70,7 @@
 
         {% else %}
           @@include("includes/tooltip.include.html", {
-            item: '<a href="/src/static#feed" title="First page" class="material-icons">first_page</a>',
+            item: '<a href="/#feed" title="First page" class="material-icons">first_page</a>',
             popup: "First page"
           })
         {% endif %}
