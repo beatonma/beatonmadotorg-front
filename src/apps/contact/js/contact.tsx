@@ -12,6 +12,14 @@ const BUTTON_ID = "contact_submit";
 const NAME_ID = "contact_name";
 const MESSAGE_BODY_ID = "contact_message";
 
+export async function ContactApp(dom: Document | Element) {
+    const container = dom.querySelector(`#${CONTAINER_ID}`);
+
+    if (container) {
+        setup();
+    }
+}
+
 function setSubmitButtonEnabled(enabled: boolean) {
     (document.getElementById(BUTTON_ID) as HTMLButtonElement).disabled =
         !enabled;
@@ -26,7 +34,6 @@ function onCaptchaExpired() {
 }
 
 function onSubmitContact(event: SubmitEvent): boolean {
-    console.log(`onSubmitContact ${event}`);
     event.preventDefault();
     const contact = document.getElementById(FORM_ID) as HTMLFormElement;
     showLoading(true);
@@ -124,6 +131,10 @@ function setup() {
         );
 
     document.getElementById(NAME_ID).focus();
+
+    window.onSubmitContact = onSubmitContact;
+    window.onContactCaptchaPassed = onCaptchaPassed;
+    window.onContactCaptchaExpired = onCaptchaExpired;
 }
 
 declare global {
@@ -133,8 +144,5 @@ declare global {
         onContactCaptchaExpired: () => void;
     }
 }
-window.onSubmitContact = onSubmitContact;
-window.onContactCaptchaPassed = onCaptchaPassed;
-window.onContactCaptchaExpired = onCaptchaExpired;
 
-setup();
+// setup();

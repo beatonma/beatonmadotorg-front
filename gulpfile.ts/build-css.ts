@@ -1,0 +1,44 @@
+import gulp_sass from "gulp-sass";
+import sass from "sass";
+import { dest, src } from "gulp";
+import { ANY_SCSS, DIST_PATH, SRC_PATH, srcPath } from "./paths";
+import gulpInline64 from "gulp-inline-base64";
+import gulpRename from "gulp-rename";
+import gulpAutoprefixer from "gulp-autoprefixer";
+import gulpSourcemaps from "gulp-sourcemaps";
+import gulpIf from "gulp-if";
+import { isProductionBuild } from "./setup";
+import gulpCssNano from "gulp-cssnano";
+import { appendGitHash, unwrap } from "./build";
+
+const gulpSass = gulp_sass(sass);
+
+const inlineImages = () =>
+    gulpInline64({
+        maxSize: 16 * 1024,
+        debug: false,
+        baseDir: SRC_PATH,
+    });
+
+export const buildCss = () =>
+    src(srcPath(ANY_SCSS))
+        .pipe(gulpSass())
+        .pipe(inlineImages())
+        .pipe(gulpAutoprefixer())
+        .pipe(gulpSourcemaps.init())
+        .pipe(gulpIf(isProductionBuild(), gulpCssNano()))
+        .pipe(gulpSourcemaps.write("."))
+        .pipe(appendGitHash())
+        .pipe(
+            gulpRename(path => {
+                // Move to apps/appname/static/appname/css
+                path.dirname = path.dirname.replace(
+                    /apps[/\\](.+?)[/\\]s?css/g,
+                    "apps/$1/static/$1/css",
+                );
+
+                path.extname = ".min.css";
+            }),
+        )
+        .pipe(unwrap())
+        .pipe(dest(DIST_PATH));

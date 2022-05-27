@@ -1,7 +1,7 @@
-import { ANY_FILE, DIST_PATH, distPath } from "./paths";
 import { src } from "gulp";
 import { RsyncConfig } from "./env";
-import { getEnvironment, isDevBuild } from "./01-setup";
+import { ANY_FILE, DIST_PATH, distPath } from "./paths";
+import { getEnvironment, isDevBuild } from "./setup";
 
 const gulpRsync = require("gulp-rsync");
 
