@@ -1,6 +1,9 @@
 import { Configuration } from "webpack";
 import { getBuildType, isProductionBuild } from "./gulpfile.ts";
 
+/**
+ * This is called from gulp - not a valid standalone webpack configuration file.
+ */
 export const getConfig: () => Configuration = () => ({
     mode: getBuildType(),
     optimization: {
