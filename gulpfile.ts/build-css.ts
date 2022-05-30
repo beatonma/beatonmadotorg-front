@@ -25,6 +25,7 @@ export const buildCss = () =>
         .pipe(gulpSass())
         .pipe(inlineImages())
         .pipe(gulpAutoprefixer())
+        .pipe(appendGitHash())
         .pipe(gulpSourcemaps.init())
         .pipe(gulpIf(isProductionBuild(), gulpCssNano()))
         .pipe(gulpSourcemaps.write("."))
@@ -35,10 +36,7 @@ export const buildCss = () =>
                     /apps[/\\](.+?)[/\\]s?css/g,
                     "apps/$1/static/$1/css"
                 );
-
-                path.extname = ".min.css";
             })
         )
-        .pipe(appendGitHash())
         .pipe(unwrap())
         .pipe(dest(DIST_PATH));

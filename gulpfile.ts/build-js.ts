@@ -6,26 +6,25 @@ import webpackStream from "webpack-stream";
 import { getConfig } from "../webpack.config";
 import named from "vinyl-named";
 import Vinyl from "vinyl";
-import { appendGitHash, unwrap } from "./build";
+import { unwrap } from "./build";
+import { getGitHash } from "./setup";
 
-const renameForWebpack = () => named(function(file: Vinyl) {
-    const original = file.history[0];
-    const matches = original.match(/.*\/([^/]+)\/js\/(.*)\.tsx?/);
-    const appname = matches[1];
-    const filename = matches[2];
+const renameForWebpack = () =>
+    named(function (file: Vinyl) {
+        const original = file.history[0];
+        const matches = original.match(/.*\/([^/]+)\/js\/(.*)\.tsx?/);
+        const appname = matches[1];
+        const filename = matches[2];
 
-    return `${appname}/static/${appname}/js/${filename}.min`;
-});
+        return `${appname}/static/${appname}/js/${filename}-${getGitHash()}.min`;
+    });
 
 const _buildJs = () =>
-    src([
-        srcPath("**/app.ts"),
-        srcPath("**/dashboard.tsx"),
-    ])
+    src([srcPath("**/app.ts"), srcPath("**/dashboard.tsx")])
         .pipe(includeEnv())
+        // .pipe(appendGitHash())
         .pipe(renameForWebpack())
         .pipe(webpackStream(getConfig()))
-        .pipe(appendGitHash())
         .pipe(unwrap())
         .pipe(dest(DIST_PATH));
 
@@ -43,7 +42,7 @@ const checkTypescript = () =>
                 }
 
                 resolve();
-            },
+            }
         );
     });
 

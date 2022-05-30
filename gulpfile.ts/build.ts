@@ -20,7 +20,7 @@ export const unwrap = () =>
 export const appendGitHash = () =>
     gulpRename(path => {
         path.basename = path.basename.replace(
-            /^(.*?)(\.min)/,
+            /([^.]+)(\.?.*)/,
             `$1-${getGitHash()}$2`
         );
     });
