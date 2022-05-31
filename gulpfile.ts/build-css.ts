@@ -7,9 +7,9 @@ import gulpRename from "gulp-rename";
 import gulpAutoprefixer from "gulp-autoprefixer";
 import gulpSourcemaps from "gulp-sourcemaps";
 import gulpIf from "gulp-if";
-import { isProductionBuild } from "./setup";
+import { getGitHash, isProductionBuild } from "./setup";
 import gulpCssNano from "gulp-cssnano";
-import { appendGitHash, unwrap } from "./build";
+import { unwrap } from "./build";
 
 const gulpSass = gulp_sass(sass);
 
@@ -18,6 +18,17 @@ const inlineImages = () =>
         maxSize: 16 * 1024,
         debug: false,
         baseDir: SRC_PATH,
+    });
+
+/**
+ * Inject the current git hash to the name of any minified files.
+ */
+const appendGitHash = () =>
+    gulpRename(path => {
+        path.basename = path.basename.replace(
+            /([^.]+)(\.?.*)/,
+            `$1-${getGitHash()}$2.min`
+        );
     });
 
 export const buildCss = () =>
